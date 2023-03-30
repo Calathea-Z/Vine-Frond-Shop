@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
+import { useState } from "react";
 import { Menu, Transition } from '@headlessui/react';
 import {
   MagnifyingGlassIcon,
@@ -10,30 +11,31 @@ import {
   Bars3Icon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
-import { useEffect, useState } from "react";
+
 
 
 const Header = () => {
 
   const [active, setActive] = useState("");
-  const [toggle, setToggle] = useState(false);
 
   return (
-    <nav className="w-full flex items-center bg-primary font-mono py-1 px-1 fixed top-0 z-20">
+    <nav className="w-full flex items-center gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 fixed top-0 z-20">
       {/*------------------- Left Logo */}
+      <div>
       <Link
         href="#"
-        className="w-full flex items-center max-w-xl mx-auto justify-start"
+        className=" flex items-center max-w-xl mx-auto justify-start"
       >
         <Image
           src={simpleLogo}
           alt="Vine & Frond logo"
-          className="content-fill w-[85px] h-[85px] sm:w-[140px] sm:h-[140px] flex-initial"
+          className="content-fill w-[85px] min-w-[74px] h-[85px] sm:w-[140px] sm:min-w-[114px] sm:h-[140px] flex-initial"
         />
       </Link>
+      </div>
 
       {/*------------------- Middle Menu       */}
-      <div className="w-full space-x-4 flex items-center justify-center text-slate-800">
+      <div className="w-full space-x-4 flex items-center text-slate-800">
         <ul className="list-none hidden sm:flex flex-row gap-10">
           {navLinks.map((link) => (
             <li
@@ -43,7 +45,7 @@ const Header = () => {
               } hover:text-white text-[20px] cursor-pointer`}
               onClick={() => setActive(link.title)}
             >
-              <Link href={`https://vineandfrond.com/${link.id}`}>{link.title}</Link>
+              <Link href={`/${link.id}`}>{link.title}</Link>
             </li>
           ))}
         </ul>
@@ -70,7 +72,7 @@ const Header = () => {
               {navLinks.map((link) => (
                 <Menu.Item key={link.id} as={Fragment}>
                   {({ active }) => (
-                    <Link href={`https://vineandfrond.com/${link.id}`} className={`${active ? 'bg-primary text-white' : 'bg-white text-slate-800'} group flex w-full items-center rounded-md px-2 py-2 text-sm`}>{link.title}</Link>
+                    <Link href={`/${link.id}`} className={`${active ? 'bg-primary text-white' : 'bg-white text-slate-800'} group flex w-full items-center rounded-md px-2 py-2 text-sm`}>{link.title}</Link>
                   )}
                 </Menu.Item>
               ))}
