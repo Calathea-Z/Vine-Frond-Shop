@@ -3,6 +3,7 @@ import Link from "next/link";
 import { Fragment } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
+import { motion } from "framer-motion";
 import { useState } from "react";
 import { Menu, Transition } from '@headlessui/react';
 import {
@@ -21,7 +22,10 @@ const Header = () => {
   return (
     <nav className="w-full flex items-center gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 fixed top-0 z-20">
       {/*------------------- Left Logo */}
-      <div>
+      <motion.div
+      animate={{ x: 0, rotate : 5 }}
+      initial={{x: (-100), rotate : -25 }}
+      transition={{ duration: 3 }} >
       <Link
         href="#"
         className=" flex items-center max-w-xl mx-auto justify-start"
@@ -32,7 +36,7 @@ const Header = () => {
           className="content-fill w-[85px] min-w-[74px] h-[85px] sm:w-[140px] sm:min-w-[114px] sm:h-[140px] flex-initial"
         />
       </Link>
-      </div>
+      </motion.div>
 
       {/*------------------- Middle Menu       */}
       <div className="w-full space-x-4 flex items-center text-slate-800">
@@ -50,11 +54,15 @@ const Header = () => {
           ))}
         </ul>
       {/*------------------- Right Nav       */}
-      <div className="flex items-center justify-end sm:px-2 space-x-4 w-full">
+      <motion.div 
+      animate={{ x : 0 }}
+      initial={{ x : 200 }}
+      transition={{ duration : 2 }}
+      className="flex items-center justify-end sm:px-2 space-x-4 w-full">
         <MagnifyingGlassIcon className="w-6 h-6 hover:text-white" />
         <ShoppingBagIcon className="w-6 h-6 hover:text-white" />
         <UserCircleIcon className='w-6 h-6 hover:text-white' />
-      </div>
+      </motion.div>
       <div className='sm:hidden flex flex-1 justify-end pr-8 items-center w-full'>
           <Menu as='div' className='relative inline-block text-left'>
             <Menu.Button className='inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75'>
