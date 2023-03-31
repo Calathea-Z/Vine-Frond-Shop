@@ -40,7 +40,7 @@ const Hero = () => {
           opacity: 0
          }}
         transition={{ duration: 4 }}
-        className='p-20 mx-auto h-auto w-[35rem]  md:w-[45rem]  lg:w-[60rem] text-2xl leading-loose italic text-slate-800'>A ceramics and houseplant company born out of a passion for clay and greenery. From local pop-up markets to an online shop, we create functional pieces to bring beauty to your home.</motion.h1>
+        className='p-20 mx-auto h-auto w-[35rem] md:w-[45rem] lg:w-[60rem] text-md sm:text-[1.25rem] md:text-[1.7rem] leading-loose italic text-slate-800'>A ceramics and houseplant company born out of a passion for clay and greenery. From local pop-up markets to an online shop, we create functional pieces to bring beauty to your home.</motion.h1>
       </div>
     </>
   );
