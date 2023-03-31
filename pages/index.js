@@ -1,5 +1,6 @@
 import Header from '@/components/Header'
 import Hero from '@/components/Hero'
+import ProductCarousel from '@/components/ProductCarousel'
 import Head from 'next/head'
 
 export default function Home() {
@@ -10,6 +11,7 @@ export default function Home() {
       </Head>
     <Header />
     <Hero />
+    <ProductCarousel />
     </div>
   )
 }

@@ -1,18 +1,18 @@
 export const navLinks = [
   { 
     id: "shop",
-    title:"Shop",
+    title:"SHOP",
   },
   {
     id: "wholesale",
-    title: "Wholesale",
+    title: "WHOLESALE",
   },
   {
     id: "stockists",
-    title: "Stockists",
+    title: "STOCKISTS",
   },
   {
     id: "about",
-    title: "About",
+    title: "ABOUT",
   }
 ];
