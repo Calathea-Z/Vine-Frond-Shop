@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import axios from "axios";
 
-export default function InstagramFeed(getStaticProps) {
+export default function InstagramFeed() {
   const axios = require('axios')
   const [photos, setPhotos] = useState([]);
   // const url=`https://graph.instagram.com/me/media?fields=media_url,permalink,caption&access_token=${process.env.INSTA_KEY}`
@@ -24,7 +24,7 @@ export default function InstagramFeed(getStaticProps) {
 
   useEffect(() => {
     getPhotos();
-  }, [photos]);
+  }, []);
 
   return (
     <div>
