@@ -64,7 +64,11 @@ const Header = () => {
         <ShoppingBagIcon className="w-6 h-6 hover:text-[#caafa8]" />
         
       </motion.div>
-      <div className="sm:hidden flex flex-1 justify-end pr-8 items-center w-full">
+      <motion.div
+      animate={{ x: 0 }}
+      initial={{ x: 200 }}
+      transition={{ duration: 2 }}
+      className="sm:hidden flex flex-1 justify-end pr-8 items-center w-full">
         <Menu as="div" className="relative inline-block text-left">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
@@ -98,7 +102,7 @@ const Header = () => {
             </Menu.Items>
           </Transition>
         </Menu>
-      </div>
+      </motion.div>
     </nav>
   );
 };

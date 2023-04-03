@@ -8,14 +8,11 @@ const Footer = () => {
       <div className='p-4'>
         <h1 className='text-4xl text-bold'>Get Shop Updates</h1>
       </div>
-      <div className='p-10 mx-auto h-auto w-[20rem] md:w-[35rem] lg:w-[45rem] text-sm leading-5'>
-        <p>Stay up to date with new releases, sales, and where you can grab items in-store. Don't worry I'll send these infrequently, just a friendly hello now and again!</p>
-      </div>
       <div className="flex m-4">
         <form className='bg-transparent focus:underline-0'>
-          <input type="email" name="email" placeholder="Enter your email" className='bg-transparent border-none outline-none underline p-0 pr-2 focus:ring-0 focus:underline-0' />
-          <button className='m-2'>
-            <EnvelopeIcon className='w-5 h-5 underline' />
+          <input type="email" name="email" placeholder="Enter your email" className='bg-transparent border-none outline-none pr-2 focus:ring-0 focus:underline-0 text-[#877570]' />
+          <button className='m-2 p-2 rounded-full bg-transparent border-black border-[1px] hover:bg-[#caafa8]'>
+            <EnvelopeIcon className='w-5 h-5' />
           </button>
         </form>
       </div>
@@ -39,12 +36,11 @@ const Footer = () => {
         </div>
       </div>
       <div className='flex justify-around items-center p-10 space-x-10'>
-        <h6>Contact</h6>
-        <h6>FAQ</h6>
-        <h6>Shipping</h6>
-        <h6>Returns</h6>
+        <Link href="/contact" className='hover-underline-animation'>Contact</Link>
+        <Link href="/shipping" className='hover-underline-animation'>Shipping</Link>
+        <Link href='/faq' className='hover-underline-animation'>FAQ</Link>
       </div>
-      <Link href='https://zach-sykes.com'className='text-xs'>
+      <Link href='https://zach-sykes.com' className='text-xs hover-underline-animation'>
         Website by Calathea Designs
       </Link>
     </div>
