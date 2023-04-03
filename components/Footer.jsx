@@ -1,4 +1,6 @@
 import Link from "next/link";
+import Image from "next/image";
+import { simpleLogo } from "@/public/assets";
 import { SocialIcon } from "react-social-icons";
 import { EnvelopeIcon } from "@heroicons/react/24/outline";
 
@@ -36,6 +38,9 @@ const Footer = () => {
         </div>
       </div>
       <div className='flex justify-around items-center p-10 space-x-10'>
+        <Link href='/#' className='hover-underline-animation'>
+          <Image src={simpleLogo} alt='simple logo' className='w-[5.5rem] h-[5.5rem]' />
+        </Link>
         <Link href="/contact" className='hover-underline-animation'>Contact</Link>
         <Link href="/shipping" className='hover-underline-animation'>Shipping</Link>
         <Link href='/faq' className='hover-underline-animation'>FAQ</Link>
