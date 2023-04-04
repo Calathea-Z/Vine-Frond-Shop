@@ -1,6 +1,8 @@
 import { useEffect, useState } from "react"
 import { client } from "@/utils/client"
 import Image from "next/image";
+import ClipLoader from "react-spinners/ClipLoader";
+import ProductItem from "@/components/ProductItem";
 
 const product = () => {
 
@@ -22,10 +24,10 @@ const product = () => {
     fetchData();
   },[])
   return (
-    <div>
-      {loading ? "loading" : error ? "ERROR try again" : (products.map((product, index) => (
+    <div className='flex justify-center'>
+      {loading ? <ClipLoader color={"#877570"} /> : error ? "ERROR try again" : (products.map((product, index) => (
         <div key={product.slug}>
-          <h1>{product.name}</h1>
+          <ProductItem product={product} />
           <Image href={`${product.image}`} className='w-5 h-5' />
         </div>
       )))}
