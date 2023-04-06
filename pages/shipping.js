@@ -1,6 +1,6 @@
-const shipping = () => {
+const Shipping = () => {
   return (
-    <div>shipping</div>
+    <div>Shipping</div>
   )
 }
-export default shipping
+export default Shipping

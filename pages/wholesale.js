@@ -1,6 +1,6 @@
-const wholesale = () => {
+const Wholesale = () => {
   return (
-    <div>wholesale</div>
+    <div>Wholesale</div>
   )
 }
-export default wholesale
+export default Wholesale

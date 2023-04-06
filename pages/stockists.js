@@ -1,6 +1,6 @@
-const stockists = () => {
+const Stockists = () => {
   return (
     <div>stockists</div>
   )
 }
-export default stockists
+export default Stockists

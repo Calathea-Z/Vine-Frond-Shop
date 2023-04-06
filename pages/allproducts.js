@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react"
 import { client } from "@/utils/client"
-import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import ProductItem from "@/components/ProductItem";
 import Footer from "@/components/Footer";

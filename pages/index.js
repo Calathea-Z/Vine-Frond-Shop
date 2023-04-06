@@ -1,6 +1,6 @@
 import Header from '@/components/Header';
 import Hero from '@/components/Hero';
-import InstagramFeed from '@/components/InstagramFeed'
+// import InstagramFeed from '@/components/InstagramFeed'
 import Footer from '@/components/Footer';
 import HighlightedProductCarousel from '@/components/HighlitedProductCarousel';
 import Head from 'next/head';
