@@ -19,7 +19,7 @@ export default function Home() {
       <h1 className='p-2'>@vineandfrond</h1>
       <h1 className='p-2'>#vineandfrond</h1>
     </div>
-    <InstagramFeed />
+    {/* <InstagramFeed /> */}
     <Footer />
     </div>
   )

@@ -13,12 +13,12 @@ const ProductItem = ({ product }) => {
           height={300}
           className='rounded-md'
         />
-        <h4 className='font-sans text-semibold p-1'>{product.name}</h4>
-        <h4 className='text-bold font-sans p-1'>$ {product.price}</h4>
+        <h4 className='font-sans text-semibold p-1 text-center text-slate-800'>{product.name}</h4>
+        <h4 className='text-bold font-sans p-1 text-center text-slate-800'>$ {product.price}</h4>
         {product.countInStock ? (
           " "
         ) : (
-          <h6 className="text-red-500 text-bold font-mono p-1">Out of Stock</h6>
+          <h6 className="text-red-500 text-bold text-lg p-1 text-center">Sold Out</h6>
         )}
       </Link>
     </div>
