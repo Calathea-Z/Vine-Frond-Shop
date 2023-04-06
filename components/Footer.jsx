@@ -13,7 +13,7 @@ const Footer = () => {
       <div className="flex m-4">
         <form className='bg-transparent focus:underline-0'>
           <input type="email" name="email" placeholder="Enter your email" className='bg-transparent border-none outline-none pr-2 focus:ring-0 focus:underline-0 text-[#877570]' />
-          <button className='m-2 p-2 rounded-full bg-transparent border-black border-[1px] hover:bg-[#caafa8]'>
+          <button className='m-2 p-2 rounded-full bg-transparent border-transparent border-[1px] hover:bg-[#caafa8]'>
             <EnvelopeIcon className='w-5 h-5' />
           </button>
         </form>

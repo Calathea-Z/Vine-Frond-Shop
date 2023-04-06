@@ -27,8 +27,8 @@ const HighlightedProductCarousel = () => {
   }, []);
 
   return (
-    <div className="w-full bg-primary flex flex-col justify-center items-center gap-2">
-      <h1 className='text-2xl p-2'>This Weeks Favorites</h1>
+    <div className="w-full bg-primary flex flex-col justify-center items-center gap-2 p-4">
+      <h1 className='text-4xl xl:text-6xl p-4'>This Weeks Favorites</h1>
       <div className='relative w-full flex overflow-x-scroll overflow-y-hidden scrollbar scrollbar-track-primary scrollbar-thumb-[#caafa8]'>
       {loading ? <ClipLoader color={"#877570"} className='flex justify-center items-center' /> : error ? "Error please reload" : (products.map((product, index) => (
         <div key={index} className='flex justify-center rounded-md p-2 flex-shrink-0'>

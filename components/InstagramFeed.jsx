@@ -38,7 +38,7 @@ export default function InstagramFeed() {
       </div> */}
       <div className='flex justify-center items-center gap-2 p-4'>
           <div className='w-[200px] h-[200px] border-4 border-black flex justify-center items-center p-1'>Photos will go here</div>
-          <div className='w-[200px] h-[200px] border-4 border-black flex justify-center items-center p-1' >I'm only using one person photos for their site</div>
+          <div className='w-[200px] h-[200px] border-4 border-black flex justify-center items-center p-1' >Im only using one person photos for their site</div>
           <div className='w-[200px] h-[200px] border-4 border-black flex justify-center items-center p-1' >They are the person I am building this site for.</div>
           <div className='w-[200px] h-[200px] border-4 border-black flex justify-center items-center p-1' >The information is the same for both screen-casts requested.</div>
       </div>

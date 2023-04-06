@@ -44,7 +44,7 @@ const Header = () => {
               key={link.id}
               className={`${
                 active === link.title ? "text-white" : "text-slate-600"
-              } hover-underline-animation  text-[18px] cursor-pointer`}
+              } hover-underline-animation  text-[18px] xl:text-[24px] cursor-pointer`}
               onClick={() => setActive(link.title)}
             >
               <Link href={`/${link.id}`}>{link.title}</Link>
@@ -57,11 +57,11 @@ const Header = () => {
         animate={{ x: 0 }}
         initial={{ x: 200 }}
         transition={{ duration: 2 }}
-        className="flex items-center justify-end sm:px-2 space-x-4 w-full"
+        className="flex items-center justify-end sm:px-4 space-x-4 w-full"
       >
-        <UserCircleIcon className="w-6 h-6 hover:text-[#caafa8]" />
-        <MagnifyingGlassIcon className="w-6 h-6 hover:text-[#caafa8]" />
-        <ShoppingBagIcon className="w-6 h-6 hover:text-[#caafa8]" />
+        <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+        <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+        <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         
       </motion.div>
       <motion.div
