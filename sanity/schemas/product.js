@@ -14,7 +14,7 @@ export default {
      type: 'number', 
     },
     {
-      name: 'image',
+      name: 'photo',
       title: 'Image',
       type: 'image',
       options: {

@@ -3,15 +3,19 @@ import { client } from "@/utils/client"
 import Image from "next/image";
 import ClipLoader from "react-spinners/ClipLoader";
 import ProductItem from "@/components/ProductItem";
+import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 
-const product = () => {
+const allProducts = () => {
 
   const [state, setState] = useState({
     products: [],
     error: '',
     loading: true,
   })
+
   const { loading, error, products } = state;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -21,17 +25,22 @@ const product = () => {
         setState({ loading: false, error: err.message });
       }
     };
+
     fetchData();
   },[])
+
   return (
-    <div className='flex justify-center'>
-      {loading ? <ClipLoader color={"#877570"} /> : error ? "ERROR try again" : (products.map((product, index) => (
-        <div key={product.slug}>
+    <>
+    <Header />
+    <div className='grid grid-cols-3  grid-rows-auto gap-2 justify-center justify-items-center p-4 bg-[#fdf9f5]'>
+      {loading ? <ClipLoader color={"#877570"} className='flex justify-center items-center' /> : error ? "Error please reload" : (products.map((product, index) => (
+        <div key={index} className='flex justify-center rounded-md p-2'>
           <ProductItem product={product} />
-          <Image href={`${product.image}`} className='w-5 h-5' />
         </div>
       )))}
     </div>
+    <Footer />
+    </>
   )
 }
-export default product
+export default allProducts

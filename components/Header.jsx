@@ -25,7 +25,7 @@ const Header = () => {
         transition={{ duration: 3 }}
       >
         <Link
-          href="#"
+          href="/"
           className=" flex items-center max-w-xl mx-auto justify-start"
         >
           <Image
