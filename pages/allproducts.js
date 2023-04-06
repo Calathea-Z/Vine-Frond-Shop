@@ -6,7 +6,7 @@ import ProductItem from "@/components/ProductItem";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 
-const allProducts = () => {
+const AllProducts = () => {
 
   const [state, setState] = useState({
     products: [],
@@ -43,4 +43,4 @@ const allProducts = () => {
     </>
   )
 }
-export default allProducts
+export default AllProducts
