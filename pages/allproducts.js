@@ -31,7 +31,7 @@ const AllProducts = () => {
   return (
     <>
     <Header />
-    <div className='grid grid-cols-3  grid-rows-auto gap-2 justify-center justify-items-center p-4 bg-[#fdf9f5]'>
+    <div className='grid grid-cols-3 grid-rows-auto gap-2 justify-center justify-items-center p-4 bg-[#fdf9f5]'>
       {loading ? <ClipLoader color={"#877570"} className='flex justify-center items-center' /> : error ? "Error please reload" : (products.map((product, index) => (
         <div key={index} className='flex justify-center rounded-md p-2'>
           <ProductItem product={product} />

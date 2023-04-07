@@ -31,7 +31,7 @@ const HighlightedProductCarousel = () => {
       <h1 className='text-2xl sm:text-4xl xl:text-6xl p-4'>This Weeks Favorites</h1>
       <div className='relative w-full flex overflow-x-scroll overflow-y-hidden scrollbar scrollbar-track-primary scrollbar-thumb-[#caafa8] justify-center'>
       {loading ? <ClipLoader color={"#877570"} className='flex justify-center items-center' /> : error ? "Error please reload" : (products.map((product, index) => (
-        <div key={index} className='flex justify-center rounded-md p-2 flex-shrink-0 w-[100px] sm:w-[200px] lg:w-[260px] xl:w-[360px]'>
+        <div key={index} className='flex justify-center rounded-md p-2 flex-shrink-0 w-[90px] h-auto sm:w-[200px] lg:w-[260px] xl:w-[360px]'>
           <ProductItem product={product} />
         </div>
       )))}
