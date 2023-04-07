@@ -53,27 +53,27 @@ const Header = () => {
         </ul>
       </div>
       {/*------------------- Right Nav       */}
-      <motion.div
-        animate={{ x: 0 }}
-        initial={{ x: 200 }}
-        transition={{ duration: 2 }}
-        className="flex items-center justify-end sm:px-4 space-x-4 w-full "
+      <div
+        // animate={{ x: 0 }}
+        // initial={{ x: 200 }}
+        // transition={{ duration: 2 }}
+        className="flex items-center sm:px-4 space-x-4 w-full "
       >
         <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         
-      </motion.div>
-      <motion.div
-      animate={{ x: 0 }}
-      initial={{ x: 250 }}
-      transition={{ duration: 3 }}
+      </div>
+      <div
+      // animate={{ x: 0 }}
+      // initial={{ x: 250 }}
+      // transition={{ duration: 3 }}
       className="sm:hidden flex flex-1 justify-end  items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
           </Menu.Button>
-          <Transition
+          {/* <Transition
             as={Fragment}
             enter="transition ease-out duration-100"
             enterFrom="transform opacity-0 scale-95"
@@ -81,7 +81,7 @@ const Header = () => {
             leave="transition ease-in duration-75"
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
-          >
+          > */}
             <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
               {navLinks.map((link) => (
                 <Menu.Item key={link.id} as={Fragment}>
@@ -100,9 +100,9 @@ const Header = () => {
                 </Menu.Item>
               ))}
             </Menu.Items>
-          </Transition>
+          {/* </Transition> */}
         </Menu>
-      </motion.div>
+      </div>
     </nav>
   );
 };
