@@ -69,7 +69,7 @@ const Header = () => {
       initial={{ x: 200 }}
       transition={{ duration: 2 }}
       className="sm:hidden flex flex-1 justify-end pr-8 items-center w-full z-50">
-        <Menu as="div" className="relative inline-block text-left ">
+        <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
           </Menu.Button>
@@ -82,7 +82,7 @@ const Header = () => {
             leaveFrom="transform opacity-100 scale-100"
             leaveTo="transform opacity-0 scale-95"
           >
-            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none">
+            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
               {navLinks.map((link) => (
                 <Menu.Item key={link.id} as={Fragment}>
                   {({ active }) => (

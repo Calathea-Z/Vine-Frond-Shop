@@ -7,7 +7,7 @@ const Hero = () => {
   return (
     <>
 {/*---------- Hero Image + social icons     */}
-      <div className="relative w-full flex mx-auto h-auto sm:h-[280px] md:h-[830px] bg-primary">
+      <div className="relative w-full flex mx-auto h-auto sm:h-[280px] md:h-[830px] bg-primary z-0">
         <Image
           src={heroPic}
           alt="pots"
