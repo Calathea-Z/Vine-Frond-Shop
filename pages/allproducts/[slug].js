@@ -41,7 +41,7 @@ export default function ProductScreen(props) {
           <div>{err}</div>
         ) : (
           <div className="flex flex-col md:grid md:grid-cols-2 justify-center items-center space-y-4 lg:flex lg:flex-row lg:gap-20 md:items-start p-8">
-            <div className='col-span-1 lg:grow justify-center items-center'>
+            <div className="col-span-1 lg:grow justify-center items-center">
               <Image
                 src={urlFor(product.photo.asset._ref).url()}
                 alt={product.name}
@@ -50,28 +50,37 @@ export default function ProductScreen(props) {
                 className="rounded-md lg:w-[400px]"
               />
             </div>
-            <div className='flex flex-col self-center items-center space-y-6 p-2 lg:p-8 grid-col-span-1 lg:grow content-center'>
-              <h1 className='text-2xl font-extrabold font-mono'>{product?.name}</h1>
-              <h4 className="text-bold font-sans p-1 text-center text-slate-800">
-                $ {product.price}
+            <div className="flex flex-col self-center items-start space-y-6 p-2 lg:p-8 grid-col-span-1 lg:grow content-center">
+              <h1 className="text-2xl font-extrabold font-mono">
+                {product?.name}
+              </h1>
+              <h4 className="text-extrabold font-mono p-1 text-center text-slate-800 text-xl pr-5">
+                $ {product.price}.00
               </h4>
-              <p className="lg:w-[35rem] text-bold font-sans p-1 text-center text-slate-800">
-                {product.description}
-              </p>
-              <p className="text-bold font-sans p-1 text-center text-slate-800">
-                {product.measurements}
-              </p>
-              {product.countInStock ? (
-                " "
-              ) : (
-                <h6 className="text-red-500 text-bold text-lg p-1 text-center">
-                  Sold Out
+              <div className="flex flex-col justify-start items-start gap-2">
+                <h6 className="lg:w-[35rem] text-extrabold font-sans p-1 text-left text-slate-800 inline-flex">
+                  Description:
                 </h6>
+                <p className="lg:w-[35rem] text-bold font-sans p-1 text-left text-slate-800 inline-flex">
+                  {product.description}
+                  <br /> <br />
+                  Measurements:
+                  <br /> <br />
+                  {product.measurements}
+                </p>
+              </div>
+              {product.countInStock ? (
+                <button className='w-full flex border-black border-2 p-4 justify-center items-center font-mono text-lg hover:bg-primary/50 cursor-pointer'>Add to Cart</button>
+              ) : (
+                <div className="w-full flex bg-red-500/50 border-black border-2 p-4 justify-center items-center font-mono text-lg">
+                  Sold Out
+                </div>
               )}
             </div>
           </div>
         )}
       </div>
+
       <Footer />
     </>
   );
