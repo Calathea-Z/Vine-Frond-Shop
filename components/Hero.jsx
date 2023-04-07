@@ -7,28 +7,14 @@ const Hero = () => {
   return (
     <>
 {/*---------- Hero Image + social icons     */}
-      <div className="relative w-full flex mx-auto h-auto sm:h-[280px] md:h-screen bg-primary">
+      <div className="relative w-full flex mx-auto h-auto sm:h-[280px] md:h-[830px] bg-primary">
         <Image
           src={heroPic}
           alt="pots"
-          priority
+          priority='true'
           placeholder="blur"
           className="content-fill w-full h-auto"
         />
-        {/* <div className="hidden opacity-90 bottom-[.2rem] right-[.1rem] z-20 absolute sm:flex gap-[.36rem]">
-          <SocialIcon
-            url="https://www.instagram.com/vineandfrond/"
-            fgColor="black"
-          />
-          <SocialIcon
-            url="https://www.facebook.com/vineandfrondceramics"
-            fgColor="black"
-          />
-          <SocialIcon
-            url="https://www.tiktok.com/@vineandfrond"
-            fgColor="white"
-          />
-        </div> */}
       </div>
 
 {/*------------------------- Mission statement       */}
@@ -43,7 +29,7 @@ const Hero = () => {
         className='p-20 mx-auto h-auto w-[35rem] md:w-[45rem] lg:w-[60rem] text-md sm:text-[1.25rem] md:text-[1.7rem] leading-loose italic text-slate-800'>A ceramics and houseplant company born out of a passion for clay and greenery. From local pop-up markets to an online shop, we create functional pieces to bring beauty to your home.</motion.h1>
       </div>
       <div className='bg-[#fdf9f5] w-full flex justify-center items-center'>
-        <Image src={fullLogo} alt='full vine and frond logo' />
+        <Image src={fullLogo} alt='full vine and frond logo' priority='true' />
       </div>
     </>
   );
