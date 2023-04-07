@@ -22,6 +22,21 @@ export default {
       },
     },
     {
+      name: 'additionalImages',
+      title: 'Add Extra Images',
+      type: 'array',
+      of: [
+        {
+          name: 'additionalImage',
+          type: 'image',
+          title: 'Additional Image',
+          options: {
+            hotspot: true,
+          },
+        },
+      ],
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'string',
