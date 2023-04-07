@@ -16,8 +16,8 @@ export default function Home() {
     <Hero />
     <HighlightedProductCarousel />
     <div className='bg-[#fdf9f5] w-full flex justify-center items-center gap-5 font-extrabold text-2xl p-10'>
-      <h1 className='p-2'>@vineandfrond</h1>
-      <h1 className='p-2'>#vineandfrond</h1>
+      <h1 className='p-2 text-sm sm:text-base'>@vineandfrond</h1>
+      <h1 className='p-2 text-sm sm:text-base'>#vineandfrond</h1>
     </div>
     {/* <InstagramFeed /> */}
     <Footer />

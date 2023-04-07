@@ -8,7 +8,7 @@ const Footer = () => {
   return (
     <div className='bg-primary w-full flex flex-col justify-center items-center p-10'>
       <div className='p-4'>
-        <h1 className='text-4xl text-bold'>Get Shop Updates</h1>
+        <h1 className='text-2xl sm:text-4xl text-bold'>Get Shop Updates</h1>
       </div>
       <div className="flex m-4">
         <form className='bg-transparent focus:underline-0'>
@@ -37,7 +37,7 @@ const Footer = () => {
           />
         </div>
       </div>
-      <div className='flex justify-around items-center p-10 space-x-10'>
+      <div className='flex justify-around items-center sm:p-10 space-x-6 sm:space-x-10'>
         <Link href='/#' className='hover-underline-animation'>
           <Image src={simpleLogo} alt='simple logo' className='w-[5.5rem] h-[5.5rem]' />
         </Link>
