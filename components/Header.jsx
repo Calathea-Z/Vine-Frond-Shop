@@ -57,7 +57,7 @@ const Header = () => {
         animate={{ x: 0 }}
         initial={{ x: 200 }}
         transition={{ duration: 2 }}
-        className="flex items-center justify-end sm:px-4 space-x-4 w-full overflow-x-hidden"
+        className="flex items-center justify-end sm:px-4 space-x-4 w-full overflow-hidden"
       >
         <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
@@ -68,8 +68,8 @@ const Header = () => {
       animate={{ x: 0 }}
       initial={{ x: 200 }}
       transition={{ duration: 2 }}
-      className="sm:hidden flex flex-1 justify-end pr-8 items-center w-full">
-        <Menu as="div" className="relative inline-block text-left overflow-x-hidden">
+      className="sm:hidden flex flex-1 justify-end pr-8 items-center w-full overflow-hidden">
+        <Menu as="div" className="relative inline-block text-left overflow-hidden">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
           </Menu.Button>
