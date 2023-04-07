@@ -1,5 +1,5 @@
 import ClipLoader from "react-spinners/ClipLoader";
-import { client } from "@/utils/client"
+import  client from "@/utils/client"
 import { useEffect, useState } from "react";
 import ProductItem from "./ProductItem";
 

@@ -53,54 +53,34 @@ const Header = () => {
         </ul>
       </div>
       {/*------------------- Right Nav       */}
-      <div
-        // animate={{ x: 0 }}
-        // initial={{ x: 200 }}
-        // transition={{ duration: 2 }}
-        className="flex items-center sm:px-4 space-x-4 w-full "
-      >
+      <div className="flex items-center sm:px-4 space-x-4 w-full justify-end">
         <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
-        
       </div>
-      <div
-      // animate={{ x: 0 }}
-      // initial={{ x: 250 }}
-      // transition={{ duration: 3 }}
-      className="sm:hidden flex flex-1 justify-end  items-center w-full z-50">
+      <div className="sm:hidden flex flex-1 justify-end  items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
           </Menu.Button>
-          {/* <Transition
-            as={Fragment}
-            enter="transition ease-out duration-100"
-            enterFrom="transform opacity-0 scale-95"
-            enterTo="transform opacity-100 scale-100"
-            leave="transition ease-in duration-75"
-            leaveFrom="transform opacity-100 scale-100"
-            leaveTo="transform opacity-0 scale-95"
-          > */}
-            <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-              {navLinks.map((link) => (
-                <Menu.Item key={link.id} as={Fragment}>
-                  {({ active }) => (
-                    <Link
-                      href={`/${link.id}`}
-                      className={`${
-                        active
-                          ? "bg-primary text-white"
-                          : "bg-white text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
-                    >
-                      {link.title}
-                    </Link>
-                  )}
-                </Menu.Item>
-              ))}
-            </Menu.Items>
-          {/* </Transition> */}
+          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+            {navLinks.map((link) => (
+              <Menu.Item key={link.id} as={Fragment}>
+                {({ active }) => (
+                  <Link
+                    href={`/${link.id}`}
+                    className={`${
+                      active
+                        ? "bg-primary text-white"
+                        : "bg-white text-slate-800"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
+                  >
+                    {link.title}
+                  </Link>
+                )}
+              </Menu.Item>
+            ))}
+          </Menu.Items>
         </Menu>
       </div>
     </nav>

@@ -5,7 +5,7 @@ import Image from "next/image";
 const ProductItem = ({ product }) => {
   return (
     <div>
-      <Link href={`/product/${product.slug.current}`}>
+      <Link href={`/allproducts/${product.slug.current}`}>
         <Image
           src={urlFor(product.photo.asset._ref).url()}
           alt={product.name}
