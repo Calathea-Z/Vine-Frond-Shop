@@ -17,7 +17,7 @@ const Header = () => {
   const [active, setActive] = useState("");
 
   return (
-    <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20 overflow-x-hidden">
+    <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20">
       {/*------------------- Left Logo */}
       <motion.div
         animate={{ x: 0, rotate: 5 }}
@@ -68,7 +68,7 @@ const Header = () => {
       animate={{ x: 0 }}
       initial={{ x: 200 }}
       transition={{ duration: 2 }}
-      className="sm:hidden flex flex-1 justify-end pr-8 items-center w-full z-50">
+      className="sm:hidden flex flex-1 justify-end  items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
@@ -92,7 +92,7 @@ const Header = () => {
                         active
                           ? "bg-primary text-white"
                           : "bg-white text-slate-800"
-                      } group flex w-full items-center rounded-md px-2 py-2 text-sm`}
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
                     >
                       {link.title}
                     </Link>
