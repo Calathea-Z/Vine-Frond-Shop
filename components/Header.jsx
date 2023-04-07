@@ -17,7 +17,7 @@ const Header = () => {
   const [active, setActive] = useState("");
 
   return (
-    <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20 overflow-hidden">
+    <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20 overflow-x-hidden">
       {/*------------------- Left Logo */}
       <motion.div
         animate={{ x: 0, rotate: 5 }}
