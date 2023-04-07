@@ -66,8 +66,8 @@ const Header = () => {
       </motion.div>
       <motion.div
       animate={{ x: 0 }}
-      initial={{ x: 200 }}
-      transition={{ duration: 2 }}
+      initial={{ x: 250 }}
+      transition={{ duration: 3 }}
       className="sm:hidden flex flex-1 justify-end  items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
