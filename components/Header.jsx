@@ -53,12 +53,12 @@ const Header = () => {
         </ul>
       </div>
       {/*------------------- Right Nav       */}
-      <div className="flex items-center px-4 space-x-4 w-full justify-end">
+      <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
         <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
       </div>
-      <div className="sm:hidden flex flex-1 justify-end  items-center w-full z-50">
+      <div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
             <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
