@@ -8,7 +8,7 @@ import {
 import Image from "next/image";
 
 const SingleProductCarousel = (props) => {
-  const [currentIndex, setCurrentIndex] = useState(1);
+  const [currentIndex, setCurrentIndex] = useState(0);
   const prevSlide = () => {
     const isFirstSlide = currentIndex === 0;
     const newIndex = isFirstSlide ? props.photo.length - 1 : currentIndex -1;
