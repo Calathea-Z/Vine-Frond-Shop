@@ -37,7 +37,9 @@ export default function ProductScreen(props) {
       <Header />
       <div className="flex justify-center items-center">
         {loading ? (
+          <div className='w-full h-screen flex justify-center items-center'>
           <ClipLoader />
+          </div>
         ) : error ? (
           <div>{err}</div>
         ) : (
