@@ -5,6 +5,7 @@ import { urlFor } from "@/utils/image";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import SingleProductCarousel from "@/components/SingleProductCarousel";
 
 export default function ProductScreen(props) {
   const { slug } = props;
@@ -40,24 +41,16 @@ export default function ProductScreen(props) {
         ) : error ? (
           <div>{err}</div>
         ) : (
-          <div className="flex flex-col md:grid md:grid-cols-2 justify-center items-center space-y-4 lg:flex lg:flex-row lg:gap-20 md:items-start p-8">
+          <div className="flex flex-col md:grid md:grid-cols-2 justify-center space-y-4 items-start p-8">
             <div className="w-full h-auto">
-                {product.photo.map((image, index) => (
-                <div className='w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] md:w-[400px] md:h-[400px] lg:w-[800px] lg:h-[800px] ' key={index}> 
-                <Image
-                  src={urlFor(image.asset._ref).url()}
-                  fill
-                  className='object-contain'
-                />
-                </div> 
-                ))}
+                <SingleProductCarousel photo={product.photo}/>
             </div>
             <div className="flex flex-col self-center items-start space-y-6 p-2 lg:p-8 grid-col-span-1 lg:grow content-center">
               <h1 className="text-2xl font-extrabold font-mono">
                 {product?.name}
               </h1>
               <h4 className="text-extrabold font-mono p-1 text-center text-slate-800 text-xl pr-5">
-                $ {product.price}.00
+                $ {product?.price}.00
               </h4>
               <div className="flex flex-col justify-start items-start gap-2">
                 <h6 className="lg:w-[35rem] text-extrabold font-sans p-1 text-left text-slate-800 inline-flex">
