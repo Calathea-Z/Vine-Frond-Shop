@@ -7,7 +7,7 @@ const ProductItem = ({ product }) => {
     <div>
       <Link href={`/allproducts/${product.slug.current}`}>
         <Image
-          src={urlFor(product.photo.asset._ref).url()}
+          src={urlFor(product.photo[0].asset._ref).url()}
           alt={product.name}
           width={300}
           height={300}

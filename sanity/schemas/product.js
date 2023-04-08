@@ -15,15 +15,7 @@ export default {
     },
     {
       name: 'photo',
-      title: 'Image',
-      type: 'image',
-      options: {
-        hotspot: true,
-      },
-    },
-    {
-      name: 'additionalImages',
-      title: 'Add Extra Images',
+      title: 'Images',
       type: 'array',
       of: [
         {
