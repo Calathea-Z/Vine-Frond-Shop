@@ -5,8 +5,6 @@ import { urlFor } from "@/utils/image";
 import Image from "next/image";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import Carousel from "react-multi-carousel";
-import "react-multi-carousel/lib/styles.css";
 
 export default function ProductScreen(props) {
   const { slug } = props;
@@ -43,71 +41,16 @@ export default function ProductScreen(props) {
           <div>{err}</div>
         ) : (
           <div className="flex flex-col md:grid md:grid-cols-2 justify-center items-center space-y-4 lg:flex lg:flex-row lg:gap-20 md:items-start p-8">
-            <div className="col-span-1 lg:grow justify-center items-center">
-              {product.photo.map((image, index) => (
-
-              ))}
-              <Carousel
-                additionalTransfrom={0}
-                arrows
-                autoPlaySpeed={3000}
-                centerMode={false}
-                className=""
-                containerClass="container-with-dots"
-                dotListClass=""
-                draggable
-                focusOnSelect={false}
-                infinite
-                itemClass=""
-                keyBoardControl
-                minimumTouchDrag={80}
-                pauseOnHover
-                renderArrowsWhenDisabled={false}
-                renderButtonGroupOutside={false}
-                renderDotsOutside={false}
-                responsive={{
-                  desktop: {
-                    breakpoint: {
-                      max: 3000,
-                      min: 1024,
-                    },
-                    items: 3,
-                    partialVisibilityGutter: 40,
-                  },
-                  mobile: {
-                    breakpoint: {
-                      max: 464,
-                      min: 0,
-                    },
-                    items: 1,
-                    partialVisibilityGutter: 30,
-                  },
-                  tablet: {
-                    breakpoint: {
-                      max: 1024,
-                      min: 464,
-                    },
-                    items: 2,
-                    partialVisibilityGutter: 30,
-                  },
-                }}
-                rewind={false}
-                rewindWithAnimation={false}
-                rtl={false}
-                shouldResetAutoplay
-                showDots={false}
-                sliderClass=""
-                slidesToSlide={1}
-                swipeable
-              > 
+            <div className="w-full h-auto">
+                {product.photo.map((image, index) => (
+                <div className='w-[100px] h-[100px] sm:w-[200px] sm:h-[200px] md:w-[400px] md:h-[400px] lg:w-[800px] lg:h-[800px] ' key={index}> 
                 <Image
-                  src={urlFor(product.photo[0].asset._ref).url()}
-                  alt={product.name}
-                  width={300}
-                  height={300}
-                  className="rounded-md lg:w-[400px]"
+                  src={urlFor(image.asset._ref).url()}
+                  fill
+                  className='object-contain'
                 />
-              </Carousel>
+                </div> 
+                ))}
             </div>
             <div className="flex flex-col self-center items-start space-y-6 p-2 lg:p-8 grid-col-span-1 lg:grow content-center">
               <h1 className="text-2xl font-extrabold font-mono">
