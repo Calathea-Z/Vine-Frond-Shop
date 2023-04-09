@@ -1,14 +1,19 @@
 import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
-import { useEffect, useState } from "react";
-import { urlFor } from "@/utils/image";
-import Image from "next/image";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import SingleProductCarousel from "@/components/SingleProductCarousel";
+import { Store } from "@/utils/Store";
+import { useSnackbar } from "notistack";
+import { useEffect, useState, useContext } from "react";
+import { urlFor } from "@/utils/image";
+import axios from "axios";
+
 
 export default function ProductScreen(props) {
   const { slug } = props;
+  const { state: {cart}, dispatch } = useContext(Store);
+  const { enqueueSnackbar} = useSnackbar();
   const [state, setState] = useState({
     product: null,
     loading: true,
@@ -30,7 +35,28 @@ export default function ProductScreen(props) {
       }
     };
     fetchData();
-  }, [setState, slug, state]);
+  }, []);
+
+  const addToCartHandler = async () => {
+    const existItem = cart.cartItems.find(item => item.id === product.id);
+    const quantity = existItem? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/products/${product._id}`);
+    if (data.countInStock < quantity) {
+      enqueueSnackbar("Sorry, product is out of stock", { variant: 'error'})
+      return;
+    }
+    dispatch({ type: 'CART_ADD_ITEM', payload: {
+      _key: product._id,
+      name: product.name,
+      countInStock: product.countInStock,
+      slug: product.slug.current,
+      price: product.price,
+      image: urlFor(product.photo[0].asset._ref).url(),
+      quantity,
+    },
+    });
+    enqueueSnackbar(`${product.name} added to cart!`, { variant: 'success' });
+  };
 
   return (
     <>
@@ -67,7 +93,7 @@ export default function ProductScreen(props) {
                 </p>
               </div>
               {product.countInStock ? (
-                <button className="w-full flex border-black border-2 p-4 justify-center items-center font-mono text-lg hover:bg-primary/50 cursor-pointer">
+                <button className="w-full flex border-black border-2 p-4 justify-center items-center font-mono text-lg hover:bg-primary/50 cursor-pointer" onClick={addToCartHandler}>
                   Add to Cart
                 </button>
               ) : (
