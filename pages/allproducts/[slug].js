@@ -12,7 +12,7 @@ import axios from "axios";
 
 export default function ProductScreen(props) {
   const { slug } = props;
-  const { state: {cart}, dispatch } = useContext(Store);
+  const { state: {cart}, dispatch, } = useContext(Store);
   const { enqueueSnackbar} = useSnackbar();
   const [state, setState] = useState({
     product: null,
@@ -38,19 +38,21 @@ export default function ProductScreen(props) {
   }, []);
 
   const addToCartHandler = async () => {
-    const existItem = cart.cartItems.find(item => item.id === product.id);
-    const quantity = existItem? existItem.quantity + 1 : 1;
-    const { data } = await axios.get(`/api/products/${product._id}`);
+    const existItem = cart.cartItems.find((x) => x._id === product._id);
+    const quantity = existItem ? existItem.quantity + 1 : 1;
+    const { data } = await axios.get(`/api/allproducts/${product._id}`);
     if (data.countInStock < quantity) {
-      enqueueSnackbar("Sorry, product is out of stock", { variant: 'error'})
+      enqueueSnackbar('Sorry. Product is out of stock', { variant: 'error' });
       return;
     }
-    dispatch({ type: 'CART_ADD_ITEM', payload: {
-      _key: product._id,
-      name: product.name,
-      countInStock: product.countInStock,
-      slug: product.slug.current,
-      price: product.price,
+    dispatch({
+      type: 'CART_ADD_ITEM',
+      payload: {
+        _key: product._id,
+        name: product.name,
+        countInStock: product.countInStock,
+        slug: product.slug.current,
+        price: product.price,
       image: urlFor(product.photo[0].asset._ref).url(),
       quantity,
     },

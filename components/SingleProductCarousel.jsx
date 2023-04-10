@@ -3,7 +3,6 @@ import { urlFor } from "@/utils/image.js";
 import {
   ArrowSmallLeftIcon,
   ArrowSmallRightIcon,
-  StopIcon,
 } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
@@ -36,7 +35,7 @@ const SingleProductCarousel = (props) => {
       <div className='flex left-4 justify-center py-2 gap-2'>
         {props.photo.map((thumbnail, index) => (
             <div key={index} className='cursor-pointer rounded-sm w-[3rem] h-[3rem] md:w-[5rem] md:h-[5rem] relative' onClick={() => setCurrentIndex(index)}>
-              <Image src={urlFor(thumbnail.asset._ref).url()} fill />
+              <Image src={urlFor(thumbnail.asset._ref).url()} fill alt='pottery thumbnails' />
             </div>
         ))}
       </div>

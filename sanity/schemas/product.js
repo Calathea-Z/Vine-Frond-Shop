@@ -6,12 +6,12 @@ export default {
     {
       name: 'name',
       title: 'Name',
-      type: 'string'
+      type: 'string',
     },
     {
-     name: 'price',
-     title: 'Price',
-     type: 'number', 
+      name: 'price',
+      title: 'Price',
+      type: 'number',
     },
     {
       name: 'photo',
@@ -50,18 +50,17 @@ export default {
     {
       name: 'subCategory',
       title: 'Sub Category',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'measurements',
       title: 'Measurements',
-      type: 'string'
+      type: 'string',
     },
     {
       name: 'countInStock',
-      title: "Count In Stock",
-      type: 'number'
-
-    }
-  ]
+      title: 'Count In Stock',
+      type: 'number',
+    },
+  ],
 }
