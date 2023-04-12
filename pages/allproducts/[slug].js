@@ -53,7 +53,7 @@ export default function ProductScreen(props) {
         countInStock: product.countInStock,
         slug: product.slug.current,
         price: product.price,
-      image: urlFor(product.photo[0].asset._ref).url(),
+      photo: product.photo,
       quantity,
     },
     });
