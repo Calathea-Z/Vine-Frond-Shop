@@ -38,7 +38,7 @@ const CartScreen = () => {
       quantity,
     },
     });
-    enqueueSnackbar(`${item.name} Cart Updated!`, { variant: 'success' });
+    enqueueSnackbar(`${item.name} Cart Updated!`, { variant: 'success' },);
   };
 
   const removeItemHandler = (item) => {
@@ -61,15 +61,16 @@ const CartScreen = () => {
         ) : (
           <div className="grid grid-cols-2 justify-center items-center px-12 py-2">
             <div className="flex flex-col  gap-2">
-              {cartItems.map((item) => (
+              {cartItems.map((item, index) => (
                 <div
                   className="grid grid-cols-3 items-center justify-center gap-2"
-                  key={item._id}
+                  key={item._id || index}
                 >
                   <div className="flex justify-center items-center hover:opacity-80">
                     <Link href={`/allproducts/${item.slug}`} passHref>
                       <Image
                       src={urlFor(item.photo[0].asset._ref).url()}
+                      alt={item.name}
                         width={90}
                         height={90}
                         className="rounded-sm"

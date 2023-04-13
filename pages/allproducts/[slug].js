@@ -9,7 +9,7 @@ import { useEffect, useState, useContext } from "react";
 import { urlFor } from "@/utils/image";
 import axios from "axios";
 import { useRouter } from "next/router";
-
+import Link from "next/link";
 
 export default function ProductScreen(props) {
   const router = useRouter();
@@ -59,10 +59,8 @@ export default function ProductScreen(props) {
       quantity,
     },
     });
-    enqueueSnackbar(`${product.name} added to cart!`, { variant: 'success' });
+    enqueueSnackbar(`${product.name} added to cart!`, { variant: 'success' },);
   };
-  console.log(cart)
-
   return (
     <>
       <Header />

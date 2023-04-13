@@ -4,7 +4,7 @@ import { SnackbarProvider } from "notistack";
 
 export default function App({ Component, pageProps }) {
   return (
-    <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "center" }}>
+    <SnackbarProvider anchorOrigin={{ vertical: "top", horizontal: "center" }} autoHideDuration={3000}>
       <StoreProvider>
         <Component {...pageProps} />
       </StoreProvider>
