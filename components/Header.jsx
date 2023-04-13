@@ -56,7 +56,9 @@ const Header = () => {
       <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
         <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
-        <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+        <Link href='/cart'>
+          <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+        </Link>
       </div>
       <div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
