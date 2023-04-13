@@ -61,6 +61,7 @@ export default function ProductScreen(props) {
     });
     enqueueSnackbar(`${product.name} added to cart!`, { variant: 'success' });
   };
+  console.log(cart)
 
   return (
     <>

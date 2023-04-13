@@ -1,6 +1,7 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
 import { Store } from "@/utils/Store";
+import { urlFor } from "@/utils/image";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext } from "react";
@@ -68,7 +69,7 @@ const CartScreen = () => {
                   <div className="flex justify-center items-center hover:opacity-80">
                     <Link href={`/allproducts/${item.slug}`} passHref>
                       <Image
-                      src={item.photo[0]}
+                      src={urlFor(item.photo[0].asset._ref).url()}
                         width={90}
                         height={90}
                         className="rounded-sm"
@@ -120,3 +121,4 @@ const CartScreen = () => {
   );
 };
 export default dynamic(() => Promise.resolve(CartScreen), {ssr: false})
+
