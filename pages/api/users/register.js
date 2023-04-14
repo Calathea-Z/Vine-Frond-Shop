@@ -1,5 +1,5 @@
 import nc from "next-connect";
-import bcrypt from "brcyptjs";
+import bcrypt from "bcryptjs";
 import axios from "axios";
 import client from "@/utils/client";
 import { signToken } from "@/utils/auth";

@@ -5,11 +5,13 @@ import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
-import { useForm, Controller } from "react-hook-form";
+import { useForm } from "react-hook-form";
 import { useEffect, useContext } from "react";
-import jsCookie from 'js-cookie'
+import jsCookie from "js-cookie";
+import { XMarkIcon, CheckIcon, EyeIcon } from "@heroicons/react/24/solid";
 
 const RegisterScreen = () => {
+  
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   const router = useRouter();
@@ -21,149 +23,143 @@ const RegisterScreen = () => {
 
   const {
     handleSubmit,
-    control,
+    register,
     formState: { errors },
-  } = useForm();
-
-
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      email: "",
+      password: "",
+      confirmPassword: "",
+    },
+  });
 
   const { enqueueSnackbar } = useSnackbar();
 
-  const submitHandler = async ({ name, email, password, confirmPassword }) => {
+  const showHide = () => {
+
+  }
+
+  const submitHandler = async ({ firstName, lastName, email, password, confirmPassword }) => {
     if (password !== confirmPassword) {
       enqueueSnackbar("Passwords don't match", { variant: "error" });
       return;
     }
     try {
       const { data } = await axios.post("/api/users/register", {
-        name,
+        firstName,
+        lastName,
         email,
         password,
       });
-      dispatch({ type: 'USER_LOGIN', payload: data });
-      jsCookie.set('userInfo', JSON.stringify(data));
-      router.push('/');
+      dispatch({ type: "USER_LOGIN", payload: data });
+      jsCookie.set("userInfo", JSON.stringify(data));
+      router.push("/");
     } catch (err) {
       enqueueSnackbar(err.message, { variant: "error" });
     }
   };
   return (
-    <div>
+    <div className="flex flex-col">
       <Header />
-      <div className="bg-[#fdf9f5] flex flex-col h-screen p-8">
-        <h1 className="self-center p-3 text-4xl">Register</h1>
+      <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
+        <h1 className="self-center px-10 py-5 text-4xl">Register</h1>
         <form
-          onSubmit={handleSubmit(submitHandler)}
+          onSubmit={handleSubmit((data) => {
+            console.log(data);
+          })}
           className="flex flex-col p-5 "
         >
-          <h1 className="mb-1"> Full Name</h1>
-          <Controller
-            name="name"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: true,
-              minLength: 2,
-            }}
-            render={({ field }) => (
+          <div className="flex justify-start items-start gap-4">
+            <div>
+              <h1 className="mb-1"> First Name</h1>
               <input
                 className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent"
-                id="name"
-                label="Name"
-                inputProps={{ type: "name" }}
-                error={errors.name}
-                helperText={
-                  errors.name
-                    ? (errors.name.type = "pattern"
-                        ? "Please enter your full name"
-                        : "Full Name is required")
-                    : ""
-                }
-                {...field}
+                id="firstName"
+                {...register("firstName", {
+                  required: "This is required",
+                  minLength: { value: 2, message: "Minimum length is 2" },
+                })}
               />
-            )}
-          ></Controller>
+              {errors.firstName? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.firstName?.message}</p> : '' }
+              
+            </div>
+            <div>
+              <h1 className="mb-1"> Last Name</h1>
+              <input
+                className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent"
+                id="lastName"
+                {...register("lastName", {
+                  required: "This is required",
+                  minLength: { value: 2, message: "Minimum length is 2" },
+                })}
+              />
+              {errors.lastName? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.lastName?.message}</p> : '' }
+            </div>
+          </div>
+
           <h1 className="mb-1">Email</h1>
-          <Controller
-            name="email"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: true,
-              pattern: /^[a-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2-4}$/,
-            }}
-            render={({ field }) => (
-              <input
-                className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent"
-                id="email"
-                label="Email"
-                inputProps={{ type: "email" }}
-                error={errors.email}
-                helperText={
-                  errors.email
-                    ? (errors.email.type = "pattern"
-                        ? "Email is not valid"
-                        : "Email is required")
-                    : ""
-                }
-                {...field}
-              />
-            )}
-          ></Controller>
+          <input
+            className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent w-[24.2rem]"
+            id="email"
+            {...register("email", {
+              required: "This is required",
+              pattern: { value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: "Please enter a valid email address"}
+            })}
+          />
+          {errors.email? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.email?.message}</p> : '' }
+
           <h1 className="mb-1">Password</h1>
-          <Controller
-            name="password"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: true,
-              minLength: 8,
-            }}
-            render={({ field }) => (
-              <input
-                className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none"
-                id="password"
-                label="Password"
-                inputProps={{ type: "password" }}
-                error={Boolean(errors.password)}
-                helperText={
-                  errors.password
-                    ? (errors.password.type = "minLength"
-                        ? "Password must be at least 8 characters"
-                        : "Password is required")
-                    : ""
-                }
-                {...field}
-              />
-            )}
-          ></Controller>
+          <div className='flex gap-2'>
+            <div>
+          <input
+            className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none w-[24.2rem]"
+            id="password"
+            {...register("password", {
+              required: "This is required",
+            
+            })}
+          />
+          {errors.password? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.password?.message}</p> : '' }
+          <p id='capital' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
+            <XMarkIcon className='h-3 w-3' />
+            <CheckIcon className='h-3 w-3' />
+            Capital Letter
+          </p>
+          <p id='char' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
+            <XMarkIcon className='h-3 w-3' />
+            <CheckIcon className='h-3 w-3' />
+            Special Character
+          </p>
+          <p id='number' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
+            <XMarkIcon className='h-3 w-3' />
+            <CheckIcon className='h-3 w-3' />
+            Number
+          </p>
+          <p id='length' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
+            <XMarkIcon className='h-3 w-3' />
+            <CheckIcon className='h-3 w-3' />
+            8+ Characters
+          </p>
+          </div>
+          <EyeIcon className='w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem]' id='show-hide' onClick={showHide}/>
+          </div>
+          
           <h1 className="mb-1">Confirm Password</h1>
-          <Controller
-            name="confirmPassword"
-            control={control}
-            defaultValue=""
-            rules={{
-              required: true,
-              minLength: 8,
-            }}
-            render={({ field }) => (
-              <input
-                className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none"
-                id="confirmPassword"
-                label="Confirm Password"
-                inputProps={{ type: "password" }}
-                error={Boolean(errors.confirmPassword)}
-                helperText={
-                  errors.confirmPassword
-                    ? (errors.confirmPassword.type = "minLength"
-                        ? "Password must be at least 8 characters"
-                        : "Password is required")
-                    : ""
-                }
-                {...field}
-              />
+          <div className='flex gap-2'>
+            <div>
+            <input
+            className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none w-[24.2rem]"
+            id="confirmPassword"
+            label="Confirm Password"
+            {...register("confirmPassword", 
             )}
-          ></Controller>
+          />
+          {errors.confirmPassword? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.confirmPassword?.message}</p> : '' }
+          </div>
+          <EyeIcon className='w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem]' id='show-hide-two' onClick={showHide}/>
+          </div>
           <button
             className="bg-primary rounded-sm mt-2 px-10 py-2 hover:bg-primary/80 mb-8"
             type="submit"
