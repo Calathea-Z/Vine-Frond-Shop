@@ -8,24 +8,43 @@ import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import jsCookie from "js-cookie";
-import { XMarkIcon, CheckIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import {
+  XMarkIcon,
+  CheckIcon,
+  EyeIcon,
+  EyeSlashIcon,
+} from "@heroicons/react/24/solid";
+
 
 const RegisterScreen = () => {
+  const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
-  const router = useRouter();
+
   useEffect(() => {
     if (userInfo) {
       router.push("/");
     }
   }, [router, userInfo]);
 
+  
+  
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [satisfyCapital, setSatisfyCapital] = useState(false);
+  const [satisfyNumber, setSatisfyNumber] = useState(false);
+  const [satisfySpecial, setSatisfySpecial] = useState(false);
+  const [satisfyLength, setSatisfyLength] = useState(false);
+
+  const capital = new RegExp("(?=.*[A-Z])");
+  const number = new RegExp("(?=.*[0-9])");
+  const special = new RegExp("(?=.*[!@#$%^&*])");
+  const length = new RegExp("(?=.{8,})");
 
   const {
     handleSubmit,
     register,
+    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -38,11 +57,13 @@ const RegisterScreen = () => {
   });
 
   const handlePasswordShowHide = () => {
-    setShowPassword(!showPassword)
+    setShowPassword(!showPassword);
   };
   const handlePasswordConfirmShowHide = () => {
-    setShowPasswordConfirm(!showPasswordConfirm)
+    setShowPasswordConfirm(!showPasswordConfirm);
   };
+
+  const {enqueueSnackbar} = useSnackbar();
 
   const submitHandler = async ({
     firstName,
@@ -85,14 +106,14 @@ const RegisterScreen = () => {
               <h1 className="mb-1"> First Name</h1>
               <input
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
-                type='text'
+                type="text"
                 {...register("firstName", {
-                  required: "This is required",
+                  required: "Required",
                   minLength: { value: 2, message: "Minimum length is 2" },
                 })}
               />
               {errors.firstName ? (
-                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                <p className="bg-transparent border-red-600 border-[1px] rounded-md py-1 text-stone-700 ">
                   {errors.firstName?.message}
                 </p>
               ) : (
@@ -103,9 +124,9 @@ const RegisterScreen = () => {
               <h1 className="mb-1"> Last Name</h1>
               <input
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
-                type='text'
+                type="text"
                 {...register("lastName", {
-                  required: "This is required",
+                  required: "Required",
                   minLength: { value: 2, message: "Minimum length is 2" },
                 })}
               />
@@ -144,9 +165,15 @@ const RegisterScreen = () => {
             <div>
               <input
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
-                type={showPassword? "text" : "password"}
+                type={showPassword ? "text" : "password"}
                 {...register("password", {
                   required: "This is required",
+                  validate: {
+                    includesCapital: (v) => capital.test(v) || "Password must include a capital letter", 
+                    includesNumber: (v) => number.test(v) || "Password must include a number",
+                    includesSpecial: (v) => special.test(v) || "Password must include a special character",
+                    includesLength: (v) => length.test(v) || "Password must be at least 8 characters long",
+                  },
                 })}
               />
               {errors.password ? (
@@ -156,13 +183,12 @@ const RegisterScreen = () => {
               ) : (
                 ""
               )}
-              <div className='flex gap-5 opacity-90 text-gray-500'>
+              {/* <div className="flex gap-5 opacity-90 text-gray-500">
                 <div>
                   <p
                     id="capital"
                     className="flex text-[.5rem] font-mono gap-[.2rem] py-[.2rem]"
                   >
-                    
                     <CheckIcon className="h-3 w-3 opacity-0" />
                     <XMarkIcon className="h-3 w-3 opacity-1" />
                     Capital Letter
@@ -194,21 +220,20 @@ const RegisterScreen = () => {
                     8+ Characters
                   </p>
                 </div>
-              </div>
+              </div> */}
             </div>
-            {showPassword? (
-            <EyeIcon
-              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
-              id="show-hide"
-              onClick={handlePasswordShowHide}
-            />
+            {showPassword ? (
+              <EyeIcon
+                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                id="show-hide"
+                onClick={handlePasswordShowHide}
+              />
             ) : (
               <EyeSlashIcon
-              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
-              id="show-hide"
-              onClick={handlePasswordShowHide}
-            />
-
+                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                id="show-hide"
+                onClick={handlePasswordShowHide}
+              />
             )}
           </div>
 
@@ -217,7 +242,7 @@ const RegisterScreen = () => {
             <div>
               <input
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
-                type={showPasswordConfirm? "text" : "password"}
+                type={showPasswordConfirm ? "text" : "password"}
                 {...register("confirmPassword")}
               />
               {errors.confirmPassword ? (
@@ -228,18 +253,18 @@ const RegisterScreen = () => {
                 ""
               )}
             </div>
-            {showPasswordConfirm? (
-            <EyeIcon
-              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
-              id="show-hide"
-              onClick={handlePasswordConfirmShowHide}
-            />
+            {showPasswordConfirm ? (
+              <EyeIcon
+                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                id="show-hide"
+                onClick={handlePasswordConfirmShowHide}
+              />
             ) : (
               <EyeSlashIcon
-              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
-              id="show-hide"
-              onClick={handlePasswordConfirmShowHide}
-            />
+                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                id="show-hide"
+                onClick={handlePasswordConfirmShowHide}
+              />
             )}
           </div>
           <button
