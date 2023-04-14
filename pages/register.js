@@ -6,12 +6,11 @@ import Link from "next/link";
 import { useRouter } from "next/router";
 import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
-import { useEffect, useContext } from "react";
+import { useEffect, useContext, useState } from "react";
 import jsCookie from "js-cookie";
-import { XMarkIcon, CheckIcon, EyeIcon } from "@heroicons/react/24/solid";
+import { XMarkIcon, CheckIcon, EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 
 const RegisterScreen = () => {
-  
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
   const router = useRouter();
@@ -20,6 +19,9 @@ const RegisterScreen = () => {
       router.push("/");
     }
   }, [router, userInfo]);
+
+  const [showPassword, setShowPassword] = useState(false);
+  const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
   const {
     handleSubmit,
@@ -35,13 +37,20 @@ const RegisterScreen = () => {
     },
   });
 
-  const { enqueueSnackbar } = useSnackbar();
+  const handlePasswordShowHide = () => {
+    setShowPassword(!showPassword)
+  };
+  const handlePasswordConfirmShowHide = () => {
+    setShowPasswordConfirm(!showPasswordConfirm)
+  };
 
-  const showHide = () => {
-
-  }
-
-  const submitHandler = async ({ firstName, lastName, email, password, confirmPassword }) => {
+  const submitHandler = async ({
+    firstName,
+    lastName,
+    email,
+    password,
+    confirmPassword,
+  }) => {
     if (password !== confirmPassword) {
       enqueueSnackbar("Passwords don't match", { variant: "error" });
       return;
@@ -75,90 +84,163 @@ const RegisterScreen = () => {
             <div>
               <h1 className="mb-1"> First Name</h1>
               <input
-                className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent"
-                id="firstName"
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
+                type='text'
                 {...register("firstName", {
                   required: "This is required",
                   minLength: { value: 2, message: "Minimum length is 2" },
                 })}
               />
-              {errors.firstName? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.firstName?.message}</p> : '' }
-              
+              {errors.firstName ? (
+                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                  {errors.firstName?.message}
+                </p>
+              ) : (
+                ""
+              )}
             </div>
             <div>
               <h1 className="mb-1"> Last Name</h1>
               <input
-                className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent"
-                id="lastName"
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
+                type='text'
                 {...register("lastName", {
                   required: "This is required",
                   minLength: { value: 2, message: "Minimum length is 2" },
                 })}
               />
-              {errors.lastName? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.lastName?.message}</p> : '' }
+              {errors.lastName ? (
+                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                  {errors.lastName?.message}
+                </p>
+              ) : (
+                ""
+              )}
             </div>
           </div>
 
           <h1 className="mb-1">Email</h1>
           <input
-            className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none focus:ring-0 focus:border-transparent w-[24.2rem]"
-            id="email"
+            className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+            type="email"
             {...register("email", {
               required: "This is required",
-              pattern: { value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/, message: "Please enter a valid email address"}
+              pattern: {
+                value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
+                message: "Please enter a valid email address",
+              },
             })}
           />
-          {errors.email? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.email?.message}</p> : '' }
+          {errors.email ? (
+            <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+              {errors.email?.message}
+            </p>
+          ) : (
+            ""
+          )}
 
           <h1 className="mb-1">Password</h1>
-          <div className='flex gap-2'>
+          <div className="flex gap-2">
             <div>
-          <input
-            className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none w-[24.2rem]"
-            id="password"
-            {...register("password", {
-              required: "This is required",
-            
-            })}
-          />
-          {errors.password? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.password?.message}</p> : '' }
-          <p id='capital' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
-            <XMarkIcon className='h-3 w-3' />
-            <CheckIcon className='h-3 w-3' />
-            Capital Letter
-          </p>
-          <p id='char' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
-            <XMarkIcon className='h-3 w-3' />
-            <CheckIcon className='h-3 w-3' />
-            Special Character
-          </p>
-          <p id='number' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
-            <XMarkIcon className='h-3 w-3' />
-            <CheckIcon className='h-3 w-3' />
-            Number
-          </p>
-          <p id='length' className='flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]'>
-            <XMarkIcon className='h-3 w-3' />
-            <CheckIcon className='h-3 w-3' />
-            8+ Characters
-          </p>
-          </div>
-          <EyeIcon className='w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem]' id='show-hide' onClick={showHide}/>
-          </div>
-          
-          <h1 className="mb-1">Confirm Password</h1>
-          <div className='flex gap-2'>
-            <div>
-            <input
-            className="bg-transparent border-b-2 border-primary mb-3 p-2 rounded-sm focus:bg-none w-[24.2rem]"
-            id="confirmPassword"
-            label="Confirm Password"
-            {...register("confirmPassword", 
+              <input
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+                type={showPassword? "text" : "password"}
+                {...register("password", {
+                  required: "This is required",
+                })}
+              />
+              {errors.password ? (
+                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                  {errors.password?.message}
+                </p>
+              ) : (
+                ""
+              )}
+              <div className='flex gap-5 opacity-90 text-gray-500'>
+                <div>
+                  <p
+                    id="capital"
+                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.2rem]"
+                  >
+                    
+                    <CheckIcon className="h-3 w-3 opacity-0" />
+                    <XMarkIcon className="h-3 w-3 opacity-1" />
+                    Capital Letter
+                  </p>
+                  <p
+                    id="char"
+                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]"
+                  >
+                    <CheckIcon className="h-3 w-3 opacity-0" />
+                    <XMarkIcon className="h-3 w-3 opacity-1" />
+                    Special Character
+                  </p>
+                </div>
+                <div>
+                  <p
+                    id="number"
+                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.2rem]"
+                  >
+                    <CheckIcon className="h-3 w-3 opacity-0" />
+                    <XMarkIcon className="h-3 w-3 opacity-1" />
+                    Number
+                  </p>
+                  <p
+                    id="length"
+                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]"
+                  >
+                    <CheckIcon className="h-3 w-3 opacity-0" />
+                    <XMarkIcon className="h-3 w-3 opacity-1" />
+                    8+ Characters
+                  </p>
+                </div>
+              </div>
+            </div>
+            {showPassword? (
+            <EyeIcon
+              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+              id="show-hide"
+              onClick={handlePasswordShowHide}
+            />
+            ) : (
+              <EyeSlashIcon
+              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+              id="show-hide"
+              onClick={handlePasswordShowHide}
+            />
+
             )}
-          />
-          {errors.confirmPassword? <p className='bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center'>{errors.confirmPassword?.message}</p> : '' }
           </div>
-          <EyeIcon className='w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem]' id='show-hide-two' onClick={showHide}/>
+
+          <h1 className="mb-1">Confirm Password</h1>
+          <div className="flex gap-2">
+            <div>
+              <input
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+                type={showPasswordConfirm? "text" : "password"}
+                {...register("confirmPassword")}
+              />
+              {errors.confirmPassword ? (
+                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                  {errors.confirmPassword?.message}
+                </p>
+              ) : (
+                ""
+              )}
+            </div>
+            {showPasswordConfirm? (
+            <EyeIcon
+              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+              id="show-hide"
+              onClick={handlePasswordConfirmShowHide}
+            />
+            ) : (
+              <EyeSlashIcon
+              className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+              id="show-hide"
+              onClick={handlePasswordConfirmShowHide}
+            />
+            )}
           </div>
           <button
             className="bg-primary rounded-sm mt-2 px-10 py-2 hover:bg-primary/80 mb-8"
