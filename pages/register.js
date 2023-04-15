@@ -4,7 +4,6 @@ import { Store } from "@/utils/Store";
 import axios from "axios";
 import Link from "next/link";
 import { useRouter } from "next/router";
-import { useSnackbar } from "notistack";
 import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import jsCookie from "js-cookie";
@@ -56,8 +55,6 @@ const RegisterScreen = () => {
   const handlePasswordConfirmShowHide = () => {
     setShowPasswordConfirm(!showPasswordConfirm);
   };
-
-  const {enqueueSnackbar} = useSnackbar();
 
   const submitHandler = async ({
     firstName,
