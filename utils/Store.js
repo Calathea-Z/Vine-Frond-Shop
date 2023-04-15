@@ -36,7 +36,7 @@ function reducer(state, action) {
       Cookies.set("cartItems", JSON.stringify(cartItems));
       return { ...state, cart: { ...state.cart, cartItems } };
     }
-    case "User_LOGIN": {
+    case "USER_LOGIN": {
       return{ ...state, userInfo: action.payload }
     }
     default:

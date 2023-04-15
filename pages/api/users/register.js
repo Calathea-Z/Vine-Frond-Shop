@@ -7,6 +7,7 @@ import { signToken } from "@/utils/auth";
 const handler = nc();
 
 handler.post(async (req, res) => {
+  console.log("hit handler")
   const projectId = client.projectId;
   const dataset = client.dataset;
   const apiVersion = client.apiVersion;
@@ -15,7 +16,8 @@ handler.post(async (req, res) => {
     {
       create: {
         _type: "user",
-        name: req.body.name,
+        firstName: req.body.firstName,
+        lastName: req.body.lastName,
         email: req.body.email,
         password: bcrypt.hashSync(req.body.password),
         isAdmin: false,
@@ -24,8 +26,9 @@ handler.post(async (req, res) => {
     },
   ];
   const { data } = await axios.post(
-    `https://${projectId}.api.sanity.io/${apiVersion}/data/mutate/${dataset}?returnIds=true`, {
-      mutations: createMutations
+    `https://${projectId}.api.sanity.io/v${apiVersion}/data/mutate/${dataset}`,
+    {
+      mutations: createMutations,
     },
     {
       headers: {
@@ -37,12 +40,15 @@ handler.post(async (req, res) => {
   const userId = data.results[0].id;
   const user = {
     _id: userId,
-    name: req.body.name,
+    firstName: req.body.firstName,
+    lastName: req.body.lastName,
     email: req.body.email,
-    isWholesale: req.body.isWholesale,
-    isAdmin: req.body.isAdmin,
+    isWholesale: false,
+    isAdmin: false,
   };
 
   const token = signToken(user);
   res.send({ ...user, token });
 });
+
+export default handler;

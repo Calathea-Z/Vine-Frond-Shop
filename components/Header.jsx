@@ -5,7 +5,7 @@ import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import { motion } from "framer-motion";
 import { useState } from "react";
-import { Menu, Transition } from "@headlessui/react";
+import { Menu } from "@headlessui/react";
 import {
   MagnifyingGlassIcon,
   ShoppingBagIcon,

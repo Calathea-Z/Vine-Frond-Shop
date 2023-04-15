@@ -7,13 +7,11 @@ import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import jsCookie from "js-cookie";
-import {
-  EyeIcon,
-  EyeSlashIcon,
-} from "@heroicons/react/24/solid";
-
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { useSnackbar } from "notistack";
 
 const RegisterScreen = () => {
+  const { enqueueSnackbar }  = useSnackbar();
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
@@ -24,8 +22,6 @@ const RegisterScreen = () => {
     }
   }, [router, userInfo]);
 
-  
-  
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
 
@@ -37,7 +33,6 @@ const RegisterScreen = () => {
   const {
     handleSubmit,
     register,
-    watch,
     formState: { errors },
   } = useForm({
     defaultValues: {
@@ -68,17 +63,19 @@ const RegisterScreen = () => {
       return;
     }
     try {
-      const { data } = await axios.post("/api/users/register", {
+      const { data } = await axios.post(`/api/users/register`, {
         firstName,
         lastName,
         email,
         password,
       });
+      console.log("hit success")
       dispatch({ type: "USER_LOGIN", payload: data });
       jsCookie.set("userInfo", JSON.stringify(data));
       router.push("/");
     } catch (err) {
-      enqueueSnackbar(err.message, { variant: "error" });
+      console.log(err.message)
+      enqueueSnackbar("Something went wrong, please try again.", { variant: "error" });
     }
   };
   return (
@@ -87,9 +84,7 @@ const RegisterScreen = () => {
       <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
         <h1 className="self-center px-10 py-5 text-4xl">Register</h1>
         <form
-          onSubmit={handleSubmit((data) => {
-            console.log(data);
-          })}
+          onSubmit={handleSubmit(submitHandler)}
           className="flex flex-col p-5 "
         >
           <div className="flex justify-start items-start gap-4">
@@ -160,10 +155,17 @@ const RegisterScreen = () => {
                 {...register("password", {
                   required: "Required",
                   validate: {
-                    includesCapital: (v) => capital.test(v) || "Password must include a capital letter", 
-                    includesNumber: (v) => number.test(v) || "Password must include a number",
-                    includesSpecial: (v) => special.test(v) || "Password must include a special character",
-                    includesLength: (v) => length.test(v) || "Password must be at least 8 characters long",
+                    includesCapital: (v) =>
+                      capital.test(v) ||
+                      "Password must include a capital letter",
+                    includesNumber: (v) =>
+                      number.test(v) || "Password must include a number",
+                    includesSpecial: (v) =>
+                      special.test(v) ||
+                      "Password must include a special character",
+                    includesLength: (v) =>
+                      length.test(v) ||
+                      "Password must be at least 8 characters long",
                   },
                 })}
               />
@@ -196,9 +198,9 @@ const RegisterScreen = () => {
               <input
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
                 type={showPasswordConfirm ? "text" : "password"}
-                {...register("confirmPassword",
-                {
-                  required: "Required",})}
+                {...register("confirmPassword", {
+                  required: "Required",
+                })}
               />
               {errors.confirmPassword ? (
                 <p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] w-max text-center mb-1">
