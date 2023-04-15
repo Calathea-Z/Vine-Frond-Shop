@@ -66,7 +66,7 @@ const Header = () => {
           </div>
            </Link>
         ) : (
-          <Link href="/login" passHref className='hover-underline-animation'>
+          <Link href="/login" passHref className='w-[2.5rem] hover-underline-animation text-xs'>
             Log In
           </Link>
         )}
