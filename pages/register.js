@@ -9,8 +9,6 @@ import { useForm } from "react-hook-form";
 import { useEffect, useContext, useState } from "react";
 import jsCookie from "js-cookie";
 import {
-  XMarkIcon,
-  CheckIcon,
   EyeIcon,
   EyeSlashIcon,
 } from "@heroicons/react/24/solid";
@@ -31,10 +29,6 @@ const RegisterScreen = () => {
   
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
-  const [satisfyCapital, setSatisfyCapital] = useState(false);
-  const [satisfyNumber, setSatisfyNumber] = useState(false);
-  const [satisfySpecial, setSatisfySpecial] = useState(false);
-  const [satisfyLength, setSatisfyLength] = useState(false);
 
   const capital = new RegExp("(?=.*[A-Z])");
   const number = new RegExp("(?=.*[0-9])");
@@ -113,7 +107,7 @@ const RegisterScreen = () => {
                 })}
               />
               {errors.firstName ? (
-                <p className="bg-transparent border-red-600 border-[1px] rounded-md py-1 text-stone-700 ">
+                <p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] w-max text-center mb-1">
                   {errors.firstName?.message}
                 </p>
               ) : (
@@ -131,7 +125,7 @@ const RegisterScreen = () => {
                 })}
               />
               {errors.lastName ? (
-                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                <p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] text-center w-max mb-1">
                   {errors.lastName?.message}
                 </p>
               ) : (
@@ -145,7 +139,7 @@ const RegisterScreen = () => {
             className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
             type="email"
             {...register("email", {
-              required: "This is required",
+              required: "Required",
               pattern: {
                 value: /^[A-Za-z0-9._%+-]+@[a-z0-9.-]+\.[a-z]{2,4}$/,
                 message: "Please enter a valid email address",
@@ -153,7 +147,7 @@ const RegisterScreen = () => {
             })}
           />
           {errors.email ? (
-            <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+            <p className=" bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] text-center w-max mb-1">
               {errors.email?.message}
             </p>
           ) : (
@@ -167,7 +161,7 @@ const RegisterScreen = () => {
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
-                  required: "This is required",
+                  required: "Required",
                   validate: {
                     includesCapital: (v) => capital.test(v) || "Password must include a capital letter", 
                     includesNumber: (v) => number.test(v) || "Password must include a number",
@@ -177,50 +171,12 @@ const RegisterScreen = () => {
                 })}
               />
               {errors.password ? (
-                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                <p className="bg-primary border-transparent rounded-md p-[.2rem] mb-1 text-black font-sans text-[.6rem] w-max text-center">
                   {errors.password?.message}
                 </p>
               ) : (
                 ""
               )}
-              {/* <div className="flex gap-5 opacity-90 text-gray-500">
-                <div>
-                  <p
-                    id="capital"
-                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.2rem]"
-                  >
-                    <CheckIcon className="h-3 w-3 opacity-0" />
-                    <XMarkIcon className="h-3 w-3 opacity-1" />
-                    Capital Letter
-                  </p>
-                  <p
-                    id="char"
-                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]"
-                  >
-                    <CheckIcon className="h-3 w-3 opacity-0" />
-                    <XMarkIcon className="h-3 w-3 opacity-1" />
-                    Special Character
-                  </p>
-                </div>
-                <div>
-                  <p
-                    id="number"
-                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.2rem]"
-                  >
-                    <CheckIcon className="h-3 w-3 opacity-0" />
-                    <XMarkIcon className="h-3 w-3 opacity-1" />
-                    Number
-                  </p>
-                  <p
-                    id="length"
-                    className="flex text-[.5rem] font-mono gap-[.2rem] py-[.1rem]"
-                  >
-                    <CheckIcon className="h-3 w-3 opacity-0" />
-                    <XMarkIcon className="h-3 w-3 opacity-1" />
-                    8+ Characters
-                  </p>
-                </div>
-              </div> */}
             </div>
             {showPassword ? (
               <EyeIcon
@@ -243,10 +199,12 @@ const RegisterScreen = () => {
               <input
                 className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
                 type={showPasswordConfirm ? "text" : "password"}
-                {...register("confirmPassword")}
+                {...register("confirmPassword",
+                {
+                  required: "Required",})}
               />
               {errors.confirmPassword ? (
-                <p className="bg-yellow-400 border-red-600 border-[1px] py-1 text-stone-700 rounded-sm text-center">
+                <p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] w-max text-center mb-1">
                   {errors.confirmPassword?.message}
                 </p>
               ) : (
@@ -268,7 +226,7 @@ const RegisterScreen = () => {
             )}
           </div>
           <button
-            className="bg-primary rounded-sm mt-2 px-10 py-2 hover:bg-primary/80 mb-8"
+            className="bg-primary rounded-sm mt-2 px-10 py-2 font-sans hover:bg-primary/80 mb-8"
             type="submit"
           >
             Register!
