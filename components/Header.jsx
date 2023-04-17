@@ -5,6 +5,8 @@ import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import { motion } from "framer-motion";
 import { useState } from "react";
+import jsCookie from "js-cookie";
+import { useRouter } from "next/router";
 import { Menu } from "@headlessui/react";
 import {
   MagnifyingGlassIcon,
@@ -16,9 +18,18 @@ import { useContext } from "react";
 import { Store } from "@/utils/Store";
 
 const Header = () => {
+  const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { userInfo, cart } = state;
   const [active, setActive] = useState("");
+
+  const logOutHandler = () => {
+    dispatch({ type: 'USER_LOGOUT'});
+    jsCookie.remove('userInfo');
+    jsCookie.remove('cartItems');
+    router.push('/')
+
+  }
 
   return (
     <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20">
@@ -59,6 +70,7 @@ const Header = () => {
       {/*------------------- Right Nav       */}
       <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
         {userInfo ? (
+          <div>
           <Link href="/profile" passHref>
             {" "}
             <div className="flex flex-col">
@@ -66,6 +78,10 @@ const Header = () => {
               <p>{userInfo.name}</p>
             </div>
           </Link>
+          <button className='border-[1px]'onClick={logOutHandler}>
+            Log Out
+          </button>
+          </div>
         ) : (
           <Link
             href="/login"
