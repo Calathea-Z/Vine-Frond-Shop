@@ -22,6 +22,18 @@ export default async function handler(req, res) {
       await user.save();
       console.log("Registration Successful");
       res.status(201).json({ success: true, data: user });
+      
+      const newUser = {
+        _id: data._id,
+        firstName: data.firstName,
+        lastName: data.lastName,
+        email: data.email,
+        isAdmin: false, 
+        isWholesale: false,
+      }
+
+      const token = signToken(newUser);
+      res.send({...user, token})
     } catch (error) {
       res.status(400).json({ success: false });
     }

@@ -1,32 +1,74 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { Store } from "@/utils/Store";
+import axios from "axios";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { useForm } from "react-hook-form";
-import { useState } from "react";
+import { useEffect, useContext, useState } from "react";
+import jsCookie from "js-cookie";
+import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
+import { useSnackbar } from "notistack";
 
 const LoginScreen = () => {
+  const { enqueueSnackbar }  = useSnackbar();
+  const router = useRouter();
+  const { state, dispatch } = useContext(Store);
+  const { userInfo } = state;
+
+  // useEffect(() => {
+  //   if (userInfo) {
+  //     router.push("/");
+  //   }
+  // }, [router, userInfo]);
+
+  const [showPassword, setShowPassword] = useState(false);
+
   const {
     handleSubmit,
     register,
     formState: { errors },
-  } = useForm();
-
-  const [showPassword, setShowPassword] = useState(false);
+  } = useForm({
+    defaultValues: {
+      email: "",
+      password: "",
+    },
+  });
 
   const handlePasswordShowHide = () => {
     setShowPassword(!showPassword);
   };
 
-  const submitHandler = async ({email, password}) => {};
+  const submitHandler = async ({
+    email,
+    password,
+  }) => {
+    try {
+      const { data } = await axios.post(`/api/users/register`, {
+        email,
+        password,
+      });
+      console.log("hit success")
+      dispatch({ type: "USER_LOGIN", payload: data });
+      jsCookie.set("userInfo", JSON.stringify(data));
+      router.push("/");
+    } catch (err) {
+      console.log(err.message)
+      enqueueSnackbar("Something went wrong, please try again.", { variant: "error" });
+    }
+  };
   return (
-    <div>
+    <div className="flex flex-col">
       <Header />
-      <div className="bg-[#fdf9f5] flex flex-col h-screen p-8">
-        <h1 className="self-center p-3 text-4xl">Login</h1>
-        <form onSubmit={handleSubmit(submitHandler)} className="flex flex-col p-5 ">
-          <h1 className='mb-5'>Email</h1>
+      <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
+        <h1 className="self-center px-10 py-5 text-4xl">Register</h1>
+        <form
+          onSubmit={handleSubmit(submitHandler)}
+          className="flex flex-col p-5 "
+        >
+          <h1 className="mb-1">Email</h1>
           <input
-            className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-full"
+            className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
             type="email"
             {...register("email", {
               required: "Required",
@@ -43,25 +85,47 @@ const LoginScreen = () => {
           ) : (
             ""
           )}
-          <h1 className='mb-5'>Password</h1>
-          <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-full"
+          <h1 className="mb-1">Password</h1>
+          <div className="flex gap-2">
+            <div>
+              <input
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
                 type={showPassword ? "text" : "password"}
-                {...register("password",
-                {
-                  required: "Required",})}
+                {...register("password", {
+                  required: "Required",
+                })}
               />
               {errors.password ? (
-                <p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] w-max text-center mb-1">
+                <p className="bg-primary border-transparent rounded-md p-[.2rem] mb-1 text-black font-sans text-[.6rem] w-max text-center">
                   {errors.password?.message}
                 </p>
               ) : (
                 ""
               )}
-          <button className='bg-primary rounded-sm mt-2 px-10 py-2 hover:bg-primary/80 mb-8 font-sans' type='submit'>Sign In</button>
+            </div>
+            {showPassword ? (
+              <EyeIcon
+                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                id="show-hide"
+                onClick={handlePasswordShowHide}
+              />
+            ) : (
+              <EyeSlashIcon
+                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                id="show-hide"
+                onClick={handlePasswordShowHide}
+              />
+            )}
+          </div>
+          <button
+            className="bg-primary rounded-sm mt-2 px-10 py-2 font-sans hover:bg-primary/80 mb-8"
+            type="submit"
+          >
+            Login
+          </button>
           <div>
-            <Link href="/register" passHref className='text-sm hover:opacity-70'>
-              Create account
+            <Link href="/login" passHref className="text-sm hover:opacity-70">
+              Create Account
             </Link>
           </div>
         </form>

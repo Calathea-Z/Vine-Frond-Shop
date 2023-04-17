@@ -14,11 +14,10 @@ import {
 } from "@heroicons/react/24/solid";
 import { useContext } from "react";
 import { Store } from "@/utils/Store";
-import jsCookie from 'js-cookie';
 
 const Header = () => {
   const { state, dispatch } = useContext(Store);
-  const { userInfo } = state;
+  const { userInfo, cart } = state;
   const [active, setActive] = useState("");
 
   return (
@@ -60,13 +59,19 @@ const Header = () => {
       {/*------------------- Right Nav       */}
       <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
         {userInfo ? (
-         <Link href='/profile' passHref> <div className="flex flex-col">
-            <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
-            <p>{userInfo.name}</p>
-          </div>
-           </Link>
+          <Link href="/profile" passHref>
+            {" "}
+            <div className="flex flex-col">
+              <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+              <p>{userInfo.name}</p>
+            </div>
+          </Link>
         ) : (
-          <Link href="/login" passHref className='w-[2.5rem] hover-underline-animation text-xs'>
+          <Link
+            href="/login"
+            passHref
+            className="w-[2.5rem] hover-underline-animation text-xs"
+          >
             Log In
           </Link>
         )}
