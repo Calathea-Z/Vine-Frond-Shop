@@ -61,7 +61,7 @@ const Footer = () => {
       </div>
       <Link
         href="https://zach-sykes.com"
-        className="text-xs hover-underline-animation"
+        className="text-xs hover-underline-animation mt-4"
       >
         Website by Calathea Designs
       </Link>
