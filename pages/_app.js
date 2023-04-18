@@ -7,7 +7,7 @@ export default function App({ Component, pageProps, session }) {
   return (
     <SessionProvider session={session}>
       <SnackbarProvider
-        anchorOrigin={{ vertical: "top", horizontal: "center" }}
+        anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         autoHideDuration={3000}
       >
         <StoreProvider>

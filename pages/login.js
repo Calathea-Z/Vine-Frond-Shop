@@ -9,6 +9,7 @@ import { useEffect, useContext, useState } from "react";
 import jsCookie from "js-cookie";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useSnackbar } from "notistack";
+import { getError } from "@/utils/error";
 
 const LoginScreen = () => {
   const { enqueueSnackbar }  = useSnackbar();
@@ -53,8 +54,7 @@ const LoginScreen = () => {
       jsCookie.set("userInfo", JSON.stringify(data));
       router.push("/");
     } catch (err) {
-      console.log(err.message)
-      enqueueSnackbar("Something went wrong, please try again.", { variant: "error" });
+      enqueueSnackbar(getError(err), { variant: "error" });
     }
   };
   return (

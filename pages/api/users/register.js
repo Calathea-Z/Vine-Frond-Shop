@@ -13,6 +13,10 @@ export default async function handler(req, res) {
   await dbConnect();
 
   if (req.method === "POST") {
+    const userExist = await User.findOne({ email: req.body.email });
+    if (userExist) {
+      return res.status(401).send({ message: 'Email already exists' });
+    }
     try {
       const user = await User.create({
         firstName,
