@@ -2,12 +2,13 @@ import dbConnect from "@/lib/mongoDBConnect";
 import User from "@/mongoModels/User";
 import bcrypt from "bcrypt";
 
+
 export default async function handler(req, res) {
   const { firstName, lastName, email, password } = req.body;
 
   //Encrypt the password
-  const salt = await bcrypt.genSalt(10);
-  const hashedPassword = await bcrypt.hash(password, salt);
+  const salt = bcrypt.genSaltSync(10);
+  const hashedPassword = bcrypt.hashSync(password, salt);
 
   await dbConnect();
 
@@ -16,6 +17,7 @@ export default async function handler(req, res) {
       const user = await User.create({
         firstName,
         lastName,
+        salt,
         email,
         password: hashedPassword,
       });
@@ -28,6 +30,7 @@ export default async function handler(req, res) {
         firstName: data.firstName,
         lastName: data.lastName,
         email: data.email,
+        salt: salt,
         isAdmin: false, 
         isWholesale: false,
       }
@@ -40,6 +43,4 @@ export default async function handler(req, res) {
   } else {
     res.status(400).json({ success: false });
   }
-
-  const userId = data
 }
