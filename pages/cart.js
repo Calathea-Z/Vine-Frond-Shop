@@ -9,7 +9,6 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 
-
 const CartScreen = () => {
   const {
     state: {
@@ -17,33 +16,33 @@ const CartScreen = () => {
     },
     dispatch,
   } = useContext(Store);
-  console.log(cartItems)
+  console.log(cartItems);
   const { enqueueSnackbar } = useSnackbar();
 
   const updateCartHandler = async (item, quantity) => {
     const { data } = await axios.get(`/api/allproducts/${item._id}`);
     if (data.countInStock < quantity) {
-      enqueueSnackbar('Sorry. Product is out of stock', { variant: 'error' });
+      enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
       return;
     }
     dispatch({
-      type: 'CART_ADD_ITEM',
+      type: "CART_ADD_ITEM",
       payload: {
         _key: item._key,
         name: item.name,
         countInStock: item.countInStock,
         slug: item.slug.current,
         price: item.price,
-      photo: item.photo,
-      quantity,
-    },
+        photo: item.photo,
+        quantity,
+      },
     });
-    enqueueSnackbar(`${item.name} Cart Updated!`, { variant: 'success' },);
+    enqueueSnackbar(`${item.name} Cart Updated!`, { variant: "success" });
   };
 
   const removeItemHandler = (item) => {
-    dispatch({type: 'CART_REMOVE_ITEM', payload: item});
-  }
+    dispatch({ type: "CART_REMOVE_ITEM", payload: item });
+  };
 
   return (
     <div>
@@ -54,12 +53,18 @@ const CartScreen = () => {
 
       <div className="grid grid-col-2 grid-rows-auto p-10 bg-[#fdf9f5]">
         {cartItems.length === 0 ? (
-          <div className="flex justify-center items-center">
-            <h1>Cart Is Empty</h1>
-            <Link href="/allproducts">Go Shopping!</Link>
+          <div className="flex flex-col justify-center col-span-2 items-center">
+            <h1 className="self-start pl-2 text-md">...Your cart is empty</h1>
+            <Link
+              href="/allproducts"
+              pasHref
+              className="font-sans text-xl p-5 border-primary w-full text-center hover:bg-primary/40"
+            >
+              Shop
+            </Link>
           </div>
         ) : (
-          <div className="grid grid-cols-2 justify-center items-center px-12 py-2">
+          <div className="grid grid-cols-2 justify-center items-center gap-x-8 px-12 py-2">
             <div className="flex flex-col  gap-2">
               {cartItems.map((item, index) => (
                 <div
@@ -69,8 +74,8 @@ const CartScreen = () => {
                   <div className="flex justify-center items-center hover:opacity-80">
                     <Link href={`/allproducts/${item.slug}`} passHref>
                       <Image
-                      src={urlFor(item.photo[0].asset._ref).url()}
-                      alt={item.name}
+                        src={urlFor(item.photo[0].asset._ref).url()}
+                        alt={item.name}
                         width={90}
                         height={90}
                         className="rounded-sm"
@@ -78,12 +83,16 @@ const CartScreen = () => {
                     </Link>
                   </div>
                   <div>
-                    <Link href={`/allproducts/${item.slug}`} passHref className='text-sm hover:opacity-80'>
+                    <Link
+                      href={`/allproducts/${item.slug}`}
+                      passHref
+                      className="text-sm hover:opacity-80"
+                    >
                       {item.name}
                     </Link>
-                    <p className='text-sm p-1'>$ {item.price}</p>
+                    <p className="text-sm p-1">$ {item.price}</p>
                   </div>
-                  <div className='flex justify-center items-center'>
+                  <div className="flex justify-center items-center">
                     <form className="bg-transparent focus:underline-0 focus:ring-0 flex flex-col gap-1">
                       <input
                         type="number"
@@ -97,7 +106,10 @@ const CartScreen = () => {
                           updateCartHandler(item, e.target.value)
                         }
                       />
-                      <button className='text-[.55rem] rounded-md hover:bg-primary/20' onClick={() => removeItemHandler(item)}>
+                      <button
+                        className="text-[.55rem] rounded-md hover:bg-primary/20"
+                        onClick={() => removeItemHandler(item)}
+                      >
                         Remove
                       </button>
                     </form>
@@ -105,21 +117,29 @@ const CartScreen = () => {
                 </div>
               ))}
             </div>
-            <div className="flex flex-col items-center self-start">
-              <p>Check Out Steps</p>
+            <div>
+              {cartItems.length ? (
+                <div className="p-2 flex-col">
+                  <h1 className='font-sans'>
+                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
+                    items) : $
+                    {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+                  </h1>
+                  <button className="col-span-2 bg-primary rounded-md font-sans mt-2 px-10 py-2 hover:opacity-80">
+                    Check Out
+                  </button>
+                </div>
+              ) : (
+                " "
+              )}
             </div>
           </div>
         )}
-        <div className='col-span-2 border border-primary' />
-        <div className='p-2'>
-          <h1>Subtotal ({" "}{cartItems.reduce((a, c) => a + c.quantity, 0)}{" "} items{" "}) : $ {" "}{cartItems.reduce((a, c) => a + c.quantity * c.price, 0)} </h1>
-        </div>
-        <button className='col-span-2 bg-primary rounded-sm mt-2 px-10 py-2 hover:bg-primary/80'>Check Out</button>
-        
+        <div className="col-span-2 border border-primary" />
+        <Link href='/allproducts' className='text-sm font-sans py-2 px-1 mt-2 ml-2 rounded-md bg-primary w-[5rem] hover:opacity-80'>Add More!</Link>
       </div>
       <Footer />
     </div>
   );
 };
-export default dynamic(() => Promise.resolve(CartScreen), {ssr: false})
-
+export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

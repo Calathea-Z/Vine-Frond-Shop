@@ -33,22 +33,26 @@ const Header = () => {
   return (
     <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20">
       {/*------------------- Left Logo */}
+      <Link
+          href="/"
+          className=" flex items-center max-w-xl mx-auto justify-start"
+        >
       <motion.div
         animate={{ x: 0, rotate: 5 }}
         initial={{ x: -100, rotate: -25 }}
         transition={{ duration: 3 }}
       >
-        <Link
-          href="/"
-          className=" flex items-center max-w-xl mx-auto justify-start"
-        >
+        
           <Image
             src={simpleLogo}
             alt="Vine & Frond logo"
             className="content-fill w-[85px] min-w-[90px] h-[90px] sm:w-[140px] sm:min-w-[114px] sm:h-[140px] flex-initial"
           />
-        </Link>
+        
       </motion.div>
+      </Link>
+
+
 
       {/*------------------- Middle Menu       */}
       <div className="w-full space-x-4 flex items-center justify-center text-slate-600">
@@ -66,6 +70,9 @@ const Header = () => {
           ))}
         </ul>
       </div>
+
+
+
       {/*------------------- Right Nav       */}
       <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
         {userInfo ? (
@@ -104,6 +111,7 @@ const Header = () => {
             </Menu>
           </div>
         ) : (
+          <div>
           <Link
             href="/login"
             passHref
@@ -111,12 +119,12 @@ const Header = () => {
           >
             Log In
           </Link>
+          </div>
         )}
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <Link href="/cart">
           <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         </Link>
-      </div>
       <div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
@@ -141,6 +149,7 @@ const Header = () => {
             ))}
           </Menu.Items>
         </Menu>
+      </div>
       </div>
     </nav>
   );

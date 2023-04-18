@@ -29,16 +29,19 @@ const Footer = () => {
             url="https://www.instagram.com/vineandfrond/"
             fgColor="transparent"
             bgColor="black"
+            className='hover:opacity-80'
           />
           <SocialIcon
             url="https://www.facebook.com/vineandfrondceramics"
             fgColor="transparent"
             bgColor="black"
+            className='hover:opacity-80'
           />
           <SocialIcon
             url="https://www.tiktok.com/@vineandfrond"
             fgColor="transparent"
             bgColor="black"
+            className='hover:opacity-80'
           />
         </div>
       </div>
