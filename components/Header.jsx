@@ -24,12 +24,11 @@ const Header = () => {
   const [active, setActive] = useState("");
 
   const logOutHandler = () => {
-    dispatch({ type: 'USER_LOGOUT'});
-    jsCookie.remove('userInfo');
-    jsCookie.remove('cartItems');
-    router.push('/')
-
-  }
+    dispatch({ type: "USER_LOGOUT" });
+    jsCookie.remove("userInfo");
+    jsCookie.remove("cartItems");
+    router.push("/");
+  };
 
   return (
     <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20">
@@ -70,17 +69,39 @@ const Header = () => {
       {/*------------------- Right Nav       */}
       <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
         {userInfo ? (
-          <div>
-          <Link href="/profile" passHref>
-            {" "}
-            <div className="flex flex-col">
-              <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
-              <p>{userInfo.name}</p>
-            </div>
-          </Link>
-          <button className='border-[1px]'onClick={logOutHandler}>
-            Log Out
-          </button>
+          <div className='flex flex-1 justify-end items-center w-full z-50 mt-2'>
+            <Menu as="div" className="relative inline-block text-left z-50">
+              <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+                <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text=[#caafa8] aria-hidden:true hover:text-[#caafa8]" />
+              </Menu.Button>
+              <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+                <Menu.Item>
+                  <h1 className='group flex w-full justify-center items-center px-2 py-2 text-sm z-50 bg-gray-200 '> Hi, {userInfo.firstName}{" "}!</h1>
+                </Menu.Item>
+                <Menu.Item>
+                  {({active}) => (
+                  <Link href='/profile' className={`${
+                      active
+                        ? "bg-primary text-white"
+                        : "bg-white text-slate-800"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}>
+                    Profile
+                  </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({active}) => (
+                  <button className={`${
+                      active
+                        ? "bg-primary text-white"
+                        : "bg-white text-slate-800"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`} onClick={logOutHandler}>
+                    Log Out
+                  </button>
+                  )}
+                </Menu.Item>
+              </Menu.Items>
+            </Menu>
           </div>
         ) : (
           <Link
@@ -91,7 +112,6 @@ const Header = () => {
             Log In
           </Link>
         )}
-
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <Link href="/cart">
           <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
@@ -100,9 +120,9 @@ const Header = () => {
       <div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
         <Menu as="div" className="relative inline-block text-left z-50">
           <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <Bars3Icon className="w-10 h-10 hover:text-[#caafa8] aria-hidden:true" />
+            <Bars3Icon className="w-8 h-8 mt-3 hover:text-[#caafa8] aria-hidden:true" />
           </Menu.Button>
-          <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+          <Menu.Items className="absolute right-0 mt-2 w-[10rem] origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
             {navLinks.map((link) => (
               <Menu.Item key={link.id} as={Fragment}>
                 {({ active }) => (
