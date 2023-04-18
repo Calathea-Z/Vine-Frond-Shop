@@ -16,11 +16,11 @@ const LoginScreen = () => {
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
 
-  // useEffect(() => {
-  //   if (userInfo) {
-  //     router.push("/");
-  //   }
-  // }, [router, userInfo]);
+  useEffect(() => {
+    if (userInfo) {
+      router.push("/");
+    }
+  }, [router, userInfo]);
 
   const [showPassword, setShowPassword] = useState(false);
 
@@ -61,7 +61,7 @@ const LoginScreen = () => {
     <div className="flex flex-col">
       <Header />
       <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
-        <h1 className="self-center px-10 py-5 text-4xl">Register</h1>
+        <h1 className="self-center px-10 py-5 text-4xl">Login</h1>
         <form
           onSubmit={handleSubmit(submitHandler)}
           className="flex flex-col p-5 "
@@ -124,7 +124,7 @@ const LoginScreen = () => {
             Login
           </button>
           <div>
-            <Link href="/login" passHref className="text-sm hover:opacity-70">
+            <Link href="/register" passHref className="text-sm hover:opacity-70">
               Create Account
             </Link>
           </div>
