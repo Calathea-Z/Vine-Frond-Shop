@@ -58,7 +58,7 @@ const LoginScreen = () => {
     }
   };
   return (
-    <div className="flex flex-col">
+    <div className="flex flex-col min-h-screen">
       <Header />
       <div className="bg-[#fdf9f5] flex flex-col items-center p-4 sm:p-8">
         <h1 className="self-center px-10 py-5 text-4xl">Login</h1>

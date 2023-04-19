@@ -46,7 +46,7 @@ const CartScreen = () => {
   };
 
   return (
-    <div>
+    <div className=''>
       <Header />
       {/* <div className="w-full flex items-center sm:p-6 flex-col bg-[#fdf9f5]">
         <h1 className="text-4xl font-sans">Cart</h1>

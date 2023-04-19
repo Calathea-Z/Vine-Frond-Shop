@@ -8,7 +8,7 @@ import Head from 'next/head';
 export default function Home() {
 
   return (
-    <div className='z-0 relative'>
+    <div className='z-0 relative min-h-screen'>
       <Head>
         <title>Vine & Frond</title>
       </Head>
