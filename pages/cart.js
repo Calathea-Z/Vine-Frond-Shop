@@ -16,7 +16,6 @@ const CartScreen = () => {
     },
     dispatch,
   } = useContext(Store);
-  console.log(cartItems);
   const { enqueueSnackbar } = useSnackbar();
 
   const updateCartHandler = async (item, quantity) => {
@@ -31,7 +30,7 @@ const CartScreen = () => {
         _key: item._key,
         name: item.name,
         countInStock: item.countInStock,
-        slug: item.slug.current,
+        slug: item.slug,
         price: item.price,
         photo: item.photo,
         quantity,
@@ -98,9 +97,9 @@ const CartScreen = () => {
                         type="number"
                         id="quantity"
                         className="text-center border-x-0 border-t-0 border-b-primary bg-[#fdf9f5] focus:ring-0 focus:underline-0"
-                        placeholder={item.quantity}
+                        value={item.quantity}
                         name="quantity"
-                        min="1"
+                        min="0"
                         max={item.countInStock}
                         onChange={(e) =>
                           updateCartHandler(item, e.target.value)
@@ -136,7 +135,7 @@ const CartScreen = () => {
           </div>
         )}
         <div className="col-span-2 border border-primary" />
-        <Link href='/allproducts' className='text-sm font-sans py-2 px-1 mt-2 ml-2 rounded-md bg-primary w-[5rem] hover:opacity-80'>Add More!</Link>
+        <Link href='/allproducts' className='text-sm font-sans py-2 px-1 mt-2 ml-2 rounded-md bg-primary w-[9rem] hover:opacity-80'>Continue Shopping</Link>
       </div>
       <Footer />
     </div>
