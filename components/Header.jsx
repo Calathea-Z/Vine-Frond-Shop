@@ -4,8 +4,9 @@ import { Fragment } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect, useContext } from "react";
 import jsCookie from "js-cookie";
+import Cookies from "js-cookie";
 import { useRouter } from "next/router";
 import { Menu } from "@headlessui/react";
 import {
@@ -14,14 +15,14 @@ import {
   Bars3Icon,
   UserCircleIcon,
 } from "@heroicons/react/24/solid";
-import { useContext } from "react";
 import { Store } from "@/utils/Store";
 
 const Header = () => {
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
-  const { userInfo, cart } = state;
+  const { cart } = state;
   const [active, setActive] = useState("");
+  const [userInfo, setUserInfo] = useState(null);
 
   const logOutHandler = () => {
     dispatch({ type: "USER_LOGOUT" });
@@ -29,6 +30,10 @@ const Header = () => {
     jsCookie.remove("cartItems");
     router.push("/");
   };
+
+  useEffect(() => {
+    setUserInfo(Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null);
+  },[])
 
   return (
     <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20">
@@ -111,7 +116,6 @@ const Header = () => {
             </Menu>
           </div>
         ) : (
-          <div>
           <Link
             href="/login"
             passHref
@@ -119,7 +123,6 @@ const Header = () => {
           >
             Log In
           </Link>
-          </div>
         )}
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         <Link href="/cart">
