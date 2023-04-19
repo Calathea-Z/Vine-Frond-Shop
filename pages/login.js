@@ -60,15 +60,15 @@ const LoginScreen = () => {
   return (
     <div className="flex flex-col">
       <Header />
-      <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
+      <div className="bg-[#fdf9f5] flex flex-col items-center p-4 sm:p-8">
         <h1 className="self-center px-10 py-5 text-4xl">Login</h1>
         <form
           onSubmit={handleSubmit(submitHandler)}
-          className="flex flex-col p-5 "
+          className="flex flex-col sm:p-5"
         >
-          <h1 className="mb-1">Email</h1>
+          <h1 className="mb-1 p-[.03rem] sm:p-0">Email</h1>
           <input
-            className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+            className="bg-transparent border-primary mb-3 p-1 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[23rem] sm:w-[24.2rem] self-center sm:self-start"
             type="email"
             {...register("email", {
               required: "Required",
@@ -85,11 +85,11 @@ const LoginScreen = () => {
           ) : (
             ""
           )}
-          <h1 className="mb-1">Password</h1>
+          <h1 className="mb-1 p-[.03rem] sm:p-0">Password</h1>
           <div className="flex gap-2">
             <div>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+                className="bg-transparent border-primary mb-3 p-1 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[23rem] sm:w-[24.2rem] self-center sm:self-start"
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
                   required: "Required",
@@ -105,13 +105,13 @@ const LoginScreen = () => {
             </div>
             {showPassword ? (
               <EyeIcon
-                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[21.5rem] sm:translate-x-[22.5rem] translate-y-[.4rem] sm:translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             ) : (
               <EyeSlashIcon
-                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[21.5rem] sm:translate-x-[22.5rem] translate-y-[.4rem] sm:translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
