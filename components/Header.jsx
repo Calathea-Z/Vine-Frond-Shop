@@ -79,7 +79,7 @@ const Header = () => {
 
 
       {/*------------------- Right Nav       */}
-      <div className="flex items-center sm:pr-0 pr-5 sm:px-4 space-x-4 w-full justify-end">
+      <div className="flex items-center sm:pr-3 pr-5 sm:px-4 space-x-4 w-full justify-end">
         {userInfo ? (
           <div className='flex flex-1 justify-end items-center w-full z-50 mt-2'>
             <Menu as="div" className="relative inline-block text-left z-50">

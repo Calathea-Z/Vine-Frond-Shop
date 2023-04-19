@@ -9,7 +9,7 @@ import { useContext } from "react";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import frogImg from '../public/assets/frog.png'
+import sadCart from '../public/assets/sadCart.png'
 
 const CartScreen = () => {
   const {
@@ -55,11 +55,11 @@ const CartScreen = () => {
       <div className="grid grid-col-2 grid-rows-auto p-2 sm:p-10 bg-[#fdf9f5]">
         {cartItems.length === 0 ? (
           <div className="flex flex-col col-span-2 items-center justify-around">
-            <div className="py-2">
-              <Image src={frogImg} width={80} height={80} />
+            <div className="p-6">
+              <Image src={sadCart} width={150} height={150} />
             </div>
-            <div>
-              <h1 className="self-start pl-2 text-xl font-serif text-red-500">Your cart is currently empty</h1>
+            <div className='p-4'>
+              <h1 className="self-start pl-2 text-xl font-serif text-black">Your cart is currently empty</h1>
             </div>
           </div>
         ) : (
@@ -119,12 +119,14 @@ const CartScreen = () => {
           </div>
         )}
         <div className="col-span-2 border border-primary flex justify-center items-center" />
+        <div className='h-[10rem] mt-3'>
         <Link
           href="/allproducts"
-          className="text-xs sm:text-sm align-center self-center font-sans py-1 px-1 mt-2 ml-2 rounded-md bg-primary w-max hover:opacity-80"
+          className="text-xs sm:text-sm align-center self-center font-sans py-1 px-1 ml-2 rounded-md bg-primary w-max hover:opacity-80"
         >
           Continue Shopping
         </Link>
+        </div>
         <div className="flex justify-end items-center">
           {cartItems.length ? (
             <div className="flex gap-5 items-end justify-center">
