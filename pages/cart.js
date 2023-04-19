@@ -119,7 +119,7 @@ const CartScreen = () => {
           </div>
         )}
         <div className="col-span-2 border border-primary flex justify-center items-center" />
-        <div className='h-[10rem] mt-3'>
+        <div className=' mt-3'>
         <Link
           href="/allproducts"
           className="text-xs sm:text-sm align-center self-center font-sans py-1 px-1 ml-2 rounded-md bg-primary w-max hover:opacity-80"

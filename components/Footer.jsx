@@ -6,7 +6,7 @@ import { EnvelopeIcon } from "@heroicons/react/24/outline";
 
 const Footer = () => {
   return (
-    <div className="bg-primary flex flex-col justify-center items-center sm:px-4 sm:py-1 w-full bottom-0 mt-auto">
+    <div className="bg-primary flex flex-col justify-center items-center sm:px-4 sm:py-1 w-full bottom-0 left-0 right-0 relative">
       <div className='flex flex-col sm:flex-row justify-between items-center sm:items-end w-full'>
         <div>
           <Image src={simpleLogo} alt='simple logo' width={90} height={90} className='sm:translate-y-3'/>
