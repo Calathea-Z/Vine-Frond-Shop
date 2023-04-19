@@ -1,5 +1,6 @@
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { fullLogo } from "@/public/assets";
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image";
 import Image from "next/image";
@@ -19,8 +20,8 @@ const CartScreen = () => {
   const { enqueueSnackbar } = useSnackbar();
 
   const updateCartHandler = async (item, quantity) => {
-    const { data } = await axios.get(`/api/allproducts/${item._id}`);
-    if (data.countInStock < quantity) {
+    const { countInStock } = await axios.get(`/api/allproducts/${item._id}`);
+    if (countInStock < quantity) {
       enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
       return;
     }
@@ -52,18 +53,16 @@ const CartScreen = () => {
 
       <div className="grid grid-col-2 grid-rows-auto p-10 bg-[#fdf9f5]">
         {cartItems.length === 0 ? (
-          <div className="flex flex-col justify-center col-span-2 items-center">
-            <h1 className="self-start pl-2 text-md">...Your cart is empty</h1>
-            <Link
-              href="/allproducts"
-              pasHref
-              className="font-sans text-xl p-5 border-primary w-full text-center hover:bg-primary/40"
-            >
-              Shop
-            </Link>
+          <div className="flex col-span-2 items-center justify-around">
+            <div className='py-2'>
+              <Image src={fullLogo} width={400} height={400} />
+            </div>
+            <div>
+            <h1 className="self-start pl-2 text-lg">...Your cart is empty</h1>
+            </div>
           </div>
         ) : (
-          <div className="grid grid-cols-2 justify-center items-center gap-x-8 px-12 py-2">
+          <div className="grid grid-cols-2 justify-between items-center gap-x-8 px-12 py-2">
             <div className="flex flex-col  gap-2">
               {cartItems.map((item, index) => (
                 <div
@@ -116,15 +115,18 @@ const CartScreen = () => {
                 </div>
               ))}
             </div>
-            <div>
+          </div>
+        )}
+        <div className="col-span-2 border border-primary" />
+        <Link href='/allproducts' className='text-sm font-sans py-2 px-1 mt-2 ml-2 rounded-md bg-primary w-[8.3rem] hover:opacity-80'>Continue Shopping</Link>
+         <div className="flex justify-end items-end">
               {cartItems.length ? (
-                <div className="p-2 flex-col">
+                <div className="flex gap-5 items-end justify-center">
                   <h1 className='font-sans'>
-                    Subtotal ({cartItems.reduce((a, c) => a + c.quantity, 0)}{" "}
-                    items) : $
+                    Subtotal : ${' '}
                     {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
                   </h1>
-                  <button className="col-span-2 bg-primary rounded-md font-sans mt-2 px-10 py-2 hover:opacity-80">
+                  <button className="col-span-2 bg-primary rounded-md font-sans mt-2 px-5 py-1 hover:opacity-80">
                     Check Out
                   </button>
                 </div>
@@ -132,10 +134,7 @@ const CartScreen = () => {
                 " "
               )}
             </div>
-          </div>
-        )}
-        <div className="col-span-2 border border-primary" />
-        <Link href='/allproducts' className='text-sm font-sans py-2 px-1 mt-2 ml-2 rounded-md bg-primary w-[9rem] hover:opacity-80'>Continue Shopping</Link>
+        
       </div>
       <Footer />
     </div>

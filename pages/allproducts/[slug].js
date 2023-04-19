@@ -6,10 +6,9 @@ import SingleProductCarousel from "@/components/SingleProductCarousel";
 import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
-import { urlFor } from "@/utils/image";
 import axios from "axios";
 import { useRouter } from "next/router";
-import Link from "next/link";
+
 
 export default function ProductScreen(props) {
   const router = useRouter();
