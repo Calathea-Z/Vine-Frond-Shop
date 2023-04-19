@@ -9,10 +9,10 @@ const Footer = () => {
     <div className="bg-primary flex flex-col justify-center items-center sm:px-4 sm:py-1 w-full bottom-0 mt-auto">
       <div className='flex flex-col sm:flex-row justify-between items-center sm:items-end w-full'>
         <div>
-          <Image src={simpleLogo} alt='simple logo' width={90} height={90} className='sm:translate-y-5'/>
+          <Image src={simpleLogo} alt='simple logo' width={90} height={90} className='sm:translate-y-3'/>
         </div>
         <div className="flex">
-          <form className="hidden bg-transparent focus:underline-0 sm:flex items-center">
+          <form className="hidden bg-transparent pb-2 focus:underline-0 sm:flex items-center">
             <input
               type="email"
               name="email"
@@ -87,7 +87,7 @@ const Footer = () => {
             FAQ
           </Link>
         </div>
-        <div className="flex mx-auto sm:mx-0 items-center sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
+        <div className="flex mx-auto sm:mx-0 items-center p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
           <Link
             href="https://zach-sykes.com"
             className="text-xs hover-underline-animation font-sans"

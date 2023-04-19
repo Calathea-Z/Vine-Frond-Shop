@@ -1,5 +1,6 @@
 import Image from "next/image";
-import { fullLogo, heroPic } from "@/public/assets";
+import { fullLogo, heroPic, } from "@/public/assets";
+import  newLogo  from '../public/assets/newLogo.png'
 import { SocialIcon } from "react-social-icons";
 import { motion } from "framer-motion";
 
@@ -29,7 +30,7 @@ const Hero = () => {
         className='p-20 mx-auto h-auto w-[35rem] md:w-[45rem] lg:w-[60rem] text-md sm:text-[1.25rem] md:text-[1.7rem] leading-loose italic text-slate-800'>A ceramics and houseplant company born out of a passion for clay and greenery. From local pop-up markets to an online shop, we create functional pieces to bring beauty to your home.</motion.h1>
       </div>
       <div className='bg-[#fdf9f5] w-full flex justify-center items-center'>
-        <Image src={fullLogo} alt='full vine and frond logo' priority='true' />
+        <Image src={newLogo} alt='full vine and frond logo' priority='true' />
       </div>
     </>
   );
