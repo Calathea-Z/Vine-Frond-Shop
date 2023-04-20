@@ -90,7 +90,7 @@ const Footer = () => {
         <div className="flex mx-auto sm:mx-0 items-center p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
           <Link
             href="https://zach-sykes.com"
-            className="text-xs hover-underline-animation font-sans"
+            className="text-[.5rem] hover-underline-animation font-sans"
           >
             Website by Calathea Designs
           </Link>
