@@ -5,7 +5,7 @@ const CheckoutHelper = ({ activeStep = 0 }) => {
         (step, index) => (
           <div
             key={step}
-            className={`flex-1 border-b-2 text-center font-sans ${
+            className={`flex-1 border-b-2 text-center font-sans text-xs sm:text-md ${
               index === activeStep
                 ? "border-primary text-primary"
                 : "border-gray-400 text-gray-400"
