@@ -1,7 +1,6 @@
 import mongoose from "mongoose";
-import bcrypt from 'bcrypt'
 
-delete mongoose.connection.models['User'];
+delete mongoose.connection.models["User"];
 
 const userSchema = new mongoose.Schema({
   firstName: {
@@ -22,7 +21,7 @@ const userSchema = new mongoose.Schema({
   },
   salt: {
     type: String,
-    required: [true]
+    required: [true],
   },
   isAdmin: {
     type: Boolean,
@@ -32,8 +31,23 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
+  fullName: {
+    type: String,
+  },
+  address: {
+    type: String,
+  },
+  city: {
+    type: String,
+  },
+  zipCode: {
+    type: Number,
+  },
+  state: {
+    type: String,
+  },
 });
 
-const User = mongoose.model("User", userSchema)
+const User = mongoose.model("User", userSchema);
 
 export default User;

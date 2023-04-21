@@ -9,8 +9,10 @@ import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import sadCart from "../public/assets/sadCart.png";
+import { useRouter } from "next/router";
 
 const CartScreen = () => {
+  const router = useRouter();
   const {
     state: {
       userInfo,
@@ -141,15 +143,15 @@ const CartScreen = () => {
                 </span>
               </h1>
               {userInfo ? (
-                <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max">
+                <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/shipping')}>
                   Check Out
                 </button>
               ) : (
                 <div className="flex flex-col gap-10 justify-center items-center">
-                  <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max">
+                  <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/shipping')}>
                     Guest Check Out
                   </button>
-                  <div className='flex flex-col justify-center items-start'>
+                  <div className='flex flex-col justify-center items-start gap-1'>
                   <Link
                     href="/login"
                     className="text-[.5rem] sm:text-xs hover:text-blue-500"
