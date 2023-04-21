@@ -142,10 +142,10 @@ const InformationScreen = () => {
               <h1 className="mb-4 text-md font-sans">Contact</h1>
               {loggedIn? <h1 className='text-xs sm:text-sm text-amber-500'>You are kiln it! Thanks for your purchase, {" "} {userInfo.firstName}{" "}!</h1> :(
               <div className="flex gap-1 items-center">
-                <p className="text-sm font-sans">Already have an account?</p>
+                <p className="text-xs sm:text-sm font-sans">Already have an account?</p>
                 <Link
                   href="/login"
-                  className="text-sm text-blue-400 hover:text-blue-400/50 font-sans"
+                  className="text-xs sm:text-sm text-blue-400 hover:text-blue-400/50 font-sans"
                 >
                   Login
                 </Link>
