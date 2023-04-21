@@ -143,12 +143,12 @@ const CartScreen = () => {
                 </span>
               </h1>
               {userInfo ? (
-                <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/shipping')}>
+                <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/information')}>
                   Check Out
                 </button>
               ) : (
                 <div className="flex flex-col gap-10 justify-center items-center">
-                  <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/shipping')}>
+                  <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/information')}>
                     Guest Check Out
                   </button>
                   <div className='flex flex-col justify-center items-start gap-1'>
