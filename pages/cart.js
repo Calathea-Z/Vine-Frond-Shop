@@ -58,7 +58,7 @@ const CartScreen = () => {
         {cartItems.length === 0 ? (
           <div className="flex flex-col col-span-2 items-center justify-around">
             <div className="p-6">
-              <Image src={sadCart} width={150} height={150} />
+              <Image src={sadCart} alt='empty cart' width={150} height={150} />
             </div>
             <div className="p-4">
               <h1 className="self-start pl-2 text-xl font-serif text-black">

@@ -7,7 +7,6 @@ import { motion } from "framer-motion";
 import { useState, useEffect, useContext } from "react";
 import jsCookie from "js-cookie";
 import Cookies from "js-cookie";
-import { useRouter } from "next/router";
 import { Menu } from "@headlessui/react";
 import {
   MagnifyingGlassIcon,
@@ -18,7 +17,6 @@ import {
 import { Store } from "@/utils/Store";
 
 const Header = () => {
-  const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { cart } = state;
   const [active, setActive] = useState("");

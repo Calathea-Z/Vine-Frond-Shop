@@ -7,8 +7,6 @@ import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
-import { useRouter } from "next/router";
-
 
 export default function ProductScreen(props) {
   // const router = useRouter();
@@ -36,7 +34,7 @@ export default function ProductScreen(props) {
       }
     };
     fetchData();
-  }, []);
+  }, [slug, state]);
 
   const addToCartHandler = async () => {
     const existItem = cart.cartItems.find((x) => x._id === product._id);

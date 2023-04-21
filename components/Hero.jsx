@@ -1,7 +1,6 @@
 import Image from "next/image";
-import { fullLogo, heroPic, } from "@/public/assets";
+import { heroPic, } from "@/public/assets";
 import  newLogo  from '../public/assets/newLogo.png'
-import { SocialIcon } from "react-social-icons";
 import { motion } from "framer-motion";
 
 const Hero = () => {
