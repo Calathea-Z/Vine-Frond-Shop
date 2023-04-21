@@ -3,6 +3,7 @@ import { Store } from "@/utils/Store";
 import { useContext, useEffect } from "react";
 import { useForm } from "react-hook-form";
 import states from "states-us";
+import Image from "next/image";
 import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import jsCookie from "js-cookie";
@@ -10,6 +11,7 @@ import Link from "next/link";
 import {
   ChevronLeftIcon
 } from "@heroicons/react/24/solid";
+import { simpleLogo } from "@/public/assets";
 
 const InformationScreen = () => {
   const {
@@ -32,7 +34,6 @@ const InformationScreen = () => {
   });
 
   const router = useRouter();
-
   const { state, dispatch } = useContext(Store);
   const {
     userInfo,
@@ -40,15 +41,15 @@ const InformationScreen = () => {
   } = state;
 
   useEffect(() => {
-    if (!userInfo) {
-      setValue("contactMethod", shippingInformation.shippingContactEmail);
+    if(!userInfo){
+      setValue("shippingContactEmail", shippingInformation.shippingContactEmail);
       setValue("firstNameShipping", shippingInformation.firstNameShipping);
       setValue("lastNameShipping", shippingInformation.lastNameShipping);
       setValue("company", shippingInformation.lastNameShipping);
       setValue("address", shippingInformation.address);
       setValue("city", shippingInformation.city);
-      setValue("postalCode", shippingInformation.postalCode);
-      setValue("country", shippingInformation.country);
+      setValue("zipCode", shippingInformation.zipCode);
+      setValue("usState", shippingInformation.usState);
     }
   }, [router, setValue, shippingInformation, userInfo]);
 
@@ -56,12 +57,17 @@ const InformationScreen = () => {
     shippingContactEmail,
     firstNameShipping,
     lastNameShipping,
+    emailOptIn,
     company,
     address,
     city,
     zipCode,
     usState,
   }) => {
+    //need to set up email list and figure out logic for this. 
+    if(emailOptIn) {
+      console.log("Email Opt-In is Check")
+    }
     dispatch({
       type: "SAVE_SHIPPING_ADDRESS",
       payload: {
@@ -94,6 +100,7 @@ const InformationScreen = () => {
     <div className="">
       <div className="p-10 flex flex-col">
         <CheckoutHelper activeStep={1} />
+        <Image className='self-center'src={simpleLogo} width={100} height={100} alt='simple Vine & Frond Logo'/>
         <h1 className="text-sm self-center font-sans text-gray-500">
           Express Checkout
         </h1>
@@ -132,7 +139,7 @@ const InformationScreen = () => {
             </div>
             <div className="mb-1 relative">
               <label
-                htmlFor="shippingContactEethod"
+                htmlFor="shippingContactEmail"
                 className="font-sans text-xs text-gray-400 absolute left-4
               top-1"
               >
@@ -167,7 +174,7 @@ const InformationScreen = () => {
                 className=" p-1 ml-1 border-gray-400 border-2 font-sans rounded-sm focus:bg-transparent focus:ring-0 focus:border-black"
                 id="emailMe"
                 autoFocus
-                {...register("contactMethod")}
+                {...register("emailOptIn")}
               />
             </div>
             <div className="w-full md:flex md:gap-4 block">

@@ -31,7 +31,13 @@ const userSchema = new mongoose.Schema({
     type: Boolean,
     default: false,
   },
-  contactMethod: {
+  shippingContactEmail: {
+    type: String,
+  },
+  firstNameShipping: {
+    type: String,
+  },
+  lastNameShipping: {
     type: String,
   },
   address: {
