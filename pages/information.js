@@ -136,6 +136,7 @@ const InformationScreen = () => {
           >
             <div className="p-2 flex justify-between items-center">
               <h1 className="mb-4 text-md font-sans">Contact</h1>
+              {userInfo? <h1 className='text-sm text-amber-500'>You're kiln it! Thanks for your purchase, {" "} {userInfo.firstName}{" "}!</h1> :(
               <div className="flex gap-1 items-center">
                 <p className="text-sm font-sans">Already have an account?</p>
                 <Link
@@ -145,6 +146,7 @@ const InformationScreen = () => {
                   Login
                 </Link>
               </div>
+              )}
             </div>
             <div className="mb-1 relative">
               <label

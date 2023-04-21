@@ -134,46 +134,28 @@ const CartScreen = () => {
           </Link>
         </div>
         <div className="flex justify-end items-center px-1">
-          {cartItems.length ? (
-            <div className="flex gap-5 items-end justify-center self-start">
-              <h1 className="font-sans text-xs sm:text-lg self-start pt-4">
-                Subtotal : ${" "}
-                <span className="font-bold font-sans">
-                  {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
-                </span>
-              </h1>
-              {userInfo ? (
-                <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/information')}>
-                  Check Out
-                </button>
-              ) : (
-                <div className="flex flex-col gap-10 justify-center items-center">
-                  <button className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max" onClick={() => router.push('/information')}>
-                    Guest Check Out
-                  </button>
-                  <div className='flex flex-col justify-center items-start gap-1'>
-                  <Link
-                    href="/login"
-                    className="text-[.5rem] sm:text-xs hover:text-blue-500"
-                  >
-                    Sign-in for faster checkout
-                  </Link>
-                  <Link
-                    href="/register"
-                    className="text-[.5rem] sm:text-xs hover:text-blue-500"
-                  >
-                    Create an account
-                  </Link>
-                  </div>
-                </div>
-              )}
-            </div>
-          ) : (
-            " "
-          )}
-        </div>
-      </div>
-      <Footer />
+  {cartItems.length ? (
+    <div className="flex gap-5 items-end justify-center self-start">
+      <h1 className="font-sans text-xs sm:text-lg self-start pt-4">
+        Subtotal : ${" "}
+        <span className="font-bold font-sans">
+          {cartItems.reduce((a, c) => a + c.quantity * c.price, 0)}
+        </span>
+      </h1>
+      <button
+        className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max"
+        onClick={() => router.push('/information')}
+      >
+        Check Out
+      </button>
+    </div>
+  ) : (
+    ""
+  )}
+</div>
+      
+    </div>
+    <Footer />
     </div>
   );
 };
