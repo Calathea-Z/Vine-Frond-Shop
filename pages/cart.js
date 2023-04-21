@@ -15,7 +15,6 @@ const CartScreen = () => {
   const router = useRouter();
   const {
     state: {
-      userInfo,
       cart: { cartItems },
     },
     dispatch,

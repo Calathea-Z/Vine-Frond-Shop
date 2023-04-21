@@ -17,8 +17,7 @@ import {
 import { Store } from "@/utils/Store";
 
 const Header = () => {
-  const { state, dispatch } = useContext(Store);
-  const { cart } = state;
+  const { dispatch } = useContext(Store);
   const [active, setActive] = useState("");
   const [userInfo, setUserInfo] = useState(null);
 

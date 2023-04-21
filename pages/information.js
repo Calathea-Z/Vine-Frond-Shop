@@ -1,6 +1,6 @@
 import CheckoutHelper from "@/components/CheckoutHelper";
 import { Store } from "@/utils/Store";
-import { useContext, useEffect } from "react";
+import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import states from "states-us";
 import Image from "next/image";
@@ -14,6 +14,9 @@ import {
 import { simpleLogo } from "@/public/assets";
 
 const InformationScreen = () => {
+
+  const [loggedIn, setLoggedIn] = useState(null);
+
   const {
     handleSubmit,
     register,
@@ -51,6 +54,7 @@ const InformationScreen = () => {
       setValue("zipCode", shippingInformation.zipCode);
       setValue("usState", shippingInformation.usState);
     }else {
+      setLoggedIn(true);
       setValue("shippingContactEmail", userInfo.shippingContactEmail);
       setValue("firstNameShipping", userInfo.firstNameShipping);
       setValue("lastNameShipping", userInfo.lastNameShipping);
@@ -136,7 +140,7 @@ const InformationScreen = () => {
           >
             <div className="p-2 flex justify-between items-center">
               <h1 className="mb-4 text-md font-sans">Contact</h1>
-              {userInfo? <h1 className='text-sm text-amber-500'>You're kiln it! Thanks for your purchase, {" "} {userInfo.firstName}{" "}!</h1> :(
+              {loggedIn? <h1 className='text-sm text-amber-500'>You are kiln it! Thanks for your purchase, {" "} {userInfo.firstName}{" "}!</h1> :(
               <div className="flex gap-1 items-center">
                 <p className="text-sm font-sans">Already have an account?</p>
                 <Link
@@ -200,7 +204,6 @@ const InformationScreen = () => {
                 <input
                   className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                   id="firstNameShipping"
-                  autoFocus
                   {...register("firstNameShipping", {
                     required: "Please enter first name",
                   })}
@@ -224,7 +227,6 @@ const InformationScreen = () => {
                 <input
                   className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                   id="lastNameShipping"
-                  autoFocus
                   {...register("lastNameShipping", {
                     required: "Please enter last name",
                   })}
@@ -249,7 +251,6 @@ const InformationScreen = () => {
               <input
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                 id="company"
-                autoFocus
                 {...register("company")}
               />
             </div>
@@ -264,7 +265,6 @@ const InformationScreen = () => {
               <input
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                 id="contactMethod"
-                autoFocus
                 {...register("address", {
                   required: "Please enter an address",
                 })}
@@ -286,7 +286,7 @@ const InformationScreen = () => {
               <input
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                 id="contactMethod"
-                autoFocus
+
                 {...register("city", {
                   required: "Please enter a city",
                 })}
@@ -308,7 +308,6 @@ const InformationScreen = () => {
               <input
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                 id="contactMethod"
-                autoFocus
                 {...register("zipCode", {
                   required: "Please enter a zip code",
                 })}
@@ -327,7 +326,6 @@ const InformationScreen = () => {
               <select
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                 id="usState"
-                autoFocus
                 {...register("usState", { required: "Please choose a state" })}
               >
                 {states.map((state, i) => (
