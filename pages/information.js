@@ -50,6 +50,15 @@ const InformationScreen = () => {
       setValue("city", shippingInformation.city);
       setValue("zipCode", shippingInformation.zipCode);
       setValue("usState", shippingInformation.usState);
+    }else {
+      setValue("shippingContactEmail", userInfo.shippingContactEmail);
+      setValue("firstNameShipping", userInfo.firstNameShipping);
+      setValue("lastNameShipping", userInfo.lastNameShipping);
+      setValue("company", userInfo.lastNameShipping);
+      setValue("address", userInfo.address);
+      setValue("city", userInfo.city);
+      setValue("zipCode", userInfo.zipCode);
+      setValue("usState", userInfo.usState);
     }
   }, [router, setValue, shippingInformation, userInfo]);
 

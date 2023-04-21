@@ -31,6 +31,13 @@ export default async function handler(req, res) {
             email: user.email,
             isAdmin: user.isAdmin,
             isWholesale: user.isWholesale,
+            shippingContactEmail : user.shippingContactEmail,
+            firstNameShipping : user.firstNameShipping,
+            lastNameShipping: user.lastNameShipping,
+            address: user.address,
+            city: user.city,
+            zipCode: user.zipCode,
+            usState: user.usState,
             token,
           });
           console.log("Login Successful"); // Update log message to "Login Successful"

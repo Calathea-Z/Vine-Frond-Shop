@@ -29,7 +29,7 @@ const Header = () => {
     jsCookie.remove("userInfo");
     jsCookie.remove("cartItems");
     jsCookie.remove("shippingAddress")
-    router.push("/");
+    setUserInfo(null);
   };
 
   useEffect(() => {

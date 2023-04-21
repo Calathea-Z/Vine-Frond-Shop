@@ -11,7 +11,7 @@ import { useRouter } from "next/router";
 
 
 export default function ProductScreen(props) {
-  const router = useRouter();
+  // const router = useRouter();
   const { slug } = props;
   const { state: {cart}, dispatch, } = useContext(Store);
   const { enqueueSnackbar} = useSnackbar();
@@ -69,7 +69,7 @@ export default function ProductScreen(props) {
           <ClipLoader />
           </div>
         ) : error ? (
-          <div>{err}</div>
+          <div>{error}</div>
         ) : (
           <div className="flex flex-col md:grid md:grid-cols-2 justify-center space-y-4 items-start p-8">
             <div className="w-full h-auto">

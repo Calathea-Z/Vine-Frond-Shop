@@ -1,6 +1,7 @@
 import dbConnect from "@/lib/mongoDBConnect";
 import User from "@/mongoModels/User";
 import bcrypt from "bcrypt";
+import { signToken } from "@/utils/auth";
 
 
 export default async function handler(req, res) {
@@ -30,10 +31,10 @@ export default async function handler(req, res) {
       res.status(201).json({ success: true, data: user });
       
       const newUser = {
-        _id: data._id,
-        firstName: data.firstName,
-        lastName: data.lastName,
-        email: data.email,
+        _id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
         salt: salt,
         isAdmin: false, 
         isWholesale: false,

@@ -49,7 +49,7 @@ const userSchema = new mongoose.Schema({
   zipCode: {
     type: Number,
   },
-  state: {
+  usState: {
     type: String,
   },
 });
