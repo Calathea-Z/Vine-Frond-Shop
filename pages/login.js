@@ -49,7 +49,6 @@ const LoginScreen = () => {
         email,
         password,
       });
-      console.log("hit success")
       dispatch({ type: "USER_LOGIN", payload: data });
       jsCookie.set("userInfo", JSON.stringify(data));
       router.push("/");
