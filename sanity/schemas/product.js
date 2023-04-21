@@ -58,6 +58,11 @@ export default {
       type: 'string',
     },
     {
+      name: 'shippingWeight',
+      title: 'Weight (for shipping)',
+      type: 'string',
+    },
+    {
       name: 'countInStock',
       title: 'Count In Stock',
       type: 'number',

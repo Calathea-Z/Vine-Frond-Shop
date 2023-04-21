@@ -110,7 +110,7 @@ const InformationScreen = () => {
     router.push("/payment");
   };
   return (
-    <div className="">
+    <div>
       <div className="p-10 flex flex-col">
         <CheckoutHelper activeStep={1} />
         <Image className='self-center'src={simpleLogo} width={100} height={100} alt='simple Vine & Frond Logo'/>

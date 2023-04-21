@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@easypost/api": "^6.2.0",
     "@headlessui/react": "^1.7.14",
     "@heroicons/react": "^2.0.17",
     "@portabletext/react": "^2.0.2",
