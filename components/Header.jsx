@@ -28,6 +28,7 @@ const Header = () => {
     dispatch({ type: "USER_LOGOUT" });
     jsCookie.remove("userInfo");
     jsCookie.remove("cartItems");
+    jsCookie.remove("shippingAddress")
     router.push("/");
   };
 
@@ -88,7 +89,7 @@ const Header = () => {
               </Menu.Button>
               <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                 <Menu.Item>
-                  <h1 className='group flex w-full justify-center items-center px-2 py-2 text-sm z-50 bg-gray-200 '> Hi, {userInfo.firstName}{" "}!</h1>
+                  <h1 className='group flex w-full justify-center items-center px-2 py-2 text-sm z-50 bg-purple-400/90'> Hi, {userInfo.firstName}{" "}!</h1>
                 </Menu.Item>
                 <Menu.Item>
                   {({active}) => (

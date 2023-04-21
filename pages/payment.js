@@ -1,6 +1,12 @@
+import CheckoutHelper from "@/components/CheckoutHelper";
+
 const PaymentScreen = () => {
   return (
-    <div>payment</div>
-  )
-}
-export default PaymentScreen
+    <div>
+      <div className="p-8">
+        <CheckoutHelper activeStep={2} />
+      </div>
+    </div>
+  );
+};
+export default PaymentScreen;

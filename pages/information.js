@@ -8,7 +8,7 @@ import Footer from "@/components/Footer";
 import jsCookie from "js-cookie";
 import Link from "next/link";
 
-const ShippingScreen = () => {
+const InformationScreen = () => {
   const {
     handleSubmit,
     register,
@@ -62,15 +62,32 @@ const ShippingScreen = () => {
     router.push('/payment');
   };
   return (
-    <div>
-    <div className="p-8">
+    <div className='p-10'>
+    <div className="p-8 flex flex-col">
       <CheckoutHelper activeStep={1} />
+      <h1 className='text-sm self-center font-sans text-gray-500'>Express Checkout</h1>
+      <div className='flex justify-center gap-4 p-2'>
+        <div className='w-[9rem] border-black border-2 rounded-lg p-2 flex justify-center items-center'>
+          Stripe
+        </div>
+        <div className='w-[9rem] border-black border-2 rounded-lg p-2 flex justify-center items-center'>
+          Google Pay
+        </div>
+        <div className='w-[9rem] border-black border-2 rounded-lg p-2 flex justify-center items-center'>
+          PayPal
+        </div>
+      </div>
+      <div>
       <form
         className="mx-auto max-w-screen-md"
         onSubmit={handleSubmit(submitHandler)}
       >
-        <div>
-        <h1 className="mb-4 text-xl font-sans">Shipping Address</h1>
+        <div className='p-2 flex justify-between items-center'>
+        <h1 className="mb-4 text-md font-sans">Contact</h1>
+        <div className="flex gap-1 items-center">
+          <p className='text-sm font-sans'>Already have an account?</p>
+        <Link href='/login' className='text-sm hover:text-blue-400 font-sans'>Login</Link>
+        </div>
         </div>
         <div className="mb-4">
           <label htmlFor="fullName" className='font-sans'>Full Name</label>
@@ -146,8 +163,9 @@ const ShippingScreen = () => {
         </div>
       </form>
       </div>
+      </div>
       <Footer />
     </div>
   );
 };
-export default ShippingScreen;
+export default InformationScreen;

@@ -79,8 +79,8 @@ const CartScreen = () => {
                       <Image
                         src={urlFor(item.photo[0].asset._ref).url()}
                         alt={item.name}
-                        width={79}
-                        height={79}
+                        width={100}
+                        height={100}
                         className="rounded-sm"
                       />
                     </Link>
