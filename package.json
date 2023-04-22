@@ -36,6 +36,7 @@
     "react-hook-form": "^7.43.9",
     "react-social-icons": "^5.15.0",
     "react-spinners": "^0.13.8",
+    "shippo": "^1.7.1",
     "states-us": "^1.0.2"
   },
   "devDependencies": {

@@ -2,8 +2,16 @@ import CheckoutHelper from "@/components/CheckoutHelper";
 import Image from "next/image";
 import { simpleLogo } from "@/public/assets";
 import Link from "next/link";
+import ShippingCostCalculator from "@/components/ShippingCostCalculator";
+import { useContext } from "react";
+import { Store } from "@/utils/Store";
 
 const ShippingScreen = () => {
+  const { state } = useContext(Store);
+  const {
+    cart: { shippingInformation },
+  } = state;
+
   return (
     <div>
       <div className="p-10 flex flex-col">
@@ -19,7 +27,9 @@ const ShippingScreen = () => {
           <div className="flex justify-between p-4">
             <div className="flex flex-col gap-2">
               <h6 className="font-sans text-gray-400">Contact</h6>
-              <p className="font-sans">zsykes21@gmail.com</p>
+              <p className="font-sans">
+                {shippingInformation.shippingContactEmail}
+              </p>
             </div>
             <div>
               <Link
@@ -34,7 +44,16 @@ const ShippingScreen = () => {
           <div className="flex justify-between p-4">
             <div className="flex flex-col gap-2">
               <h6 className="font-sans text-gray-400">Ship to</h6>
-              <p className="font-sans">135 Hillside St, Asheville, NC 28801</p>
+              <p className="font-sans">
+                {shippingInformation.firstNameShipping}{" "}
+                {shippingInformation.lastNameShipping}
+              </p>
+              <p>{shippingInformation.company}</p>
+              <p className="font-sans">{shippingInformation.address}</p>
+              <p className="font-sans">
+                {shippingInformation.city}, {shippingInformation.usState}
+              </p>
+              <p className="font-sans">{shippingInformation.zipCode}{shippingInformation.country}</p>
             </div>
             <div>
               <Link
@@ -46,6 +65,9 @@ const ShippingScreen = () => {
             </div>
           </div>
         </div>
+      </div>
+      <div>
+        <ShippingCostCalculator />
       </div>
     </div>
   );

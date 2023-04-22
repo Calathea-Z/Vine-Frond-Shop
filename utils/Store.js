@@ -8,9 +8,12 @@ const initialState = {
     cartItems: Cookies.get("cartItems")
       ? JSON.parse(Cookies.get("cartItems"))
       : [],
-      shippingInformation: Cookies.get('shippingAddress')
-      ? JSON.parse(Cookies.get('shippingAddress'))
+    shippingInformation: Cookies.get("shippingAddress")
+      ? JSON.parse(Cookies.get("shippingAddress"))
       : {},
+    shippingWeight: Cookies.get("shippingWeight")
+      ? JSON.parse(Cookies.get("shippingWeight"))
+      : null,
   },
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
@@ -43,18 +46,31 @@ function reducer(state, action) {
       return { ...state, userInfo: action.payload };
     }
     case "USER_LOGOUT": {
-      return { ...state, userInfo: null, cart:{
-        cartItems: [],
-        shippingInformation: {},
-      }};
+      return {
+        ...state,
+        userInfo: null,
+        cart: {
+          cartItems: [],
+          shippingInformation: {},
+        },
+      };
     }
     case "SAVE_SHIPPING_ADDRESS": {
       return {
         ...state,
         cart: {
           ...state.cart,
-          shippingInformation: { ...state.cart.shippingInformation, ...action.payload },
+          shippingInformation: {
+            ...state.cart.shippingInformation,
+            ...action.payload,
+          },
         },
+      };
+    }
+    case "UPDATE_SHIPPING_WEIGHT": {
+      return {
+        ...state,
+        cart: { ...state.cart, shippingWeight: action.payload },
       };
     }
     default:

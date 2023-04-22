@@ -4,12 +4,13 @@ import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image";
 import Image from "next/image";
 import Link from "next/link";
-import { useContext } from "react";
+import { useContext, useEffect } from "react";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSnackbar } from "notistack";
 import sadCart from "../public/assets/sadCart.png";
 import { useRouter } from "next/router";
+import jsCookie from "js-cookie";
 
 const CartScreen = () => {
   const router = useRouter();
@@ -27,6 +28,7 @@ const CartScreen = () => {
       enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
       return;
     }
+    console.log(item)
     dispatch({
       type: "CART_ADD_ITEM",
       payload: {
@@ -36,15 +38,30 @@ const CartScreen = () => {
         slug: item.slug,
         price: item.price,
         photo: item.photo,
-        quantity,
+        shippingWeight: item.shippingWeight,
+        quantity: quantity
       },
     });
+    console.log("item.shippingWeight :", item.shippingWeight)
     enqueueSnackbar(`${item.name} Cart Updated!`, { variant: "success" });
   };
 
   const removeItemHandler = (item) => {
     dispatch({ type: "CART_REMOVE_ITEM", payload: item });
   };
+
+  useEffect(() => {
+    const currentWeight = cartItems.reduce((a, c) => a + c.quantity * c.shippingWeight, 0)
+    console.log("Current weight ->", currentWeight)
+    dispatch({
+      type: "UPDATE_SHIPPING_WEIGHT",
+      payload: currentWeight
+    })
+    jsCookie.set(
+      "shippingWeight",
+      JSON.stringify(currentWeight)
+    )
+  },[cartItems])
 
   return (
     <div className="h-screen flex flex-col">

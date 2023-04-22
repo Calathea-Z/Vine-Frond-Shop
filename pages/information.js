@@ -107,7 +107,7 @@ const InformationScreen = () => {
         usState,
       })
     );
-    router.push("/payment");
+    router.push("/shipping");
   };
   return (
     <div>

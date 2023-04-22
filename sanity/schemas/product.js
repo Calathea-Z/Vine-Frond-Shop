@@ -59,8 +59,8 @@ export default {
     },
     {
       name: 'shippingWeight',
-      title: 'Weight (for shipping)',
-      type: 'string',
+      title: 'Weight (ounces)',
+      type: 'number',
     },
     {
       name: 'countInStock',
