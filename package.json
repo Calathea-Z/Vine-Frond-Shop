@@ -31,13 +31,16 @@
     "next-sanity-image": "^6.0.0",
     "notistack": "^3.0.1",
     "path": "^0.12.7",
+    "qs": "^6.11.1",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-hook-form": "^7.43.9",
     "react-social-icons": "^5.15.0",
     "react-spinners": "^0.13.8",
     "shippo": "^1.7.1",
-    "states-us": "^1.0.2"
+    "states-us": "^1.0.2",
+    "xml-js": "^1.6.11",
+    "xml2js": "^0.5.0"
   },
   "devDependencies": {
     "@tailwindcss/forms": "^0.5.3",

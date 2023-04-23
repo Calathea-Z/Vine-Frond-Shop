@@ -65,6 +65,7 @@ const ShippingScreen = () => {
             </div>
           </div>
         </div>
+        <h1>Shipping Method</h1>
       </div>
       <div>
         <ShippingCostCalculator />

@@ -8,15 +8,14 @@ import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import jsCookie from "js-cookie";
 import Link from "next/link";
-import {
-  ChevronLeftIcon
-} from "@heroicons/react/24/solid";
+import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { simpleLogo } from "@/public/assets";
+import { useSnackbar } from "notistack";
+import axios from "axios";
 
 const InformationScreen = () => {
-
   const [loggedIn, setLoggedIn] = useState(null);
-
+  const [selectedAddress, setSelectedAddress] = useState(null);
   const {
     handleSubmit,
     register,
@@ -43,9 +42,14 @@ const InformationScreen = () => {
     cart: { shippingInformation },
   } = state;
 
+  const { enqueueSnackbar, closeSnackbar } = useSnackbar();
+
   useEffect(() => {
-    if(!userInfo){
-      setValue("shippingContactEmail", shippingInformation.shippingContactEmail);
+    if (!userInfo) {
+      setValue(
+        "shippingContactEmail",
+        shippingInformation.shippingContactEmail
+      );
       setValue("firstNameShipping", shippingInformation.firstNameShipping);
       setValue("lastNameShipping", shippingInformation.lastNameShipping);
       setValue("company", shippingInformation.lastNameShipping);
@@ -53,7 +57,7 @@ const InformationScreen = () => {
       setValue("city", shippingInformation.city);
       setValue("zipCode", shippingInformation.zipCode);
       setValue("usState", shippingInformation.usState);
-    }else {
+    } else {
       setLoggedIn(true);
       setValue("shippingContactEmail", userInfo.shippingContactEmail);
       setValue("firstNameShipping", userInfo.firstNameShipping);
@@ -66,7 +70,7 @@ const InformationScreen = () => {
     }
   }, [router, setValue, shippingInformation, userInfo]);
 
-  const submitHandler = ({
+  const submitHandler = async ({
     shippingContactEmail,
     firstNameShipping,
     lastNameShipping,
@@ -77,43 +81,121 @@ const InformationScreen = () => {
     zipCode,
     usState,
   }) => {
-    //need to set up email list and figure out logic for this. 
-    if(emailOptIn) {
-      console.log("Email Opt-In is Check")
+    //need to set up email list and figure out logic for this.
+    if (emailOptIn) {
+      console.log("Email Opt-In is Check");
     }
-    dispatch({
-      type: "SAVE_SHIPPING_ADDRESS",
-      payload: {
-        shippingContactEmail,
-        firstNameShipping,
-        lastNameShipping,
-        company,
-        address,
-        city,
-        zipCode,
-        usState,
-      },
-    });
-    jsCookie.set(
-      "shippingAddress",
-      JSON.stringify({
-        shippingContactEmail,
-        firstNameShipping,
-        lastNameShipping,
-        company,
-        address,
-        city,
-        zipCode,
-        usState,
-      })
-    );
-    router.push("/shipping");
-  };
+
+    try {
+      const response = await axios.post("/api/shipping/verifyAddress", {
+        street: address,
+        city: city,
+        state: usState,
+        zipCode: zipCode,
+      });
+    
+      const { valid, suggestedAddress } = response.data;
+      console.log(suggestedAddress);
+    
+      if (!valid && suggestedAddress.length) {
+        console.log("Address is not valid");
+        console.log(suggestedAddress);
+        enqueueSnackbar(
+          `The address you entered may not be valid. Would you like to use the suggested address instead?`,
+          {
+            variant: "warning",
+            action: (key) => (
+              <div className="font-sans">
+                <div className="flex justify-center space-x-4">
+                  <button
+                    className="px-4 py-2 text-black rounded-md border-black/50 border-2 font-sans hover:opacity-80"
+                    color="secondary"
+                    size="small"
+                    onClick={() => {
+                      setValue("address", suggestedAddress.street);
+                      setValue("city", suggestedAddress.city);
+                      setValue("usState", suggestedAddress.state);
+                      setValue("zipCode", suggestedAddress.zipCode);
+                      setSelectedAddress(true);
+                      closeSnackbar(key);
+                    }}
+                  >
+                    Use Suggested Address
+                  </button>
+                  <button
+                    className="px-4 py-2 text-black rounded-md border-black/50 border-2 font-sans hover:opacity-80"
+                    color="inherit"
+                    size="small"
+                    onClick={() => {
+                      closeSnackbar(key);
+                    }}
+                  >
+                    Dismiss
+                  </button>
+                </div>
+              </div>
+            ),
+            persist: true,
+          }
+        );
+      } else if (!valid) {
+        console.log("Address is not valid");
+        console.log(suggestedAddress);
+        enqueueSnackbar(
+          `The address you entered may not be valid. Please check your input.`,
+          { variant: "warning" }
+        );
+      } else {
+        console.log("Address is valid");
+        console.log(suggestedAddress);
+        
+        dispatch({
+          type: "SAVE_SHIPPING_ADDRESS",
+          payload: {
+            shippingContactEmail,
+            firstNameShipping,
+            lastNameShipping,
+            company,
+            address,
+            city,
+            zipCode,
+            usState,
+          },
+        });
+        jsCookie.set(
+          "shippingAddress",
+          JSON.stringify({
+            shippingContactEmail,
+            firstNameShipping,
+            lastNameShipping,
+            company,
+            address,
+            city,
+            zipCode,
+            usState,
+          })
+        );
+        router.push("/shipping");
+      }
+    } catch (error) {
+      console.error(error);
+      enqueueSnackbar("Error verifying address. Please try again.", {
+        variant: "error",
+      });
+      return;
+    }
+  }
   return (
     <div>
       <div className="p-10 flex flex-col">
         <CheckoutHelper activeStep={1} />
-        <Image className='self-center'src={simpleLogo} width={100} height={100} alt='simple Vine & Frond Logo'/>
+        <Image
+          className="self-center"
+          src={simpleLogo}
+          width={100}
+          height={100}
+          alt="simple Vine & Frond Logo"
+        />
         <h1 className="text-sm self-center font-sans text-gray-500">
           Express Checkout
         </h1>
@@ -140,16 +222,23 @@ const InformationScreen = () => {
           >
             <div className="p-2 flex justify-between items-center">
               <h1 className="mb-4 text-md font-sans">Contact</h1>
-              {loggedIn? <h1 className='text-xs sm:text-sm text-amber-500'>You are kiln it! Thanks for your purchase, {" "} {userInfo.firstName}{" "}!</h1> :(
-              <div className="flex gap-1 items-center">
-                <p className="text-xs sm:text-sm font-sans">Already have an account?</p>
-                <Link
-                  href="/login"
-                  className="text-xs sm:text-sm text-blue-400 hover:text-blue-400/50 font-sans"
-                >
-                  Login
-                </Link>
-              </div>
+              {loggedIn ? (
+                <h1 className="text-xs sm:text-sm text-amber-500">
+                  You are kiln it! Thanks for your purchase,{" "}
+                  {userInfo.firstName} !
+                </h1>
+              ) : (
+                <div className="flex gap-1 items-center">
+                  <p className="text-xs sm:text-sm font-sans">
+                    Already have an account?
+                  </p>
+                  <Link
+                    href="/login"
+                    className="text-xs sm:text-sm text-blue-400 hover:text-blue-400/50 font-sans"
+                  >
+                    Login
+                  </Link>
+                </div>
               )}
             </div>
             <div className="mb-1 relative">
@@ -158,7 +247,7 @@ const InformationScreen = () => {
                 className="font-sans text-xs text-gray-400 absolute left-4
               top-1"
               >
-                Email 
+                Email
               </label>
               <input
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
@@ -286,7 +375,6 @@ const InformationScreen = () => {
               <input
                 className="w-full p-4 border-gray-400 border-2 leading-0 font-sans rounded-md focus:bg-transparent focus:ring-0 focus:border-black flex items-end"
                 id="contactMethod"
-
                 {...register("city", {
                   required: "Please enter a city",
                 })}
@@ -319,8 +407,11 @@ const InformationScreen = () => {
               )}
             </div>
             <div className="mb-1 relative">
-              <label htmlFor="usState" className="font-sans text-xs text-gray-400 absolute left-4
-              top-1">
+              <label
+                htmlFor="usState"
+                className="font-sans text-xs text-gray-400 absolute left-4
+              top-1"
+              >
                 State
               </label>
               <select
@@ -350,7 +441,13 @@ const InformationScreen = () => {
             </div>
           </form>
         </div>
-        <Link className='flex items-center mx-auto mt-2 font-sans gap-2' href='/cart'><ChevronLeftIcon className='w-4 h-4' />Return to cart</Link>
+        <Link
+          className="flex items-center mx-auto mt-2 font-sans gap-2"
+          href="/cart"
+        >
+          <ChevronLeftIcon className="w-4 h-4" />
+          Return to cart
+        </Link>
       </div>
       <Footer />
     </div>

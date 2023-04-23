@@ -1,11 +1,9 @@
 import "@/styles/globals.css";
 import { StoreProvider } from "@/utils/Store";
 import { SnackbarProvider } from "notistack";
-import { SessionProvider } from 'next-auth/react'
 
-export default function App({ Component, pageProps, session }) {
+export default function App({ Component, pageProps }) {
   return (
-    <SessionProvider session={session}>
       <SnackbarProvider
         anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
         autoHideDuration={3000}
@@ -14,6 +12,5 @@ export default function App({ Component, pageProps, session }) {
           <Component {...pageProps} />
         </StoreProvider>
       </SnackbarProvider>
-    </SessionProvider>
   );
 }
