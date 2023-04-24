@@ -4,7 +4,7 @@ const PaymentScreen = () => {
   return (
     <div>
       <div className="p-8">
-        <CheckoutHelper activeStep={2} />
+        <CheckoutHelper activeStep={3} />
       </div>
     </div>
   );
