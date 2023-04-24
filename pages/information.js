@@ -15,7 +15,6 @@ import axios from "axios";
 
 const InformationScreen = () => {
   const [loggedIn, setLoggedIn] = useState(null);
-  const [selectedAddress, setSelectedAddress] = useState(null);
   const {
     handleSubmit,
     register,
@@ -116,7 +115,6 @@ const InformationScreen = () => {
                       setValue("city", suggestedAddress.city);
                       setValue("usState", suggestedAddress.state);
                       setValue("zipCode", suggestedAddress.zipCode);
-                      setSelectedAddress(true);
                       closeSnackbar(key);
                     }}
                   >

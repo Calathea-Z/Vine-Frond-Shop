@@ -33,7 +33,7 @@ const ShippingCostCalculator = () => {
       return accumulator + currentValue.quantity;
     }, 0);
     pickBoxSize(totalQuantity);
-  }, [cartItems.quantity]);
+  }, [cartItems]);
 
   useEffect(() => {
     const getShippingRates = async () => {
@@ -56,7 +56,7 @@ const ShippingCostCalculator = () => {
     if (boxLength && boxWidth && boxHeight) {
       getShippingRates();
     }
-  },[boxLength, boxWidth, boxHeight, shippingInformation.zipCode])
+  },[boxLength, boxWidth, boxHeight, shippingInformation.zipCode, shippingWeight])
   
 
   return (

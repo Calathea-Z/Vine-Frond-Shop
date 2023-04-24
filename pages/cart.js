@@ -61,7 +61,7 @@ const CartScreen = () => {
       "shippingWeight",
       JSON.stringify(currentWeight)
     )
-  },[cartItems])
+  },[cartItems, dispatch])
 
   return (
     <div className="h-screen flex flex-col">
