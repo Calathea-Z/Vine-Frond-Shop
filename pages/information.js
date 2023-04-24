@@ -194,25 +194,6 @@ const InformationScreen = () => {
           height={100}
           alt="simple Vine & Frond Logo"
         />
-        <h1 className="text-sm self-center font-sans text-gray-500">
-          Express Checkout
-        </h1>
-        <div className="flex justify-center gap-4 p-2">
-          <div className="w-[9rem] border-black border-2 rounded-lg p-2 flex justify-center items-center">
-            Stripe
-          </div>
-          <div className="w-[9rem] border-black border-2 rounded-lg p-2 flex justify-center items-center">
-            Google Pay
-          </div>
-          <div className="w-[9rem] border-black border-2 rounded-lg p-2 flex justify-center items-center">
-            PayPal
-          </div>
-        </div>
-        <div className="flex items-center gap-2 p-2">
-          <div className="col-span-2 border border-gray-500 flex justify-center items-center w-1/2 h-0" />
-          <h1 className="font-sans font-semibold">OR</h1>
-          <div className="col-span-2 border border-gray-500 flex justify-center items-center w-1/2 h-0" />
-        </div>
         <div>
           <form
             className="mx-auto max-w-screen-md"

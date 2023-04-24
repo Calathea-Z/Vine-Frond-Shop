@@ -37,7 +37,9 @@
     "react-hook-form": "^7.43.9",
     "react-social-icons": "^5.15.0",
     "react-spinners": "^0.13.8",
+    "react-square-web-payments-sdk": "^3.2.1",
     "shippo": "^1.7.1",
+    "square": "^26.0.0",
     "states-us": "^1.0.2",
     "xml-js": "^1.6.11",
     "xml2js": "^0.5.0"
