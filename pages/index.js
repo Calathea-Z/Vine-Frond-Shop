@@ -6,6 +6,8 @@ import HighlightedProductCarousel from '@/components/HighlitedProductCarousel';
 import Head from 'next/head';
 
 export default function Home() {
+  const ip = require('ip');
+console.log("IP", ip.address());
 
   return (
     <div className='z-0 relative min-h-screen'>
