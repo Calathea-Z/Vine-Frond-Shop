@@ -1,6 +1,5 @@
 import CheckoutHelper from "@/components/CheckoutHelper";
 import PaymentSquare from "@/components/PaymentSquare";
-import { PaymentForm } from "react-square-web-payments-sdk";
 
 const PaymentScreen = () => {
   return (

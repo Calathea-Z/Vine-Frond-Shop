@@ -1,27 +1,26 @@
 import { Client } from "square";
+import BigInt from "big-integer";
 
-const crypto = require('crypto')
-BigInt.prototype.toJSON = function() {return this.toString(); }
+const crypto = require("crypto");
 
 const randomString = (size = 21) => {
-  return crypto.randomBytes(size).toString('base64').slice(0, size)
-}
+  return crypto.randomBytes(size).toString("base64").slice(0, size);
+};
 
 const { paymentsApi } = new Client({
   accessToken: process.env.SQUARE_TOKEN,
-  environment: 'sandbox',
+  environment: "sandbox",
 });
 
-
-export default async function handler(req,res) {
+export default async function handler(req, res) {
   try {
     const { result } = await paymentsApi.createPayment({
       idempotencyKey: randomString(),
       sourceId: req.body.sourceId,
       amountMoney: {
-        currency: 'USD',
+        currency: "USD",
         amount: 100,
-      }
+      },
     });
     console.log(result);
     res.status(200).json(result);

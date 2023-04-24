@@ -7,7 +7,7 @@ const PaymentSquare = () => {
     <div className='p-4'>
       <PaymentForm
         applicationId='sandbox-sq0idb-Jh0U_iAf4arZphPcQUcmNA'
-        cardTokenizeResponseReceived={async (token, verifiedBuyer) => {
+        cardTokenizeResponseReceived={async (token) => {
           try {
             const response = await axios.post('/api/payments/squarepay', {
               sourceId: token.token,
@@ -18,8 +18,6 @@ const PaymentSquare = () => {
             });
             console.log("token", token.token)
             console.log("response", response.data);
-          //   console.log('token:', token);
-          // console.log('verifiedBuyer:', verifiedBuyer);
           } catch (error) {
             console.error(error);
           }
