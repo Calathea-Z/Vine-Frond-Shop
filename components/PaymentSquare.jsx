@@ -4,7 +4,7 @@ import axios from 'axios';
 const PaymentSquare = () => {
 
   return (
-    <div className='p-4'>
+    <div>
       <PaymentForm
         applicationId='sandbox-sq0idb-Jh0U_iAf4arZphPcQUcmNA'
         cardTokenizeResponseReceived={async (token) => {
@@ -33,14 +33,12 @@ const PaymentSquare = () => {
         locationId="LPBC85G5K72DB"
       >
         <div className='flex flex-col justify-center gap-2'>
-          <div className='hover:opacity-80'>
+          <div>
           <CreditCard buttonProps={{
             css: {
               backgroundColor: '#efd6b3',
               color: 'black',
               fontFamily: 'sans-serif',
-              padding: '.5rem',
-              width: '15rem'
             }
           }} />
           </div>
@@ -48,7 +46,7 @@ const PaymentSquare = () => {
           <GooglePay buttonProps={{
             css: {
               padding: 0,
-              width: '15rem'
+              width: '4rem'
             }
           }} />
           </div>

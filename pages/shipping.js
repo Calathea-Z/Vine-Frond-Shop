@@ -36,7 +36,7 @@ const ShippingScreen = () => {
           height={100}
           alt="simple Vine & Frond Logo"
         />
-        <div className="rounded-md w-full h-auto border-2 border-gray-300 p-2 mb-4">
+        <div className="rounded-md w-full h-auto border-2 border-gray-300 p-2 mb-4 shadow-md">
           <div className="flex justify-between p-4">
             <div className="flex flex-col gap-2">
               <h6 className="font-sans text-gray-400">Contact</h6>
@@ -79,10 +79,10 @@ const ShippingScreen = () => {
           </div>
         </div>
         <h1 className='font-sans text-l font-bold m-2'>Shipping Method</h1>
-        <div className='rounded-md w-full h-auto border-2 border-gray-300 bg-gray-100 p-2 mb-4'>
+        <div className='rounded-md w-full h-auto border-2 border-gray-300 bg-gray-100 p-2 mb-4 shadow-md'>
         <ShippingCostCalculator />
       </div>
-      <button className="rounded-md w-full h-auto border-2 border-gray-300 p-4 bg-primary hover:bg-primary/80 font-sans flex justify-center items-center mb-4" onClick={() => router.push('/payment')}>
+      <button className="rounded-md w-full h-auto border-2 border-gray-300 p-4 bg-primary hover:bg-primary/80 font-sans flex justify-center items-center mb-4 shadow-md" onClick={() => router.push('/payment')}>
        Continue to payment
       </button>
       <Link

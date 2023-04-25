@@ -144,7 +144,7 @@ const CartScreen = () => {
         <div className=" flex justify-between items-center">
           <Link
             href="/allproducts"
-            className="text-xs sm:text-lg align-center self-start mt-2 font-sans py-1 px-2 ml-2 rounded-md bg-primary w-max hover:opacity-80 m-auto"
+            className="text-xs sm:text-lg align-center self-start mt-2 font-sans py-1 px-2 ml-2 rounded-md bg-primary w-max hover:opacity-80 m-auto shadow-md"
           >
             Continue Shopping
           </Link>
@@ -159,7 +159,7 @@ const CartScreen = () => {
         </span>
       </h1>
       <button
-        className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max"
+        className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max shadow-md"
         onClick={() => router.push('/information')}
       >
         Check Out

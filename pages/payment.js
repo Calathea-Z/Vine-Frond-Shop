@@ -25,21 +25,17 @@ const PaymentScreen = () => {
 
   const itemsPrice =parseFloat((cartItems.reduce((a,c) => a + c.quantity * c.price, 0)))
   const taxPrice = parseFloat((shippingInformation.usState === 'NC' || shippingInformation.usState === 'North Carolina') ? (itemsPrice * .07 ) : 0)
-  const totalPrice = (parseFloat(shippingCost) + taxPrice + itemsPrice)
-  console.log("ItemsPrice", itemsPrice);
-  console.log("TaxPrice", taxPrice);
-  console.log("shippingCost", shippingCost)
-  console.log("totalPrice", totalPrice);
+  const parsedShippingCost = parseFloat(shippingCost);
+  const totalPrice = parsedShippingCost + taxPrice + itemsPrice;
 
   const placeOrderHandler = async () => {
     try {
       setLoading(true);
       const { data } = await axios.post('/api/orders', {
         orderItems: cartItems,
-        shippingAddress,
-        paymentMethod,
+        shippingInformation,
         itemsPrice,
-        shippingPrice,
+        parsedShippingCost,
         taxPrice,
         totalPrice,
       });
@@ -65,7 +61,7 @@ const PaymentScreen = () => {
   }, [cartItems]);
 
   return (
-    <div className="p-6">
+    <div className="p-4 h-100">
       <CheckoutHelper activeStep={3} />
       <div className="p-6 flex flex-col justify-center items-center">
         <h1 className="font-sans mb-2">Place Order</h1>
@@ -77,12 +73,12 @@ const PaymentScreen = () => {
         ) : cartItems.length === 0 ? (
           <div className="flex justify-center items-center mx-auto">
             <Link href="/allproducts">
-              <Image src={sadCart} />
+              <Image src={sadCart} height={100} width={100} alt='sad cart empty' />
             </Link>
           </div>
         ) : (
-          <div className="grid md:grid-cols-4 md:gap-5">
-            <div className="overflow-x-auto md:col-span-3">
+          <div className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-5 gap-1">
+            <div className="lg:col-span-3">
               <div className="rounded-lg border-2 shadow-md border-gray-300 block p-2 mb-5">
                 <div className="flex flex-col gap-2">
                   <h6 className="font-sans text-gray-400">Ship to</h6>
@@ -126,7 +122,7 @@ const PaymentScreen = () => {
                       <td>
                         <Link
                           href={`/allproducts/${item.slug}`}
-                          class="flex items-center"
+                          className="flex items-center"
                         >
                           <Image
                             src={urlFor(item.photo[0].asset._ref).url()}
@@ -152,8 +148,11 @@ const PaymentScreen = () => {
               </div>
             </div>
             </div>
-            <div>
-            <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-5 mb-5">
+            <div className='lg:col-start-1'>
+            
+            </div>
+            <div className="rounded-lg border-2 shadow-md border-gray-300 mb-5 p-6 mx-auto lg:col-start-4 lg:row-start-1">
+            <div className="rounded-lg border-2 shadow-md row-start-2 border-gray-300 block p-5 mb-5">
               <h2 className='mb-2 text-lg font-sans'>Order Summary</h2>
               <ul>
                 <li>
@@ -182,9 +181,7 @@ const PaymentScreen = () => {
                 </li>
               </ul>
             </div>
-            <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block mb-5">
               <PaymentSquare />
-            </div>
             </div>
           </div>
         )}

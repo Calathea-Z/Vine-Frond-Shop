@@ -220,7 +220,7 @@ const InformationScreen = () => {
                 </div>
               )}
             </div>
-            <div className="mb-1 relative">
+            <div className="mb-1 relative shadow-md">
               <label
                 htmlFor="shippingContactEmail"
                 className="font-sans text-xs text-gray-400 absolute left-4
@@ -261,7 +261,7 @@ const InformationScreen = () => {
               />
             </div>
             <div className="w-full md:flex md:gap-4 block">
-              <div className=" mb-2 md:w-1/2 relative">
+              <div className=" mb-2 md:w-1/2 relative shadow-md">
                 <label
                   htmlFor="firstNameShipping"
                   className="font-sans text-xs text-gray-400 absolute left-4
@@ -284,7 +284,7 @@ const InformationScreen = () => {
                   ""
                 )}
               </div>
-              <div className="mb-2 md:w-1/2 relative">
+              <div className="mb-2 md:w-1/2 relative shadow-md">
                 <label
                   htmlFor="lastNameShipping"
                   className="font-sans text-xs text-gray-400 absolute left-4
@@ -308,7 +308,7 @@ const InformationScreen = () => {
                 )}
               </div>
             </div>
-            <div className="mb-2 relative">
+            <div className="mb-2 relative shadow-md">
               <label
                 htmlFor="company"
                 className="font-sans text-xs text-gray-400 absolute left-4
@@ -322,7 +322,7 @@ const InformationScreen = () => {
                 {...register("company")}
               />
             </div>
-            <div className="mb-1 relative">
+            <div className="mb-1 relative shadow-md">
               <label
                 htmlFor="address"
                 className="font-sans text-xs text-gray-400 absolute left-4
@@ -343,7 +343,7 @@ const InformationScreen = () => {
                 ""
               )}
             </div>
-            <div className="mb-1 relative">
+            <div className="mb-1 relative shadow-md">
               <label
                 htmlFor="city"
                 className="font-sans text-xs text-gray-400 absolute left-4
@@ -364,7 +364,7 @@ const InformationScreen = () => {
                 ""
               )}
             </div>
-            <div className="mb-1 relative">
+            <div className="mb-1 relative shadow-md">
               <label
                 htmlFor="zipCode"
                 className="font-sans text-xs text-gray-400 absolute left-4
@@ -385,7 +385,7 @@ const InformationScreen = () => {
                 ""
               )}
             </div>
-            <div className="mb-1 relative">
+            <div className="mb-1 relative shadow-md">
               <label
                 htmlFor="usState"
                 className="font-sans text-xs text-gray-400 absolute left-4
@@ -412,7 +412,7 @@ const InformationScreen = () => {
             </div>
             <div className="mb-4 flex justify-between">
               <button
-                className="bg-primary rounded-md w-full mt-2 p-4 font-sans hover:bg-primary/80"
+                className="bg-primary rounded-md w-full mt-2 p-4 font-sans hover:bg-primary/80 shadow-md"
                 type="submit"
               >
                 Continue to Shipping
