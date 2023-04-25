@@ -32,9 +32,27 @@ const PaymentSquare = () => {
         })}
         locationId="LPBC85G5K72DB"
       >
-          <CreditCard />
-          <GooglePay />
-          <ApplePay />
+        <div className='flex flex-col justify-center gap-2'>
+          <div className='hover:opacity-80'>
+          <CreditCard buttonProps={{
+            css: {
+              backgroundColor: '#efd6b3',
+              color: 'black',
+              fontFamily: 'sans-serif',
+              padding: '.5rem',
+              width: '15rem'
+            }
+          }} />
+          </div>
+          <div>
+          <GooglePay buttonProps={{
+            css: {
+              padding: 0,
+              width: '15rem'
+            }
+          }} />
+          </div>
+          </div>
       <div>
 
       </div>

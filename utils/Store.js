@@ -14,6 +14,9 @@ const initialState = {
     shippingWeight: Cookies.get("shippingWeight")
       ? JSON.parse(Cookies.get("shippingWeight"))
       : null,
+    shippingCost: Cookies.get("shippingCost")
+      ? JSON.parse(Cookies.get("shippingCost"))
+      : null,
   },
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
@@ -71,6 +74,12 @@ function reducer(state, action) {
       return {
         ...state,
         cart: { ...state.cart, shippingWeight: action.payload },
+      };
+    }
+    case "UPDATE_SHIPPING_COST": {
+      return {
+        ...state,
+        cart: { ...state.cart, shippingCost: action.payload },
       };
     }
     default:

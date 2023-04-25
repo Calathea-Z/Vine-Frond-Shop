@@ -1,14 +1,14 @@
 import { useState, useContext, useEffect } from "react";
 import { Store } from "@/utils/Store";
-import axios from 'axios'
+import axios from "axios";
+import jsCookie from "js-cookie";
 
 const ShippingCostCalculator = () => {
-
-
   const {
     state: {
       cart: { cartItems, shippingWeight, shippingInformation },
     },
+    dispatch,
   } = useContext(Store);
 
   const [boxLength, setBoxLength] = useState(null);
@@ -38,9 +38,9 @@ const ShippingCostCalculator = () => {
   useEffect(() => {
     const getShippingRates = async () => {
       const data = {
-        shippingWeight, 
-        zipCode : shippingInformation?.zipCode, 
-        boxLength, 
+        shippingWeight,
+        zipCode: shippingInformation?.zipCode,
+        boxLength,
         boxWidth,
         boxHeight,
       };
@@ -48,22 +48,33 @@ const ShippingCostCalculator = () => {
       const res = await axios.post("/api/shipping/shippingCost", data);
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(res.data, "application/xml");
-      const rate = xmlDoc.querySelector('RateV4Response Package Postage Rate').textContent;
-      console.log(rate);
-      setShippingRate(rate)
+      const rate = xmlDoc.querySelector(
+        "RateV4Response Package Postage Rate"
+      ).textContent;
+      dispatch({
+        type: "UPDATE_SHIPPING_COST",
+        payload: rate,
+      });
+      jsCookie.set("shippingCost", JSON.stringify(rate));
+      setShippingRate(rate);
     };
 
     if (boxLength && boxWidth && boxHeight) {
       getShippingRates();
     }
-  },[boxLength, boxWidth, boxHeight, shippingInformation.zipCode, shippingWeight])
-  
+  }, [
+    boxLength,
+    boxWidth,
+    boxHeight,
+    shippingInformation.zipCode,
+    shippingWeight,
+  ]);
 
   return (
-    <div className='s flex justify-between p-3'>
-      <h1 className='font-sans'>USPS Priority Mail</h1>
-      <p className='font-sans'>{shippingRate ? `$${shippingRate}` : "N/A"}</p>
+    <div className="s flex justify-between p-3">
+      <h1 className="font-sans">USPS Priority Mail</h1>
+      <p className="font-sans">{shippingRate ? `$${shippingRate}` : "N/A"}</p>
     </div>
-  )
-}
-export default ShippingCostCalculator
+  );
+};
+export default ShippingCostCalculator;
