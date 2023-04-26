@@ -1,59 +1,56 @@
 import mongoose from "mongoose";
+import User from "./User";
+import PaymentResult from "./PaymentResult";
+import ShippingAddress from "./ShippingAddress";
+import OrderItem from "./OrderItem";
+
 
 delete mongoose.connection.models["Order"];
+const { Schema } = mongoose;
 
 const orderSchema = new mongoose.Schema({
   user: {
-    type: ref,
-    ref: "User",
-    unique: true
+    type: Schema.Types.ObjectId,
+    ref: User
   },
-  userName: {
+  userfirstName: {
     type: String,
-    name: 'user_name'
+  },
+  userlastName: {
+    type: String,
   },
   itemsPrice: {
     type: Number,
-    name: 'items_price',
   },
   shippingPrice: {
     type: Number,
-    name: 'shipping_price',
   },
   taxPrice: {
     type: Number,
-    name: 'tax_price',
   },
   totalPrice: {
     type: Number,
-    name: 'total_price',
   },
   shippingAddress: {
-    type: ref,
-    ref: 'ShippingAddress',
-    name: 'shipping_address',
+    type: Schema.Types.ObjectId,
+    ref: ShippingAddress,
   },
   paymentResult: {
-    type: ref, 
-    ref: "PaymentResult",
-    name: 'payment_result',
+    type: Schema.Types.ObjectId, 
+    ref: PaymentResult,
   },
   orderItems: {
-    type: embedsMany,
-    ref: "OrderItem",
-    name: 'order_items',
+    type: Array,
+    ref: OrderItem,
   },
   isPaid: {
     type: Boolean,
-    name: 'is_paid',
   },
   paidDate: {
     type: Date,
-    name: 'paid_date'
   },
   createdAt: {
     type: 'Date',
-    name: 'created_at'
   }
 });
 

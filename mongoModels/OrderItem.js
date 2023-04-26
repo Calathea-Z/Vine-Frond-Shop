@@ -9,19 +9,15 @@ const orderItemSchema = new mongoose.Schema({
     properties: {
       "name" : {
         type : String,
-        name : "name",
       },
       "quantity" : {
         type : Number,
-        name : "quantity",
       },
       "image" : {
         type : String,
-        name : "image",
       },
       "price" : {
         type : Number,
-        name : "price",
       },
     }
   },

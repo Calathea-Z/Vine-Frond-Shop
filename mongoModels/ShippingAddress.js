@@ -5,32 +5,36 @@ delete mongoose.connection.models["ShippingAddress"];
 const shippingAddressSchema = new mongoose.Schema({
   shippingAddress: {
     type: "Object",
-    name: 'shipping_address',
+    name: "shipping_address",
     properties: {
-      "fullName" : {
-        type : String,
-        name : "full_name",
+      firstNameShipping: {
+        type: String,
       },
-      "address" : {
-        type : String,
-        name : "address",
+      lastNameShipping: {
+        type: String,
       },
-      "city" : {
-        type : String,
-        name : "city",
+      company: {
+        type: String,
       },
-      "state" : {
-        type : String,
-        name : "state",
+      address: {
+        type: String,
       },
-      "zipCode" : {
-        type : Number,
-        name : "zip_code",
+      city: {
+        type: String,
       },
-    }
+      state: {
+        type: String,
+      },
+      zipCode: {
+        type: Number,
+      },
+    },
   },
 });
 
-const ShippingAddress = mongoose.model("ShippingAddress", shippingAddressSchema);
+const ShippingAddress = mongoose.model(
+  "ShippingAddress",
+  shippingAddressSchema
+);
 
 export default ShippingAddress;

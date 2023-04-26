@@ -17,6 +17,9 @@ const initialState = {
     shippingCost: Cookies.get("shippingCost")
       ? JSON.parse(Cookies.get("shippingCost"))
       : null,
+    paymentSuccess: Cookies.get("orderSuccess")
+    ? JSON.parse(Cookies.get("orderSuccess"))
+    : false
   },
   userInfo: Cookies.get("userInfo")
     ? JSON.parse(Cookies.get("userInfo"))
@@ -84,6 +87,18 @@ function reducer(state, action) {
         ...state,
         cart: { ...state.cart, shippingCost: action.payload },
       };
+    }
+      case "UPDATE_PAYMENT_SUCCESS": {
+        return {
+          ...state,
+          cart: { ...state.cart, orderSuccess: action.payload}
+        };
+      }
+        case "CLEAR_PAYMENT_STATUS": {
+          return {
+            ...state,
+            cart: { ...state.cart, orderSuccess: false }
+          };
     }
     default:
       return state;

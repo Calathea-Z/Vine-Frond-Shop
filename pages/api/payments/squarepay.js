@@ -1,7 +1,8 @@
 import { Client } from "square";
-import BigInt from "big-integer";
+
 
 const crypto = require("crypto");
+const bigInt = BigInt.prototype.toJSON = function() { return this.toString(); }
 
 const randomString = (size = 21) => {
   return crypto.randomBytes(size).toString("base64").slice(0, size);

@@ -9,15 +9,12 @@ const paymentResultSchema = new mongoose.Schema({
     properties: {
       "id" : {
         type : String,
-        name : "id",
       },
       "status" : {
         type : String,
-        name : "status,
       },
       "emailAddress" : {
         type : String,
-        name : "email_address",
       },
     }
   },
