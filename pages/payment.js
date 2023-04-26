@@ -8,11 +8,13 @@ import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
 import sadCart from "../public/assets/sadCart.png";
 import { useRouter } from "next/router";
+import dynamic from "next/dynamic";
 
 const PaymentScreen = () => {
   const router = useRouter();
   const {
     state: {
+      userInfo,
       cart: { cartItems, shippingInformation, shippingCost },
     },
     dispatch,
@@ -21,40 +23,62 @@ const PaymentScreen = () => {
   const [isLoading, setIsLoading] = useState(true);
   const [buttonLoading, setButtonLoading] = useState(true);
 
-  const round2 = (num) => Math.round(num * 100 + Number.EPSILON) / 100;
-
   const itemsPrice =parseFloat((cartItems.reduce((a,c) => a + c.quantity * c.price, 0)))
   const taxPrice = parseFloat((shippingInformation.usState === 'NC' || shippingInformation.usState === 'North Carolina') ? (itemsPrice * .07 ) : 0)
   const parsedShippingCost = parseFloat(shippingCost);
   const totalPrice = parsedShippingCost + taxPrice + itemsPrice;
 
   const placeOrderHandler = async () => {
+    if(userInfo){
     try {
-      setLoading(true);
+      setButtonLoading(true);
       const { data } = await axios.post('/api/orders', {
-        orderItems: cartItems,
+        orderItems: cartItems.map((x) => ({
+          ...x, countInStock: undefined, slug: undefined
+        })),
         shippingInformation,
         itemsPrice,
         parsedShippingCost,
         taxPrice,
         totalPrice,
-      });
-      setLoading(false);
-      dispatch({ type: 'CART_CLEAR_ITEMS' });
-      Cookies.set(
-        'cart',
-        JSON.stringify({
-          ...cart,
-          cartItems: [],
-        })
+      },
+      {
+        headers: {
+          authorization: `Bearer ${userInfo.token}`
+        },
+      }
       );
-      router.push(`/order/${data._id}`);
-    } catch (err) {
-      setLoading(false);
+    dispatch({ type: 'CART_CLEAR_ITEMS' });
+    jsCookie.remove('cartItems');
+    setButtonLoading(false);
+    router.push(`/order/${data}`);
+    }catch (err) {
       toast.error(getError(err));
     }
+  }
+  else {
+    try {
+      setButtonLoading(true);
+      const { data } = await axios.post('/api/orders', {
+        orderItems: cartItems.map((x) => ({
+          ...x, countInStock: undefined, slug: undefined
+        })),
+        shippingInformation,
+        itemsPrice,
+        parsedShippingCost,
+        taxPrice,
+        totalPrice,
+      },
+      );
+    dispatch({ type: 'CART_CLEAR_ITEMS' });
+    jsCookie.remove('cartItems');
+    setButtonLoading(false);
+    router.push(`/order/${data}`);
+    }catch (err) {
+      toast.error(getError(err));
+    }
+  }
   };
-
 
   useEffect(() => {
     setIsLoading(false);
@@ -190,4 +214,4 @@ const PaymentScreen = () => {
   );
 };
 
-export default PaymentScreen;
+export default dynamic(() => Promise.resolve(PaymentScreen), { ssr: false })
