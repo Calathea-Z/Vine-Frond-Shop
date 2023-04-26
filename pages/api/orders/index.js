@@ -15,7 +15,6 @@ export default async function handler(req, res) {
           createdAt: new Date().toISOString(),
           ...req.body,
           userName: "Guest",
-          user: null,
         });
         res.status(201).send(order._id);
       } catch (error) {
@@ -28,9 +27,9 @@ export default async function handler(req, res) {
         const order = await Order.create({
           createdAt: new Date().toISOString(),
           ...req.body,
-          userFirstName: user.firstName,
-          userLastName: user.lastName,
-          user: user._id,
+          userFirstName: firstName,
+          userLastName: lastName,
+          user: userInfo._id,
         });
         res.status(201).send(order._id);
       } catch (error) {

@@ -11,7 +11,8 @@ const { Schema } = mongoose;
 const orderSchema = new mongoose.Schema({
   user: {
     type: Schema.Types.ObjectId,
-    ref: User
+    ref: User,
+    unique: false,
   },
   userfirstName: {
     type: String,

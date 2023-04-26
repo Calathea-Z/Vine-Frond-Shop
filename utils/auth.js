@@ -6,18 +6,16 @@ const signToken = (user) => {
   });
 };
 
-const isAuth = async (req, res, next) => {
+const isAuth = async (req, res) => {
   const { authorization } = req.headers;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // BEARER XXX
-    jwt.verify(token, process.env.JWT_SECRET, (err, decode) => {
-      if (err) {
-        res.status(401).send({ message: 'Token is not valid' });
-      } else {
-        req.user = decode;
-        next();
-      }
-    });
+    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
+    if (decoded) {
+      req.user = decoded;
+    } else {
+      res.status(401).send({ message: 'Token is not valid' });
+    }
   } else {
     res.status(401).send({ message: 'Token is not supplied' });
   }
