@@ -102,7 +102,7 @@ const PaymentScreen = () => {
         dispatch({ type: "CLEAR_PAYMENT_STATUS" });
         jsCookie.remove("orderSuccess");
         setButtonLoading(false);
-        router.push(`/order/${data}`);
+        // router.push(`/order/${data}`);
       } catch (err) {
         enqueueSnackbar(getError(err), { variant: "error" });
       }

@@ -3,28 +3,29 @@ import client from '../../../utils/client';
 export default async function handler(req, res) {
   if (req.method === 'PUT') {
     const { cartItems } = req.body;
-    console.log("Sanity CART", cartItems)
     try {
       const mutations = cartItems.map((cartItem) => ({
         patch: {
           id: cartItem._key,
-          set: {
-            countInStock: { 
-              _type: 'number', 
-              _operation: 'decrement', 
-              value: cartItem.quantity 
-            }
-          }
-        }
+          dec: { countInStock: Number(cartItem.quantity) },
+        },
       }));
-      console.log("Mutations", mutations)
-      client.transaction(mutations);
+      
+      const transaction = client.transaction();
+      
+      mutations.forEach((mutation) => transaction.patch(mutation.id, mutation.patch));
+      
+      const result = await transaction.commit();
+      console.log('Transaction result:', result);
+      
       const updatedCartItems = cartItems.map((cartItem) => ({
         ...cartItem,
         countInStock: cartItem.countInStock - cartItem.quantity,
       }));
+      
       res.status(200).json(updatedCartItems);
     } catch (err) {
+      console.error('Transaction failed:', err.message);
       res.status(500).json({ error: err.message });
     }
   } else {
