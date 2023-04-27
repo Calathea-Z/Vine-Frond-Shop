@@ -81,16 +81,16 @@ const RegisterScreen = () => {
     <div className="flex flex-col">
       <Header />
       <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
-        <h1 className="self-center px-10 py-5 text-4xl">Register</h1>
+        <h1 className="self-center px-5 sm:px-10 py-5 text-3xl sm:text-4xl">Register</h1>
         <form
           onSubmit={handleSubmit(submitHandler)}
-          className="flex flex-col p-5 "
+          className="flex flex-col p-4 sm:p-5 "
         >
-          <div className="flex justify-start items-start gap-4">
+          <div className="flex justify-start items-start gap-1 sm:gap-4">
             <div>
               <h1 className="mb-1"> First Name</h1>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
+                className="bg-transparent border-primary mb-3 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
                 type="text"
                 {...register("firstName", {
                   required: "Required",

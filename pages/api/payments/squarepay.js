@@ -2,7 +2,7 @@ import { Client } from "square";
 
 
 const crypto = require("crypto");
-const bigInt = BigInt.prototype.toJSON = function() { return this.toString(); }
+const bigInt = BigInt.prototype.toJSON = function() { return this.toString(); }  // eslint-disable-line no-unused-vars
 
 const randomString = (size = 21) => {
   return crypto.randomBytes(size).toString("base64").slice(0, size);

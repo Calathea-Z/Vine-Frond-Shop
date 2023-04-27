@@ -78,7 +78,7 @@ const PaymentScreen = () => {
       }
     } else {
       try {
-        const { data } = await axios.post("/api/orders", {
+        const { data } = await axios.post("/api/orders", {  // eslint-disable-line no-unused-vars
           orderItems: cartItems.map((x) => ({
             ...x,
             countInStock: undefined,
