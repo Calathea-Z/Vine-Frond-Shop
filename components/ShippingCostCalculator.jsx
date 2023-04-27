@@ -68,6 +68,7 @@ const ShippingCostCalculator = () => {
     boxHeight,
     shippingInformation.zipCode,
     shippingWeight,
+    dispatch
   ]);
 
   return (

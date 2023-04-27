@@ -26,7 +26,6 @@ const PaymentScreen = () => {
   } = useContext(Store);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [buttonLoading, setButtonLoading] = useState(true);
 
   const itemsPrice = parseFloat(
     cartItems.reduce((a, c) => a + c.quantity * c.price, 0)
@@ -72,7 +71,6 @@ const PaymentScreen = () => {
         dispatch({ type: "CLEAR_PAYMENT_STATUS" });
         jsCookie.remove("orderSuccess");
 
-        setButtonLoading(false);
         router.push(`/order/${data}`);
       } catch (err) {
         dispatch({ type: "CLEAR_PAYMENT_STATUS" });
@@ -101,7 +99,6 @@ const PaymentScreen = () => {
         jsCookie.remove("cartItems");
         dispatch({ type: "CLEAR_PAYMENT_STATUS" });
         jsCookie.remove("orderSuccess");
-        setButtonLoading(false);
         // router.push(`/order/${data}`);
       } catch (err) {
         enqueueSnackbar(getError(err), { variant: "error" });
@@ -119,7 +116,7 @@ const PaymentScreen = () => {
     } else {
       return;
     }
-  }, [orderSuccess]);
+  }, [orderSuccess, placeOrderHandler]);
 
   return (
     <div className="p-4 h-100">
