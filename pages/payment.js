@@ -42,7 +42,6 @@ const PaymentScreen = () => {
   const placeOrderHandler = async () => {
     if (userInfo) {
       try {
-        setButtonLoading(true);
         const { data } = await axios.post(
           "/api/orders",
           {
@@ -79,7 +78,6 @@ const PaymentScreen = () => {
       }
     } else {
       try {
-        setButtonLoading(true);
         const { data } = await axios.post("/api/orders", {
           orderItems: cartItems.map((x) => ({
             ...x,
@@ -116,7 +114,7 @@ const PaymentScreen = () => {
     } else {
       return;
     }
-  }, [orderSuccess, placeOrderHandler]);
+  }, [orderSuccess]);
 
   return (
     <div className="p-4 h-100">

@@ -5,7 +5,7 @@ import { Store } from "@/utils/Store";
 import jsCookie from "js-cookie";
 
 const PaymentSquare = () => {
-  const { state, dispatch } = useContext(Store);
+  const { dispatch } = useContext(Store);
   const [paymentMethod, setPaymentMethod] = useState("card");
   const [orderSuccess, setOrderSuccess] = useState(false);
 
@@ -20,7 +20,7 @@ const PaymentSquare = () => {
       JSON.stringify({ orderSuccess})
     );
     } return;
-  },[orderSuccess])
+  },[orderSuccess, dispatch])
 
   const handlePaymentMethodChange = (method) => {
     setPaymentMethod(method);
