@@ -17,7 +17,7 @@ const isAuth = async (req, res) => {
       res.status(401).send({ message: 'Token is not valid' });
     }
   } else {
-    res.status(401).send({ message: 'Token is not supplied' });
+    return null
   }
 };
 export { signToken, isAuth };

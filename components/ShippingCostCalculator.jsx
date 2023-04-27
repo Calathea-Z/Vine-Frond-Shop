@@ -73,7 +73,7 @@ const ShippingCostCalculator = () => {
   return (
     <div className="s flex justify-between p-3">
       <h1 className="font-sans">USPS Priority Mail</h1>
-      <p className="font-sans">{shippingRate ? `$${shippingRate}` : "N/A"}</p>
+      <p className="font-sans">{shippingRate ? `$${shippingRate}` : "Calculating"}</p>
     </div>
   );
 };

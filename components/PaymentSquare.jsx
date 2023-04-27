@@ -11,7 +11,6 @@ const PaymentSquare = () => {
 
   useEffect(() => {
     if(orderSuccess === true){
-      console.log("HITTTTTTTT")
     dispatch({
       type: "UPDATE_PAYMENT_SUCCESS",
       payload: { orderSuccess }
@@ -20,7 +19,6 @@ const PaymentSquare = () => {
       "orderSuccess",
       JSON.stringify({ orderSuccess})
     );
-    console.log("Ordersuccess value", orderSuccess)
     } return;
   },[orderSuccess])
 
@@ -37,7 +35,6 @@ const PaymentSquare = () => {
           'Content-Type': 'application/json',
         }
       });
-      console.log("token", token.token);
       console.log("response", response.data.payment.status);
       if(response.data.payment.status === 'COMPLETED'){
         setOrderSuccess(true);

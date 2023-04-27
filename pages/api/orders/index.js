@@ -1,40 +1,40 @@
 import dbConnect from "@/lib/mongoDBConnect";
-import Order from "@/mongoModels/Order";
+import UserOrder from "@/mongoModels/UserOrder";
+import GuestOrder from "@/mongoModels/GuestOrder";
 import { isAuth } from "@/utils/auth";
 
 export default async function handler(req, res) {
   await dbConnect();
   
   if (req.method === "POST") {
-    const user = isAuth(req);
+    const user = await isAuth(req);
+    console.log("User", user)
     
     // Guest checkout
-    if (!user) {
+    if (user === true) {
       try {
-        const order = await Order.create({
-          createdAt: new Date().toISOString(),
+        console.log("LOGGED IN USER HIT", user)
+        const userOrder = await UserOrder.create({
           ...req.body,
-          userName: "Guest",
+          user: user && user._id,
         });
-        res.status(201).send(order._id);
+        res.status(201).send(userOrder._id);
       } catch (error) {
         res.status(400).send(error);
       }
     } 
     // Registered user checkout
     else {
+      console.log(" GUEST HIT", user)
       try {
-        const order = await Order.create({
-          createdAt: new Date().toISOString(),
+        const guestOrder = await GuestOrder.create({
           ...req.body,
-          userFirstName: firstName,
-          userLastName: lastName,
-          user: userInfo._id,
         });
-        res.status(201).send(order._id);
+        res.status(201).send(guestOrder._id);
       } catch (error) {
         res.status(400).send(error);
       }
+      
     }
   }
 }

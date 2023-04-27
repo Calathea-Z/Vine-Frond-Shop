@@ -34,7 +34,7 @@ const PaymentScreen = () => {
   const taxPrice = parseFloat(
     shippingInformation.usState === "NC" ||
       shippingInformation.usState === "North Carolina"
-      ? itemsPrice * 0.07
+      ? (itemsPrice * 0.07).toFixed(2)
       : 0
   );
   const parsedShippingCost = parseFloat(shippingCost);
@@ -52,11 +52,11 @@ const PaymentScreen = () => {
               countInStock: undefined,
               slug: undefined,
             })),
-            shippingInformation,
-            itemsPrice,
-            parsedShippingCost,
-            taxPrice,
-            totalPrice,
+            shippingInformation: shippingInformation,
+            itemsPrice: itemsPrice,
+            parsedShippingCost: parsedShippingCost,
+            taxPrice: taxPrice,
+            totalPrice: totalPrice,
           },
           {
             headers: {
@@ -64,6 +64,9 @@ const PaymentScreen = () => {
             },
           }
         );
+        await axios.put("/api/allproducts/updatequantity", {
+          cartItems: cartItems,
+        });
         dispatch({ type: "CART_CLEAR_ITEMS" });
         jsCookie.remove("cartItems");
         dispatch({ type: "CLEAR_PAYMENT_STATUS" });
@@ -85,11 +88,14 @@ const PaymentScreen = () => {
             countInStock: undefined,
             slug: undefined,
           })),
-          shippingInformation,
-          itemsPrice,
-          parsedShippingCost,
-          taxPrice,
-          totalPrice,
+          shippingInformation: shippingInformation,
+          itemsPrice: itemsPrice,
+          parsedShippingCost: parsedShippingCost,
+          taxPrice: taxPrice,
+          totalPrice: totalPrice,
+        });
+        await axios.put("/api/allproducts/updatequantity", {
+          cartItems: cartItems,
         });
         dispatch({ type: "CART_CLEAR_ITEMS" });
         jsCookie.remove("cartItems");
@@ -108,12 +114,12 @@ const PaymentScreen = () => {
   }, [cartItems]);
 
   useEffect(() => {
-    if (orderSuccess){
+    if (orderSuccess) {
       placeOrderHandler();
-    }else {
-      return
+    } else {
+      return;
     }
-  },[orderSuccess])
+  }, [orderSuccess]);
 
   return (
     <div className="p-4 h-100">
