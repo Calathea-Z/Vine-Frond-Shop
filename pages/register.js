@@ -86,11 +86,11 @@ const RegisterScreen = () => {
           onSubmit={handleSubmit(submitHandler)}
           className="flex flex-col p-4 sm:p-5 "
         >
-          <div className="flex justify-start items-start gap-1 sm:gap-4">
-            <div>
-              <h1 className="mb-1"> First Name</h1>
+          <div className="flex flex-col sm:flex-row justify-center items-center sm:justify-start sm:items-start gap-1 sm:gap-4">
+            <div className=' w-[13.7rem] sm:w-full'>
+              <h1 className="mb-1 text-center sm:text-left"> First Name</h1>
               <input
-                className="bg-transparent border-primary mb-3 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
+                className="bg-transparent border-primary mb-3 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-full"
                 type="text"
                 {...register("firstName", {
                   required: "Required",
@@ -105,10 +105,10 @@ const RegisterScreen = () => {
                 ""
               )}
             </div>
-            <div>
-              <h1 className="mb-1"> Last Name</h1>
+            <div className=' w-[13.7rem] sm:w-full'>
+              <h1 className="mb-1 text-center sm:text-left"> Last Name</h1>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent"
+                className="bg-transparent border-primary mb-3 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-full"
                 type="text"
                 {...register("lastName", {
                   required: "Required",
@@ -125,9 +125,9 @@ const RegisterScreen = () => {
             </div>
           </div>
 
-          <h1 className="mb-1">Email</h1>
+          <h1 className="mb-1 self-center sm:self-start">Email</h1>
           <input
-            className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+            className="bg-transparent self-center sm:self-start border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[13.7rem] sm:w-[24.2rem]"
             type="email"
             {...register("email", {
               required: "Required",
@@ -145,11 +145,11 @@ const RegisterScreen = () => {
             ""
           )}
 
-          <h1 className="mb-1">Password</h1>
-          <div className="flex gap-2">
+          <h1 className="mb-1 self-center sm:self-start">Password</h1>
+          <div className="flex gap-2 self-center sm:self-start">
             <div>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[13.7rem] sm:w-[24.2rem]"
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
                   required: "Required",
@@ -178,24 +178,24 @@ const RegisterScreen = () => {
             </div>
             {showPassword ? (
               <EyeIcon
-                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem]  cursor-pointer text-blue-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             ) : (
               <EyeSlashIcon
-                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem]  cursor-pointer text-gray-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             )}
           </div>
 
-          <h1 className="mb-1">Confirm Password</h1>
-          <div className="flex gap-2">
+          <h1 className="mb-1 self-center sm:self-start">Confirm Password</h1>
+          <div className="flex gap-2 self-center sm:self-start">
             <div>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[24.2rem]"
+                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[13.7rem] sm:w-[24.2rem]"
                 type={showPasswordConfirm ? "text" : "password"}
                 {...register("confirmPassword", {
                   required: "Required",
@@ -211,13 +211,13 @@ const RegisterScreen = () => {
             </div>
             {showPasswordConfirm ? (
               <EyeIcon
-                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem]  cursor-pointer text-blue-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordConfirmShowHide}
               />
             ) : (
               <EyeSlashIcon
-                className="w-5 h-5 absolute translate-x-[22.5rem] translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem] cursor-pointer text-gray-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordConfirmShowHide}
               />
@@ -229,7 +229,7 @@ const RegisterScreen = () => {
           >
             Register!
           </button>
-          <div>
+          <div className='self-center sm:self-start'>
             <Link href="/login" passHref className="text-sm hover:opacity-70">
               Already have an account?
             </Link>
