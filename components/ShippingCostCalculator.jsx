@@ -2,6 +2,7 @@ import { useState, useContext, useEffect } from "react";
 import { Store } from "@/utils/Store";
 import axios from "axios";
 import jsCookie from "js-cookie";
+import ClipLoader from "react-spinners/ClipLoader";
 
 const ShippingCostCalculator = () => {
   const {
@@ -74,7 +75,7 @@ const ShippingCostCalculator = () => {
   return (
     <div className="s flex justify-between p-3">
       <h1 className="font-sans">USPS Priority Mail</h1>
-      <p className="font-sans">{shippingRate ? `$${shippingRate}` : "Calculating"}</p>
+      <p className="font-sans">{shippingRate ? `$${shippingRate}` : (<><ClipLoader/></>)}</p>
     </div>
   );
 };
