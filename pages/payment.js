@@ -170,7 +170,7 @@ const PaymentScreen = () => {
               </div>
 
 
-              <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-4 sm:p-5 mb-5">
+              <div className="hidden rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 sm:block p-4 sm:p-5 mb-5">
                 <h2 className="font-sans">Items</h2>
                 <table className="table-auto">
                   <thead className="border-b">
@@ -185,17 +185,17 @@ const PaymentScreen = () => {
                     {cartItems.map((item, index) => (
                       <tr key={index} className="border-b">
                         <td>
-                          <Link
-                            href={`/allproducts/${item.slug}`}
-                            className="flex items-center"
-                          >
-                            <Image
-                              src={urlFor(item.photo[0].asset._ref).url()}
-                              alt={item.name}
-                              width={80}
-                              height={80}
-                              className="rounded-md p-1"
-                            />
+                        <Link
+          href={`/allproducts/${item.slug}`}
+          className="flex items-center flex-col">
+          <Image
+            src={urlFor(item.photo[0].asset._ref).url()}
+            alt={item.name}
+            width={80}
+            height={80}
+            class="rounded-md p-1"
+          />
+          <p className='font-sans text-xs text-center'>{item.name}</p>
                             &nbsp;
                           </Link>
                         </td>
@@ -213,6 +213,7 @@ const PaymentScreen = () => {
                   </tbody>
                 </table>
                 <div>
+                  
 
                   
                   <Link
@@ -223,6 +224,50 @@ const PaymentScreen = () => {
                   </Link>
                 </div>
               </div>
+
+
+              <div class="sm:hidden rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-4 sm:p-5 mb-5">
+  <h2 class="font-sans">Items</h2>
+  <div class="flex flex-wrap flex-col mb-5">
+    {cartItems.map((item, index) => (
+      <div key={index} class="flex flex-grow items-center">
+        <Link
+          href={`/allproducts/${item.slug}`}
+          className="flex items-center flex-col">
+          <Image
+            src={urlFor(item.photo[0].asset._ref).url()}
+            alt={item.name}
+            width={80}
+            height={80}
+            class="rounded-md p-1"
+          />
+          <p className='font-sans text-xs text-center'>{item.name}</p>
+          &nbsp;
+        </Link>
+        <div class="w-1/3 text-center flex flex-col">
+          <p className='font-sans text-xs'>Quantity</p>
+          <span class="font-sans">{item.quantity}</span>
+        </div>
+        <div class="w-1/3 text-center flex flex-col">
+          <p className='font-sans text-xs'>Price</p>
+          <span class="font-sans">${item.price}</span>
+        </div>
+        <div class="w-1/3 text-center flex flex-col">
+          <p className='font-sans text-xs'>Subtotal</p>
+          <span class="font-sans">${item.quantity * item.price}</span>
+        </div>
+      </div>
+    ))}
+  </div>
+  <div>
+    <Link
+      href="/cart"
+      class="font-sans text-xs sm:text-sm underline hover:text-blue-400"
+    >
+      Edit
+    </Link>
+  </div>
+</div>
 
               
             </div>
