@@ -120,25 +120,27 @@ const PaymentScreen = () => {
     <div className="p-4 h-100">
       <CheckoutHelper activeStep={3} />
       <div className="p-6 flex flex-col justify-center items-center">
-        <h1 className="font-sans mb-2">Place Order</h1>
+        <h1 className="font-sans underline underline-offset-4 mb-4">Finalize Your Order</h1>
 
         {isLoading ? (
-          <div className="flex justify-center items-center mx-auto h-screen">
+          <div className="flex justify-center items-center mx-auto h-screen w-full">
             <ClipLoader />
           </div>
         ) : cartItems.length === 0 ? (
-          <div className="flex justify-center items-center mx-auto">
-            <Link href="/allproducts">
+          <div className="flex justify-center flex-col items-center h-screen mt-[-6rem]">
+           <h1>weird.. there is nothing in your cart...</h1>
+            <Link href="/allproducts" className=' flex flex-col justify-center items-center'>
               <Image
                 src={sadCart}
-                height={100}
-                width={100}
+                height={300}
+                width={300}
                 alt="sad cart empty"
               />
+             <p className='font-sans border-2 rounded-md p-1 bg-primary border-gray-200 shadow-md hover:opacity-80'>Go Shopping.</p>
             </Link>
           </div>
         ) : (
-          <div className="grid lg:grid-cols-3 lg:grid-rows-2 lg:gap-5 gap-1">
+          <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 lg:grid-rows-2 lg:gap-5 gap-1">
             <div className="lg:col-span-3">
               <div className="rounded-lg border-2 shadow-md border-gray-300 block p-2 mb-5">
                 <div className="flex flex-col gap-2">
@@ -166,15 +168,17 @@ const PaymentScreen = () => {
                   </Link>
                 </div>
               </div>
-              <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-5 mb-5">
+
+
+              <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-4 sm:p-5 mb-5">
                 <h2 className="font-sans">Items</h2>
-                <table className="min-w-full">
+                <table className="table-auto">
                   <thead className="border-b">
                     <tr>
-                      <th className="px-5 text-left font-sans">Item</th>
-                      <th className="p-5 text-right font-sans">Quantity</th>
-                      <th className="p-5 text-right font-sans">Price</th>
-                      <th className="p-5 text-right font-sans">Subtotal</th>
+                      <th className="px-5  text-left font-sans text-xs sm:text-lg w-full">Item</th>
+                      <th className="p-5 text-right font-sans text-xs sm:text-lg">Quantity</th>
+                      <th className="p-5 text-right font-sans text-xs sm:text-lg">Price</th>
+                      <th className="p-5 text-right font-sans text-xs sm:text-lg ">Subtotal</th>
                     </tr>
                   </thead>
                   <tbody>
@@ -190,7 +194,7 @@ const PaymentScreen = () => {
                               alt={item.name}
                               width={80}
                               height={80}
-                              className="rounded-sm"
+                              className="rounded-md p-1"
                             />
                             &nbsp;
                           </Link>
@@ -209,6 +213,8 @@ const PaymentScreen = () => {
                   </tbody>
                 </table>
                 <div>
+
+                  
                   <Link
                     href="/cart"
                     className="font-sans text-xs sm:text-sm underline hover:text-blue-400"
@@ -217,6 +223,8 @@ const PaymentScreen = () => {
                   </Link>
                 </div>
               </div>
+
+              
             </div>
             <div className="lg:col-start-1"></div>
             <div className="rounded-lg border-2 shadow-md border-gray-300 mb-5 p-6 mx-auto lg:col-start-4 lg:row-start-1">
