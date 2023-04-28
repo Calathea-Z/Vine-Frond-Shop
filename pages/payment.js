@@ -78,7 +78,7 @@ const PaymentScreen = () => {
     }
   } else {
     try {
-      const { data } = await axios.post("/api/orders", {  // eslint-disable-line no-unused-vars
+      const { data } = await axios.post("/api/orders", {
         orderItems: cartItems.map((x) => ({
           ...x,
           countInStock: undefined,
@@ -97,7 +97,7 @@ const PaymentScreen = () => {
       jsCookie.remove("cartItems");
       dispatch({ type: "CLEAR_PAYMENT_STATUS" });
       jsCookie.remove("orderSuccess");
-      // router.push(`/order/${data}`);
+      router.push(`/order/${data}`);
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: "error" });
     }
@@ -237,9 +237,9 @@ const PaymentScreen = () => {
                 </div>
               </div>
 
-              <div class="sm:hidden rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-4 sm:p-5 mb-5">
-                <h2 class="font-sans">Items</h2>
-                <div class="flex flex-wrap flex-col mb-5">
+              <div className="sm:hidden rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-4 sm:p-5 mb-5">
+                <h2 className="font-sans">Items</h2>
+                <div className="flex flex-wrap flex-col mb-5">
                   {cartItems.map((item, index) => (
                     <div key={index} class="flex flex-grow items-center">
                       <Link

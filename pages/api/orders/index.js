@@ -7,11 +7,9 @@ export default async function handler(req, res) {
   await dbConnect();
   
   if (req.method === "POST") {
-    const user = await isAuth(req);
-    console.log("User", user)
-    
-    // Guest checkout
-    if (user === true) {
+    const user = await isAuth(req);  
+    // registered user
+    if (user) {
       try {
         console.log("LOGGED IN USER HIT", user)
         const userOrder = await UserOrder.create({
@@ -23,7 +21,7 @@ export default async function handler(req, res) {
         res.status(400).send(error);
       }
     } 
-    // Registered user checkout
+    // Guest user 
     else {
       console.log(" GUEST HIT", user)
       try {

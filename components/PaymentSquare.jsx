@@ -101,8 +101,6 @@ const PaymentSquare = () => {
           Use Debit / Credit Card
         </button>
       )}
-
-      {orderSuccess && <p>Order successful!</p>}
     </div>
   );
 };

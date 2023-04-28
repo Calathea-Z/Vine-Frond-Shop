@@ -10,14 +10,16 @@ const isAuth = async (req, res) => {
   const { authorization } = req.headers;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // BEARER XXX
-    const decoded = await jwt.verify(token, process.env.JWT_SECRET);
-    if (decoded) {
+    try {
+      const decoded = await jwt.verify(token, process.env.JWT_SECRET);
       req.user = decoded;
-    } else {
-      res.status(401).send({ message: 'Token is not valid' });
+      return decoded;
+    } catch (error) {
+      throw new Error("Token is not valid");
     }
   } else {
-    return null
+    return null;
   }
 };
+
 export { signToken, isAuth };
