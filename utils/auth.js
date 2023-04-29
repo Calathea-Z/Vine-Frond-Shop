@@ -7,6 +7,7 @@ const signToken = (user) => {
 };
 
 const isAuth = async (req, res) => {
+  console.log("HEADRES", req.headers)
   const { authorization } = req.headers;
   if (authorization) {
     const token = authorization.slice(7, authorization.length); // BEARER XXX
@@ -15,11 +16,13 @@ const isAuth = async (req, res) => {
       req.user = decoded;
       return decoded;
     } catch (error) {
-      throw new Error("Token is not valid");
+      console.error("Token is not valid");
     }
   } else {
-    return null;
+    console.error("Authorization header not found");
   }
+  return null;
 };
+
 
 export { signToken, isAuth };

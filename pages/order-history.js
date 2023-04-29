@@ -17,7 +17,7 @@ function reducer(state, action) {
     case "FETCH_FAIL":
       return { ...state, loading: false, error: action.payload };
     default:
-      state;
+      return state;
   }
 }
 
@@ -39,6 +39,7 @@ const OrderHistoryScreen = () => {
     const fetchOrders = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
+        console.log("USER INFO", userInfo.token);
         const { data } = await axios.get(`/api/orders/history`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
@@ -54,8 +55,8 @@ const OrderHistoryScreen = () => {
     <div>
       <Header />
       {loading ? (
-        <div className='h-screen flex justify-center items-center'>
-        <ClipLoader />
+        <div className="min-h-screen flex justify-center items-center">
+          <ClipLoader />
         </div>
       ) : (
         <div className="p-4 grid">
@@ -78,4 +79,6 @@ const OrderHistoryScreen = () => {
   );
 };
 
-export default dynamic(() => Promise.resolve(OrderHistoryScreen), { ssr: false });
+export default dynamic(() => Promise.resolve(OrderHistoryScreen), {
+  ssr: false,
+});
