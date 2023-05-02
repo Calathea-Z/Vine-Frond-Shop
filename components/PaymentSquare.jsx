@@ -35,10 +35,8 @@ const PaymentSquare = () => {
           'Content-Type': 'application/json',
         }
       });
-      console.log("response", response.data.payment.status);
       if(response.data.payment.status === 'COMPLETED'){
         setOrderSuccess(true);
-        console.log("Order Status Changed")
       }
     } catch (error) {
       console.error(error);

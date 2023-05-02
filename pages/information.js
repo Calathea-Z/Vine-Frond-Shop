@@ -82,7 +82,6 @@ const InformationScreen = () => {
   }) => {
     //need to set up email list and figure out logic for this.
     if (emailOptIn) {
-      console.log("Email Opt-In is Check");
     }
 
     try {
@@ -94,11 +93,9 @@ const InformationScreen = () => {
       });
     
       const { valid, suggestedAddress } = response.data;
-      console.log(suggestedAddress);
+
     
       if (!valid && suggestedAddress.length) {
-        console.log("Address is not valid");
-        console.log(suggestedAddress);
         enqueueSnackbar(
           `The address you entered may not be valid. Would you like to use the suggested address instead?`,
           {
@@ -137,16 +134,11 @@ const InformationScreen = () => {
           }
         );
       } else if (!valid) {
-        console.log("Address is not valid");
-        console.log(suggestedAddress);
         enqueueSnackbar(
           `The address you entered may not be valid. Please check your input.`,
           { variant: "warning" }
         );
-      } else {
-        console.log("Address is valid");
-        console.log(suggestedAddress);
-        
+      } else {      
         dispatch({
           type: "SAVE_SHIPPING_ADDRESS",
           payload: {

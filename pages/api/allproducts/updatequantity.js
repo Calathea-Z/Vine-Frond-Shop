@@ -10,22 +10,15 @@ export default async function handler(req, res) {
           dec: { countInStock: Number(cartItem.quantity) },
         },
       }));
-      
       const transaction = client.transaction();
-      
       mutations.forEach((mutation) => transaction.patch(mutation.id, mutation.patch));
-      
-      const result = await transaction.commit();
-      console.log('Transaction result:', result);
-      
+      const result = await transaction.commit();  
       const updatedCartItems = cartItems.map((cartItem) => ({
         ...cartItem,
         countInStock: cartItem.countInStock - cartItem.quantity,
-      }));
-      
+      }));  
       res.status(200).json(updatedCartItems);
     } catch (err) {
-      console.error('Transaction failed:', err.message);
       res.status(500).json({ error: err.message });
     }
   } else {

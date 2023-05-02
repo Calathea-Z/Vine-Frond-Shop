@@ -40,7 +40,6 @@ export default async function handler(req, res) {
             usState: user.usState,
             token,
           });
-          console.log("Login Successful"); // Update log message to "Login Successful"
         } else {
           res.status(401).json({ message: "Invalid email or password" }); // Update error response
         }

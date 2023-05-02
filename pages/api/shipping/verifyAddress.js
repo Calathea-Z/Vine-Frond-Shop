@@ -20,7 +20,6 @@ export default async function handler(req, res) {
     </AddressValidateRequest>`,
     };
     const paramString = qs.stringify(params);
-    console.log("Before")
     try {
       const response = await axios.post(
         `https://secure.shippingapis.com/ShippingAPI.dll?API=Verify&${paramString}`

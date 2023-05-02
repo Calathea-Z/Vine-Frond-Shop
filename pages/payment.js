@@ -128,24 +128,6 @@ const PaymentScreen = () => {
           <div className="flex justify-center items-center mx-auto h-screen w-full">
             <ClipLoader />
           </div>
-        ) : cartItems.length === 0 ? (
-          <div className="flex justify-center flex-col items-center h-screen mt-[-6rem]">
-            <h1>weird.. there is nothing in your cart...</h1>
-            <Link
-              href="/allproducts"
-              className=" flex flex-col justify-center items-center"
-            >
-              <Image
-                src={sadCart}
-                height={300}
-                width={300}
-                alt="sad cart empty"
-              />
-              <p className="font-sans border-2 rounded-md p-1 bg-primary border-gray-200 shadow-md hover:opacity-80">
-                Go Shopping.
-              </p>
-            </Link>
-          </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 lg:grid-rows-2 lg:gap-5 gap-1">
             <div className="lg:col-span-3">

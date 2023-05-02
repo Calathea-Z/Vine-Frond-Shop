@@ -7,6 +7,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import ClipLoader from "react-spinners/ClipLoader";
 import dynamic from "next/dynamic";
+import Link from "next/link";
 
 function reducer(state, action) {
   switch (action.type) {
@@ -39,7 +40,6 @@ const OrderHistoryScreen = () => {
     const fetchOrders = async () => {
       try {
         dispatch({ type: "FETCH_REQUEST" });
-        console.log("USER INFO", userInfo.token);
         const { data } = await axios.get(`/api/orders/history`, {
           headers: { authorization: `Bearer ${userInfo.token}` },
         });
@@ -60,14 +60,23 @@ const OrderHistoryScreen = () => {
         </div>
       ) : (
         <div className="p-4 grid">
-          {orders.map((order) => (
-            <div>
+          <h1 className='text-xl'>{userInfo.firstName}'s{""} Order History</h1>
+          {orders.map((order, index) => (
+            <div key={index} className='border-2 border-gray-400 rounded-md'>
               <div>
-                <h1>{order.id}</h1>
+                <h1>Order Date</h1>
+              <h1>{order.createdAt.substring(0,10)}</h1>
               </div>
               <div>
-                <h1>{order.createdAt}</h1>
+                <h1>Confirmation Number</h1>
+                <h1>{order._id}</h1>
+              </div>
+              <div>
+                <h1>Total Price</h1>
                 <h1>{order.totalPrice}</h1>
+              </div>
+              <div>
+                <Link href={`/order/${order._id}`} passHref>Order Details</Link>
               </div>
             </div>
           ))}

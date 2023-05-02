@@ -27,7 +27,6 @@ export default async function handler(req, res) {
         password: hashedPassword,
       });
       await user.save();
-      console.log("Registration Successful");
       res.status(201).json({ success: true, data: user });
       
       const newUser = {

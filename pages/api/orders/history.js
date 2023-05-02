@@ -10,7 +10,6 @@ export default async function handler(req, res) {
       return res.status(401).send({ message: 'Please sign In' })
     }
     try{
-      console.log("HIT IT BRO", user)
     const orders = await UserOrder.find({ user: user._id });
     res.status(201).send(orders);
     } catch(error) {

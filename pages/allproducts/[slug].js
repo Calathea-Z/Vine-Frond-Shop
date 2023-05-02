@@ -44,7 +44,6 @@ export default function ProductScreen(props) {
       enqueueSnackbar('Sorry. Product is out of stock', { variant: 'error' });
       return;
     }
-    console.log(product)
     dispatch({
       type: 'CART_ADD_ITEM',
       payload: {

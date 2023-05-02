@@ -28,7 +28,6 @@ const CartScreen = () => {
       enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
       return;
     }
-    console.log(item)
     dispatch({
       type: "CART_ADD_ITEM",
       payload: {
@@ -42,7 +41,6 @@ const CartScreen = () => {
         quantity: quantity
       },
     });
-    console.log("item.shippingWeight :", item.shippingWeight)
     enqueueSnackbar(`${item.name} Cart Updated!`, { variant: "success" });
   };
 
@@ -52,7 +50,6 @@ const CartScreen = () => {
 
   useEffect(() => {
     const currentWeight = cartItems.reduce((a, c) => a + c.quantity * c.shippingWeight, 0)
-    console.log("Current weight ->", currentWeight)
     dispatch({
       type: "UPDATE_SHIPPING_WEIGHT",
       payload: currentWeight
