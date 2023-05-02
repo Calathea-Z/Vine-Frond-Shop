@@ -61,7 +61,7 @@ const OrderHistoryScreen = () => {
       ) : (
         <div className="p-4 grid">
           <h1 className='text-xl'>{userInfo.firstName}'s{""} Order History</h1>
-          {orders.map((order, index) => (
+          {orders.slice().reverse().map((order, index) => (
             <div key={index} className='border-2 border-gray-400 rounded-md'>
               <div>
                 <h1>Order Date</h1>
