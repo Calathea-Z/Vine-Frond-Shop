@@ -101,6 +101,17 @@ const Header = () => {
                 </Menu.Item>
                 <Menu.Item>
                   {({active}) => (
+                  <Link href='/order/order-history' className={`${
+                      active
+                        ? "bg-primary text-white"
+                        : "bg-white text-slate-800"
+                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}>
+                    Order History
+                  </Link>
+                  )}
+                </Menu.Item>
+                <Menu.Item>
+                  {({active}) => (
                   <button className={`${
                       active
                         ? "bg-primary text-white"

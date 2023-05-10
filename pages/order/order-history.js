@@ -76,7 +76,7 @@ const OrderHistoryScreen = () => {
                 <h1 className='font-sans text-sm'>${order.totalPrice}</h1>
               </div>
               <div className='flex justify-center items-center'>
-                <Link href={`/order/${order._id}`} className='font-sans text-sm text-black rounded-lg border-black border-2 shadow-md bg-primary p-2 hover:opacity-80' passHref>Order Details</Link>
+                <Link href={`/order/details/${order._id}`} className='font-sans text-sm text-black rounded-lg border-black border-2 shadow-md bg-primary p-2 hover:opacity-80' passHref>Order Details</Link>
               </div>
             </div>
           ))}
