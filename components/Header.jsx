@@ -90,7 +90,7 @@ const Header = () => {
                 </Menu.Item>
                 <Menu.Item>
                   {({active}) => (
-                  <Link href='/profile' className={`${
+                  <Link href='/user/profile' className={`${
                       active
                         ? "bg-primary text-white"
                         : "bg-white text-slate-800"

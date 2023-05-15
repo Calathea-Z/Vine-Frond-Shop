@@ -12,12 +12,12 @@ const Footer = () => {
           <Image src={simpleLogo} alt='simple logo' width={90} height={90} className='sm:translate-y-3'/>
         </div>
         <div className="flex">
-          <form className="hidden bg-transparent pb-2 focus:underline-0 sm:flex items-center">
+          <form className="hidden bg-transparent pb-2 focus:underline-0 sm:flex items-center text-black">
             <input
               type="email"
               name="email"
               placeholder="Get store updates!"
-              className="bg-transparent border-none text-xs focus:ring-0 focus:underline-0 text-[#877570] font-sans"
+              className="bg-transparent border-none text-xs focus:ring-0 focus:underline-0 text-[#463a37] font-sans"
             />
             <button className="rounded-lg bg-transparent border-transparent border-[1px] hover:bg-[#caafa8]">
               <EnvelopeIcon className="w-5 h-5" />

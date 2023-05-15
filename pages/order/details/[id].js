@@ -1,4 +1,5 @@
 import Footer from "@/components/Footer";
+import Header from "@/components/Header";
 import dynamic from "next/dynamic";
 import { Store } from "@/utils/Store";
 import { useContext, useReducer, useEffect } from "react";
@@ -68,35 +69,14 @@ const OrderSuccessScreen = ({ params }) => {
 
   return (
     <div className="h-screen">
+      <Header/>
       {loading && (
         <div className='flex justify-center items-center flex-col h-screen'>
-          <div className="bg-primary w-full flex justify-center items-center p-2 mb-2">
-            <Image
-              src={newLogo}
-              alt="full vine and frond logo"
-              priority="true"
-            />
-          </div>
-          {" "}
           <ClipLoader className='flex justify-center align-center' />{" "}
         </div>
       )}
       {!loading && (
-        <div className="flex flex-col h-screen w-full justify-start items-center bg-white">
-          <div className="bg-primary w-full flex justify-center items-center p-2 mb-2">
-            <Image
-              src={newLogo}
-              alt="full vine and frond logo"
-              priority="true"
-            />
-          </div>
-          <h1 className="font-sans text-3xl">Thanks for your order!</h1>
-          <h1 className="font-sans text-lg p-2 mb-2">
-            You will receive a confirmation email shortly at{" "}
-            <span className="text-blue-400 font-sans">
-              {shippingInformation?.shippingContactEmail}{" "}
-            </span>
-          </h1>
+        <div className="flex flex-col h-screen w-full justify-start items-center bg-white mt-5">
           <div className="grid grid-cols-2 grid-row-1 p-2 border-2 border-black/90 rounded-md">
             <div className="flex justify-between p-4">
               <div className="flex flex-col gap-2 items-center">
