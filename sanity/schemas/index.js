@@ -1,3 +1,4 @@
 import product from "./product";
+import wholeSaleProduct from "./wholeSaleProduct";
 
-export const schemaTypes = [product]
+export const schemaTypes = [product, wholeSaleProduct]
