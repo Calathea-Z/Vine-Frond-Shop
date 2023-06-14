@@ -1,11 +1,34 @@
 import Footer from "@/components/Footer"
 import Header from "@/components/Header"
-import { useState } from "react";
-import jsCookie from "js-cookie";
-import Cookies from "js-cookie";
-import { useEffect } from "react";
+import { Store } from "@/utils/Store";
+import { useRouter } from "next/router";
+import { useEffect, useContext } from "react";
+import { useForm } from "react-hook-form";
 
 const ProfileScreen = () => {
+  const router = useRouter();
+  const { state, dispatch} = useContext(Store);
+  const { userInfo } = state;
+  const {
+    handleSubmit,
+    formState: { errors },
+    setValue,
+  } = useForm();
+
+  useEffect(() => {
+    if (!userInfo) {
+      return router.push('/login');
+    }
+
+    setValue("shippingContactEmail", userInfo.shippingContactEmail);
+      setValue("firstNameShipping", userInfo.firstNameShipping);
+      setValue("lastNameShipping", userInfo.lastNameShipping);
+      setValue("company", userInfo.lastNameShipping);
+      setValue("address", userInfo.address);
+      setValue("city", userInfo.city);
+      setValue("zipCode", userInfo.zipCode);
+      setValue("usState", userInfo.usState);
+  },[router, setValue, userInfo])
 
   return (
     <div>
@@ -17,7 +40,7 @@ const ProfileScreen = () => {
       </div>
       <div>
       <div className='p-5'>
-          <h2 className=''>Name</h2>
+          <h2 className=''>hi</h2>
           <h6>Hi</h6>
         </div>
         <div className='p-5'>
