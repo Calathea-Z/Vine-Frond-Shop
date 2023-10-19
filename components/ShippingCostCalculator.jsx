@@ -46,18 +46,33 @@ const ShippingCostCalculator = () => {
         boxHeight,
       };
 
+      try {
+        
       const res = await axios.post("/api/shipping/shippingCost", data);
+      console.log("ME", (res.data))
       const parser = new DOMParser();
       const xmlDoc = parser.parseFromString(res.data, "application/xml");
-      const rate = xmlDoc.querySelector(
-        "RateV4Response Package Postage Rate"
-      ).textContent;
-      dispatch({
-        type: "UPDATE_SHIPPING_COST",
-        payload: rate,
-      });
-      jsCookie.set("shippingCost", JSON.stringify(rate));
-      setShippingRate(rate);
+      const errorElement = xmlDoc.querySelector("Error Description");
+      if (errorElement) {
+        const errorMessage = errorElement.textContent;
+        console.error(`Error from USPS API: ${errorMessage}`);
+      }else {
+        const rateElement = xmlDoc.querySelector("Rate")
+        if (rateElement) {
+          const rate = rateElement.textContent;
+          dispatch({
+            type: "UPDATE_SHIPPING_COST",
+            payload: rate,
+          });
+          jsCookie.set("shippingCost", JSON.stringify(rate));
+          setShippingRate(rate);
+        }else {
+          console.error("Rate element not found in XML document");
+        }
+      }
+      } catch (error) {
+        console.error("Error fetching shipping rates", error)
+      }     
     };
 
     if (boxLength && boxWidth && boxHeight) {

@@ -9,7 +9,7 @@ export default async function handler(req, res) {
       API: "RateV4",
       XML: `<RateV4Request USERID="${process.env.USPS_USERNAME}" PASSWORD="${process.env.USPS_PASSWORD}">
     <Package ID="0">
-      <Service>Priority</Service>
+      <Service>PRIORITY</Service>
       <ZipOrigination>28791</ZipOrigination>
       <ZipDestination>${zipCode}</ZipDestination>
       <Pounds>0</Pounds>
@@ -24,10 +24,11 @@ export default async function handler(req, res) {
     };
 
     const paramString = qs.stringify(params);
+    console.log(paramString);
 
     try {
       const response = await axios.post(
-        `http://production.shippingapis.com/ShippingAPI.dll?API=RateV4&${paramString}`
+        `https://secure.shippingapis.com/ShippingAPI.dll?API=RateV4&${paramString}`
       );
       res.status(200).json(response.data);
     } catch (error) {
