@@ -80,7 +80,7 @@ const InformationScreen = () => {
     zipCode,
     usState,
   }) => {
-    //need to set up email list and figure out logic for this.
+// ****Future -> Need to figure out email logic 
     if (emailOptIn) {
     }
 
@@ -195,7 +195,7 @@ const InformationScreen = () => {
               <h1 className="mb-4 text-md font-sans">Contact</h1>
               {loggedIn ? (
                 <h1 className="text-xs sm:text-sm text-amber-500">
-                  You are kiln it! Thanks for your purchase,{" "}
+                  You are kil'n it! Thanks for your purchase,{" "}
                   {userInfo.firstName} !
                 </h1>
               ) : (
