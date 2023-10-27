@@ -55,8 +55,6 @@ const Header = () => {
       </motion.div>
       </Link>
 
-
-
       {/*------------------- Middle Menu       */}
       <div className="w-full space-x-4 flex items-center justify-center text-slate-600">
         <ul className="list-none hidden sm:flex flex-row gap-10">
@@ -64,7 +62,7 @@ const Header = () => {
             <li
               key={link.id}
               className={`${
-                active === link.title ? "text-white" : "text-slate-600"
+                active === link.title ? "text-white" : "text-slate-800"
               } hover-underline-animation  text-[18px] xl:text-[24px] cursor-pointer`}
               onClick={() => setActive(link.title)}
             >

@@ -40,7 +40,7 @@ const ShippingCostCalculator = () => {
     const getShippingRates = async () => {
       const data = {
         shippingWeight,
-        zipCode: shippingInformation?.zipCode,
+        zipCode: shippingInformation?.zipCode.substring(0,5),
         boxLength,
         boxWidth,
         boxHeight,

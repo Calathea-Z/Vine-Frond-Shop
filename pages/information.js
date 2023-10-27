@@ -1,17 +1,18 @@
-import CheckoutHelper from "@/components/CheckoutHelper";
-import { Store } from "@/utils/Store";
-import { useContext, useEffect, useState } from "react";
-import { useForm } from "react-hook-form";
 import states from "states-us";
+import axios from "axios";
 import Image from "next/image";
-import { useRouter } from "next/router";
 import Footer from "@/components/Footer";
 import jsCookie from "js-cookie";
 import Link from "next/link";
+import { Store } from "@/utils/Store";
+import { useContext, useEffect, useState } from "react";
+import { useForm } from "react-hook-form";
+import { useRouter } from "next/router";
+import CheckoutHelper from "@/components/CheckoutHelper";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { simpleLogo } from "@/public/assets";
 import { useSnackbar } from "notistack";
-import axios from "axios";
+
 
 const InformationScreen = () => {
   const [loggedIn, setLoggedIn] = useState(null);
@@ -91,6 +92,7 @@ const InformationScreen = () => {
         state: usState,
         zipCode: zipCode,
       });
+      console.log(response)
     
       const { valid, suggestedAddress } = response.data;
 
