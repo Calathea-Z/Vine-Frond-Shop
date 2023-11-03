@@ -21,6 +21,7 @@ const Header = () => {
   const { dispatch } = useContext(Store);
   const [active, setActive] = useState("");
   const [userInfo, setUserInfo] = useState(null);
+  const [isScrolled, setIsScrolled] = useState(false);
   const router = useRouter();
 
   const logOutHandler = () => {
@@ -32,6 +33,18 @@ const Header = () => {
   };
 
   useEffect(() => {
+    const handleScroll = () => {
+      const isScrolled = window.scrollY > 0;
+      setIsScrolled(isScrolled);
+    };
+  
+    document.addEventListener('scroll', handleScroll);
+    return () => {
+      document.removeEventListener('scroll', handleScroll);
+    };
+  }, []);
+
+  useEffect(() => {
     setUserInfo(Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null);
   },[])
 
@@ -39,7 +52,7 @@ const Header = () => {
   }
 
   return (
-    <nav className="w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 left-0 z-50">
+    <nav className={`w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 left-0 z-50 ${isScrolled ? 'border-b border-gray-200 shadow-md' : ''}`}>
       {/*------------------- Left Logo */}
       <Link
           href="/"

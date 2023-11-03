@@ -9,8 +9,8 @@ const ProductItem = ({ product }) => {
         <Image
           src={urlFor(product.photo[0].asset._ref).url()}
           alt={product.name}
-          width={300}
-          height={300}
+          width={200}
+          height={200}
           className='rounded-md'
         />
         <h4 className='font-sans text-semibold p-1 text-center text-slate-800'>{product.name}</h4>
