@@ -1,5 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
+import { useRouter } from "next/router";
 import { Fragment } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
@@ -20,6 +21,7 @@ const Header = () => {
   const { dispatch } = useContext(Store);
   const [active, setActive] = useState("");
   const [userInfo, setUserInfo] = useState(null);
+  const router = useRouter();
 
   const logOutHandler = () => {
     dispatch({ type: "USER_LOGOUT" });
@@ -33,8 +35,11 @@ const Header = () => {
     setUserInfo(Cookies.get('userInfo') ? JSON.parse(Cookies.get('userInfo')) : null);
   },[])
 
+  if(router.pathname === '/login' || router.pathname === '/register') {return null;
+  }
+
   return (
-    <nav className="w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 z-20">
+    <nav className="w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-1 top-0 left-0 z-50">
       {/*------------------- Left Logo */}
       <Link
           href="/"
@@ -80,43 +85,56 @@ const Header = () => {
           <div className='flex flex-1 justify-end items-center w-full z-50 mt-2'>
             <Menu as="div" className="relative inline-block text-left z-50">
               <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-                <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text=[#caafa8] aria-hidden:true hover:text-[#caafa8]" />
+                <UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8] aria-hidden:true hover:text-[#caafa8]" />
               </Menu.Button>
+
               <Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
                 <Menu.Item>
                   <h1 className='group flex w-full justify-center items-center px-2 py-2 text-sm z-50 bg-purple-400/90'> Hi, {userInfo.firstName}{" "}!</h1>
                 </Menu.Item>
+
                 <Menu.Item>
                   {({active}) => (
-                  <Link href='/user/profile' className={`${
-                      active
-                        ? "bg-primary text-white"
-                        : "bg-white text-slate-800"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}>
-                    Profile
-                  </Link>
+                    <Link 
+                      href='/user/profile' 
+                      className={`${
+                        active
+                          ? "bg-primary text-white"
+                          : "bg-white text-slate-800"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
+                    >
+                      Profile
+                    </Link>
                   )}
                 </Menu.Item>
+
                 <Menu.Item>
                   {({active}) => (
-                  <Link href='/order/order-history' className={`${
-                      active
-                        ? "bg-primary text-white"
-                        : "bg-white text-slate-800"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}>
-                    Order History
-                  </Link>
+                    <Link 
+                      href='/order/order-history' 
+                      className={`${
+                        active
+                          ? "bg-primary text-white"
+                          : "bg-white text-slate-800"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
+                    >
+                      Order History
+                    </Link>
                   )}
                 </Menu.Item>
+
                 <Menu.Item>
                   {({active}) => (
-                  <button className={`${
-                      active
-                        ? "bg-primary text-white"
-                        : "bg-white text-slate-800"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`} onClick={logOutHandler}>
-                    Log Out
-                  </button>
+                    <button 
+                      className={`${
+                        active
+                          ? "bg-primary text-white"
+                          : "bg-white text-slate-800"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`} 
+                      onClick={logOutHandler}
+                    >
+                      Log Out
+                    </button>
                   )}
                 </Menu.Item>
               </Menu.Items>
@@ -126,40 +144,44 @@ const Header = () => {
           <Link
             href="/login"
             passHref
-            className="w-[2.5rem] hover-underline-animation text-xs"
+            className="w-[5rem] p-2 hover-underline-animation text-sm"
           >
             Log In
           </Link>
         )}
+
         <MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+
         <Link href="/cart">
           <ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
         </Link>
-      <div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
-        <Menu as="div" className="relative inline-block text-left z-50">
-          <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-            <Bars3Icon className="w-8 h-8 mt-3 hover:text-[#caafa8] aria-hidden:true" />
-          </Menu.Button>
-          <Menu.Items className="absolute right-0 mt-2 w-[10rem] origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-            {navLinks.map((link) => (
-              <Menu.Item key={link.id} as={Fragment}>
-                {({ active }) => (
-                  <Link
-                    href={`/${link.id}`}
-                    className={`${
-                      active
-                        ? "bg-primary text-white"
-                        : "bg-white text-slate-800"
-                    } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
-                  >
-                    {link.title}
-                  </Link>
-                )}
-              </Menu.Item>
-            ))}
-          </Menu.Items>
-        </Menu>
-      </div>
+
+        <div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
+          <Menu as="div" className="relative inline-block text-left z-50">
+            <Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
+              <Bars3Icon className="w-8 h-8 mt-3 hover:text-[#caafa8] aria-hidden:true" />
+            </Menu.Button>
+
+            <Menu.Items className="absolute right-0 mt-2 w-[10rem] origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
+              {navLinks.map((link) => (
+                <Menu.Item key={link.id} as={Fragment}>
+                  {({ active }) => (
+                    <Link
+                      href={`/${link.id}`}
+                      className={`${
+                        active
+                          ? "bg-primary text-white"
+                          : "bg-white text-slate-800"
+                      } group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
+                    >
+                      {link.title}
+                    </Link>
+                  )}
+                </Menu.Item>
+              ))}
+            </Menu.Items>
+          </Menu>
+        </div>
       </div>
     </nav>
   );

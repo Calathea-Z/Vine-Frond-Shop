@@ -13,7 +13,6 @@ import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { simpleLogo } from "@/public/assets";
 import { useSnackbar } from "notistack";
 
-
 const InformationScreen = () => {
   const [loggedIn, setLoggedIn] = useState(null);
   const {
@@ -81,7 +80,7 @@ const InformationScreen = () => {
     zipCode,
     usState,
   }) => {
-// ****Future -> Need to figure out email logic 
+    // ****Future -> Need to figure out email logic
     if (emailOptIn) {
     }
 
@@ -92,11 +91,10 @@ const InformationScreen = () => {
         state: usState,
         zipCode: zipCode,
       });
-      console.log(response)
-    
+      console.log(response);
+
       const { valid, suggestedAddress } = response.data;
 
-    
       if (!valid && suggestedAddress.length) {
         enqueueSnackbar(
           `The address you entered may not be valid. Would you like to use the suggested address instead?`,
@@ -140,7 +138,7 @@ const InformationScreen = () => {
           `The address you entered may not be valid. Please check your input.`,
           { variant: "warning" }
         );
-      } else {      
+      } else {
         dispatch({
           type: "SAVE_SHIPPING_ADDRESS",
           payload: {
@@ -176,7 +174,7 @@ const InformationScreen = () => {
       });
       return;
     }
-  }
+  };
   return (
     <div>
       <div className="p-10 flex flex-col">

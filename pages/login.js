@@ -57,17 +57,16 @@ const LoginScreen = () => {
     }
   };
   return (
-    <div className="flex flex-col min-h-screen">
-      <Header />
+    <div className="grid grid-rows-auto min-h-screen">
       <div className="bg-[#fdf9f5] flex flex-col items-center p-4 sm:p-8">
         <h1 className="self-center px-10 py-5 text-4xl">Login</h1>
         <form
           onSubmit={handleSubmit(submitHandler)}
-          className="flex flex-col sm:p-5"
+          className="flex flex-col sm:p-5 mt-5"
         >
           <h1 className="mb-1 p-[.03rem] sm:p-0">Email</h1>
           <input
-            className="bg-transparent border-primary mb-3 p-1 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[23rem] sm:w-[24.2rem] self-center sm:self-start"
+            className="bg-gray-200 border-gray-400 mb-3 p-2 sm:p-2 rounded mt-1 focus:bg-transparent w-[23rem] sm:w-[24.2rem] self-center sm:self-start"
             type="email"
             {...register("email", {
               required: "Required",
@@ -88,7 +87,7 @@ const LoginScreen = () => {
           <div className="flex gap-2">
             <div>
               <input
-                className="bg-transparent border-primary mb-3 p-1 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[23rem] sm:w-[24.2rem] self-center sm:self-start"
+                className="bg-gray-200 border-gray-400 mb-3 p-2 sm:p-2 rounded mt-1 focus:bg-transparent w-[23rem] sm:w-[24.2rem] self-center sm:self-start"
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
                   required: "Required",
@@ -104,29 +103,29 @@ const LoginScreen = () => {
             </div>
             {showPassword ? (
               <EyeIcon
-                className="w-5 h-5 absolute translate-x-[21.5rem] sm:translate-x-[22.5rem] translate-y-[.4rem] sm:translate-y-[.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[24.5rem] sm:translate-x-[22.5rem] translate-y-[.6rem] sm:translate-y-[.8rem] cursor-pointer text-blue-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             ) : (
               <EyeSlashIcon
-                className="w-5 h-5 absolute translate-x-[21.5rem] sm:translate-x-[22.5rem] translate-y-[.4rem] sm:translate-y-[.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[24.5rem] sm:translate-x-[22.5rem] translate-y-[.6rem] sm:translate-y-[.8rem] cursor-pointer text-black hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             )}
           </div>
           <button
-            className="bg-primary rounded-sm mt-2 px-10 py-2 font-sans hover:bg-primary/80 mb-8"
+            className="bg-gray-200 border-gray-800 border-[.1rem] rounded mt-2 px-10 py-2 hover:border-blue-400 mt-4 mb-8"
             type="submit"
           >
             Login
           </button>
-          <div>
-            <Link href="/register" passHref className="text-sm hover:opacity-70">
-              Create Account
-            </Link>
-          </div>
+          <button className="mt-5">
+  <Link href="/register" passHref className="text-sm hover:opacity-70 bg-blue-500 text-white py-1 px-3 rounded">
+    Create Account
+  </Link>
+</button>
         </form>
       </div>
       <Footer />

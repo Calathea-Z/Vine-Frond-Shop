@@ -1,10 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Playpen+Sans:wght@100;200;300;400;500;700;800&family=Silkscreen&display=swap');
-
-
-/* To go back to original font just comment this in and the above out. */
-@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,200;1,200&display=swap');
-
-
+@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100;200;300;400;500;700;800&family=Silkscreen&display=swap');
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -13,7 +7,7 @@
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Playpen', sans-serif;
+  font-family: inknut antiqua, serif;
   scroll-behavior: smooth;
 }
 

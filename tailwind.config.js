@@ -11,11 +11,21 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        primary: "#d67d54",
+        primary: "#F5F5F5",
+        secondary: "#caafa8",
+      },
+      placeholderColor: {
+        'blue': '#0000ff',
+        'white': '#ffffff',
       },
       screens: {
         xs: "450px",
       }
+    },
+  },
+  variants: {
+    extend: {
+      placeholderColor: ['responsive', 'dark', 'focus', 'hover', 'active'],
     },
   },
   plugins: [
