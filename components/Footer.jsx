@@ -7,7 +7,7 @@ import { useRouter } from "next/router";
 
 const Footer = () => {
   const router = useRouter();
-  if (router.pathname === "/login") {
+  if (router.pathname === "/login" || router.pathname === "/register") {
     return (
       <Link href="/">
         <div className="bg-[#fdf9f5] flex justify-center items-center w-full bottom-0 left-0 right-0 relative py-0.5">

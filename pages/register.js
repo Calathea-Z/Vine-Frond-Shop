@@ -1,5 +1,4 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import { Store } from "@/utils/Store";
 import axios from "axios";
 import Link from "next/link";
@@ -10,9 +9,10 @@ import jsCookie from "js-cookie";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useSnackbar } from "notistack";
 import { getError } from "@/utils/error";
+import { PulseLoader } from "react-spinners";
 
 const RegisterScreen = () => {
-  const { enqueueSnackbar }  = useSnackbar();
+  const { enqueueSnackbar } = useSnackbar();
   const router = useRouter();
   const { state, dispatch } = useContext(Store);
   const { userInfo } = state;
@@ -25,6 +25,7 @@ const RegisterScreen = () => {
 
   const [showPassword, setShowPassword] = useState(false);
   const [showPasswordConfirm, setShowPasswordConfirm] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const capital = new RegExp("(?=.*[A-Z])");
   const number = new RegExp("(?=.*[0-9])");
@@ -59,6 +60,7 @@ const RegisterScreen = () => {
     password,
     confirmPassword,
   }) => {
+    setIsLoading(true)
     if (password !== confirmPassword) {
       enqueueSnackbar("Passwords don't match", { variant: "error" });
       return;
@@ -72,25 +74,28 @@ const RegisterScreen = () => {
       });
       dispatch({ type: "USER_LOGIN", payload: data });
       jsCookie.set("userInfo", JSON.stringify(data));
-      router.push("/");
+      router.push("/login");
     } catch (err) {
-      enqueueSnackbar(getError(err), { variant: 'default' });
+      enqueueSnackbar(getError(err), { variant: "default" });
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
-    <div className="flex flex-col">
-      <Header />
+    <div className="grid grid-rows-auto min-h-screen">
       <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
-        <h1 className="self-center px-5 sm:px-10 py-5 text-3xl sm:text-4xl">Register</h1>
+        <h1 className="self-center px-5 sm:px-10 py-5 text-4xl sm:text-4xl">
+          Register
+        </h1>
         <form
           onSubmit={handleSubmit(submitHandler)}
-          className="flex flex-col p-4 sm:p-5 "
+          className="flex flex-col p-5 mt-5 "
         >
           <div className="flex flex-col sm:flex-row justify-center items-center sm:justify-start sm:items-start gap-1 sm:gap-4">
-            <div className=' w-[13.7rem] sm:w-full'>
+            <div className=" w-[13.7rem] sm:w-full">
               <h1 className="mb-1 text-center sm:text-left"> First Name</h1>
               <input
-                className="bg-transparent border-primary mb-3 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-full"
+                className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-center"
                 type="text"
                 {...register("firstName", {
                   required: "Required",
@@ -105,10 +110,10 @@ const RegisterScreen = () => {
                 ""
               )}
             </div>
-            <div className=' w-[13.7rem] sm:w-full'>
+            <div className=" w-[13.7rem] sm:w-full">
               <h1 className="mb-1 text-center sm:text-left"> Last Name</h1>
               <input
-                className="bg-transparent border-primary mb-3 sm:p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-full"
+                className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-center"
                 type="text"
                 {...register("lastName", {
                   required: "Required",
@@ -127,7 +132,7 @@ const RegisterScreen = () => {
 
           <h1 className="mb-1 self-center sm:self-start">Email</h1>
           <input
-            className="bg-transparent self-center sm:self-start border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[13.7rem] sm:w-[24.2rem]"
+            className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[47rem] self-start"
             type="email"
             {...register("email", {
               required: "Required",
@@ -145,11 +150,11 @@ const RegisterScreen = () => {
             ""
           )}
 
-          <h1 className="mb-1 self-center sm:self-start">Password</h1>
-          <div className="flex gap-2 self-center sm:self-start">
-            <div>
+          <div className="flex flex-col sm:flex-row justify-center items-center sm:justify-start sm:items-start gap-1 sm:gap-4">
+            <div className=" w-[13.7rem] sm:w-full">
+              <h1 className="mb-1 text-center sm:text-left"> Password</h1>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[13.7rem] sm:w-[24.2rem]"
+                className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-start"
                 type={showPassword ? "text" : "password"}
                 {...register("password", {
                   required: "Required",
@@ -178,24 +183,23 @@ const RegisterScreen = () => {
             </div>
             {showPassword ? (
               <EyeIcon
-                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem]  cursor-pointer text-blue-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[21.4rem] translate-y-[2.6rem] cursor-pointer text-blue-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             ) : (
               <EyeSlashIcon
-                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem]  cursor-pointer text-gray-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[21.4rem] translate-y-[2.6rem] cursor-pointer text-gray-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordShowHide}
               />
             )}
-          </div>
+          
 
-          <h1 className="mb-1 self-center sm:self-start">Confirm Password</h1>
-          <div className="flex gap-2 self-center sm:self-start">
-            <div>
+          <div className=" w-[13.7rem] sm:w-full">
+              <h1 className="mb-1 text-center sm:text-left"> Confirm Password</h1>
               <input
-                className="bg-transparent border-primary mb-3 p-2 rounded-sm focus:bg-transparent focus:ring-0 focus:border-transparent w-[13.7rem] sm:w-[24.2rem]"
+                className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-start"
                 type={showPasswordConfirm ? "text" : "password"}
                 {...register("confirmPassword", {
                   required: "Required",
@@ -211,25 +215,30 @@ const RegisterScreen = () => {
             </div>
             {showPasswordConfirm ? (
               <EyeIcon
-                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem]  cursor-pointer text-blue-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[45.4rem] translate-y-[2.6rem] cursor-pointer text-blue-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordConfirmShowHide}
               />
             ) : (
               <EyeSlashIcon
-                className="w-5 h-5 absolute translate-x-[12.3rem] translate-y-[.6rem] sm:translate-x-[22.5rem] cursor-pointer text-gray-400 hover:opacity-80"
+                className="w-5 h-5 absolute translate-x-[45.4rem] translate-y-[2.6rem] cursor-pointer text-gray-400 hover:opacity-80"
                 id="show-hide"
                 onClick={handlePasswordConfirmShowHide}
               />
             )}
           </div>
+          {isLoading ? (
+            <div className="flex justify-center p-2">
+              <PulseLoader color="#36d7b7" />
+            </div>) : (         
           <button
-            className="bg-primary rounded-sm mt-2 px-10 py-2 font-sans hover:bg-primary/80 mb-8"
-            type="submit"
-          >
+              className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
+              type="submit"
+            >
             Register!
           </button>
-          <div className='self-center sm:self-start'>
+            )}
+          <div className="self-center sm:self-start">
             <Link href="/login" passHref className="text-sm hover:opacity-70">
               Already have an account?
             </Link>

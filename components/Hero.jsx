@@ -17,16 +17,11 @@ const Hero = () => {
 
 {/*------------------------- Mission statement       */}
             <div className="w-full flex justify-center items-center bg-primary">     
-              <motion.h1
-              	animate={{ y: 0,
-              	opacity: 1 }}
-              	initial={{ y: 200,
-              	opacity: 0 }}
-              	transition={{ duration: 4 }}
+              <h1
               	className='bg-[url("../public/assets/logo_opac.png")] bg-contain bg-center bg-no-repeat p-10 mx-auto h-auto w-2/3  text-md sm:text-[1.25rem] md:text-[1.7rem] leading-loose italic text-black background-image:linear-gradient(rgba(9, 148, 143, 0.9), rgba(9, 148, 143, 0.9)), url("../public/assets/newLogo.png")'
           >
             A ceramics and houseplant company born out of a passion for clay and greenery. From local pop-up markets to an online shop, we create functional pieces to bring beauty to your home.
-          </motion.h1>
+          </h1>
             </div>
     </>
   );
