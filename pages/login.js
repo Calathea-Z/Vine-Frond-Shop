@@ -1,5 +1,4 @@
 import Footer from "@/components/Footer";
-import Header from "@/components/Header";
 import { Store } from "@/utils/Store";
 import axios from "axios";
 import Link from "next/link";
@@ -10,6 +9,7 @@ import jsCookie from "js-cookie";
 import { EyeIcon, EyeSlashIcon } from "@heroicons/react/24/solid";
 import { useSnackbar } from "notistack";
 import { getError } from "@/utils/error";
+import { PulseLoader } from "react-spinners";
 
 const LoginScreen = () => {
   const { enqueueSnackbar }  = useSnackbar();
@@ -24,6 +24,7 @@ const LoginScreen = () => {
   }, [router, userInfo]);
 
   const [showPassword, setShowPassword] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
   const {
     handleSubmit,
@@ -45,6 +46,7 @@ const LoginScreen = () => {
     password,
   }) => {
     try {
+      setIsLoading(true);
       const { data } = await axios.post(`/api/users/login`, {
         email,
         password,
@@ -54,6 +56,8 @@ const LoginScreen = () => {
       router.push("/");
     } catch (err) {
       enqueueSnackbar(getError(err), { variant: "error" });
+    } finally {
+      setIsLoading(false);
     }
   };
   return (
@@ -115,12 +119,17 @@ const LoginScreen = () => {
               />
             )}
           </div>
-          <button
-            className="bg-gray-200 border-gray-800 border-[.1rem] rounded mt-2 px-10 py-2 hover:border-blue-400 mt-4 mb-8"
-            type="submit"
-          >
-            Login
-          </button>
+          {isLoading ? (
+            <div className="flex justify-center p-2">
+              <PulseLoader color="#36d7b7" />
+            </div>) : (
+              <button
+              className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
+              type="submit"
+            >
+              Login
+            </button>
+          )}          
           <button className="mt-5">
   <Link href="/register" passHref className="text-sm hover:opacity-70 bg-blue-500 text-white py-1 px-3 rounded">
     Create Account

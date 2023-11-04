@@ -16,34 +16,34 @@ const ProductItem = ({ product }) => {
 
   return (
     <div
-      className={`relative w-64 ${hovered ? 'shadow-md border border-gray-300' : ''} transition-shadow duration-300`}
+      className={`relative w-65 ${hovered ? 'shadow-md border border-gray-300' : ''} transition-shadow duration-300`}
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
     >
       <Link href={`/allproducts/${product.slug.current}`}>
-        <div className="flex flex-col gap-1 items-center">
-          <Image
-            src={urlFor(product.photo[0].asset._ref).url()}
-            alt={product.name}
-            width={200}
-            height={200}
-            className="rounded-md mt-2"
-          />
-          <h4 className="p-2 text-center text-slate-800 text-lg font-medium">
-            {product.name}
-          </h4>
-          <h4 className="text-bold font-sans p-1 text-center text-slate-800 text-xl">
-            $ {product.price}.00
-          </h4>
-          {product.countInStock ? (
-            ""
-          ) : (
-            <div className="absolute top-0 right-0 bg-red-600 rounded-sm cr cr-top cr-right">
-              SOLD OUT
-            </div>
-          )}
-        </div>
-      </Link>
+  <div className="flex flex-col gap-1 items-center p-4 m-2 transform transition-transform duration-500 hover:scale-105 rounded-md shadow-lg">
+    <Image
+      src={urlFor(product.photo[0].asset._ref).url()}
+      alt={product.name}
+      width={200}
+      height={200}
+      className="rounded-md mt-2"
+    />
+    <h4 className="p-2 text-center text-slate-800 text-lg font-bold">
+      {product.name}
+    </h4>
+    <h4 className="font-bold font-sans">
+      $ {product.price}.00
+    </h4>
+    {product.countInStock ? (
+      ""
+    ) : (
+      <div className="absolute top-0 right-0 bg-red-600 text-white py-1 px-2 rounded-sm transform rotate-45 translate-x-10 translate-y-5 z-50">
+        SOLD OUT
+      </div>
+    )}
+  </div>
+</Link>
       <div className="absolute bottom-0 left-0 right-0 p-2 flex justify-center">
         <Link href={`/allproducts/${product.slug.current}`}>
           <button
