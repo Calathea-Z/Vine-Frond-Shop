@@ -48,8 +48,8 @@
   color: #f0f0f0;
   }
 
-  .cr-top    { top: 1rem; }
-  .cr-right  { right: -20px; }
+  .cr-top    { top: 1.1rem; }
+  .cr-right  { right: -.1rem; }
 
   .cr-top.cr-right{
     transform: rotate(45deg);
