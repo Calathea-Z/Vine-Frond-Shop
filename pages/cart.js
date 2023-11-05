@@ -63,7 +63,7 @@ const CartScreen = () => {
   return (
     <div className="h-screen flex flex-col justify-between bg-primary">
       <Header />
-      <div class="flex-grow">
+      <div class="flex-grow mt-6">
         <div className="w-full flex items-center sm:p-6 flex-col bg-primary">
           <h1 className="text-xl sm:text-4xl underline decoration-primary underline-offset-4 decoration-1 ">
             Cart
@@ -73,7 +73,7 @@ const CartScreen = () => {
         <div className="grid grid-col-2 grid-rows-auto p-2 sm:p-10 bg-primary">
           {cartItems.length === 0 ? (
             <div className="flex flex-col col-span-2 items-center justify-around">
-              <div className="p-6">
+              <div className="p-6 rounded-md">
                 <Image
                   src={sadCart}
                   alt="empty cart"
@@ -95,35 +95,41 @@ const CartScreen = () => {
                     className="grid grid-cols-3 items-center justify-center gap-2"
                     key={item._id || index}
                   >
-                    <div className="flex justify-center items-center hover:opacity-80 w-[3rem] h-[3rem]sm:w-[6rem] sm:h-[6rem] pb-1">
+                    <div className="flex justify-center items-center hover:opacity-80 w-[4rem] h-[4rem] sm:w-[8rem] sm:h-[8rem] pb-1 ">
                       <Link href={`/allproducts/${item.slug}`} passHref>
                         <Image
                           src={urlFor(item.photo[0].asset._ref).url()}
                           alt={item.name}
-                          width={100}
-                          height={100}
-                          className="rounded-sm"
+                          width={120}
+                          height={120}
+                          className="rounded-md"
                         />
                       </Link>
                     </div>
-                    <div className="w-min-content sm:w-max">
+                    <div className="w-min-content sm:w-max bg-gray-300 p-4 rounded-lg shadow-lg  ">
                       <Link
                         href={`/allproducts/${item.slug}`}
                         passHref
-                        className="text-[.6rem] sm:text-sm hover:opacity-80 w-max font-sans"
+                        className="text-lg font-bold bg-gray-300 text-black hover:opacity-80 w-max font-sans"
                       >
                         {item.name}
                       </Link>
-                      <p className="text-xs sm:text-sm p-1 font-sans">
+                      <p className="text-lg font-bold bg-gray-300 text-black p-1 font-sans">
                         $ {item.price}
                       </p>
                     </div>
-                    <div className="flex justify-center items-center ml-[8rem] sm:ml-[4rem]">
-                      <form className="bg-transparent focus:underline-0 focus:ring-0 flex flex-col gap-1">
+                    <div className="flex justify-center items-center ml-[10rem] sm:ml-[6rem]">
+                      <form className="bg-gray-300 p-4 rounded-lg shadow-lg focus:underline-0 focus:ring-0 flex flex-col gap-2">
+                        <label
+                          htmlFor="quantity"
+                          className="font-bold text-black text-lg"
+                        >
+                          Quantity
+                        </label>
                         <input
                           type="number"
                           id="quantity"
-                          className="text-center border-x-0 border-t-0 border-b-primary bg-[#fdf9f5] focus:ring-0 focus:underline-0 font-sans"
+                          className="text-center border-x-0 border-t-0 border-b-[#f7fafc] focus:ring-0 focus:underline-0 font-sans text-lg bg-transparent text-black"
                           value={item.quantity}
                           name="quantity"
                           min="0"
@@ -133,7 +139,7 @@ const CartScreen = () => {
                           }
                         />
                         <button
-                          className="text-[.55rem] sm:text-[.85rem] rounded-md hover:bg-primary/20 font-sans"
+                          className="text-lg rounded-md bg-[#f7fafc] text-[#2d3748] font-sans hover:bg-[#2d3748] hover:text-[#f7fafc] transition-colors"
                           onClick={() => removeItemHandler(item)}
                         >
                           Remove
@@ -145,11 +151,13 @@ const CartScreen = () => {
               </div>
             </div>
           )}
-          <div className="col-span-2 border border-primary flex justify-center items-center h-0" />
+
+          <div className="col-span-2 border border-black flex justify-center items-center mt-4" />
+
           <div className=" flex justify-between items-center">
             <Link
               href="/allproducts"
-              className="text-xs sm:text-lg align-center self-start mt-2 font-sans py-1 px-2 ml-2 rounded-md bg-primary w-max hover:opacity-80 m-auto shadow-md"
+              className="col-span-2 bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
             >
               Continue Shopping
             </Link>
@@ -164,7 +172,7 @@ const CartScreen = () => {
                   </span>
                 </h1>
                 <button
-                  className="col-span-2 bg-primary text-xs m-auto sm:text-lg rounded-md font-sans mt-2 px-2 py-1 hover:opacity-80 w-max shadow-md"
+                  className="col-span-2 bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
                   onClick={() => router.push("/information")}
                 >
                   Check Out

@@ -83,8 +83,8 @@ const RegisterScreen = () => {
   };
   return (
     <div className="grid grid-rows-auto min-h-screen">
-      <div className="bg-[#fdf9f5] flex flex-col items-center p-8">
-        <h1 className="self-center px-5 sm:px-10 py-5 text-4xl sm:text-4xl">
+      <div className="bg-[#fdf9f5] flex flex-col items-center p-1">
+        <h1 className="self-center px-5 sm:px-10 py-4 text-4xl">
           Register
         </h1>
         <form

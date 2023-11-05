@@ -16,7 +16,7 @@ const ProductItem = ({ product }) => {
 
   return (
     <div
-      className={`relative w-65 ${hovered ? 'shadow-md border border-gray-300' : ''} transition-shadow duration-300`}
+      className={`relative w-65 ${hovered ? 'shadow-md border border-gray-100' : ''} transition-shadow duration-300`}
       onMouseEnter={handleHover}
       onMouseLeave={handleLeave}
     >
