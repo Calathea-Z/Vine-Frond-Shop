@@ -52,31 +52,31 @@ const OrderHistoryScreen = () => {
   }, [router, userInfo]);
 
   return (
-    <div>
+    <div className="h-screen flex flex-col justify-between mt-[9rem]">
       <Header />
       {loading ? (
-        <div className="min-h-screen flex justify-center items-center">
+        <div className="flex-grow flex justify-center items-center ">
           <ClipLoader />
         </div>
       ) : (
-        <div className="p-4 grid gap-2">
-          <h1 className='text-xl text-center font-sans font-bold'>{userInfo.firstName}'s{""} Order History</h1>
+        <div className="flex-grow p-8 grid gap-4 bg-[#f7fafc]">
+  <h1 className='text-2xl text-center font-sans font-bold text-[#2d3748] py-4'>{userInfo.firstName}'s Order History</h1>
           {orders.slice().reverse().map((order, index) => (
-            <div key={index} className='border-2 border-gray-400 rounded-md p-2 grid grid-cols-4 gap-2'>
+            <div key={index} className='border-2 border-gray-400 rounded-md p-4 grid grid-cols-4 gap-4'>
               <div>
-                <h1 className='font-sans'>Order Date:</h1>
-              <h1 className='font-sans text-sm'>{order.createdAt.substring(0,10)}</h1>
+                <h1 className='font-sans text-lg'>Order Date:</h1>
+              <h1 className='font-sans text-md'>{order.createdAt.substring(0,10)}</h1>
               </div>
-              <div>
-                <h1 className='font-sans'>Confirmation Number:</h1>
-                <h1 className='font-sans text-xs'>{order._id}</h1>
+              <div className="mr-4">
+                <h1 className='font-sans text-lg'>Confirmation Number:</h1>
+                <h1 className='font-sans text-md'>{order._id}</h1>
               </div>
-              <div>
-                <h1 className='font-sans'>Total Price:</h1>
-                <h1 className='font-sans text-sm'>${order.totalPrice}</h1>
+              <div className="ml-4">
+                <h1 className='font-sans text-lg'>Total Price:</h1>
+                <h1 className='font-sans text-md'>${order.totalPrice}</h1>
               </div>
               <div className='flex justify-center items-center'>
-                <Link href={`/order/details/${order._id}`} className='font-sans text-sm text-black rounded-lg border-black border-2 shadow-md bg-primary p-2 hover:opacity-80' passHref>Order Details</Link>
+                <Link href={`/order/details/${order._id}`}  className="bg-gray-200 font-sans border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8" passHref>Order Details</Link>
               </div>
             </div>
           ))}

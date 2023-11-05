@@ -44,7 +44,7 @@ const PaymentSquare = () => {
   };
 
   return (
-    <div>
+    <div className="p-4">
       {paymentMethod === "card" && (
         <PaymentForm
           applicationId='sandbox-sq0idb-Jh0U_iAf4arZphPcQUcmNA'
