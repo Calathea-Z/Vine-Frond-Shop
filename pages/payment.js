@@ -6,7 +6,6 @@ import { urlFor } from "@/utils/image";
 import Image from "next/image";
 import Link from "next/link";
 import { useContext, useEffect, useState } from "react";
-import sadCart from "../public/assets/sadCart.png";
 import { useRouter } from "next/router";
 import dynamic from "next/dynamic";
 import { useSnackbar } from "notistack";
@@ -70,7 +69,7 @@ const PaymentScreen = () => {
       jsCookie.remove("cartItems");
       dispatch({ type: "CLEAR_PAYMENT_STATUS" });
       jsCookie.remove("orderSuccess");
-      router.push(`/order/${data}`);
+      // router.push(`/order/${data}`);
     } catch (err) {
       dispatch({ type: "CLEAR_PAYMENT_STATUS" });
       jsCookie.remove("orderSuccess");
@@ -117,10 +116,10 @@ const PaymentScreen = () => {
   }, [orderSuccess]);
 
   return (
-    <div className="p-4">
+    <div className="p-8">
       <CheckoutHelper activeStep={3} />
       <div className="p-6 flex flex-col justify-center items-center">
-        <h1 className="font-sans underline underline-offset-4 mb-4">
+        <h1 className="font-sans underline-offset-2 underline text-2xl mb-6">
           Finalize Your Order
         </h1>
 
@@ -129,11 +128,11 @@ const PaymentScreen = () => {
             <ClipLoader />
           </div>
         ) : (
-          <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 lg:grid-rows-2 lg:gap-5 gap-1">
+          <div className="grid grid-cols-1 lg:grid-cols-3 xl:grid-cols-4 lg:grid-rows-2 lg:gap-8 gap-2">
             <div className="lg:col-span-3">
-              <div className="rounded-lg border-2 shadow-md border-gray-300 block p-2 mb-5">
-                <div className="flex flex-col gap-2">
-                  <h6 className="font-sans text-gray-400">Ship to</h6>
+              <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-6 sm:p-8 mb-5">
+                <div className="flex flex-col gap-2 mb-4 font-semibold">
+                  <h6 className="font-sans text-gray-400 font-normal">Ship to</h6>
                   <p className="font-sans">
                     {shippingInformation.firstNameShipping}{" "}
                     {shippingInformation.lastNameShipping}
@@ -158,8 +157,8 @@ const PaymentScreen = () => {
                 </div>
               </div>
 
-              <div className="hidden rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 sm:block p-4 sm:p-5 mb-5">
-                <h2 className="font-sans">Items</h2>
+              <div className="rounded-lg border-2 shadow-md overflow-x-auto border-gray-300 block p-6 sm:p-8 mb-6">
+                <h2 className="font-sans text-gray-400">Items</h2>
                 <table className="table-auto">
                   <thead className="border-b">
                     <tr>
@@ -190,7 +189,7 @@ const PaymentScreen = () => {
                               alt={item.name}
                               width={80}
                               height={80}
-                              class="rounded-md p-1"
+                              className="rounded-md p-1"
                             />
                             <p className="font-sans text-xs">{item.name}</p>
                             &nbsp;
@@ -223,7 +222,7 @@ const PaymentScreen = () => {
                 <h2 className="font-sans">Items</h2>
                 <div className="flex flex-wrap flex-col mb-5">
                   {cartItems.map((item, index) => (
-                    <div key={index} class="flex flex-grow items-center">
+                    <div key={index} className="flex flex-grow items-center">
                       <Link
                         href={`/allproducts/${item.slug}`}
                         className="flex items-center flex-col"
@@ -233,24 +232,24 @@ const PaymentScreen = () => {
                           alt={item.name}
                           width={80}
                           height={80}
-                          class="rounded-md p-1"
+                          className="rounded-md p-1"
                         />
                         <p className="font-sans text-xs text-center">
                           {item.name}
                         </p>
                         &nbsp;
                       </Link>
-                      <div class="w-1/3 text-center flex flex-col">
+                      <div className="w-1/3 text-center flex flex-col">
                         <p className="font-sans text-xs">Quantity</p>
-                        <span class="font-sans">{item.quantity}</span>
+                        <span className="font-sans">{item.quantity}</span>
                       </div>
-                      <div class="w-1/3 text-center flex flex-col">
+                      <div className="w-1/3 text-center flex flex-col">
                         <p className="font-sans text-xs">Price</p>
-                        <span class="font-sans">${item.price}</span>
+                        <span className="font-sans">${item.price}</span>
                       </div>
-                      <div class="w-1/3 text-center flex flex-col">
+                      <div className="w-1/3 text-center flex flex-col">
                         <p className="font-sans text-xs">Subtotal</p>
-                        <span class="font-sans">
+                        <span className="font-sans">
                           ${item.quantity * item.price}
                         </span>
                       </div>
@@ -260,7 +259,7 @@ const PaymentScreen = () => {
                 <div>
                   <Link
                     href="/cart"
-                    class="font-sans text-xs sm:text-sm underline hover:text-blue-400"
+                    className="font-sans text-xs sm:text-sm underline hover:text-blue-400"
                   >
                     Edit
                   </Link>

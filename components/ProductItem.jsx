@@ -35,16 +35,7 @@ const ProductItem = ({ product }) => {
     <h4 className="font-bold font-sans">
       $ {product.price}.00
     </h4>
-    {product.countInStock ? (
-      ""
-    ) : (
-      <div className="absolute top-0 right-0 bg-red-600 text-white py-1 px-2 rounded-sm transform rotate-45 translate-x-10 translate-y-5 z-50">
-        SOLD OUT
-      </div>
-    )}
-  </div>
-</Link>
-      <div className="absolute bottom-0 left-0 right-0 p-2 flex justify-center">
+    <div className="absolute bottom-0 left-0 right-0 p-2 flex justify-center">
         <Link href={`/allproducts/${product.slug.current}`}>
           <button
             className="bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-slate-900 transition-colors"
@@ -54,6 +45,18 @@ const ProductItem = ({ product }) => {
           </button>
         </Link>
       </div>
+
+
+    {product.countInStock ? (
+      ""
+    ) : (
+      <div className="absolute top-0 right-0 bg-red-600 text-white py-1 px-2 rounded-sm transform rotate-45 translate-x-10 translate-y-5 z-50">
+        SOLD OUT
+      </div>
+    )}
+  </div>
+</Link>
+      
     </div>
   );
 };

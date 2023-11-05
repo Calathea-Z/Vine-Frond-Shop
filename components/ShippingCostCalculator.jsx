@@ -48,7 +48,6 @@ const ShippingCostCalculator = () => {
 
       try {
         const res = await axios.post("/api/shipping/shippingCost", data);
-        console.log("ME", res.data);
         const parser = new DOMParser();
         const xmlDoc = parser.parseFromString(res.data, "application/xml");
         const errorElement = xmlDoc.querySelector("Error Description");

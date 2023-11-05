@@ -194,8 +194,8 @@ const InformationScreen = () => {
             <div className="p-2 flex justify-between items-center">
               <h1 className="mb-4 text-md font-sans">Contact</h1>
               {loggedIn ? (
-                <h1 className="text-xs sm:text-sm text-amber-500">
-                  You are kild'n it! Thanks for your purchase,{" "}
+                <h1 className="text-xs sm:text-sm text-blue-600">
+                  Thanks for your support,{" "}
                   {userInfo.firstName} !
                 </h1>
               ) : (

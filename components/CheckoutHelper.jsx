@@ -10,8 +10,8 @@ const CheckoutHelper = ({ activeStep = 0 }) => {
             // Set the class of the tab based on whether it is the active step or not
             className={`flex-1 border-b-2 text-center font-sans text-xs sm:text-md pb-2 ${
               index === activeStep
-                ? "border-gray-200 text-gray-400"
-                : "border-green-500 text-green-500"
+                ? "border-green-500 text-green-500"
+                : "border-gray-100 text-gray-500"
             }`}
           >
             {step}
