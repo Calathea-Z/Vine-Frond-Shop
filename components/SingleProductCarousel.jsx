@@ -20,10 +20,10 @@ const SingleProductCarousel = (props) => {
   };
 
   return (
-    <div className="max-w-[1400px] h-[500px] md:h-[600px] lg:h-[700px] w-full m-auto py-16 px-4 relative group">
+    <div className="max-w-[1400px] h-[300px] md:h-[400px] lg:h-[600px] w-full m-auto py-16 px-4 my-10 relative group">
         <div
           style={{ backgroundImage: `url(${urlFor(props.photo[currentIndex].asset._ref).url()})`}}
-          className="w-full h-full rounded-lg bg-center bg-contain bg-no-repeat duration-500"
+          className="w-3/4 mx-auto h-full rounded-lg bg-center bg-contain bg-no-repeat duration-500"
         ></div>
 
       <div className='hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/40 text-white cursor-pointer'>
