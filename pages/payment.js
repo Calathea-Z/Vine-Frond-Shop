@@ -178,7 +178,7 @@ const PaymentScreen = () => {
                   </thead>
                   <tbody>
                     {cartItems.map((item, index) => (
-                      <tr key={index} className="border-b">
+                      <tr key={index} className="border-b font-semibold">
                         <td>
                           <Link
                             href={`/allproducts/${item.slug}`}
@@ -268,8 +268,8 @@ const PaymentScreen = () => {
             </div>
             <div className="lg:col-start-1"></div>
             <div className="rounded-lg border-2 shadow-md border-gray-300 mb-5 p-6 mx-auto lg:col-start-4 lg:row-start-1">
-              <div className="rounded-lg border-2 shadow-md row-start-2 border-gray-300 block p-5 mb-5">
-                <h2 className="mb-2 text-lg font-sans">Order Summary</h2>
+              <div className="rounded-lg border-2 shadow-md row-start-2 border-gray-300 block p-5 mb-5 font-semibold">
+                <h2 className="mb-2 text-lg font-sans ">Order Summary</h2>
                 <ul>
                   <li>
                     <div className="mb-2 flex justify-between">

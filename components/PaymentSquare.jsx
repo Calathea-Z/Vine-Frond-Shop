@@ -57,7 +57,7 @@ const PaymentSquare = () => {
   };
 
   return (
-    <div className="p-6">
+    <div className="p-6 min-w-[350px]">
       {error && <div className="text-red-500 mb-4">{error}</div>}
       {loading ? (
         <PulseLoader color="#36d7b7" />
@@ -80,8 +80,12 @@ const PaymentSquare = () => {
               <CreditCard
                 buttonProps={{
                   css: {
-                    backgroundColor: "black",
+                    backgroundColor: "rgb(30 41 59)",
                     color: "white",
+                    transition: "opacity 0.1s ease",
+                    "&:hover": {
+                      opacity: 0.9,
+                    },
                   },
                 }}
               />
@@ -111,8 +115,8 @@ const PaymentSquare = () => {
           {paymentMethod === "card" && (
             <button
               onClick={() => handlePaymentMethodChange("google")}
-              className="w-full border-gray-400 bg-blue-400 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-blue-500"
-          >
+              className=" border-gray-400 bg-slate-800 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-green-600 mt-6"
+            >
               Use Google Pay
             </button>
           )}
@@ -120,8 +124,8 @@ const PaymentSquare = () => {
           {paymentMethod === "google" && (
             <button
               onClick={() => handlePaymentMethodChange("card")}
-              className="w-full border-gray-400 bg-blue-400 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-blue-500"
-              >
+              className="border-gray-400 bg-slate-800 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-green-600 mt-6"
+            >
               Use Debit / Credit Card
             </button>
           )}
