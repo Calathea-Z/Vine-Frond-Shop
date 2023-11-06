@@ -35,14 +35,14 @@ const Footer = () => {
           />
         </div>
         <div className="flex-grow flex self-center mt-5 justify-center">
-          <form className="bg-blue-500 p-4 rounded-md flex items-center text-white hover:bg-blue-600 transition-colors duration-300">
+          <form className="bg-pink-900/70 p-4 rounded-md flex items-center text-white hover:bg-pink-900 transition-colors duration-300">
             <input
               type="email"
               name="email"
               placeholder="Get store updates!"
               className="bg-transparent border-none text-lg focus:ring-2 focus:ring-white focus:underline-0 text-white font-sans p-2 placeholder-white"
             />
-            <button className="rounded-lg bg-transparent border-transparent border-[1px] hover:bg-blue-700 p-1 ml-2 transition-colors duration-300">
+            <button className="rounded-lg bg-transparent border-transparent border-[1px] hover:bg-pink-700 p-1 ml-2 transition-colors duration-300">
               <EnvelopeIcon className="w-5 h-5" />
             </button>
           </form>
