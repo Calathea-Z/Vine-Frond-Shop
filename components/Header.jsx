@@ -52,7 +52,7 @@ const Header = () => {
   }
 
   return (
-    <nav className={`w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-4 top-0 left-0 z-50 ${isScrolled ? 'border-b border-gray-200 shadow-md' : ''}`}>
+    <nav className={`w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-4 top-0 left-0 z-50 shadow-sm ${isScrolled ? 'border-b border-gray-200 shadow-md' : ''}`}>
       {/*------------------- Left Logo */}
       <Link
           href="/"

@@ -3,8 +3,6 @@ import Header from "@/components/Header";
 import dynamic from "next/dynamic";
 import { Store } from "@/utils/Store";
 import { useContext, useReducer, useEffect } from "react";
-import newLogo from "public/assets/newLogo.png";
-import Image from "next/image";
 import { getError } from "@/utils/error";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
@@ -68,29 +66,29 @@ const OrderSuccessScreen = ({ params }) => {
   } = order;
 
   return (
-    <div className="h-screen">
+    <div className="h-screen flex flex-col justify-around">
       <Header/>
       {loading && (
-        <div className='flex justify-center items-center flex-col h-screen'>
+        <div className='flex justify-center items-center flex-col flex-grow'>
           <ClipLoader className='flex justify-center align-center' />{" "}
         </div>
       )}
       {!loading && (
-        <div className="flex flex-col h-screen w-full justify-start items-center bg-white mt-5">
+        <div className="flex flex-col h-screen flex-grow w-full justify-center items-center bg-primary">
           <div className="grid grid-cols-2 grid-row-1 p-2 border-2 border-black/90 rounded-md">
             <div className="flex justify-between p-4">
               <div className="flex flex-col gap-2 items-center">
-                <h6 className="font-sans text-gray-600 font-bold text-lg">Shipping to:</h6>
-                <p className="font-sans text-xs">
+                <h6 className="font-sans text-gray-600 font-bold text-2xl">Shipping Details</h6>
+                <p className="font-sans text-lg">
                   {shippingInformation?.firstNameShipping}{" "}
                   {shippingInformation?.lastNameShipping}
                 </p>
-                <p className="font-sans text-xs">{shippingInformation?.company}</p>
-                <p className="font-sans text-xs">{shippingInformation?.address}</p>
-                <p className="font-sans text-xs">
+                <p className="font-sans text-lg">{shippingInformation?.company}</p>
+                <p className="font-sans text-lg">{shippingInformation?.address}</p>
+                <p className="font-sans text-lg">
                   {shippingInformation?.city}, {shippingInformation?.usState}
                 </p>
-                <p className="font-sans text-xs">
+                <p className="font-sans text-lg">
                   {shippingInformation?.zipCode}
                   {shippingInformation?.country}
                 </p>
@@ -98,14 +96,15 @@ const OrderSuccessScreen = ({ params }) => {
             </div>
             <div className="self-start py-2">
               <div className="flex flex-col items-center gap-6">
-                <h1 className="font-sans p-2 text-gray-600 text-lg font-bold">
+                <h1 className="font-sans p-2 text-gray-600 text-2xl font-bold">
                   Confirmation Number:{" "}
                 </h1>
-                <h1 className="font-sans text-xs">{id}</h1>
+                <h1 className="font-sans text-lg">{id}</h1>
               </div>
             </div>
           </div>
         </div>
+        
       )}
       <Footer />
     </div>
