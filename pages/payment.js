@@ -274,25 +274,25 @@ const PaymentScreen = () => {
                   <li>
                     <div className="mb-2 flex justify-between">
                       <div className="font-sans">Items</div>
-                      <div className="font-sans">${itemsPrice}</div>
+                      <div className="font-sans">${Number(itemsPrice).toFixed(2)}</div>
                     </div>
                   </li>
                   <li>
                     <div className="mb-2 flex justify-between">
                       <div className="font-sans">Tax</div>
-                      <div className="font-sans">${taxPrice}</div>
+                      <div className="font-sans">${Number(taxPrice).toFixed(2)}</div>
                     </div>
                   </li>
                   <li>
                     <div className="mb-2 flex justify-between">
                       <div className="font-sans">Shipping</div>
-                      <div className="font-sans">${shippingCost}</div>
+                      <div className="font-sans">${Number(shippingCost).toFixed(2)}</div>
                     </div>
                   </li>
                   <li>
                     <div className="mb-2 flex justify-between">
                       <div className="font-sans">Total</div>
-                      <div className="font-sans">${totalPrice}</div>
+                      <div className="font-sans">${Number(totalPrice).toFixed(2)}</div>
                     </div>
                   </li>
                 </ul>
