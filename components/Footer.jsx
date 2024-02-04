@@ -24,7 +24,7 @@ const Footer = () => {
 	}
 	return (
 		<div className="bg-secondary flex flex-col justify-center items-center sm:px- sm:py-1 w-full bottom-0 left-0 right-0 relative">
-			<div className="flex flex-col sm:flex-row justify-between items-center sm:items-end w-full py-4">
+			<div className="flex flex-col sm:flex-row justify-between items-center w-full py-4">
 				<div className="flex justify-center items-center">
 					<Image
 						src={simpleLogo}
@@ -34,20 +34,20 @@ const Footer = () => {
 						className="sm:translate-y-3"
 					/>
 				</div>
-				<div className="w-full flex justify-center mt-5">
-					<form className="w-3/4 bg-pink-900/70 p-4 rounded-md flex items-center justify-between text-white hover:bg-pink-900 transition-colors duration-300">
+				<div className="w-full flex justify-center items-center">
+					<form className="w-1/4 bg-pink-900/70 p-4 rounded-md flex items-center justify-between text-white hover:bg-pink-900 transition-colors duration-300">
 						<input
 							type="email"
 							name="email"
 							placeholder="Get store updates!"
-							className="w-3/4 bg-transparent border-none text-lg focus:ring-2 focus:ring-white focus:outline-none text-white font-sans p-2 placeholder-white"
+							className="w-3/4 bg-transparent border-none text-lg focus:ring-2 self-center focus:ring-white focus:outline-none text-white font-sans p-2 placeholder-white"
 						/>
 						<button className="w-1/4 rounded-lg bg-transparent border-transparent border-[1px] hover:bg-pink-700 p-1 transition-colors duration-300 flex justify-center">
 							<EnvelopeIcon className="w-5 h-5" />
 						</button>
 					</form>
 				</div>
-				<div className="hidden sm:p-3 self-center mt-5 sm:flex sm:gap-5">
+				<div className="hidden sm:p-3 self-center mt-5 mr-3 sm:flex sm:gap-5">
 					<SocialIcon
 						url="https://www.instagram.com/vineandfrond/"
 						fgColor="white"
