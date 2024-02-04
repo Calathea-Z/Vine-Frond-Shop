@@ -116,9 +116,9 @@ const PaymentScreen = () => {
   }, [orderSuccess]);
 
   return (
-    <div className="p-8">
+    <div className="p-4 min-h-screen">
       <CheckoutHelper activeStep={3} />
-      <div className="p-6 flex flex-col justify-center items-center">
+      <div className=" flex flex-col items-center overflow-auto">
         <h1 className="font-sans underline-offset-2 underline text-2xl mb-6">
           Finalize Your Order
         </h1>

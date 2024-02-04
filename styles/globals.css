@@ -1,62 +1,69 @@
-@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100;200;300;400;500;700;800&family=Silkscreen&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100;200;300;400;500;700;800&family=Silkscreen&display=swap");
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: inknut antiqua, serif;
-  scroll-behavior: smooth;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family:
+		inknut antiqua,
+		serif;
+	scroll-behavior: smooth;
 }
 
 @layer utilities {
-  .hover-underline-animation {
-    display: inline-block;
-    position: relative;
-  }
-  .hover-underline-animation::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    background-color: #caafa8;
-    transform-origin: bottom right;
-    transition: transform 0.5s ease-out;
-  }
-  
-  .hover-underline-animation:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+	.hover-underline-animation {
+		display: inline-block;
+		position: relative;
+	}
+	.hover-underline-animation::after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		transform: scaleX(0);
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		background-color: #caafa8;
+		transform-origin: bottom right;
+		transition: transform 0.5s ease-out;
+	}
 
-  .shadow-y {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
+	.hover-underline-animation:hover::after {
+		transform: scaleX(1);
+		transform-origin: bottom left;
+	}
 
-  /* For sold out ribbon */
-  .cr {
-  width: 5rem;
-  font-size: .7rem;
-  padding:1px;
-  position: absolute;
-  text-align: center;
-  color: #f0f0f0;
-  }
+	.shadow-y {
+		box-shadow:
+			0 4px 6px -1px rgba(0, 0, 0, 0.1),
+			0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	}
 
-  .cr-top    { top: 1.1rem; }
-  .cr-right  { right: -.1rem; }
+	/* For sold out ribbon */
+	.cr {
+		width: 5rem;
+		font-size: 0.7rem;
+		padding: 1px;
+		position: absolute;
+		text-align: center;
+		color: #f0f0f0;
+	}
 
-  .cr-top.cr-right{
-    transform: rotate(45deg);
-  }
+	.cr-top {
+		top: 1.1rem;
+	}
+	.cr-right {
+		right: -0.1rem;
+	}
 
-  .cr-red {
-  background-color: #e43;
-  }
+	.cr-top.cr-right {
+		transform: rotate(45deg);
+	}
 
+	.cr-red {
+		background-color: #e43;
+	}
 }
