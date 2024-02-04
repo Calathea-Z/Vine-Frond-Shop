@@ -18,20 +18,22 @@ import {
 import { Store } from "@/utils/Store";
 
 const Header = () => {
-	const { dispatch } = useContext(Store);
-	const [active, setActive] = useState("");
-	const [userInfo, setUserInfo] = useState(null);
-	const [isScrolled, setIsScrolled] = useState(false);
-	const router = useRouter();
+	const { dispatch } = useContext(Store); // Using context to dispatch actions
+	const [active, setActive] = useState(""); // State for managing active link
+	const [userInfo, setUserInfo] = useState(null); // State for user information
+	const [isScrolled, setIsScrolled] = useState(false); // State to check if page is scrolled
+	const router = useRouter(); // Next.js router
 
+	// Handler for logging out the user
 	const logOutHandler = () => {
-		dispatch({ type: "USER_LOGOUT" });
-		jsCookie.remove("userInfo");
-		jsCookie.remove("cartItems");
-		jsCookie.remove("shippingAddress");
-		setUserInfo(null);
+		dispatch({ type: "USER_LOGOUT" }); // Dispatching logout action
+		jsCookie.remove("userInfo"); // Removing user info from cookies
+		jsCookie.remove("cartItems"); // Removing cart items from cookies
+		jsCookie.remove("shippingAddress"); // Removing shipping address from cookies
+		setUserInfo(null); // Resetting user info state
 	};
 
+	// Effect hook to add and remove scroll event listener
 	useEffect(() => {
 		const handleScroll = () => {
 			const isScrolled = window.scrollY > 0;
@@ -44,23 +46,35 @@ const Header = () => {
 		};
 	}, []);
 
+	// Effect hook to update user info from cookies
 	useEffect(() => {
 		setUserInfo(
 			Cookies.get("userInfo") ? JSON.parse(Cookies.get("userInfo")) : null
 		);
 	}, []);
 
+	// Prevent rendering on login and register pages
 	if (router.pathname === "/login" || router.pathname === "/register") {
 		return null;
 	}
 
+	// Function to render the logo image
+	const renderLogoImage = (
+		<Image
+			src={simpleLogo}
+			alt="Vine & Frond logo"
+			className="content-fill w-[85px] min-w-[90px] h-[90px] sm:w-[140px] sm:min-w-[114px] sm:h-[140px] flex-initial"
+		/>
+	);
+
+	// Main navigation component
 	return (
 		<nav
 			className={`w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-4 top-0 left-0 z-50 shadow-sm ${
 				isScrolled ? "border-b border-gray-200 shadow-md" : ""
 			}`}
 		>
-			{/*------------------- Left Logo */}
+			{/* Left section with logo */}
 			<Link
 				href="/"
 				className=" flex items-center max-w-xl mx-auto justify-start"
@@ -70,15 +84,11 @@ const Header = () => {
 					initial={{ x: -100, rotate: -25 }}
 					transition={{ duration: 3 }}
 				>
-					<Image
-						src={simpleLogo}
-						alt="Vine & Frond logo"
-						className="content-fill w-[85px] min-w-[90px] h-[90px] sm:w-[140px] sm:min-w-[114px] sm:h-[140px] flex-initial"
-					/>
+					{renderLogoImage}
 				</motion.div>
 			</Link>
 
-			{/*------------------- Middle Menu       */}
+			{/* Middle section with navigation menu */}
 			<div className="w-full space-x-4 flex items-center justify-center text-slate-600">
 				<ul className="list-none hidden sm:flex flex-row gap-10">
 					{navLinks.map((link) => (
@@ -95,13 +105,13 @@ const Header = () => {
 				</ul>
 			</div>
 
-			{/*------------------- Right Nav       */}
+			{/* Right section with user and cart icons */}
 			<div className="flex items-center sm:pr-3 pr-5 sm:px-4 space-x-4 w-full justify-end">
 				{userInfo ? (
 					<div className="flex flex-1 justify-end items-center w-full z-50 mt-2">
 						<Menu as="div" className="relative inline-block text-left z-50">
 							<Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-								<UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8] aria-hidden:true hover:text-[#caafa8]" />
+								<UserCircleIcon className="w-6 h-6 xl:w-10 xl:h-10  aria-hidden:true hover:text-[#caafa8]" />
 							</Menu.Button>
 
 							<Menu.Items className="absolute right-0 mt-2 w-36 origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
