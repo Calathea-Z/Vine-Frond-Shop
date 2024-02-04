@@ -1,15 +1,14 @@
 import Image from "next/image";
 import { heroPic } from "@/public/assets";
-import { motion } from "framer-motion";
 
 const Hero = () => {
 	return (
-		<>
+		<section>
 			{/*---------- Hero Image*/}
 			<div className="relative p-4 mt-[9rem] rounded-md flex mx-auto bg-primary z-0 h-auto sm:h-[280px] md:h-[450px] lg:h-[600px]">
 				<Image
 					src={heroPic}
-					alt="pots"
+					alt="A group of some of Vine & Fronds products. A variety of planters."
 					priority="true"
 					placeholder="blur"
 					className="content-fill w-full h-auto rounded-lg"
@@ -24,7 +23,7 @@ const Hero = () => {
 					functional pieces to bring beauty to your home.
 				</h1>
 			</div>
-		</>
+		</section>
 	);
 };
 export default Hero;
