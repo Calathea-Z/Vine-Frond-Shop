@@ -9,7 +9,6 @@ import { useEffect, useState, useContext } from "react";
 import axios from "axios";
 
 export default function ProductScreen(props) {
-	// const router = useRouter();
 	const { slug } = props;
 	const {
 		state: { cart },
