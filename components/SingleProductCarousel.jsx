@@ -1,9 +1,6 @@
 import { useState } from "react";
 import { urlFor } from "@/utils/image.js";
-import {
-	ArrowSmallLeftIcon,
-	ArrowSmallRightIcon,
-} from "@heroicons/react/24/solid";
+import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
 import Image from "next/image";
 
 const SingleProductCarousel = (props) => {
@@ -33,13 +30,13 @@ const SingleProductCarousel = (props) => {
 			></div>
 
 			<div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/40 text-white cursor-pointer">
-				<ArrowSmallLeftIcon
+				<ArrowLeftIcon
 					className="w-8 h-8 md:w-10 md:h-10"
 					onClick={prevSlide}
 				/>
 			</div>
 			<div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/40 text-white cursor-pointer">
-				<ArrowSmallRightIcon
+				<ArrowRightIcon
 					className="w-8 h-8 md:w-10 md:h-10"
 					onClick={nextSlide}
 				/>
