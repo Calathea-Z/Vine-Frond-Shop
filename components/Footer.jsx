@@ -57,7 +57,7 @@ const Footer = () => {
 		return (
 			<Link href="/">
 				<div className="bg-[#fdf9f5] flex justify-center items-center w-full bottom-0 left-0 right-0 relative py-0.5">
-					{renderLogoImage()} // Render logo image for login or register page
+					{renderLogoImage()}
 				</div>
 			</Link>
 		);
@@ -68,7 +68,7 @@ const Footer = () => {
 			<div className="flex flex-col sm:flex-row justify-between items-center w-full py-4">
 				{/* Logo */}
 				<div className="flex justify-center items-center">
-					{renderLogoImage()} // Render logo image
+					{renderLogoImage()}
 				</div>
 
 				{/* Newsletter Subscribe Form */}
@@ -81,19 +81,18 @@ const Footer = () => {
 							className="w-3/4 bg-transparent border-none text-sm self-center focus:ring-0 focus:rounded-sm focus:outline-none text-white font-sans p-2 placeholder-white"
 						/>
 						<button className=" rounded-lg bg-transparent border-transparent border-[1px] px-1  hover:bg-pink-700 transition-colors duration-300 flex justify-center">
-							<EnvelopeIcon className="w-5 h-5" /> // Email icon button
+							<EnvelopeIcon className="w-5 h-5" />
 						</button>
 					</form>
 				</div>
 
 				{/* Social Icons for different screen sizes */}
 				<div className="hidden sm:p-3 self-center mt-5 mr-3 sm:flex sm:gap-5">
-					{renderSocialIcons(50)} // Render larger social icons for sm screens
-					and up
+					{renderSocialIcons(50)}
 				</div>
 
 				<div className=" sm:hidden p-1 sm:p-3 flex gap-3 sm:gap-5">
-					{renderSocialIcons(40)} // Render smaller social icons for xs screens
+					{renderSocialIcons(40)}
 				</div>
 			</div>
 
