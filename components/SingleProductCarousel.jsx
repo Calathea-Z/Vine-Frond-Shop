@@ -8,15 +8,17 @@ import Image from "next/image";
 
 const SingleProductCarousel = (props) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
+
 	const prevSlide = () => {
-		const isFirstSlide = currentIndex === 0;
-		const newIndex = isFirstSlide ? props.photo.length - 1 : currentIndex - 1;
-		setCurrentIndex(newIndex);
+		setCurrentIndex(
+			currentIndex === 0 ? props.photo.length - 1 : currentIndex - 1
+		);
 	};
+
 	const nextSlide = () => {
-		const isLastSlide = currentIndex === props.photo.length - 1;
-		const newIndex = isLastSlide ? 0 : currentIndex + 1;
-		setCurrentIndex(newIndex);
+		setCurrentIndex(
+			currentIndex === props.photo.length - 1 ? 0 : currentIndex + 1
+		);
 	};
 
 	return (
@@ -43,21 +45,24 @@ const SingleProductCarousel = (props) => {
 				/>
 			</div>
 			<div className="flex left-4 justify-center py-2 gap-2">
-				{props.photo.map((thumbnail, index) => (
-					<div
-						key={index}
-						className="cursor-pointer rounded-sm w-[3rem] h-[3rem] md:w-[5rem] md:h-[5rem] relative"
-						onClick={() => setCurrentIndex(index)}
-					>
-						<Image
-							src={urlFor(thumbnail.asset._ref).url()}
-							fill
-							alt="pottery thumbnails"
-						/>
-					</div>
-				))}
+				{props.photo.map((thumbnail, index) => {
+					return (
+						<div
+							key={thumbnail.asset._ref}
+							className="cursor-pointer rounded-sm w-[3rem] h-[3rem] md:w-[5rem] md:h-[5rem] relative"
+							onClick={() => setCurrentIndex(index)}
+						>
+							<Image
+								src={urlFor(thumbnail.asset._ref).url()}
+								fill
+								alt="pottery thumbnails"
+							/>
+						</div>
+					);
+				})}
 			</div>
 		</div>
 	);
 };
+
 export default SingleProductCarousel;
