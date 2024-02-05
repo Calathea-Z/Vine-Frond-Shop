@@ -14,42 +14,33 @@ const PaymentSquare = () => {
 	const [paymentMethod, setPaymentMethod] = useState("card");
 	const [orderSuccess, setOrderSuccess] = useState(false);
 	const [loading, setLoading] = useState(false);
-	const [error, SetError] = useState(null);
+	const [error, setError] = useState(null);
 
 	useEffect(() => {
-		if (orderSuccess === true) {
+		if (orderSuccess) {
 			dispatch({
 				type: "UPDATE_PAYMENT_SUCCESS",
 				payload: { orderSuccess },
 			});
 			jsCookie.set("orderSuccess", JSON.stringify({ orderSuccess }));
 		}
-		return;
 	}, [orderSuccess, dispatch]);
-
-	const handlePaymentMethodChange = (method) => {
-		setPaymentMethod(method);
-	};
 
 	const handlePaymentFormSubmit = async (token) => {
 		try {
 			setLoading(true);
 			const response = await axios.post(
 				"/api/payments/squarepay",
-				{
-					sourceId: token.token,
-				},
-				{
-					headers: {
-						"Content-Type": "application/json",
-					},
-				}
+				{ sourceId: token.token },
+				{ headers: { "Content-Type": "application/json" } }
 			);
 			if (response.data.payment.status === "COMPLETED") {
 				setOrderSuccess(true);
+			} else {
+				setError("Payment failed. Please try again.");
 			}
 		} catch (error) {
-			SetError("Payment failed. Please try again.");
+			setError("Payment failed. Please try again.");
 			console.error(error);
 		} finally {
 			setLoading(false);
@@ -114,7 +105,7 @@ const PaymentSquare = () => {
 
 					{paymentMethod === "card" && (
 						<button
-							onClick={() => handlePaymentMethodChange("google")}
+							onClick={() => setPaymentMethod("google")}
 							className=" border-gray-400 bg-slate-800 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-green-600 mt-6"
 						>
 							Use Google Pay
@@ -123,7 +114,7 @@ const PaymentSquare = () => {
 
 					{paymentMethod === "google" && (
 						<button
-							onClick={() => handlePaymentMethodChange("card")}
+							onClick={() => setPaymentMethod("card")}
 							className="border-gray-400 bg-slate-800 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-green-600 mt-6"
 						>
 							Use Debit / Credit Card
