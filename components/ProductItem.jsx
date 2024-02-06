@@ -49,7 +49,7 @@ const ProductItem = ({ product }) => {
 					{product.countInStock ? (
 						""
 					) : (
-						<div className="absolute top-0 right-0 bg-red-600 text-white py-1 px-2 rounded-sm transform rotate-45 translate-x-10 translate-y-5 z-50">
+						<div className="absolute top-0 right-0 bg-red-600 text-white py-0.5 px-1 text-xs rounded-sm transform rotate-45 translate-x-3 translate-y-8 z-50">
 							SOLD OUT
 						</div>
 					)}
