@@ -27,28 +27,30 @@ const AllProducts = () => {
 	}, []);
 
 	return (
-		<div className="bg-primary">
+		<div className="bg-primary flex flex-col min-h-screen">
 			<Header />
-			<div className="mx-4 my-8 p-4 bg-primary rounded-lg shadow-y border-t-2 border-gray-200">
-				<div className="grid grid-cols-4 justify-items-center mt-32">
-					{loading ? (
-						<div className="flex justify-center items-center">
-							<ClipLoader color={"#877570"} />
-						</div>
-					) : error ? (
-						"Error please reload"
-					) : (
-						products.map((product, index) => (
-							<div key={index} className="flex justify-center rounded-md p-2">
-								<div className="p-4 bg-white rounded-lg shadow-lg border-t-2 border-gray-200 w-full h-full">
-									<ProductItem product={product} />
-								</div>
+			<main className="flex-grow">
+				<div className="mx-4 my-8 p-4 bg-primary rounded-lg shadow-y border-t-2 border-gray-200 flex-grow mb-32">
+					<div className="grid grid-cols-4 justify-items-center mt-32">
+						{loading ? (
+							<div className="flex justify-center items-center">
+								<ClipLoader color={"#877570"} />
 							</div>
-						))
-					)}
+						) : error ? (
+							"Error please reload"
+						) : (
+							products.map((product, index) => (
+								<div key={index} className="flex justify-center rounded-md p-2">
+									<div className="p-4 bg-white rounded-lg shadow-lg border-t-2 border-gray-200 w-full h-full">
+										<ProductItem product={product} />
+									</div>
+								</div>
+							))
+						)}
+					</div>
 				</div>
-			</div>
-			<Footer />
+			</main>
+			<Footer className="mt-auto" />
 		</div>
 	);
 };

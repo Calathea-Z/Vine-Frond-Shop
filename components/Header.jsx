@@ -77,15 +77,19 @@ const Header = () => {
 			{/* Left section with logo */}
 			<Link
 				href="/"
-				className=" flex items-center max-w-xl mx-auto justify-start"
+				className="flex items-center max-w-xl mx-auto justify-start"
 			>
-				<motion.div
-					animate={{ x: 0, rotate: 5 }}
-					initial={{ x: -100, rotate: -25 }}
-					transition={{ duration: 3 }}
-				>
-					{renderLogoImage}
-				</motion.div>
+				{router.pathname === "/" && typeof window !== "undefined" ? (
+					<motion.div
+						animate={{ x: 0, rotate: 0 }}
+						initial={{ x: -100, rotate: -10 }}
+						transition={{ duration: 2 }} // Increased duration for slower animation
+					>
+						{renderLogoImage}
+					</motion.div>
+				) : (
+					<div>{renderLogoImage}</div>
+				)}
 			</Link>
 
 			{/* Middle section with navigation menu */}
@@ -95,8 +99,8 @@ const Header = () => {
 						<li
 							key={link.id}
 							className={`${
-								active === link.title ? "text-white" : "text-slate-800"
-							} hover-underline-animation  text-[18px] xl:text-[24px] cursor-pointer`}
+								router.pathname === `/${link.id}` ? "bg-primary rounded-md" : ""
+							} hover-underline-animation text-[18px] xl:text-[24px] cursor-pointer`}
 							onClick={() => setActive(link.title)}
 						>
 							<Link href={`/${link.id}`}>{link.title}</Link>
@@ -133,21 +137,6 @@ const Header = () => {
 											} group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
 										>
 											Profile
-										</Link>
-									)}
-								</Menu.Item>
-
-								<Menu.Item>
-									{({ active }) => (
-										<Link
-											href="/order/order-history"
-											className={`${
-												active
-													? "bg-primary text-white"
-													: "bg-white text-slate-800"
-											} group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
-										>
-											Order History
 										</Link>
 									)}
 								</Menu.Item>
