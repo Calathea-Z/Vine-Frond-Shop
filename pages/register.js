@@ -36,6 +36,7 @@ const RegisterScreen = () => {
 		handleSubmit,
 		register,
 		formState: { errors },
+		getValues,
 	} = useForm({
 		defaultValues: {
 			firstName: "",
@@ -82,18 +83,18 @@ const RegisterScreen = () => {
 		}
 	};
 	return (
-		<div className="grid grid-rows-auto min-h-screen">
-			<div className="bg-[#fdf9f5] flex flex-col items-center p-1">
-				<h1 className="self-center px-5 sm:px-10 py-4 text-4xl">Register</h1>
+		<div className="grid grid-rows-auto min-h-screen bg-gray-100 overflow-hidden p-20">
+			<div className="flex flex-col items-center justify-start min-h-screen">
+				<h1 className="px-5 sm:px-10 py-4 text-4xl">Register</h1>
 				<form
 					onSubmit={handleSubmit(submitHandler)}
-					className="flex flex-col p-5 mt-5 "
+					className="flex flex-col p-5 mt-5 bg-white shadow-md rounded-lg"
 				>
 					<div className="flex flex-col sm:flex-row justify-center items-center sm:justify-start sm:items-start gap-1 sm:gap-4">
-						<div className=" w-[13.7rem] sm:w-full">
+						<div className="w-[13.7rem] sm:w-full">
 							<h1 className="mb-1 text-center sm:text-left"> First Name</h1>
 							<input
-								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-center"
+								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-full self-center"
 								type="text"
 								{...register("firstName", {
 									required: "Required",
@@ -101,17 +102,17 @@ const RegisterScreen = () => {
 								})}
 							/>
 							{errors.firstName ? (
-								<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] w-max text-center mb-1">
+								<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.7rem] w-max text-center mb-1">
 									{errors.firstName?.message}
 								</p>
 							) : (
 								""
 							)}
 						</div>
-						<div className=" w-[13.7rem] sm:w-full">
+						<div className="w-[13.7rem] sm:w-full">
 							<h1 className="mb-1 text-center sm:text-left"> Last Name</h1>
 							<input
-								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-center"
+								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-full self-center"
 								type="text"
 								{...register("lastName", {
 									required: "Required",
@@ -119,7 +120,7 @@ const RegisterScreen = () => {
 								})}
 							/>
 							{errors.lastName ? (
-								<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] text-center w-max mb-1">
+								<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.7rem] text-center w-max mb-1">
 									{errors.lastName?.message}
 								</p>
 							) : (
@@ -130,7 +131,7 @@ const RegisterScreen = () => {
 
 					<h1 className="mb-1 self-center sm:self-start">Email</h1>
 					<input
-						className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[47rem] self-start"
+						className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-full self-start"
 						type="email"
 						{...register("email", {
 							required: "Required",
@@ -141,7 +142,7 @@ const RegisterScreen = () => {
 						})}
 					/>
 					{errors.email ? (
-						<p className=" bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] text-center w-max mb-1">
+						<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.7rem] text-center w-max mb-1">
 							{errors.email?.message}
 						</p>
 					) : (
@@ -149,10 +150,10 @@ const RegisterScreen = () => {
 					)}
 
 					<div className="flex flex-col sm:flex-row justify-center items-center sm:justify-start sm:items-start gap-1 sm:gap-4">
-						<div className=" w-[13.7rem] sm:w-full">
+						<div className="w-[13.7rem] sm:w-full">
 							<h1 className="mb-1 text-center sm:text-left"> Password</h1>
 							<input
-								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-start"
+								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-full self-start"
 								type={showPassword ? "text" : "password"}
 								{...register("password", {
 									required: "Required",
@@ -172,7 +173,7 @@ const RegisterScreen = () => {
 								})}
 							/>
 							{errors.password ? (
-								<p className="bg-primary border-transparent rounded-md p-[.2rem] mb-1 text-black font-sans text-[.6rem] w-max text-center">
+								<p className="bg-primary border-transparent rounded-md p-[.2rem] mb-1 text-black font-sans text-[.7rem] w-max text-center">
 									{errors.password?.message}
 								</p>
 							) : (
@@ -181,32 +182,34 @@ const RegisterScreen = () => {
 						</div>
 						{showPassword ? (
 							<EyeIcon
-								className="w-5 h-5 absolute translate-x-[21.4rem] translate-y-[2.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+								className="w-5 h-5 absolute translate-x-[15.4rem] translate-y-[2.6rem] cursor-pointer text-blue-400 hover:opacity-80"
 								id="show-hide"
 								onClick={handlePasswordShowHide}
 							/>
 						) : (
 							<EyeSlashIcon
-								className="w-5 h-5 absolute translate-x-[21.4rem] translate-y-[2.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+								className="w-5 h-5 absolute translate-x-[15.4rem] translate-y-[2.6rem] cursor-pointer text-gray-400 hover:opacity-80"
 								id="show-hide"
 								onClick={handlePasswordShowHide}
 							/>
 						)}
 
-						<div className=" w-[13.7rem] sm:w-full">
+						<div className="w-[13.7rem] sm:w-full">
 							<h1 className="mb-1 text-center sm:text-left">
-								{" "}
 								Confirm Password
 							</h1>
 							<input
-								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-[23rem] self-start"
+								className="bg-gray-200 border-gray-400 mb-3 p-2 rounded mt-1 focus:bg-transparent w-full self-start"
 								type={showPasswordConfirm ? "text" : "password"}
 								{...register("confirmPassword", {
 									required: "Required",
+									validate: (value) =>
+										value === getValues("password") ||
+										"The passwords do not match",
 								})}
 							/>
 							{errors.confirmPassword ? (
-								<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.6rem] w-max text-center mb-1">
+								<p className="bg-primary border-transparent rounded-md p-[.2rem] text-black font-sans text-[.7rem] w-max text-center mb-1">
 									{errors.confirmPassword?.message}
 								</p>
 							) : (
@@ -215,13 +218,13 @@ const RegisterScreen = () => {
 						</div>
 						{showPasswordConfirm ? (
 							<EyeIcon
-								className="w-5 h-5 absolute translate-x-[45.4rem] translate-y-[2.6rem] cursor-pointer text-blue-400 hover:opacity-80"
+								className="w-5 h-5 absolute translate-x-[33.5rem] translate-y-[2.6rem] cursor-pointer text-blue-400 hover:opacity-80"
 								id="show-hide"
 								onClick={handlePasswordConfirmShowHide}
 							/>
 						) : (
 							<EyeSlashIcon
-								className="w-5 h-5 absolute translate-x-[45.4rem] translate-y-[2.6rem] cursor-pointer text-gray-400 hover:opacity-80"
+								className="w-5 h-5 absolute translate-x-[33.5rem] translate-y-[2.6rem] cursor-pointer text-gray-400 hover:opacity-80"
 								id="show-hide"
 								onClick={handlePasswordConfirmShowHide}
 							/>
@@ -246,7 +249,6 @@ const RegisterScreen = () => {
 					</div>
 				</form>
 			</div>
-			<Footer />
 		</div>
 	);
 };

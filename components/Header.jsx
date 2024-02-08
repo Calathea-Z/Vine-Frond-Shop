@@ -26,11 +26,11 @@ const Header = () => {
 
 	// Handler for logging out the user
 	const logOutHandler = () => {
-		dispatch({ type: "USER_LOGOUT" }); // Dispatching logout action
-		jsCookie.remove("userInfo"); // Removing user info from cookies
-		jsCookie.remove("cartItems"); // Removing cart items from cookies
-		jsCookie.remove("shippingAddress"); // Removing shipping address from cookies
-		setUserInfo(null); // Resetting user info state
+		dispatch({ type: "USER_LOGOUT" });
+		Cookies.remove("userInfo");
+		Cookies.remove("cartItems");
+		Cookies.remove("shippingAddress");
+		setUserInfo(null);
 	};
 
 	// Effect hook to add and remove scroll event listener
