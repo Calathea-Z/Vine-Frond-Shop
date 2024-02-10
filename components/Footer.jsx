@@ -52,17 +52,7 @@ const Footer = () => {
 		);
 	};
 
-	// Conditional rendering based on the current route
-	if (router.pathname === "/login" || router.pathname === "/register") {
-		return (
-			<Link href="/">
-				<div className="bg-[#fdf9f5] flex justify-center items-center w-full bottom-0 left-0 right-0 relative py-0.5">
-					{renderLogoImage()}
-				</div>
-			</Link>
-		);
-	}
-	// Default return for other pages
+	// Default return
 	return (
 		<div className="bg-secondary flex flex-col justify-center items-center sm:px- sm:py-1 w-full bottom-0 left-0 right-0 relative">
 			<div className="flex flex-col sm:flex-row justify-between items-center w-full py-4">
@@ -72,8 +62,8 @@ const Footer = () => {
 				</div>
 
 				{/* Newsletter Subscribe Form */}
-				<div className="w-full flex justify-center items-center">
-					<form className="w-[20%] bg-pink-900 p-4 rounded-md flex items-center justify-center gap-5 text-white hover:bg-pink-900/90 transition-colors duration-300">
+				<div className="w-full flex justify-center items-center ml-32">
+					<form className="w-[30%] bg-pink-900 p-4 rounded-md flex items-center justify-center gap-5 text-white hover:bg-pink-900/90 transition-colors duration-300">
 						<input
 							type="email"
 							name="email"
@@ -103,20 +93,28 @@ const Footer = () => {
 			<div className="flex justify-between w-full">
 				{/* Site Navigation Links */}
 				<div className="sm:flex justify-between items-center sm:p-5 text-md sm:text-md sm:gap-2 hidden">
-					<Link href="/#" className="hover-underline-animation">
-						Home
-					</Link>
-					<Link href="/contact" className="hover-underline-animation">
+					{typeof window !== "undefined" && window.location.pathname === "/" ? (
+						<a
+							onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+							className="cursor-pointer text-[.9rem] hover-underline-animation font-sans"
+						>
+							Home
+						</a>
+					) : (
+						<Link
+							href="/"
+							className="text-[.9rem] hover-underline-animation font-sans"
+						>
+							Home
+						</Link>
+					)}
+					<Link
+						href="/contact"
+						className="text-[.9rem] hover-underline-animation font-sans"
+					>
 						Contact
 					</Link>
-					<Link href="/shipping" className="hover-underline-animation">
-						Shipping
-					</Link>
-					<Link href="/faq" className="hover-underline-animation">
-						FAQ
-					</Link>
 				</div>
-
 				{/* Link to Calathea Designs */}
 				<div className="flex mx-auto sm:mx-0 items-center p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
 					<Link

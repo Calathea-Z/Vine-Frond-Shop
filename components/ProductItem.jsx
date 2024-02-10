@@ -24,13 +24,19 @@ const ProductItem = ({ product }) => {
 		>
 			<Link href={`/allproducts/${product.slug.current}`}>
 				<div className="flex flex-col gap-1 items-center p-4 m-2 transform transition-transform duration-500 hover:scale-105 rounded-md shadow-lg">
-					<Image
-						src={urlFor(product.photo[0].asset._ref).url()}
-						alt={product.name}
-						width={200}
-						height={200}
-						className="rounded-md mt-2"
-					/>
+					{product.photo && product.photo.length > 0 ? (
+						<Image
+							src={urlFor(product.photo[0].asset._ref).url()}
+							alt={product.name}
+							width={200}
+							height={200}
+							className="rounded-md mt-2"
+						/>
+					) : (
+						<div className="flex items-center justify-center w-full h-52 bg-gray-200 rounded-md mt-2">
+							<p className="text-gray-500">No Image Available</p>
+						</div>
+					)}
 					<h4 className="p-2 text-center text-slate-800 text-lg font-bold">
 						{product.name}
 					</h4>

@@ -29,7 +29,7 @@ const About = () => {
 			<main className="flex-grow">
 				<div className="p-5 md:p-4 flex flex-col items-center justify-center">
 					<div
-						className="bg-purple-200/50 shadow-lg rounded-md p-4 flex flex-col md:flex-row items-center justify-between mt-36"
+						className="bg-[#f2c88c] shadow-lg rounded-md p-4 flex flex-col md:flex-row items-center justify-between mt-36"
 						style={{ maxWidth: "85%" }}
 					>
 						<div className="md:w-1/2 w-full">
