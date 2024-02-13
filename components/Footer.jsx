@@ -16,7 +16,7 @@ const Footer = () => {
 				alt="simple logo"
 				width={150}
 				height={150}
-				className="sm:translate-y-3"
+				className="translate-y-3"
 			/>
 		);
 	};
@@ -54,7 +54,7 @@ const Footer = () => {
 
 	// Default return
 	return (
-		<div className="bg-secondary flex flex-col justify-center items-center sm:px- sm:py-1 w-full bottom-0 left-0 right-0 relative">
+		<div className="bg-secondary flex flex-col justify-center items-center sm:py-1 w-full bottom-0 left-0 right-0 relative">
 			<div className="flex flex-col sm:flex-row justify-between items-center w-full py-4">
 				{/* Logo */}
 				<div className="flex justify-center items-center">
@@ -62,8 +62,8 @@ const Footer = () => {
 				</div>
 
 				{/* Newsletter Subscribe Form */}
-				<div className="w-full flex justify-center items-center ml-32">
-					<form className="w-[30%] bg-pink-900 p-4 rounded-md flex items-center justify-center gap-5 text-white hover:bg-pink-900/90 transition-colors duration-300">
+				<div className="w-full flex justify-center mt-8 ml-32">
+					<form className="sm:w-[100%] md:w-[30%] bg-pink-900 p-4 rounded-md flex items-center justify-center gap-5 text-white hover:bg-pink-900/90 transition-colors duration-300">
 						<input
 							type="email"
 							name="email"

@@ -31,6 +31,18 @@ export default {
       ],
     },
     {
+      name: 'latitude',
+      title: 'Latitude',
+      type: 'number',
+      validation: (Rule) => Rule.required().min(-90).max(90),
+    },
+    {
+      name: 'longitude',
+      title: 'Longitude',
+      type: 'number',
+      validation: (Rule) => Rule.required().min(-180).max(180),
+    },
+    {
       name: 'url',
       title: 'Website URL',
       type: 'url',
