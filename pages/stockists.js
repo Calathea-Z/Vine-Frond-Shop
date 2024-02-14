@@ -1,57 +1,60 @@
-import { useEffect, useState, useCallback } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import client from "@/utils/client";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import Link from "next/link";
+import GoogleMapCustomOverlay from "@/components/GoogleMapCustomOverlay";
 import { motion } from "framer-motion";
-import {
-	GoogleMap,
-	LoadScript,
-	Marker,
-	InfoWindow,
-} from "@react-google-maps/api";
+import { GoogleMap, LoadScriptNext, Marker } from "@react-google-maps/api";
 
 const Stockists = () => {
-	const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 16 16" fill="currentColor" class="w-4 h-4">
-  <path d="M4.5 7c.681 0 1.3-.273 1.75-.715C6.7 6.727 7.319 7 8 7s1.3-.273 1.75-.715A2.5 2.5 0 1 0 11.5 2h-7a2.5 2.5 0 0 0 0 5ZM6.25 8.097A3.986 3.986 0 0 1 4.5 8.5c-.53 0-1.037-.103-1.5-.29v4.29h-.25a.75.75 0 0 0 0 1.5h.5a.754.754 0 0 0 .138-.013A.5.5 0 0 0 3.5 14H6a.5.5 0 0 0 .5-.5v-3A.5.5 0 0 1 7 10h2a.5.5 0 0 1 .5.5v3a.5.5 0 0 0 .5.5h2.5a.5.5 0 0 0 .112-.013c.045.009.09.013.138.013h.5a.75.75 0 1 0 0-1.5H13V8.21c-.463.187-.97.29-1.5.29a3.986 3.986 0 0 1-1.75-.403A3.986 3.986 0 0 1 8 8.5a3.986 3.986 0 0 1-1.75-.403Z" />
-</svg>
-`;
+	const svgIcon = `<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512"><path fill="#4C9A4F" d="M272 96c-78.6 0-145.1 51.5-167.7 122.5c33.6-17 71.5-26.5 111.7-26.5h88c8.8 0 16 7.2 16 16s-7.2 16-16 16H288 216s0 0 0 0c-16.6 0-32.7 1.9-48.3 5.4c-25.9 5.9-49.9 16.4-71.4 30.7c0 0 0 0 0 0C38.3 298.8 0 364.9 0 440v16c0 13.3 10.7 24 24 24s24-10.7 24-24V440c0-48.7 20.7-92.5 53.8-123.2C121.6 392.3 190.3 448 272 448l1 0c132.1-.7 239-130.9 239-291.4c0-42.6-7.5-83.1-21.1-119.6c-2.6-6.9-12.7-6.6-16.2-.1C455.9 72.1 418.7 96 376 96L272 96z"/></svg>`;
 
 	const svgIconUrlEncoded = encodeURIComponent(svgIcon);
-	const dataUrl = `data:image/svg+xml;charset=UTF-8,${svgIconUrlEncoded}`;
+	const dataUrl = `data:image/svg+xml,${svgIconUrlEncoded}`;
 
 	const [stockists, setStockists] = useState([]);
 	const [mapCenter, setMapCenter] = useState({
 		lat: 35.595088490906676, // Default center of the map (Asheville, NC)
 		lng: -82.55361660009542,
 	});
-	const [zoomLevel, setZoomLevel] = useState(8);
+	const [zoomLevel, setZoomLevel] = useState(6.5);
 	const [selectedStockist, setSelectedStockist] = useState(null);
 	const [error, setError] = useState(null);
+	const loadScriptRef = useRef(null); // useRef to manage LoadScriptNext component
+	const mapRef = useRef(null); // useRef for GoogleMap instance
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				const data = await client.fetch(
+				const response = await client.fetch(
 					`*[_type == "stockist"]{
 				name,
 				description,
-				"address": address.city + ", " + address.state + " " + address.zipCode,
+				"addressLineOne": address.street,
+                "addressLineTwo": address.city + ", " + address.state + " " + address.zipCode,
 				keywords,
                 latitude,
                 longitude,
 				url
 			}`
 				);
-				const sortedData = data.sort((a, b) => a.name.localeCompare(b.name));
-				setStockists(sortedData);
+				const sortedResponse = response.sort((a, b) =>
+					a.name.localeCompare(b.name)
+				);
+				setStockists(sortedResponse);
 			} catch (error) {
 				console.error(error);
 				setError("Failed to fetch stockists. Please try again later.");
 			}
 		};
-
 		fetchData();
+	}, []);
+
+	useEffect(() => {
+		if (!loadScriptRef.current) {
+			loadScriptRef.current = true;
+		}
 	}, []);
 
 	if (error) {
@@ -72,88 +75,111 @@ const Stockists = () => {
 		borderRadius: "8px",
 	};
 
-	const handleCardClick = (latitude, longitude, stockist) => {
+	const handleCardClick = useCallback((latitude, longitude, stockist) => {
 		setMapCenter({ lat: latitude, lng: longitude });
-		setZoomLevel(16); // Zoom in closer when a card is clicked
+		setZoomLevel(18); // Zoom in closer when a card is clicked
 		setSelectedStockist(stockist); // Automatically select the stockist to show its info window
-	};
+	}, []);
 
-	// Using useCallback to ensure function stability and prevent unnecessary re-renders
-	const renderMap = useCallback(
-		() => (
-			<LoadScript
-				googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+	const renderMap = () => (
+		<LoadScriptNext
+			googleMapsApiKey={process.env.NEXT_PUBLIC_GOOGLE_MAPS_API_KEY}
+		>
+			<GoogleMap
+				mapContainerStyle={mapContainerStyle}
+				center={mapCenter}
+				zoom={zoomLevel}
+				options={{
+					fullscreenControl: true,
+					disableDefaultUI: true,
+					gestureHandling: "cooperative",
+					styles: [
+						{
+							featureType: "poi.business",
+							elementType: "labels",
+							stylers: [{ visibility: "off" }],
+						},
+					],
+				}}
+				onLoad={(map) => (mapRef.current = map)} // Assign the map instance to mapRef
 			>
-				<GoogleMap
-					mapContainerStyle={mapContainerStyle}
-					center={mapCenter}
-					zoom={zoomLevel}
-					options={{
-						fullscreenControl: true,
-						disableDefaultUI: true,
-						gestureHandling: "cooperative",
-						styles: [
-							{
-								featureType: "poi.business",
-								elementType: "labels",
-								stylers: [{ visibility: "off" }],
-							},
-						],
-					}}
-				>
-					{stockists.map((stockist) => (
-						<Marker
-							key={stockist.name}
-							position={{
-								lat: parseFloat(stockist.latitude),
-								lng: parseFloat(stockist.longitude),
-							}}
-							icon={{
-								url: dataUrl, // Use the Data URL here for the custom icon
-								scaledSize: new window.google.maps.Size(35, 35), // Adjust the size of the icon
-							}}
-							onClick={() =>
-								handleCardClick(
-									parseFloat(stockist.latitude),
-									parseFloat(stockist.longitude),
-									stockist
-								)
-							} // Updated to use handleCardClick to set selectedStockist
-						/>
-					))}
-					{selectedStockist && (
-						<InfoWindow
-							position={{
-								lat: parseFloat(selectedStockist.latitude) + 0.00001, // Adjust latitude to prevent icon from being hidden
-								lng: parseFloat(selectedStockist.longitude),
-							}}
-							options={{ pixelOffset: new window.google.maps.Size(0, -40) }} // Adjust the InfoWindow position to make it pop
-						>
-							<div className="bg-[#f9f9f9] p-4 rounded-lg shadow-md text-center">
-								<h2 className="text-[#1976D2] font-bold">
-									{selectedStockist.name}
-								</h2>
-								<p className="mb-1">{selectedStockist.description}</p>
-								<p className="italic">{selectedStockist.address}</p>
-								{selectedStockist.url && (
-									<a
-										href={selectedStockist.url}
-										target="_blank"
-										rel="noopener noreferrer"
-										className="inline-block text-white bg-[#1976D2] p-[.1rem] px-[.3rem] mt-2 rounded-md no-underline"
-									>
-										Visit Website
-									</a>
-								)}
-							</div>
-						</InfoWindow>
-					)}
-				</GoogleMap>
-			</LoadScript>
-		),
-		[stockists, mapCenter, zoomLevel, selectedStockist]
+				{stockists.map((stockist) => (
+					<Marker
+						key={stockist.name}
+						position={{
+							lat: parseFloat(stockist.latitude),
+							lng: parseFloat(stockist.longitude),
+						}}
+						label={{
+							text: stockist.name,
+							color: "#ffffff",
+							fontSize: "10px",
+							fontWeight: "bold",
+							className: "bg-blue-400 rounded px-1 py-0.5", // Custom class for label styling
+						}}
+						icon={{
+							url: dataUrl, //svgIcon
+							scaledSize: new window.google.maps.Size(35, 35),
+							labelOrigin: new window.google.maps.Point(0, -20), // Position label above the icon
+						}}
+						onClick={() =>
+							handleCardClick(
+								parseFloat(stockist.latitude),
+								parseFloat(stockist.longitude),
+								stockist
+							)
+						}
+					/>
+				))}
+				{selectedStockist && (
+					<GoogleMapCustomOverlay
+						map={mapRef.current} // Use the map instance from mapRef
+						google={window.google}
+						position={{
+							lat: parseFloat(selectedStockist.latitude),
+							lng: parseFloat(selectedStockist.longitude),
+						}}
+						onClose={() => setSelectedStockist(null)}
+					>
+						<div className="bg-[#f9f9f9] p-2 rounded-lg shadow-md text-center">
+							<h2 className="text-[#1976D2] font-bold">
+								{selectedStockist.name}
+							</h2>
+							<p className="font-bold">{selectedStockist.description}</p>
+							<p className="italic text-gray-700">
+								{selectedStockist.addressLineOne}
+							</p>
+							<p className="italic text-gray-700">
+								{selectedStockist.addressLineTwo}
+							</p>
+							{selectedStockist.url && (
+								<a
+									href={selectedStockist.url}
+									target="_blank"
+									rel="noopener noreferrer"
+									className="text-orange-600 hover:underline"
+								>
+									Visit Website
+								</a>
+							)}
+							<a
+								href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
+									selectedStockist.addressLineOne +
+										" " +
+										selectedStockist.addressLineTwo
+								)}`}
+								target="_blank"
+								rel="noopener noreferrer"
+								className="block mt-2 text-green-600 hover:underline"
+							>
+								Get Directions
+							</a>
+						</div>
+					</GoogleMapCustomOverlay>
+				)}
+			</GoogleMap>
+		</LoadScriptNext>
 	);
-
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
 			<Header />
@@ -176,7 +202,7 @@ const Stockists = () => {
 										)
 									}
 								>
-									<h2 className="text-2xl font-bold mb-4 hover:text-gray-800">
+									<h2 className="text-2xl font-bold mb-4 hover:text-gray-800 hover:underline hover:underline-offset-2">
 										{stockist.url ? (
 											<Link
 												href={stockist.url}
@@ -196,7 +222,8 @@ const Stockists = () => {
 										{stockist.keywords ? stockist.keywords.join(", ") : "N/A"}
 									</p>
 									<p className="mb-4 text-base">{stockist.description}</p>
-									<p className="text-base">{stockist.address}</p>
+									<p className="text-base">{stockist.addressLineOne}</p>
+									<p className="text-base">{stockist.addressLineTwo}</p>
 								</motion.div>
 							))}
 						</div>
