@@ -39,46 +39,13 @@ const About = () => {
 		return "w-full";
 	};
 
-	const containerVariants = {
-		hidden: { opacity: 0, scale: 0.95 },
-		visible: {
-			opacity: 1,
-			scale: 1,
-			transition: {
-				staggerChildren: 0.1,
-				delayChildren: 0.2,
-			},
-		},
-	};
-
-	const bubbleVariants = {
-		hidden: { y: 20, opacity: 0 },
-		visible: {
-			y: 0,
-			opacity: 1,
-			transition: {
-				duration: 0.5,
-			},
-		},
-	};
-
-	// Animation variants for the sentences
-	const sentenceVariants = {
-		hidden: { opacity: 0, y: 20, scale: 0.8 },
-		visible: (custom) => ({
-			opacity: 1,
-			y: 0,
-			scale: 1,
-			transition: { delay: custom * 0.2, duration: 1.0 }, // Slower float effect
-		}),
-	};
 	return (
 		<div className="flex flex-col justify-between min-h-screen">
 			<Header />
 			<main className="flex-grow">
 				<div className="p-5 md:p-4 flex flex-col items-center justify-center">
 					<div
-						className="bg-[#D6E6F2] shadow-lg rounded-md p-4 flex flex-col md:flex-row items-center justify-between mt-36"
+						className="bg-gradient-to-r from-[#E8F0FE] to-[#CFE0FB] shadow-lg rounded-md p-4 flex flex-col md:flex-row items-center justify-between mt-36"
 						style={{ maxWidth: "85%", maxHeight: "700px" }}
 					>
 						<div className="md:w-1/2 w-full">
@@ -92,44 +59,53 @@ const About = () => {
 						</div>
 						<div className="md:w-1/2 w-full h-full flex flex-col justify-between">
 							<div className="flex flex-col md:flex-row md:flex-wrap justify-start items-start gap-2 p-2 h-full">
-								{bioParagraphs.map((paragraph, pIndex) => {
-									const sentences = splitIntoSentences(paragraph);
-									return sentences.map((sentence, sIndex) => (
-										<motion.div
-											key={`${pIndex}-${sIndex}`}
-											custom={sIndex}
-											variants={{
-												hidden: {
-													y: 300,
-													opacity: 0,
-													backgroundColor: "#FF6347",
-												}, // Start from the very bottom with a contrasting color
-												visible: (custom) => ({
-													y: 0, // Move to its final position
-													opacity: 1,
-													backgroundColor: "#f0f0f0", // Settle to the uniform light gray color when animation stops
-													transition: {
-														delay: custom * 1, // Increased delay to ensure the next sentence appears after the previous one finishes
-														duration: 7, // Slower movement
-														type: "spring",
-														stiffness: 20, // Softer spring for a smoother float effect
+								<AnimatePresence>
+									{bioParagraphs.map((paragraph, pIndex) => {
+										const sentences = splitIntoSentences(paragraph);
+										return sentences.map((sentence, sIndex) => (
+											<motion.div
+												key={`${pIndex}-${sIndex}`}
+												custom={sIndex}
+												variants={{
+													hidden: {
+														y: 300,
+														opacity: 0,
+														backgroundColor: "#AED6F1", // Changed from #FF6347 to a lighter blue
 													},
-												}),
-											}}
-											initial="hidden"
-											animate="visible"
-											className={`my-1 mx-1 p-3 rounded-lg shadow-md text-black ${getBubbleWidth(
-												sentence
-											)}`}
-											style={{
-												display: "inline-flex",
-												flex: "1 0 45%",
-											}}
-										>
-											{sentence}
-										</motion.div>
-									));
-								})}
+													visible: (custom) => ({
+														y: 0,
+														opacity: 1,
+														backgroundColor: "#f0f0f0",
+														transition: {
+															delay: custom * 1,
+															duration: 7,
+															type: "spring",
+															stiffness: 20,
+														},
+													}),
+												}}
+												initial="hidden"
+												animate="visible"
+												whileHover={{
+													scale: 1.1,
+													boxShadow: "0px 0px 8px rgba(0, 0, 0, 0.6)",
+												}}
+												className={`my-1 mx-1 p-3 rounded-lg shadow-md text-black ${getBubbleWidth(
+													sentence
+												)}`}
+												style={{
+													display: "inline-flex",
+													flex: "1 0 45%",
+													backgroundImage:
+														"linear-gradient(135deg, #E2EFF1 25%, transparent 25%, transparent 50%, #E2EFF1 50%, #E2EFF1 75%, transparent 75%, transparent)",
+													backgroundSize: "20px 20px",
+												}}
+											>
+												{sentence}
+											</motion.div>
+										));
+									})}
+								</AnimatePresence>
 							</div>
 						</div>
 					</div>
