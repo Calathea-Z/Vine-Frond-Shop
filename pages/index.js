@@ -1,7 +1,7 @@
 import Header from "@/components/Header";
 import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
-import HighlightedProductCarousel from "@/components/HighlightedProductCarousel";
+import FeaturedProducts from "@/components/FeaturedProducts";
 import Head from "next/head";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -12,7 +12,7 @@ export default function Home() {
 	});
 
 	return (
-		<div className="z-0 relative min-h-screen snap-y snap-mandatory overflow-y-scroll">
+		<div className="z-0 relative min-h-screen snap-y snap-mandatory overflow-y-scroll bg-primary">
 			<Head>
 				<title>Vine & Frond</title>
 			</Head>
@@ -22,14 +22,18 @@ export default function Home() {
 					<Hero />
 				</section>
 				<section className="snap-start">
-					<HighlightedProductCarousel />
+					<FeaturedProducts />
 				</section>
 				<section
 					ref={ref}
-					className="snap-start bg-primary w-full flex justify-center items-center gap-5 font-extrabold text-2xl p-10"
+					className="snap-start bg-primary w-full flex justify-center items-center gap-1 font-thin italic text-xl p-3"
 				>
 					<motion.h1
-						className="p-2 text-sm sm:text-2xl"
+						whileHover={{
+							scale: 1.1,
+							textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)",
+						}}
+						className="p-2 text-sm sm:text-2xl cursor-pointer"
 						initial={{ x: -1000 }}
 						animate={{ x: inView ? 0 : -1000 }}
 						transition={{ type: "spring", stiffness: 30 }}
@@ -37,7 +41,11 @@ export default function Home() {
 						@vineandfrond
 					</motion.h1>
 					<motion.h1
-						className="p-2 text-sm sm:text-2xl"
+						whileHover={{
+							scale: 1.1,
+							textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)",
+						}}
+						className="p-2 text-sm sm:text-2xl cursor-pointer"
 						initial={{ x: 1000 }}
 						animate={{ x: inView ? 0 : 1000 }}
 						transition={{ type: "spring", stiffness: 30 }}

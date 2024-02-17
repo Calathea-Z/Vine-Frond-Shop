@@ -1,66 +1,34 @@
-import { useState } from "react";
 import { urlFor } from "@/utils/image.js";
-import Link from "next/link";
-import Image from "next/image";
 
 const ProductItem = ({ product }) => {
-	const [hovered, setHovered] = useState(false);
-
-	const handleHover = () => {
-		setHovered(true);
-	};
-
-	const handleLeave = () => {
-		setHovered(false);
-	};
-
 	return (
-		<div
-			className={`relative w-65 ${
-				hovered ? "shadow-md border border-gray-100" : ""
-			} transition-shadow duration-300`}
-			onMouseEnter={handleHover}
-			onMouseLeave={handleLeave}
-		>
-			<Link href={`/allproducts/${product.slug.current}`}>
-				<div className="flex flex-col gap-1 items-center p-4 m-2 transform transition-transform duration-500 hover:scale-105 rounded-md shadow-lg">
-					{product.photo && product.photo.length > 0 ? (
-						<Image
-							src={urlFor(product.photo[0].asset._ref).url()}
-							alt={product.name}
-							width={200}
-							height={200}
-							className="rounded-md mt-2"
-						/>
-					) : (
-						<div className="flex items-center justify-center w-full h-52 bg-gray-200 rounded-md mt-2">
-							<p className="text-gray-500">No Image Available</p>
-						</div>
-					)}
-					<h4 className="p-2 text-center text-slate-800 text-lg font-bold">
-						{product.name}
-					</h4>
-					<h4 className="font-bold font-sans">$ {product.price}.00</h4>
-					<div className="absolute bottom-0 left-0 right-0 p-2 flex justify-center">
-						<Link href={`/allproducts/${product.slug.current}`}>
-							<button
-								className="bg-slate-800 text-white py-2 px-4 rounded-md hover:bg-slate-900 transition-colors"
-								style={{ display: hovered ? "block" : "none" }}
-							>
-								View Product
-							</button>
-						</Link>
+		<div className="flex flex-col items-center w-full">
+			{" "}
+			{/* Removed max-width */}
+			<div className="relative w-full h-96 overflow-hidden rounded-lg shadow-lg">
+				{" "}
+				{/* Increased height, added rounded corners and shadow */}
+				{product.photo && product.photo.length > 0 ? (
+					<img
+						src={urlFor(product.photo[0].asset._ref).url()}
+						alt={product.name}
+						className="w-full h-full object-cover"
+					/>
+				) : (
+					<div className="flex items-center justify-center w-full h-full bg-gray-100">
+						<p className="text-gray-500">No Image Available</p>
 					</div>
-
-					{product.countInStock ? (
-						""
-					) : (
-						<div className="absolute top-0 right-0 bg-red-600 text-white py-0.5 px-1 text-xs rounded-sm transform rotate-45 translate-x-3 translate-y-8 z-50">
-							SOLD OUT
-						</div>
-					)}
-				</div>
-			</Link>
+				)}
+				{!product.countInStock && (
+					<div className="absolute bottom-0 left-0 bg-red-600 text-white py-1 px-2 text-xs rounded-tr-lg">
+						Sold out
+					</div>
+				)}
+			</div>
+			<div className="text-center mt-4">
+				<h4 className="text-md font-bold">{product.name}</h4>
+				<p className="text-sm">${product.price} USD</p>
+			</div>
 		</div>
 	);
 };

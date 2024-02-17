@@ -1,65 +1,62 @@
-import { useState } from "react";
-import { urlFor } from "@/utils/image.js";
-import { ArrowLeftIcon, ArrowRightIcon } from "@heroicons/react/24/solid";
-import Image from "next/image";
+import ClipLoader from "react-spinners/ClipLoader";
+import client from "@/utils/client";
+import { useEffect, useState } from "react";
+import ProductItem from "./ProductItem";
 
-const SingleProductCarousel = (props) => {
-	const [currentIndex, setCurrentIndex] = useState(0);
+const HighlightedProductCarousel = () => {
+	const [state, setState] = useState({
+		products: [],
+		error: "",
+		loading: true,
+	});
 
-	const prevSlide = () => {
-		setCurrentIndex(
-			currentIndex === 0 ? props.photo.length - 1 : currentIndex - 1
-		);
-	};
+	const { loading, error, products } = state;
 
-	const nextSlide = () => {
-		setCurrentIndex(
-			currentIndex === props.photo.length - 1 ? 0 : currentIndex + 1
-		);
-	};
+	useEffect(() => {
+		let isMounted = true;
+
+		const fetchData = async () => {
+			try {
+				setState((prevState) => ({ ...prevState, loading: true }));
+				const products = await client.fetch(`*[_type == "product"]`);
+				if (isMounted) {
+					setState({ products, loading: false, error: "" });
+				}
+			} catch (err) {
+				if (isMounted) {
+					setState({ products: [], loading: false, error: err.message });
+				}
+			}
+		};
+
+		fetchData();
+
+		return () => {
+			isMounted = false;
+		};
+	}, []);
 
 	return (
-		<div className="max-w-[1400px] h-[300px] md:h-[400px] lg:h-[600px] w-full m-auto py-16 px-4 my-10 relative group">
-			<div
-				style={{
-					backgroundImage: `url(${urlFor(
-						props.photo[currentIndex].asset._ref
-					).url()})`,
-				}}
-				className="w-3/4 mx-auto h-full rounded-lg bg-center bg-contain bg-no-repeat duration-500"
-			></div>
-
-			<div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] left-5 text-2xl rounded-full p-2 bg-black/40 text-white cursor-pointer">
-				<ArrowLeftIcon
-					className="w-8 h-8 md:w-10 md:h-10"
-					onClick={prevSlide}
+		<div className="w-full bg-primary flex flex-col justify-center items-center gap-2 p-4">
+			<h1 className="text-2xl sm:text-4xl xl:text-6xl p-4 mb-6">
+				Current Favorites!
+			</h1>
+			{loading ? (
+				<ClipLoader
+					color={"#877570"}
+					className="flex justify-center items-center"
 				/>
-			</div>
-			<div className="hidden group-hover:block absolute top-[50%] -translate-x-0 translate-y-[-50%] right-5 text-2xl rounded-full p-2 bg-black/40 text-white cursor-pointer">
-				<ArrowRightIcon
-					className="w-8 h-8 md:w-10 md:h-10"
-					onClick={nextSlide}
-				/>
-			</div>
-			<div className="flex left-4 justify-center py-2 gap-2">
-				{props.photo.map((thumbnail, index) => {
-					return (
-						<div
-							key={thumbnail.asset._ref}
-							className="cursor-pointer rounded-sm w-[3rem] h-[3rem] md:w-[5rem] md:h-[5rem] relative"
-							onClick={() => setCurrentIndex(index)}
-						>
-							<Image
-								src={urlFor(thumbnail.asset._ref).url()}
-								fill
-								alt="pottery thumbnails"
-							/>
-						</div>
-					);
-				})}
-			</div>
+			) : error ? (
+				<p>Error please reload</p>
+			) : (
+				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+					{products.map((product) => (
+						<ProductItem key={product._id} product={product} />
+					))}
+				</div>
+			)}
 		</div>
 	);
 };
 
-export default SingleProductCarousel;
+export default HighlightedProductCarousel;
