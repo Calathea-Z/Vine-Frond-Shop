@@ -183,7 +183,7 @@ const PaymentScreen = () => {
                           <Link
                             href={`/allproducts/${item.slug}`}
                             className="flex flex-col"
-                          >
+                            legacyBehavior>
                             <Image
                               src={urlFor(item.photo[0].asset._ref).url()}
                               alt={item.name}
@@ -226,7 +226,7 @@ const PaymentScreen = () => {
                       <Link
                         href={`/allproducts/${item.slug}`}
                         className="flex items-center flex-col"
-                      >
+                        legacyBehavior>
                         <Image
                           src={urlFor(item.photo[0].asset._ref).url()}
                           alt={item.name}

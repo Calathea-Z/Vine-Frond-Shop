@@ -60,7 +60,7 @@ const LoginScreen = () => {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
+        <div className="flex flex-col md:flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
 			<div className="md:w-3/5 flex justify-center mb-10 md:mb-0">
 				<Image
 					src={simpleLogo}
@@ -150,7 +150,7 @@ const LoginScreen = () => {
 						)}
 					</div>
 					<div className="mt-4 text-center">
-						<Link href="/register">
+						<Link href="/register" legacyBehavior>
 							<span
 								className={`text-sm ${
 									isLoading
@@ -165,6 +165,6 @@ const LoginScreen = () => {
 				</form>
 			</div>
 		</div>
-	);
+    );
 };
 export default LoginScreen;

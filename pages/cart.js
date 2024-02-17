@@ -67,7 +67,7 @@ const CartScreen = () => {
 	}, [cartItems, dispatch]);
 
 	return (
-		<div className="h-screen flex flex-col justify-between bg-primary">
+        <div className="h-screen flex flex-col justify-between bg-primary">
 			<Header />
 			<div className="flex-grow mt-6 flex flex-col p-5">
 				<div className="w-full flex items-center sm:p-6 flex-col bg-primary">
@@ -100,7 +100,7 @@ const CartScreen = () => {
 								key={item._id || index}
 							>
 								<div className="flex items-center space-x-5">
-									<Link href={`/allproducts/${item.slug}`} passHref>
+									<Link href={`/allproducts/${item.slug}`} passHref legacyBehavior>
 										<Image
 											src={urlFor(item.photo[0].asset._ref).url()}
 											alt={item.name}
@@ -161,6 +161,6 @@ const CartScreen = () => {
 			</div>
 			<Footer />
 		</div>
-	);
+    );
 };
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

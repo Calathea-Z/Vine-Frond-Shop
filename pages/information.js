@@ -177,7 +177,7 @@ const InformationScreen = () => {
 		}
 	};
 	return (
-		<div>
+        <div>
 			<div className="p-10 flex flex-col">
 				<CheckoutHelper activeStep={1} />
 				<Image
@@ -423,15 +423,15 @@ const InformationScreen = () => {
 					</form>
 				</div>
 				<Link
-					className="flex items-center mx-auto mt-2 font-sans gap-2"
-					href="/cart"
-				>
+                    className="flex items-center mx-auto mt-2 font-sans gap-2"
+                    href="/cart"
+                    legacyBehavior>
 					<ChevronLeftIcon className="w-4 h-4" />
 					Return to cart
 				</Link>
 			</div>
 			<Footer />
 		</div>
-	);
+    );
 };
 export default InformationScreen;

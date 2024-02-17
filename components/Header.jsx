@@ -74,7 +74,7 @@ const Header = () => {
 
 	// Main navigation component
 	return (
-		<div style={dynamicStyle}>
+        <div style={dynamicStyle}>
 			<nav
 				className={`w-full fixed flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-1 px-4 top-0 left-0 z-50 shadow-sm ${
 					isScrolled ? "border-b border-gray-200 shadow-md" : ""
@@ -82,9 +82,9 @@ const Header = () => {
 			>
 				{/* Left section with logo */}
 				<Link
-					href="/"
-					className="flex items-center max-w-xl mx-auto justify-start"
-				>
+                    href="/"
+                    className="flex items-center max-w-xl mx-auto justify-start"
+                    legacyBehavior>
 					{router.pathname === "/" && typeof window !== "undefined" ? (
 						<motion.div
 							animate={{ x: 0, rotate: 0 }}
@@ -111,7 +111,7 @@ const Header = () => {
 								} hover-underline-animation text-[18px] xl:text-[24px] cursor-pointer`}
 								onClick={() => setActive(link.title)}
 							>
-								<Link href={`/${link.id}`}>{link.title}</Link>
+								<Link href={`/${link.id}`} legacyBehavior>{link.title}</Link>
 							</li>
 						))}
 					</ul>
@@ -178,7 +178,7 @@ const Header = () => {
 
 					<MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
 
-					<Link href="/cart">
+					<Link href="/cart" legacyBehavior>
 						<ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
 					</Link>
 
@@ -193,13 +193,13 @@ const Header = () => {
 									<Menu.Item key={link.id} as={Fragment}>
 										{({ active }) => (
 											<Link
-												href={`/${link.id}`}
-												className={`${
+                                                href={`/${link.id}`}
+                                                className={`${
 													active
 														? "bg-primary text-white"
 														: "bg-white text-slate-800"
 												} group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
-											>
+                                                legacyBehavior>
 												{link.title}
 											</Link>
 										)}
@@ -211,6 +211,6 @@ const Header = () => {
 				</div>
 			</nav>
 		</div>
-	);
+    );
 };
 export default Header;
