@@ -1,13 +1,10 @@
+import Image from "next/image";
 import { urlFor } from "@/utils/image.js";
 
 const ProductItem = ({ product }) => {
 	return (
 		<div className="flex flex-col items-center w-full">
-			{" "}
-			{/* Removed max-width */}
 			<div className="relative w-full h-96 overflow-hidden rounded-lg shadow-lg">
-				{" "}
-				{/* Increased height, added rounded corners and shadow */}
 				{product.photo && product.photo.length > 0 ? (
 					<img
 						src={urlFor(product.photo[0].asset._ref).url()}
