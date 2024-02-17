@@ -3,21 +3,53 @@ import Hero from "@/components/Hero";
 import Footer from "@/components/Footer";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Head from "next/head";
+import TopBanner from "@/components/TopBanner";
+import client from "@/utils/client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
+import { useEffect, useState } from "react";
 
 export default function Home() {
+	const [topBannerData, setTopBannerData] = useState({});
+
+	useEffect(() => {
+		const fetchTopBannerData = async () => {
+			const query = `*[_type == "topBanner" && enabled == true][0]`;
+			const data = await client.fetch(query);
+			if (data) {
+				setTopBannerData(data);
+			}
+			console.log(`top banner data`, data);
+		};
+
+		fetchTopBannerData();
+	}, []);
+
 	const { ref, inView } = useInView({
 		triggerOnce: true,
 	});
 
+	const isTopBannerVisible = !!topBannerData?.enabled;
+	console.log(isTopBannerVisible);
+	const mainStyle = {
+		paddingTop: isTopBannerVisible ? "150px" : "100px",
+	};
+
 	return (
-		<div className="z-0 relative min-h-screen snap-y snap-mandatory overflow-y-scroll bg-primary">
+		<>
 			<Head>
 				<title>Vine & Frond</title>
+				<meta
+					name="description"
+					content="Explore our collection of handmade pottery and houseplants."
+				/>
 			</Head>
-			<Header className="sticky top-0 left-0 w-full z-50" />
-			<main className="snap-y snap-mandatory">
+			{isTopBannerVisible && <TopBanner data={topBannerData} />}
+			<Header isTopBannerVisible={isTopBannerVisible} />
+			<main
+				className="z-0 relative min-h-screen snap-y snap-mandatory overflow-y-scroll bg-primary"
+				style={mainStyle}
+			>
 				<section className="snap-start">
 					<Hero />
 				</section>
@@ -58,6 +90,6 @@ export default function Home() {
 					<Footer />
 				</section>
 			</main>
-		</div>
+		</>
 	);
 }

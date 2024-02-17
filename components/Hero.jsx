@@ -1,10 +1,22 @@
 import Image from "next/image";
 import Link from "next/link";
 import { heroPic } from "@/public/assets";
+import { useState, useEffect } from "react";
 
 const Hero = () => {
+	const [topBannerHeight, setTopBannerHeight] = useState(0);
+
+	useEffect(() => {
+		const banner = document.querySelector("#top-banner");
+		if (banner) {
+			setTopBannerHeight(banner.offsetHeight);
+		}
+	}, []);
+
 	return (
-		<section className="relative mt-[9rem] mx-auto bg-primary z-0 w-full">
+		<section
+			className={`relative mt-[calc(9rem+${topBannerHeight}px)] mx-auto bg-primary z-0 w-full`}
+		>
 			{/* Hero Image with Overlay Text */}
 			<div className="w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-hidden">
 				<Image
@@ -15,7 +27,9 @@ const Hero = () => {
 				/>
 			</div>
 			{/* Overlay Text */}
-			<div className="absolute top-4 left-2 p-4">
+			<div
+				className={`absolute top-[calc(7px+${topBannerHeight}px)] left-2 p-4`}
+			>
 				<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-bold bg-primary/50 p-2 rounded-md">
 					Handmade pottery and Houseplants.
 				</h2>
