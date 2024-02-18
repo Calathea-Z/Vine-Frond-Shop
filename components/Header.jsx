@@ -60,7 +60,6 @@ const Header = ({ isTopBannerVisible }) => {
 		return null;
 	}
 
-	// Function to render the logo image
 	const renderLogoImage = (
 		<Image
 			src={simpleLogo}
@@ -76,7 +75,6 @@ const Header = ({ isTopBannerVisible }) => {
 					isScrolled ? "border-b border-gray-200 shadow-md" : ""
 				}`}
 			>
-				{/* Middle section with navigation menu moved to the left */}
 				<div className="flex-1 flex items-center justify-start">
 					<ul className="list-none hidden sm:flex flex-row gap-6">
 						{navLinks.map((link) => (
@@ -86,7 +84,7 @@ const Header = ({ isTopBannerVisible }) => {
 									router.pathname === `/${link.id}`
 										? "bg-primary rounded-md"
 										: ""
-								} hover-underline-animation font-thin text-[18px] xl:text-[24px] cursor-pointer`}
+								} hover-underline-animation font-thin text-[18px] xl:text-[20px] cursor-pointer`}
 								onClick={() => setActive(link.title)}
 							>
 								<Link href={`/${link.id}`} legacyBehavior>
@@ -97,7 +95,6 @@ const Header = ({ isTopBannerVisible }) => {
 					</ul>
 				</div>
 
-				{/* Center section with logo */}
 				<Link
 					href="/"
 					className="flex items-center justify-center mx-auto"

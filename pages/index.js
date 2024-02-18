@@ -4,6 +4,7 @@ import Footer from "@/components/Footer";
 import FeaturedProducts from "@/components/FeaturedProducts";
 import Head from "next/head";
 import TopBanner from "@/components/TopBanner";
+import SideScrollButton from "@/components/SideScrollButton";
 import client from "@/utils/client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
@@ -35,6 +36,8 @@ export default function Home() {
 		paddingTop: isTopBannerVisible ? "150px" : "100px",
 	};
 
+	const isSideButtonEnabled = true;
+
 	return (
 		<>
 			<Head>
@@ -45,9 +48,10 @@ export default function Home() {
 				/>
 			</Head>
 			{isTopBannerVisible && <TopBanner data={topBannerData} />}
+			<SideScrollButton isSideButtonEnabled={isSideButtonEnabled} />
 			<Header isTopBannerVisible={isTopBannerVisible} />
 			<main
-				className="z-0 relative min-h-screen snap-y snap-mandatory overflow-y-scroll bg-primary"
+				className="z-0 relative min-h-screen snap-y snap-mandatory bg-primary"
 				style={mainStyle}
 			>
 				<section className="snap-start">
@@ -56,6 +60,7 @@ export default function Home() {
 				<section className="snap-start">
 					<FeaturedProducts />
 				</section>
+
 				<section
 					ref={ref}
 					className="snap-start bg-primary w-full flex justify-center items-center gap-1 font-thin italic text-xl p-3"

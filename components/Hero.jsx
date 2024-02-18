@@ -14,27 +14,22 @@ const Hero = () => {
 	}, []);
 
 	return (
-		<section
-			className={`relative mt-[calc(9rem+${topBannerHeight}px)] mx-auto bg-primary z-0 w-full`}
-		>
-			{/* Hero Image with Overlay Text */}
-			<div className="w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-hidden">
+		<section className={`relative mx-auto bg-primary z-0 w-full`}>
+			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px]">
 				<Image
 					src={heroPic}
 					alt="A group of some of Vine & Fronds products. A variety of planters."
 					priority
 					placeholder="blur"
+					layout="fill"
+					objectFit="cover"
 				/>
+				<div className="absolute top-20 left-0 p-4">
+					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-bold bg-primary/50 p-2 rounded-md">
+						Handmade pottery and Houseplants.
+					</h2>
+				</div>
 			</div>
-			{/* Overlay Text */}
-			<div
-				className={`absolute top-[calc(7px+${topBannerHeight}px)] left-2 p-4`}
-			>
-				<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-bold bg-primary/50 p-2 rounded-md">
-					Handmade pottery and Houseplants.
-				</h2>
-			</div>
-			{/* Shop All Button */}
 			<div className="absolute bottom-11 left-1/2 transform -translate-x-1/2">
 				<Link
 					href="/allproducts"
