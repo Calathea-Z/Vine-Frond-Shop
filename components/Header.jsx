@@ -112,48 +112,57 @@ const Header = ({ isTopBannerVisible }) => {
 				</Link>
 
 				{/* Right section with user and cart icons unchanged */}
-				<div className="flex items-center justify-end flex-1 pr-8">
-					{userInfo ? (
-						<div className="flex justify-end items-center gap-4">
-							<Menu as="div" className="relative inline-block text-left">
-								<Menu.Button className="inline-flex justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-									<UserCircleIcon
-										className={`w-6 h-6 xl:w-10 xl:h-10  aria-hidden:true hover:text-[#caafa8] ${
-											isScrolled
-												? "w-5 h-5 xl:w-5 xl:h-5"
-												: "w-6 h-6 xl:w-10 xl:h-10"
-										}`}
-									/>
-								</Menu.Button>
-								{/* Menu.Items and children remain unchanged */}
-							</Menu>
-						</div>
-					) : (
-						<Link
-							href="/login"
-							className={`w-[5rem] p-2 hover-underline-animation text-sm ${
-								isScrolled ? "text-[13px]" : "text-sm"
-							}`}
-						>
-							Log In
-						</Link>
-					)}
-					<MagnifyingGlassIcon
-						className={`w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8] mx-4 ${
-							isScrolled ? "w-5 h-5 xl:w-5 xl:h-5" : "w-6 h-6 xl:w-10 xl:h-10"
-						}`}
-					/>
-					<Link href="/cart" passHref>
-						<div>
-							<ShoppingBagIcon
-								className={`w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8] ${
+				<div className="flex-1 flex items-center justify-end -translate-x-5">
+					<ul className="list-none hidden sm:flex flex-row gap-6">
+						<li className="flex items-center">
+							<Link
+								href="/search"
+								className={`inline-flex items-center ${
 									isScrolled
-										? "w-5 h-5 xl:w-5 xl:h-5"
-										: "w-6 h-6 xl:w-10 xl:h-10"
-								}`}
-							/>
-						</div>
-					</Link>
+										? "bg-primary rounded-md text-[12px]" // Smaller size when scrolled
+										: "bg-primary rounded-md text-lg" // Larger size when not scrolled
+								} hover-underline-animation font-thin ${
+									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
+								} cursor-pointer text-black`}
+							>
+								<span className="flex items-center">
+									<MagnifyingGlassIcon
+										className={`${isScrolled ? "h-4 w-4" : "h-5 w-5"} mr-1`}
+									/>
+									<span>Search</span>
+								</span>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href={userInfo ? "/account" : "/login"}
+								className={`inline-flex items-center ${
+									isScrolled
+										? "bg-primary rounded-md text-[12px]" // Smaller size when scrolled
+										: "bg-primary rounded-md text-lg" // Larger size when not scrolled
+								} hover-underline-animation font-thin ${
+									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
+								} cursor-pointer text-black`}
+							>
+								Account
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/cart"
+								className={`inline-flex items-center ${
+									isScrolled
+										? "bg-primary rounded-md text-[12px]" // Smaller size when scrolled
+										: "bg-primary rounded-md text-lg" // Larger size when not scrolled
+								} hover-underline-animation font-thin ${
+									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
+								} cursor-pointer text-black`}
+								passHref
+							>
+								Cart (0)
+							</Link>
+						</li>
+					</ul>
 					<div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
 						<Menu as="div" className="relative inline-block text-left z-50">
 							<Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">

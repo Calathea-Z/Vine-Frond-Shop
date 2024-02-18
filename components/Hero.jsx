@@ -27,8 +27,8 @@ const Hero = () => {
 					}}
 				/>
 				<div className="absolute top-20 left-0 p-4">
-					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-thin italic bg-primary/80 p-2 rounded-md">
-						Handmade pottery and Houseplants.
+					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-4xl font-thin italic bg-primary/80 p-2 rounded-md">
+						🍃 Pots. Plants. Prints.
 					</h2>
 				</div>
 			</div>
