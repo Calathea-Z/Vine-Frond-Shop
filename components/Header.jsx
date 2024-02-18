@@ -28,6 +28,15 @@ const Header = ({ isTopBannerVisible }) => {
 		zIndex: 10,
 	};
 
+	// Adjust the headerClass to change the vertical padding based on isScrolled
+	const headerClass = `w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono px-4 shadow-sm ${
+		isScrolled ? "py-0" : "py-2.5"
+	} ${isScrolled ? "border-b border-gray-200 shadow-md" : ""}`;
+
+	const logoClass = `content-fill ${
+		isScrolled ? "w-[90px]" : "w-[150px]"
+	} flex-initial`;
+
 	// Handler for logging out the user
 	const logOutHandler = () => {
 		dispatch({ type: "USER_LOGOUT" });
@@ -61,20 +70,12 @@ const Header = ({ isTopBannerVisible }) => {
 	}
 
 	const renderLogoImage = (
-		<Image
-			src={simpleLogo}
-			alt="Vine & Frond logo"
-			className="content-fill w-[100px] min-w-[100px] h-[100px] sm:w-[160px] sm:min-w-[160px] sm:h-[160px] flex-initial"
-		/>
+		<Image src={simpleLogo} alt="Vine & Frond logo" className={logoClass} />
 	);
 
 	return (
 		<div className="fixed top-0 left-0 z-50 w-full" style={headerStyle}>
-			<nav
-				className={`w-full flex items-center justify-between gap-[10px] md:gap-[20px] bg-primary font-mono py-2.5 px-4 shadow-sm ${
-					isScrolled ? "border-b border-gray-200 shadow-md" : ""
-				}`}
-			>
+			<nav className={headerClass}>
 				<div className="flex-1 flex items-center justify-start">
 					<ul className="list-none hidden sm:flex flex-row gap-6">
 						{navLinks.map((link) => (

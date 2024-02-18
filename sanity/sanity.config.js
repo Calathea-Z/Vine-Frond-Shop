@@ -50,6 +50,7 @@ export default defineConfig({
                           .title('General Config')
                           .items([
                             S.documentTypeListItem('topBanner').title('Top Banner'),
+                            S.documentTypeListItem('sideButton').title('Side Button'),
                             S.documentTypeListItem('stockist').title('Stockists'),
                             S.documentTypeListItem('bio').title('Bio'),
                           ])

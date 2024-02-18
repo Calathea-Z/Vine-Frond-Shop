@@ -12,31 +12,55 @@ import { useEffect, useState } from "react";
 
 export default function Home() {
 	const [topBannerData, setTopBannerData] = useState({});
+	const [sideButtonData, setSideButtonData] = useState({});
+	const [isScrolled, setIsScrolled] = useState(false);
 
 	useEffect(() => {
-		const fetchTopBannerData = async () => {
-			const query = `*[_type == "topBanner" && enabled == true][0]`;
-			const data = await client.fetch(query);
-			if (data) {
-				setTopBannerData(data);
-			}
-			console.log(`top banner data`, data);
-		};
+		const fetchData = async () => {
+			const queries = {
+				topBanner: `*[_type == "topBanner" && enabled == true][0]`,
+				sideButton: `*[_type == "sideButton" && enabled == true][0]`,
+			};
 
-		fetchTopBannerData();
+			const topBannerData = await client.fetch(queries.topBanner);
+			if (topBannerData) {
+				setTopBannerData(topBannerData);
+			}
+
+			const sideButtonData = await client.fetch(queries.sideButton);
+			if (sideButtonData) {
+				setSideButtonData(sideButtonData);
+			}
+
+			fetchData();
+
+			const handleScroll = () => {
+				setIsScrolled(window.scrollY > 50);
+			};
+
+			window.addEventListener("scroll", handleScroll);
+
+			return () => window.removeEventListener("scroll", handleScroll);
+		};
 	}, []);
+
+	const headerStyle = isScrolled
+		? { height: "50px", transition: "height 0.3s ease" }
+		: { height: "100px", transition: "height 0.3s ease" };
+	const imageStyle = isScrolled
+		? { width: "50px", transition: "width 0.3s ease" }
+		: { width: "100px", transition: "width 0.3s ease" };
 
 	const { ref, inView } = useInView({
 		triggerOnce: true,
 	});
 
 	const isTopBannerVisible = !!topBannerData?.enabled;
-	console.log(isTopBannerVisible);
 	const mainStyle = {
 		paddingTop: isTopBannerVisible ? "150px" : "100px",
 	};
 
-	const isSideButtonEnabled = true;
+	const isSideButtonEnabled = !!sideButtonData?.enabled;
 
 	return (
 		<>
@@ -48,8 +72,12 @@ export default function Home() {
 				/>
 			</Head>
 			{isTopBannerVisible && <TopBanner data={topBannerData} />}
-			<SideScrollButton isSideButtonEnabled={isSideButtonEnabled} />
-			<Header isTopBannerVisible={isTopBannerVisible} />
+			{isSideButtonEnabled && <SideScrollButton data={sideButtonData} />}
+			<Header
+				isTopBannerVisible={isTopBannerVisible}
+				scrolledStyle={headerStyle}
+				scrolledImageStyle={imageStyle}
+			/>
 			<main
 				className="z-0 relative min-h-screen snap-y snap-mandatory bg-primary"
 				style={mainStyle}
