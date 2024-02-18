@@ -52,10 +52,12 @@ const FeaturedProducts = () => {
 				</div>
 				<div className="flex justify-center">
 					<div className="flex justify-center">
-						<Link href="/allproducts" passHref>
-							<a className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100">
-								Shop Now
-							</a>
+						<Link
+							href="/allproducts"
+							passHref
+							className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
+						>
+							Shop Now
 						</Link>
 					</div>
 				</div>

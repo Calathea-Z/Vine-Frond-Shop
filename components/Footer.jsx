@@ -101,7 +101,7 @@ const Footer = () => {
 			<div className="flex justify-between w-full">
 				<div className="sm:flex justify-between items-center sm:p-5 text-md sm:text-md sm:gap-2 hidden">
 					{isHomePage ? (
-						<motion.a
+						<motion.div
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
@@ -109,16 +109,16 @@ const Footer = () => {
 							className="cursor-pointer text-[.9rem] font-sans"
 						>
 							Home
-						</motion.a>
+						</motion.div>
 					) : (
 						<Link href="/" passHref>
-							<motion.a
+							<motion.div
 								whileHover={{ scale: 1.1 }}
 								whileTap={{ scale: 0.9 }}
 								className="text-[.9rem] font-sans"
 							>
 								Home
-							</motion.a>
+							</motion.div>
 						</Link>
 					)}
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
@@ -129,14 +129,14 @@ const Footer = () => {
 				</div>
 				<div className="flex mx-auto sm:mx-0 items-center p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-						<a
+						<Link
 							href="https://zach-sykes.com"
 							target="_blank"
 							rel="noopener noreferrer"
 							className="text-[.9rem] font-sans"
 						>
 							Website Design by Calathea Designs
-						</a>
+						</Link>
 					</motion.div>
 				</div>
 			</div>

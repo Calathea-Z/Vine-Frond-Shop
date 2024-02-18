@@ -160,16 +160,16 @@ const Stockists = () => {
 									{selectedStockist.addressLineTwo}
 								</p>
 								{selectedStockist.url && (
-									<a
+									<Link
 										href={selectedStockist.url}
 										target="_blank"
 										rel="noopener noreferrer"
 										className="text-[#008080] hover:underline"
 									>
 										Visit Website
-									</a>
+									</Link>
 								)}
-								<a
+								<Link
 									href={`https://www.google.com/maps/dir/?api=1&destination=${encodeURIComponent(
 										selectedStockist.addressLineOne +
 											" " +
@@ -180,7 +180,7 @@ const Stockists = () => {
 									className="block mt-2 text-[#008080] hover:underline"
 								>
 									Get Directions
-								</a>
+								</Link>
 							</div>
 						</GoogleMapCustomOverlay>
 					)}
@@ -189,7 +189,7 @@ const Stockists = () => {
 		</LoadScriptNext>
 	);
 	return (
-        <div className="bg-primary flex flex-col min-h-screen">
+		<div className="bg-primary flex flex-col min-h-screen">
 			<Header />
 			<main className="flex-grow p-8 mt-32">
 				<div className="flex justify-center items-center flex-col my-8">
@@ -213,11 +213,11 @@ const Stockists = () => {
 									<h2 className="text-2xl font-bold mb-4 hover:text-gray-800 hover:underline hover:underline-offset-2">
 										{stockist.url ? (
 											<Link
-                                                href={stockist.url}
-                                                target="_blank"
-                                                rel="noopener noreferrer"
-                                                className="hover:text-gray-800"
-                                                legacyBehavior>
+												href={stockist.url}
+												target="_blank"
+												rel="noopener noreferrer"
+												className="hover:text-gray-800"
+											>
 												{stockist.name}
 											</Link>
 										) : (
@@ -245,7 +245,7 @@ const Stockists = () => {
 			</main>
 			<Footer className="mt-auto" />
 		</div>
-    );
+	);
 };
 
 export default Stockists;

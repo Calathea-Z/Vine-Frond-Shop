@@ -422,9 +422,8 @@ const InformationScreen = () => {
 					</form>
 				</div>
 				<Link
-					className="flex items-center mx-auto mt-2 font-sans gap-2"
 					href="/cart"
-					legacyBehavior
+					className="flex items-center mx-auto mt-2 font-sans gap-2"
 				>
 					<ChevronLeftIcon className="w-4 h-4" />
 					Return to cart

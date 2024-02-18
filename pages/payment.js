@@ -185,7 +185,6 @@ const PaymentScreen = () => {
 													<Link
 														href={`/allproducts/${item.slug}`}
 														className="flex flex-col"
-														legacyBehavior
 														passHref
 													>
 														<Image
@@ -231,7 +230,6 @@ const PaymentScreen = () => {
 												href={`/allproducts/${item.slug}`}
 												className="flex items-center flex-col"
 												passHref
-												legacyBehavior
 											>
 												<Image
 													src={urlFor(item.photo[0].asset._ref).url()}

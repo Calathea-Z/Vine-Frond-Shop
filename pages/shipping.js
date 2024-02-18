@@ -99,10 +99,9 @@ const ShippingScreen = () => {
 					className="flex items-center mx-auto mt-2 font-sans gap-2"
 					href="/information"
 					passHref
-					legacyBehavior
 				>
 					<ChevronLeftIcon className="w-4 h-4" />
-					Return to information
+					<p>Return to information</p>
 				</Link>
 			</div>
 		</div>
