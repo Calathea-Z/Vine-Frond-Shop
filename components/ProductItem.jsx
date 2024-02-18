@@ -17,7 +17,7 @@ const ProductItem = ({ product }) => {
 					</div>
 				)}
 				{!product.countInStock && (
-					<div className="absolute bottom-0 left-0 bg-red-600 text-white py-1 px-2 text-xs rounded-tr-lg">
+					<div className="absolute font-amaticSC tracking-widest bottom-0 left-0 bg-red-600 text-primary py-1 px-2 text-md font-bold rounded-tr-lg">
 						Sold out
 					</div>
 				)}
