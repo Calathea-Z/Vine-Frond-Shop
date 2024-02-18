@@ -1,25 +1,13 @@
 import { useEffect, useState } from "react";
 import client from "@/utils/client";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
 
 const Wholesale = () => {
-	// const [stockists, setStockists] = useState([]);
-
-	// useEffect(() => {
-	// 	client
-	// 		.fetch(
-	// 			`*[_type == "stockist"]{
-	// 			name,
-	// 			description,
-	// 			"address": address.city + ", " + address.state + " " + address.zipCode
-	// 		}`
-	// 		)
-	// 		.then((data) => setStockists(data))
-	// 		.catch(console.error);
-	// }, []);
-
 	return (
-		<div className="flex justify-center items-center flex-col">
-			<p>hi</p>
+		<div>
+			<Header />
+			<Footer />
 		</div>
 	);
 };

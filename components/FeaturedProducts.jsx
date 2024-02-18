@@ -4,8 +4,6 @@ import Link from "next/link";
 import ClipLoader from "react-spinners/ClipLoader";
 import client from "@/utils/client";
 import Slider from "react-slick";
-import "slick-carousel/slick/slick.css"; // Add Slick CSS
-import "slick-carousel/slick/slick-theme.css";
 
 const FeaturedProducts = () => {
 	const [products, setProducts] = useState([]);
@@ -14,20 +12,24 @@ const FeaturedProducts = () => {
 
 	const carouselSettings = {
 		dots: true,
+		arrows: true,
 		infinite: true,
 		speed: 500,
-		slidesToShow: 3,
-		slidesToScroll: 3,
-		arrows: true, // Enable arrows for navigation
+		slidesToShow: 5,
+		slidesToScroll: 1,
+		centerMode: true,
+		centerPadding: "0px",
+		slide: "div",
+		variableWidth: false,
 		responsive: [
 			{
 				breakpoint: 1024,
 				settings: {
-					slidesToShow: 4,
+					slidesToShow: 3,
 					slidesToScroll: 1,
 					infinite: true,
 					dots: true,
-					arrows: true, // Enable arrows for navigation
+					arrows: true,
 				},
 			},
 			{
@@ -35,7 +37,7 @@ const FeaturedProducts = () => {
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
-					arrows: true, // Enable arrows for navigation
+					arrows: true,
 				},
 			},
 		],
@@ -73,14 +75,10 @@ const FeaturedProducts = () => {
 
 	return (
 		<div className="w-full bg-primary py-12 px-0">
-			{" "}
-			{/* Adjust padding to 0 for full width */}
-			<h1 className="text-xl sm:text-4xl lg:text-5xl mb-8 font-thin italic text-center">
-				Featured Products
+			<h1 className="text-xl sm:text-3xl lg:text-4xl mb-4 font-thin italic px-4">
+				Featured Ceramics
 			</h1>
 			<div className="max-w-full mx-auto">
-				{" "}
-				{/* Adjust max-width for full width */}
 				<Slider {...carouselSettings}>
 					{products.map((product) => (
 						<ProductItem key={product._id} product={product} />

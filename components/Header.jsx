@@ -80,7 +80,9 @@ const Header = ({ isTopBannerVisible }) => {
 								key={link.id}
 								className={`${
 									router.pathname === `/${link.id}`
-										? "bg-primary rounded-md"
+										? isScrolled
+											? "bg-primary rounded-md text-[12px] text-emerald-600" // Smaller size when scrolled
+											: "bg-primary rounded-md text-lg text-emerald-600" // Larger size when not scrolled
 										: ""
 								} hover-underline-animation font-thin ${
 									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"

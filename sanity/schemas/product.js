@@ -30,7 +30,8 @@ export default {
     {
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'text',
+      rows: 5, // This will make the text area larger, allowing for paragraph input
     },
     {
       name: 'slug',
@@ -50,7 +51,8 @@ export default {
     {
       name: 'subCategory',
       title: 'Sub Category',
-      type: 'string',
+      type: 'reference',
+      to: [{type: 'subCategory'}],
     },
     {
       name: 'measurements',

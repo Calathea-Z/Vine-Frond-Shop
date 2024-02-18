@@ -1,4 +1,6 @@
 import "@/styles/globals.css";
+import "slick-carousel/slick/slick.css"; // Default styling
+import "slick-carousel/slick/slick-theme.css"; // Theme styling (includes arrows)
 import { StoreProvider } from "@/utils/Store";
 import { SnackbarProvider } from "notistack";
 
