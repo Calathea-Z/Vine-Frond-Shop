@@ -60,18 +60,15 @@ const LoginScreen = () => {
 	};
 
 	return (
-		<div className="flex flex-col md:flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
-			<div className="md:w-3/5 flex justify-center mb-10 md:mb-0">
-				<Link href="/" passHref className="w-100 h-1/3">
-					<Image
-						src={simpleLogo}
-						alt="Vine & Frond logo"
-						layout="fill"
-						objectFit="contain"
-					/>
-				</Link>
+		<div className="flex flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
+			<div className="w-3/5 flex justify-center mb-10 md:mb-0">
+				<div className="w-100 h-1/3">
+					<Link href="/" passHref>
+						<Image src={simpleLogo} alt="Vine & Frond logo" />
+					</Link>
+				</div>
 			</div>
-			<div className="md:w-2/5 flex flex-col bg-gray-100">
+			<div className="w-2/5 flex flex-col bg-gray-100 justify-center">
 				<h1 className="text-6xl mb-4">Login</h1>
 				<form
 					onSubmit={handleSubmit(submitHandler)}
