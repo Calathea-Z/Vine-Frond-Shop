@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { motion } from "framer-motion";
 import ProductItem from "./ProductItem";
 import Link from "next/link";
 import ClipLoader from "react-spinners/ClipLoader";
@@ -12,14 +13,12 @@ const FeaturedProducts = () => {
 
 	const carouselSettings = {
 		dots: true,
-		arrows: true,
 		infinite: true,
 		speed: 500,
 		slidesToShow: 5,
 		slidesToScroll: 1,
 		centerMode: true,
 		centerPadding: "0px",
-		slide: "div",
 		variableWidth: false,
 		responsive: [
 			{
@@ -84,15 +83,22 @@ const FeaturedProducts = () => {
 						<ProductItem key={product._id} product={product} />
 					))}
 				</Slider>
-				<div className="flex justify-center mt-8">
-					<Link
-						href="/allproducts"
-						passHref
-						className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
+				{/* <div className="flex justify-center mt-[2rem]">
+					<motion.div
+						whileHover={{
+							rotate: [0, 8, -8, 8, 0],
+							transition: { duration: 0.4 },
+						}}
 					>
-						Shop Now
-					</Link>
-				</div>
+						<Link
+							href="/allproducts"
+							passHref
+							className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
+						>
+							Shop Now
+						</Link>
+					</motion.div>
+				</div> */}
 			</div>
 		</div>
 	);

@@ -2,6 +2,7 @@ import Image from "next/image";
 import Link from "next/link";
 import { heroPic } from "@/public/assets";
 import { useState, useEffect } from "react";
+import { motion } from "framer-motion";
 
 const Hero = () => {
 	const [topBannerHeight, setTopBannerHeight] = useState(0);
@@ -26,19 +27,26 @@ const Hero = () => {
 					}}
 				/>
 				<div className="absolute top-20 left-0 p-4">
-					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-bold bg-primary/50 p-2 rounded-md">
+					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-thin italic bg-primary/80 p-2 rounded-md">
 						Handmade pottery and Houseplants.
 					</h2>
 				</div>
 			</div>
 			<div className="absolute bottom-11 left-1/2 transform -translate-x-1/2">
-				<Link
-					href="/allproducts"
-					passHref
-					className="text-lg border-2 border-white text-white py-0 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
+				<motion.div
+					whileHover={{
+						rotate: [0, 8, -8, 8, 0],
+						transition: { duration: 0.4 },
+					}}
 				>
-					Shop All
-				</Link>
+					<Link
+						href="/allproducts"
+						passHref
+						className="text-lg border-2 border-black bg-white  text-slate-900/90 py-0 px-4 rounded-md hover:border-6 hover:bg-[#ECC89A] transition-all duration-200"
+					>
+						Shop All
+					</Link>
+				</motion.div>
 			</div>
 		</section>
 	);

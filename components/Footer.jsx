@@ -61,7 +61,7 @@ const Footer = () => {
 			<div className="flex flex-col sm:flex-row justify-between items-center w-full">
 				<div className="flex">{renderLogoImage()}</div>
 
-				<div className="w-full sm:w-auto flex justify-center -mb-[3rem] translate-x-5">
+				<div className="w-full sm:w-auto flex justify-center -mb-[3rem] translate-x-6">
 					<form className="w-full sm:w-auto bg-white px-3 py-1 rounded-md flex items-center justify-between text-black">
 						<div className="flex-grow relative">
 							<label
