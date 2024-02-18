@@ -105,16 +105,21 @@ const Footer = () => {
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
+							href="/"
 							className="cursor-pointer text-[.9rem] font-sans"
 						>
 							Home
 						</motion.a>
 					) : (
-						<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-							<Link href="/" className="text-[.9rem] font-sans">
+						<Link href="/" passHref>
+							<motion.a
+								whileHover={{ scale: 1.1 }}
+								whileTap={{ scale: 0.9 }}
+								className="text-[.9rem] font-sans"
+							>
 								Home
-							</Link>
-						</motion.div>
+							</motion.a>
+						</Link>
 					)}
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
 						<Link href="/contact" className="text-[.9rem] font-sans">
@@ -124,12 +129,14 @@ const Footer = () => {
 				</div>
 				<div className="flex mx-auto sm:mx-0 items-center p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-						<Link
+						<a
 							href="https://zach-sykes.com"
+							target="_blank"
+							rel="noopener noreferrer"
 							className="text-[.9rem] font-sans"
 						>
 							Website Design by Calathea Designs
-						</Link>
+						</a>
 					</motion.div>
 				</div>
 			</div>

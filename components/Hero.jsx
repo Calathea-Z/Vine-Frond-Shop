@@ -31,12 +31,13 @@ const Hero = () => {
 				</div>
 			</div>
 			<div className="absolute bottom-11 left-1/2 transform -translate-x-1/2">
-				<Link
-					href="/allproducts"
-					className="text-lg border-2 border-white text-white py-0 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
-				>
-					Shop All
-				</Link>
+				<div className="absolute bottom-11 left-1/2 transform -translate-x-1/2">
+					<Link href="/allproducts" passHref>
+						<a className="text-lg border-2 border-white text-white py-0 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100">
+							Shop All
+						</a>
+					</Link>
+				</div>
 			</div>
 		</section>
 	);

@@ -83,7 +83,7 @@ const RegisterScreen = () => {
 		}
 	};
 	return (
-        <div className="grid grid-rows-auto min-h-screen bg-gray-100 overflow-hidden p-20">
+		<div className="grid grid-rows-auto min-h-screen bg-gray-100 overflow-hidden p-20">
 			<div className="flex flex-col items-center justify-start min-h-screen">
 				<h1 className="px-5 sm:px-10 py-4 text-4xl">Register</h1>
 				<form
@@ -243,13 +243,13 @@ const RegisterScreen = () => {
 						</button>
 					)}
 					<div className="self-center sm:self-start">
-						<Link href="/login" passHref className="text-sm hover:opacity-70">
+						<Link href="/login" className="text-sm hover:opacity-70">
 							Already have an account?
 						</Link>
 					</div>
 				</form>
 			</div>
 		</div>
-    );
+	);
 };
 export default RegisterScreen;

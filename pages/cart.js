@@ -67,7 +67,7 @@ const CartScreen = () => {
 	}, [cartItems, dispatch]);
 
 	return (
-        <div className="h-screen flex flex-col justify-between bg-primary">
+		<div className="h-screen flex flex-col justify-between bg-primary">
 			<Header />
 			<div className="flex-grow mt-6 flex flex-col p-5">
 				<div className="w-full flex items-center sm:p-6 flex-col bg-primary">
@@ -100,7 +100,11 @@ const CartScreen = () => {
 								key={item._id || index}
 							>
 								<div className="flex items-center space-x-5">
-									<Link href={`/allproducts/${item.slug}`} passHref legacyBehavior>
+									<Link
+										href={`/allproducts/${item.slug}`}
+										passHref
+										legacyBehavior
+									>
 										<Image
 											src={urlFor(item.photo[0].asset._ref).url()}
 											alt={item.name}
@@ -144,23 +148,21 @@ const CartScreen = () => {
 						))
 					)}
 				</div>
-				<div className="flex justify-between p-4">
-					<Link
-						href="/allproducts"
-						className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-4 py-2 hover:border-blue-400"
-					>
-						Continue Shopping
+				<div className="flex justify-between p-4" legacyBehavior>
+					<Link href="/allproducts" passHref>
+						<a className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-4 py-2 hover:border-blue-400">
+							Continue Shopping
+						</a>
 					</Link>
-					<Link
-						href="/information"
-						className="bg-gray-300 border-gray-800 border-[.1rem] rounded px-4 py-2 hover:border-blue-400"
-					>
-						Proceed to Checkout
+					<Link href="/information" passHref legacyBehavior>
+						<a className="bg-gray-300 border-gray-800 border-[.1rem] rounded px-4 py-2 hover:border-blue-400">
+							Proceed to Checkout
+						</a>
 					</Link>
 				</div>
 			</div>
 			<Footer />
 		</div>
-    );
+	);
 };
 export default dynamic(() => Promise.resolve(CartScreen), { ssr: false });

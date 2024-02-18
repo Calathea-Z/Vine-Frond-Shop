@@ -24,7 +24,6 @@ export default async function handler(req, res) {
 		};
 
 		const paramString = qs.stringify(params);
-		console.log(paramString);
 
 		try {
 			const response = await axios.post(

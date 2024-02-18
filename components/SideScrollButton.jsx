@@ -8,9 +8,11 @@ const SideScrollButton = ({ data }) => {
 			id="sideButton"
 			style={{ writingMode: "vertical-rl", transform: "rotate(180deg)" }}
 		>
-			<button className="bg-black text-white px-2 py-4 rounded-2xl hover:opacity-90 font-sans font-semibold">
-				<Link href={data.link}>{data.text}</Link>
-			</button>
+			<Link href={data.link} passHref>
+				<a className="bg-black text-white px-2 py-4 rounded-2xl hover:opacity-90 font-sans font-semibold">
+					{data.text}
+				</a>
+			</Link>
 		</div>
 	);
 };

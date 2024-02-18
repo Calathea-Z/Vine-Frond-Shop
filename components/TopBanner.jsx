@@ -11,11 +11,10 @@ function TopBanner({ data }) {
 			className="w-full fixed top-0 left-0 text-center"
 			id="top-banner"
 		>
-			<Link
-				className="hover:underline underline-offset-2 text-sm"
-				href={data.link}
-			>
-				{data.text}
+			<Link href={data.link} passHref>
+				<a className="hover:underline underline-offset-2 text-sm">
+					{data.text}
+				</a>
 			</Link>
 		</div>
 	);

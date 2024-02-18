@@ -6,14 +6,12 @@ import GuestOrder from "@/mongoModels/GuestOrder";
 export default async function handler(req, res) {
 	await dbConnect();
 
-	console.log("First HIT");
 	if (req.method === "GET") {
 		const user = await isAuth(req);
 		// registered user
 		if (user) {
 			try {
 				const userOrder = await UserOrder.findById(req.query.id);
-				console.log("user Order", userOrder);
 				res.status(201).send(userOrder);
 			} catch (error) {
 				res.status(400).send(error);
