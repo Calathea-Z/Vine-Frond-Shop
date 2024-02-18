@@ -13,7 +13,6 @@ import { useEffect, useState } from "react";
 export default function Home() {
 	const [topBannerData, setTopBannerData] = useState({});
 	const [sideButtonData, setSideButtonData] = useState({});
-	const [isScrolled, setIsScrolled] = useState(false);
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -31,29 +30,10 @@ export default function Home() {
 			if (sideButtonData) {
 				setSideButtonData(sideButtonData);
 			}
-
-			fetchData();
-
-			const handleScroll = () => {
-				setIsScrolled(window.scrollY > 50);
-			};
-
-			window.addEventListener("scroll", handleScroll);
-
-			return () => window.removeEventListener("scroll", handleScroll);
 		};
+
+		fetchData();
 	}, []);
-
-	const headerStyle = isScrolled
-		? { height: "50px", transition: "height 0.3s ease" }
-		: { height: "100px", transition: "height 0.3s ease" };
-	const imageStyle = isScrolled
-		? { width: "50px", transition: "width 0.3s ease" }
-		: { width: "100px", transition: "width 0.3s ease" };
-
-	const { ref, inView } = useInView({
-		triggerOnce: true,
-	});
 
 	const isTopBannerVisible = !!topBannerData?.enabled;
 	const mainStyle = {
@@ -61,6 +41,10 @@ export default function Home() {
 	};
 
 	const isSideButtonEnabled = !!sideButtonData?.enabled;
+
+	const { ref, inView } = useInView({
+		threshold: 0.1, // Adjusted threshold for better inView detection
+	});
 
 	return (
 		<>
@@ -73,11 +57,7 @@ export default function Home() {
 			</Head>
 			{isTopBannerVisible && <TopBanner data={topBannerData} />}
 			{isSideButtonEnabled && <SideScrollButton data={sideButtonData} />}
-			<Header
-				isTopBannerVisible={isTopBannerVisible}
-				scrolledStyle={headerStyle}
-				scrolledImageStyle={imageStyle}
-			/>
+			<Header isTopBannerVisible={isTopBannerVisible} />
 			<main
 				className="z-0 relative min-h-screen snap-y snap-mandatory bg-primary"
 				style={mainStyle}

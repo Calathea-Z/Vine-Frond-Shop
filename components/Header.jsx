@@ -23,6 +23,15 @@ const Header = ({ isTopBannerVisible }) => {
 	const [userInfo, setUserInfo] = useState(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 
+	useEffect(() => {
+		const handleScroll = () => {
+			setIsScrolled(window.scrollY > 300);
+		};
+
+		window.addEventListener("scroll", handleScroll);
+		return () => window.removeEventListener("scroll", handleScroll);
+	}, []);
+
 	const headerStyle = {
 		top: isTopBannerVisible ? "30px" : "0px",
 		zIndex: 10,
@@ -45,18 +54,6 @@ const Header = ({ isTopBannerVisible }) => {
 		Cookies.remove("shippingAddress");
 		setUserInfo(null);
 	};
-
-	// Effect hook to add and remove scroll event listener
-	useEffect(() => {
-		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 0);
-		};
-
-		window.addEventListener("scroll", handleScroll);
-		return () => {
-			window.removeEventListener("scroll", handleScroll);
-		};
-	}, []);
 
 	// Effect hook to update user info from cookies
 	useEffect(() => {
