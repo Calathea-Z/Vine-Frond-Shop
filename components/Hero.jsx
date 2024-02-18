@@ -15,14 +15,15 @@ const Hero = () => {
 
 	return (
 		<section className={`relative mx-auto bg-primary z-0 w-full`}>
-			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px]">
+			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-y-hidden">
 				<Image
 					src={heroPic}
 					alt="A group of some of Vine & Fronds products. A variety of planters."
 					priority
 					placeholder="blur"
-					layout="fill"
-					objectFit="cover"
+					style={{
+						layout: "responsive",
+					}}
 				/>
 				<div className="absolute top-20 left-0 p-4">
 					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-3xl font-bold bg-primary/50 p-2 rounded-md">
