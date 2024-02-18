@@ -243,7 +243,7 @@ const RegisterScreen = () => {
 						</button>
 					)}
 					<div className="self-center sm:self-start">
-						<Link href="/login" passHref className="text-sm hover:opacity-70">
+						<Link href="/login" className="text-sm hover:opacity-70">
 							Already have an account?
 						</Link>
 					</div>

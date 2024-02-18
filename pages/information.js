@@ -92,7 +92,6 @@ const InformationScreen = () => {
 				state: usState,
 				zipCode: zipCode,
 			});
-			console.log(response);
 
 			const { valid, suggestedAddress } = response.data;
 
@@ -177,7 +176,7 @@ const InformationScreen = () => {
 		}
 	};
 	return (
-        <div>
+		<div>
 			<div className="p-10 flex flex-col">
 				<CheckoutHelper activeStep={1} />
 				<Image
@@ -262,7 +261,7 @@ const InformationScreen = () => {
 								{...register("emailOptIn")}
 							/>
 						</div>
-<div className="w-full md:flex md:gap-4 block">
+						<div className="w-full md:flex md:gap-4 block">
 							<div className=" mb-2 md:w-1/2 relative shadow-md">
 								<label
 									htmlFor="firstNameShipping"
@@ -282,11 +281,11 @@ const InformationScreen = () => {
 									<div className="text-red-500">
 										{errors.firstNameShipping?.message}
 									</div>
-) : (
-                  ""
+								) : (
+									""
 								)}
 							</div>
-<div className="mb-2 md:w-1/2 relative shadow-md">
+							<div className="mb-2 md:w-1/2 relative shadow-md">
 								<label
 									htmlFor="lastNameShipping"
 									className="font-sans text-xs text-gray-400 absolute left-4
@@ -423,15 +422,15 @@ const InformationScreen = () => {
 					</form>
 				</div>
 				<Link
-                    className="flex items-center mx-auto mt-2 font-sans gap-2"
-                    href="/cart"
-                    legacyBehavior>
+					href="/cart"
+					className="flex items-center mx-auto mt-2 font-sans gap-2"
+				>
 					<ChevronLeftIcon className="w-4 h-4" />
 					Return to cart
 				</Link>
 			</div>
 			<Footer />
 		</div>
-    );
+	);
 };
 export default InformationScreen;

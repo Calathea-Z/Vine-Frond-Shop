@@ -30,7 +30,7 @@ const ShippingScreen = () => {
 	}
 
 	return (
-        <div>
+		<div>
 			<div className="p-10 flex flex-col">
 				<CheckoutHelper activeStep={2} />
 				<Image
@@ -96,14 +96,15 @@ const ShippingScreen = () => {
 					Continue to payment
 				</button>
 				<Link
-                    className="flex items-center mx-auto mt-2 font-sans gap-2"
-                    href="/information"
-                    legacyBehavior>
+					className="flex items-center mx-auto mt-2 font-sans gap-2"
+					href="/information"
+					passHref
+				>
 					<ChevronLeftIcon className="w-4 h-4" />
-					Return to information
+					<p>Return to information</p>
 				</Link>
 			</div>
 		</div>
-    );
+	);
 };
 export default ShippingScreen;

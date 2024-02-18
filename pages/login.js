@@ -60,13 +60,16 @@ const LoginScreen = () => {
 	};
 
 	return (
-        <div className="flex flex-col md:flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
+		<div className="flex flex-col md:flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
 			<div className="md:w-3/5 flex justify-center mb-10 md:mb-0">
-				<Image
-					src={simpleLogo}
-					alt="Vine & Frond logo"
-					className="w-100 h-1/3"
-				/>
+				<Link href="/" passHref className="w-100 h-1/3">
+					<Image
+						src={simpleLogo}
+						alt="Vine & Frond logo"
+						layout="fill"
+						objectFit="contain"
+					/>
+				</Link>
 			</div>
 			<div className="md:w-2/5 flex flex-col bg-gray-100">
 				<h1 className="text-6xl mb-4">Login</h1>
@@ -150,21 +153,19 @@ const LoginScreen = () => {
 						)}
 					</div>
 					<div className="mt-4 text-center">
-						<Link href="/register" legacyBehavior>
-							<span
-								className={`text-sm ${
-									isLoading
-										? "opacity-50 cursor-not-allowed"
-										: "hover:underline"
-								} text-indigo-600 cursor-pointer`}
-							>
-								Create Account
-							</span>
+						<Link
+							href="/register"
+							passHref
+							className={`text-sm ${
+								isLoading ? "opacity-50 cursor-not-allowed" : "hover:underline"
+							} text-indigo-600 cursor-pointer`}
+						>
+							Create Account
 						</Link>
 					</div>
 				</form>
 			</div>
 		</div>
-    );
+	);
 };
 export default LoginScreen;

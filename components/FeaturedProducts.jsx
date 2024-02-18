@@ -51,11 +51,15 @@ const FeaturedProducts = () => {
 					))}
 				</div>
 				<div className="flex justify-center">
-					<Link href="/allproducts" legacyBehavior>
-						<a className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100">
+					<div className="flex justify-center">
+						<Link
+							href="/allproducts"
+							passHref
+							className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
+						>
 							Shop Now
-						</a>
-					</Link>
+						</Link>
+					</div>
 				</div>
 			</div>
 		</div>

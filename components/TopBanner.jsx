@@ -2,7 +2,7 @@ import Link from "next/link";
 
 function TopBanner({ data }) {
 	return (
-		<div
+        <div
 			style={{
 				backgroundColor: data.backgroundColor.hex,
 				height: "30px",
@@ -12,13 +12,15 @@ function TopBanner({ data }) {
 			id="top-banner"
 		>
 			<Link
-				className="hover:underline underline-offset-2 text-sm"
-				href={data.link}
-			>
-				{data.text}
-			</Link>
+                href={data.link}
+                passHref
+                className="hover:underline underline-offset-2 text-sm">
+
+                {data.text}
+
+            </Link>
 		</div>
-	);
+    );
 }
 
 export default TopBanner;

@@ -96,11 +96,7 @@ const Header = ({ isTopBannerVisible }) => {
 					</ul>
 				</div>
 
-				<Link
-					href="/"
-					className="flex items-center justify-center mx-auto"
-					legacyBehavior
-				>
+				<Link href="/" className="flex items-center justify-center mx-auto">
 					{router.pathname === "/" && typeof window !== "undefined" ? (
 						<motion.div
 							animate={{ x: 0, rotate: 0 }}
@@ -128,15 +124,16 @@ const Header = ({ isTopBannerVisible }) => {
 					) : (
 						<Link
 							href="/login"
-							passHref
 							className="w-[5rem] p-2 hover-underline-animation text-sm"
 						>
 							Log In
 						</Link>
 					)}
 					<MagnifyingGlassIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8] mx-4" />
-					<Link href="/cart" legacyBehavior>
-						<ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+					<Link href="/cart" passHref>
+						<div>
+							<ShoppingBagIcon className="w-6 h-6 xl:w-10 xl:h-10 hover:text-[#caafa8]" />
+						</div>
 					</Link>
 					<div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
 						<Menu as="div" className="relative inline-block text-left z-50">
@@ -155,7 +152,6 @@ const Header = ({ isTopBannerVisible }) => {
 														? "bg-primary text-white"
 														: "bg-white text-slate-800"
 												} group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
-												legacyBehavior
 											>
 												{link.title}
 											</Link>

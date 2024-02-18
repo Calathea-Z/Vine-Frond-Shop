@@ -24,7 +24,6 @@ const OrderSuccessScreen = ({ params }) => {
 	const { state } = useContext(Store);
 	const { userInfo } = state;
 	const id = params?.id;
-	console.log("ID", id);
 	const [{ loading, error, order }, dispatch] = useReducer(reducer, {
 		loading: true,
 		order: {},
