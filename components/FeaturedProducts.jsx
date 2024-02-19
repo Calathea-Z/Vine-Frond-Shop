@@ -83,22 +83,6 @@ const FeaturedProducts = () => {
 						<ProductItem key={product._id} product={product} />
 					))}
 				</Slider>
-				{/* <div className="flex justify-center mt-[2rem]">
-					<motion.div
-						whileHover={{
-							rotate: [0, 8, -8, 8, 0],
-							transition: { duration: 0.4 },
-						}}
-					>
-						<Link
-							href="/allproducts"
-							passHref
-							className="text-lg border-2 border-black text-black py-2 px-4 rounded-md hover:border-4 hover:bg-white/20 transition-all duration-100"
-						>
-							Shop Now
-						</Link>
-					</motion.div>
-				</div> */}
 			</div>
 		</div>
 	);

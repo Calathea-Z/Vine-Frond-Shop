@@ -2,7 +2,7 @@ import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
-import SingleProductCarousel from "@/components/SingleProductCarousel";
+import SingleProductCarouselTwo from "@/components/SingleProductCarouselTwo";
 import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
@@ -64,31 +64,32 @@ export default function ProductScreen(props) {
 	return (
 		<>
 			<Header />
-			<div className="flex justify-center items-center mt-4">
+			<div
+				className="flex flex-col md:flex-row"
+				style={{ height: "calc(100vh - 25px)" }}
+			>
 				{loading ? (
-					<div className="w-full h-screen flex justify-center items-center">
+					<div className="flex-grow w-full flex justify-center items-center">
 						<ClipLoader />
 					</div>
 				) : error ? (
-					<div>{error}</div>
+					<div className="flex-grow w-full">{error}</div>
 				) : (
-					<div className="flex flex-col md:grid md:grid-cols-2 justify-center space-y-4 items-start p-8 bg-white shadow-lg rounded-lg">
-						<div className="w-full h-auto p-4">
-							<SingleProductCarousel
-								photo={product.photo}
-								className="w-3/4 mx-auto"
-							/>
+					<div className="flex flex-col md:flex-row h-1/2 mt-48">
+						<div className="md:w-1/2 h-auto flex justify-center items-center translate-y-10">
+							<SingleProductCarouselTwo photos={product.photo} />
 						</div>
-						<div className="flex flex-col self-center items-start space-y-6 p-2 lg:p-8 grid-col-span-1 lg:grow content-center">
-							<h1 className="text-2xl font-extrabold ">{product?.name}</h1>
-							<h4 className="text-extrabold p-1 text-center text-slate-800 text-xl pr-5">
+
+						<div className="md:w-1/2 flex flex-col justify-between p-4">
+							<h1 className="text-2xl">{product.name}</h1>
+							<h4 className="text-extrabold p-1 text-center text-slate-800 text-xl">
 								$ {product?.price}.00
 							</h4>
-							<div className="flex  flex-col justify-start items-start gap-2">
-								<h6 className="lg:w-[35rem] text-extrabold p-1 text-left text-slate-800 inline-flex">
+							<div className="flex flex-col justify-start items-start">
+								<h6 className="text-extrabold p-1 text-left text-slate-800 inline-flex">
 									Description:
 								</h6>
-								<p className="lg:w-[35rem] text-bold p-1 text-left text-slate-800 inline-flex">
+								<p className="text-bold p-1 text-left text-slate-800 inline-flex">
 									{product.description}
 									<br /> <br />
 									Measurements:
@@ -96,7 +97,7 @@ export default function ProductScreen(props) {
 									{product.measurements}
 								</p>
 							</div>
-							{product.countInStock ? (
+							{product.countInStock > 0 ? (
 								<button
 									className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
 									onClick={addToCartHandler}
@@ -126,7 +127,6 @@ export default function ProductScreen(props) {
 					</div>
 				)}
 			</div>
-
 			<Footer />
 		</>
 	);

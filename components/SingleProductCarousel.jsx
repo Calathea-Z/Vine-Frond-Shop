@@ -1,62 +1,47 @@
-import ClipLoader from "react-spinners/ClipLoader";
-import client from "@/utils/client";
-import { useEffect, useState } from "react";
-import ProductItem from "./ProductItem";
+import { useState } from "react";
+import { urlFor } from "@/utils/image.js";
+import Slider from "react-slick";
+import Image from "next/image";
 
-const HighlightedProductCarousel = () => {
-	const [state, setState] = useState({
-		products: [],
-		error: "",
-		loading: true,
-	});
-
-	const { loading, error, products } = state;
-
-	useEffect(() => {
-		let isMounted = true;
-
-		const fetchData = async () => {
-			try {
-				setState((prevState) => ({ ...prevState, loading: true }));
-				const products = await client.fetch(`*[_type == "product"]`);
-				if (isMounted) {
-					setState({ products, loading: false, error: "" });
-				}
-			} catch (err) {
-				if (isMounted) {
-					setState({ products: [], loading: false, error: err.message });
-				}
-			}
-		};
-
-		fetchData();
-
-		return () => {
-			isMounted = false;
-		};
-	}, []);
+const SingleProductCarousel = (props) => {
+	const settings = {
+		dots: true,
+		arrows: true,
+		infinite: true,
+		speed: 500,
+		slidesToShow: 1,
+		slidesToScroll: 1,
+		centerMode: true,
+		centerPadding: "0px",
+		variableWidth: false,
+		beforeChange: (current, next) => setCurrentIndex(next),
+	};
+	const [currentIndex, setCurrentIndex] = useState(0);
 
 	return (
-		<div className="w-full bg-primary flex flex-col justify-center items-center gap-2 p-4">
-			<h1 className="text-2xl sm:text-4xl xl:text-6xl p-4 mb-6">
-				Current Favorites!
-			</h1>
-			{loading ? (
-				<ClipLoader
-					color={"#877570"}
-					className="flex justify-center items-center"
-				/>
-			) : error ? (
-				<p>Error please reload</p>
-			) : (
-				<div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-					{products.map((product) => (
-						<ProductItem key={product._id} product={product} />
-					))}
-				</div>
-			)}
+		<div className="w-full h-full flex justify-center items-center">
+			<Slider {...settings}>
+				{props.photo.map((image, index) => (
+					<div
+						key={index}
+						className="w-full h-auto flex justify-center items-center"
+					>
+						<img
+							src={urlFor(image.asset._ref).url()}
+							alt="product thumbnails"
+							className="object-contain mx-auto"
+							style={{
+								maxHeight: "75vh", // Adjust this to control the height
+								maxWidth: "100%",
+								width: "auto", // This will maintain the aspect ratio
+								height: "auto", // This will maintain the aspect ratio
+							}}
+						/>
+					</div>
+				))}
+			</Slider>
 		</div>
 	);
 };
 
-export default HighlightedProductCarousel;
+export default SingleProductCarousel;

@@ -25,7 +25,7 @@ const Header = ({ isTopBannerVisible }) => {
 
 	useEffect(() => {
 		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 300);
+			setIsScrolled(window.scrollY > 150);
 		};
 
 		window.addEventListener("scroll", handleScroll);
