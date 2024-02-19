@@ -7,6 +7,8 @@ import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
 import axios from "axios";
+import { urlFor } from "@/utils/image.js";
+import Image from "next/image";
 
 export default function ProductScreen(props) {
 	const { slug } = props;
@@ -75,54 +77,64 @@ export default function ProductScreen(props) {
 				) : error ? (
 					<div className="flex-grow w-full">{error}</div>
 				) : (
-					<div className="flex flex-col md:flex-row h-1/2 mt-48">
-						<div className="md:w-1/2 h-auto flex justify-center items-center translate-y-10">
-							<SingleProductCarouselTwo photos={product.photo} />
-						</div>
-
-						<div className="md:w-1/2 flex flex-col justify-between p-4">
-							<h1 className="text-2xl">{product.name}</h1>
-							<h4 className="text-extrabold p-1 text-center text-slate-800 text-xl">
-								$ {product?.price}.00
-							</h4>
-							<div className="flex flex-col justify-start items-start">
-								<h6 className="text-extrabold p-1 text-left text-slate-800 inline-flex">
-									Description:
-								</h6>
-								<p className="text-bold p-1 text-left text-slate-800 inline-flex">
-									{product.description}
-									<br /> <br />
-									Measurements:
-									<br /> <br />
-									{product.measurements}
-								</p>
-							</div>
-							{product.countInStock > 0 ? (
-								<button
-									className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
-									onClick={addToCartHandler}
-								>
-									Add to Cart
-								</button>
-							) : (
-								<div className="w-full flex bg-red-500 border-black border-2 p-4 justify-center items-center font-mono text-lg text-white">
-									<svg
-										xmlns="http://www.w3.org/2000/svg"
-										className="h-6 w-6 mr-2"
-										fill="none"
-										viewBox="0 0 24 24"
-										stroke="currentColor"
-									>
-										<path
-											strokeLinecap="round"
-											strokeLinejoin="round"
-											strokeWidth={2}
-											d="M6 18L18 6M6 6l12 12"
-										/>
-									</svg>
-									<span>Sold Out</span>
-								</div>
+					<div className="flex flex-col md:flex-row w-full">
+						<div className="h-full relative w-full md:w-1/2">
+							{product.photo && product.photo.length > 0 && (
+								<Image
+									src={urlFor(product.photo[0].asset._ref).url()}
+									alt={`Picture of ${product.name}`}
+									className="object-cover"
+									quality={100}
+									priority={true}
+									fill
+								/>
 							)}
+						</div>
+						<div className="w-full md:w-1/2 flex flex-col justify-center items-center p-4">
+							<div className="text-center">
+								<h1 className="text-2xl">{product.name}</h1>
+								<h4 className="text-extrabold p-1 text-slate-800 text-xl">
+									$ {product?.price}.00
+								</h4>
+								<div className="flex flex-col items-center">
+									<h6 className="text-extrabold p-1 text-slate-800">
+										Description:
+									</h6>
+									<p className="text-bold p-1 text-slate-800">
+										{product.description}
+										<br /> <br />
+										Measurements:
+										<br /> <br />
+										{product.measurements}
+									</p>
+								</div>
+								{product.countInStock > 0 ? (
+									<button
+										className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
+										onClick={addToCartHandler}
+									>
+										Add to Cart
+									</button>
+								) : (
+									<div className="w-full flex bg-red-500 border-black border-2 p-4 justify-center items-center font-mono text-lg text-white">
+										<svg
+											xmlns="http://www.w3.org/2000/svg"
+											className="h-6 w-6 mr-2"
+											fill="none"
+											viewBox="0 0 24 24"
+											stroke="currentColor"
+										>
+											<path
+												strokeLinecap="round"
+												strokeLinejoin="round"
+												strokeWidth={2}
+												d="M6 18L18 6M6 6l12 12"
+											/>
+										</svg>
+										<span>Sold Out</span>
+									</div>
+								)}
+							</div>
 						</div>
 					</div>
 				)}

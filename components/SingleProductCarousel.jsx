@@ -19,13 +19,10 @@ const SingleProductCarousel = (props) => {
 	const [currentIndex, setCurrentIndex] = useState(0);
 
 	return (
-		<div className="w-full h-full flex justify-center items-center">
+		<div className=" flex justify-center items-center">
 			<Slider {...settings}>
 				{props.photo.map((image, index) => (
-					<div
-						key={index}
-						className="w-full h-auto flex justify-center items-center"
-					>
+					<div key={index} className="">
 						<img
 							src={urlFor(image.asset._ref).url()}
 							alt="product thumbnails"
