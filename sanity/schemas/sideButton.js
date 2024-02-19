@@ -19,13 +19,19 @@ const sideButton = {
       name: 'backgroundColor',
       title: 'Background Color',
       type: 'color',
-      description: 'The background color for the side banner',
+      description: 'The background color for the side button.',
+    },
+    {
+      name: 'textColor',
+      title: 'Text Color',
+      type: 'color',
+      description: 'The text color for the side button.',
     },
     {
       name: 'enabled',
       title: 'Enabled',
       type: 'boolean',
-      description: 'Toggle to show or hide the side banner',
+      description: 'Toggle to show or hide the side button.',
     },
   ],
 }
