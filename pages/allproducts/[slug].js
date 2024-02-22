@@ -1,8 +1,8 @@
 import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
-import SingleProductCarouselTwo from "@/components/SingleProductCarouselTwo";
+import Footer from "@/components/mainPage/Footer";
+import Header from "@/components/mainPage/header/Header";
+import SingleProductCarouselTwo from "@/components/store/SingleProductCarouselTwo";
 import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";

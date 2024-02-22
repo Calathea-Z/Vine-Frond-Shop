@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { motion } from "framer-motion";
-import ProductItem from "./ProductItem";
+import ProductItem from "../store/ProductItem";
 import Link from "next/link";
 import ClipLoader from "react-spinners/ClipLoader";
 import client from "@/utils/client";

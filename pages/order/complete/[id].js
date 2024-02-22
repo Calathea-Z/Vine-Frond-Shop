@@ -1,4 +1,4 @@
-import Footer from "@/components/Footer";
+import Footer from "@/components/mainPage/Footer";
 import dynamic from "next/dynamic";
 import { Store } from "@/utils/Store";
 import { useContext, useReducer, useEffect } from "react";

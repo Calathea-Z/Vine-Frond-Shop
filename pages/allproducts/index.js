@@ -1,9 +1,9 @@
 import { useEffect, useState } from "react";
 import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
-import ProductItem from "@/components/ProductItem";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import ProductItem from "@/components/store/ProductItem";
+import Footer from "@/components/mainPage/Footer";
+import Header from "@/components/mainPage/header/Header";
 
 const AllProducts = () => {
 	const [state, setState] = useState({

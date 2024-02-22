@@ -1,8 +1,8 @@
-import CheckoutHelper from "@/components/CheckoutHelper";
+import CheckoutHelper from "@/components/checkout/CheckoutHelper";
 import Image from "next/image";
 import { simpleLogo } from "@/public/assets";
 import Link from "next/link";
-import ShippingCostCalculator from "@/components/ShippingCostCalculator";
+import ShippingCostCalculator from "@/components/checkout/ShippingCostCalculator";
 import { useContext, useState, useEffect } from "react";
 import { Store } from "@/utils/Store";
 import ClipLoader from "react-spinners/ClipLoader";

@@ -6,7 +6,7 @@ import { motion } from "framer-motion";
 import axios from "axios";
 import ClipLoader from "react-spinners/ClipLoader";
 import dynamic from "next/dynamic";
-import OrderDetails from "@/components/OrderDetails";
+import OrderDetails from "@/components/checkout/OrderDetails";
 
 function reducer(state, action) {
 	switch (action.type) {

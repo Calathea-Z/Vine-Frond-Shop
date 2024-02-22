@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/components/mainPage/Footer";
+import Header from "@/components/mainPage/header/Header";
 import Image from "next/image";
 import client from "../utils/client";
 

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import OrderHistory from "@/components/OrderHistory";
+import Header from "@/components/mainPage/header/Header";
+import Footer from "@/components/mainPage/Footer";
+import OrderHistory from "@/components/userAccount/OrderHistory";
 import Link from "next/link";
 
 const ShippingAddresses = () => (

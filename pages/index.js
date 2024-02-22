@@ -1,10 +1,10 @@
-import Header from "@/components/Header";
-import Hero from "@/components/Hero";
-import Footer from "@/components/Footer";
-import FeaturedProducts from "@/components/FeaturedProducts";
+import Header from "@/components/mainPage/header/Header";
+import Hero from "@/components/mainPage/Hero";
+import Footer from "@/components/mainPage/Footer";
+import FeaturedProducts from "@/components/mainPage/FeaturedProducts";
 import Head from "next/head";
-import TopBanner from "@/components/TopBanner";
-import SideScrollButton from "@/components/SideScrollButton";
+import TopBanner from "@/components/mainPage/TopBanner";
+import SideScrollButton from "@/components/mainPage/SideScrollButton";
 import client from "@/utils/client";
 import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";

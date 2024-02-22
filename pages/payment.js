@@ -1,5 +1,5 @@
-import CheckoutHelper from "@/components/CheckoutHelper";
-import PaymentSquare from "@/components/PaymentSquare";
+import CheckoutHelper from "@/components/checkout/CheckoutHelper";
+import PaymentSquare from "@/components/checkout/PaymentSquare";
 import ClipLoader from "react-spinners/ClipLoader";
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image";
