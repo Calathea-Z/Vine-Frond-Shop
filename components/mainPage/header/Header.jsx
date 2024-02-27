@@ -6,6 +6,7 @@ import { motion } from "framer-motion";
 import { Menu } from "@headlessui/react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
+import { ceramicHangingPlanters, ceramicNewTwo } from "@/public/assets";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
@@ -18,6 +19,7 @@ const Header = ({ isTopBannerVisible }) => {
 	const [userInfo, setUserInfo] = useState(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [showSubMenu, setShowSubMenu] = useState(false);
+	const [subMenuImageToShow, setSubMenuImageToShow] = useState(null);
 
 	// This effect adds a scroll event listener to the window. When the user scrolls more than 150 pixels, it updates the isScrolled state to true.
 	useEffect(() => {
@@ -108,35 +110,83 @@ const Header = ({ isTopBannerVisible }) => {
 										</Link>
 									</li>
 									{showSubMenu && (
-										<div className="submenu absolute bg-primary shadow-md z-20 w-screen -left-[7rem] top-full border-t border-t-emerald-600">
-											<div className="max-w-none mx-auto p-4">
-												<div className="max-w-none mx-auto">
-													<div className="grid grid-cols-1 ml-[5rem]">
-														<Link
-															href="/category1"
-															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
-														>
-															Ceramics
-														</Link>
-														<Link
-															href="/category2"
-															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
-														>
-															Bags
-														</Link>
-														<Link
-															href="/category3"
-															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
-														>
-															Prints
-														</Link>
-														<Link
-															href="/category4"
-															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
-														>
-															Stickers
-														</Link>
-													</div>
+										<div className="submenu absolute bg-primary shadow-lg z-20 rounded-md w-[20rem] left-0 top-[2.2rem] flex">
+											<div className="w-1/2 p-2">
+												<Link
+													href="/shop/ceramics"
+													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
+													onMouseEnter={() =>
+														setSubMenuImageToShow("imageForCeramics")
+													}
+												>
+													Ceramics
+												</Link>
+												<Link
+													href="/shop/bags"
+													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
+													onMouseEnter={() =>
+														setSubMenuImageToShow("imageForBags")
+													}
+												>
+													Bags
+												</Link>
+												<Link
+													href="/shop/prints"
+													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
+													onMouseEnter={() =>
+														setSubMenuImageToShow("imageForPrints")
+													}
+												>
+													Prints
+												</Link>
+												<Link
+													href="/shop/stickers"
+													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
+													onMouseEnter={() =>
+														setSubMenuImageToShow("imageForStickers")
+													}
+												>
+													Stickers
+												</Link>
+											</div>
+											<div className="w-1/2 relative">
+												<div className="absolute inset-0 flex justify-center items-center z-30">
+													{subMenuImageToShow === "imageForCeramics" && (
+														<Image
+															src={ceramicHangingPlanters}
+															alt="Ceramics"
+															priority={true}
+															fill={true}
+															className="object-cover"
+														/>
+													)}
+													{subMenuImageToShow === "imageForBags" && (
+														<Image
+															src={ceramicNewTwo}
+															alt="Bags"
+															priority={true}
+															fill={true}
+															className="object-cover"
+														/>
+													)}
+													{subMenuImageToShow === "imageForPrints" && (
+														<Image
+															src={ceramicHangingPlanters}
+															alt="Prints"
+															priority={true}
+															fill={true}
+															className="object-cover"
+														/>
+													)}
+													{subMenuImageToShow === "imageForStickers" && (
+														<Image
+															src={ceramicNewTwo}
+															alt="Stickers"
+															priority={true}
+															fill={true}
+															className="object-cover"
+														/>
+													)}
 												</div>
 											</div>
 										</div>

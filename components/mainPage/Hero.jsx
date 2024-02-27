@@ -35,7 +35,7 @@ const Hero = () => {
 					/>
 				</div>
 
-				<div className="absolute top-[4.3rem] left-1 p-3">
+				<div className="absolute top-[9rem] left-2 p-3">
 					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-4xl font-thin italic bg-primary/90 p-3 rounded-md">
 						🍃 Pots. Plants. Prints.
 					</h2>

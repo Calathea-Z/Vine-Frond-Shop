@@ -1,12 +1,12 @@
 import Footer from "@/components/mainPage/Footer";
 import dynamic from "next/dynamic";
-import { Store } from "@/utils/Store";
-import { useContext, useReducer, useEffect } from "react";
 import newLogo from "public/assets/index.js";
 import Image from "next/image";
-import { getError } from "@/utils/error";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
+import { getError } from "@/utils/error";
+import { Store } from "@/utils/Store";
+import { useContext, useReducer, useEffect } from "react";
 
 function reducer(state, action) {
 	switch (action.type) {

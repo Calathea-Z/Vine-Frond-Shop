@@ -1,14 +1,23 @@
 export default function DropdownNavMenu() {
 	return (
-		<div className="absolute top-0 left-0 w-full h-full bg-black bg-opacity-50 z-10 flex flex-col items-center justify-center">
+		<div className="absolute top-full left-0 mt-2 w-48 bg-white shadow-md rounded-md z-10">
 			{/* Menu items */}
-			<a href="/all" className="text-white text-lg p-2">
+			<a
+				href="/all"
+				className="block text-gray-700 text-sm p-2 hover:bg-gray-100"
+			>
 				All
 			</a>
-			<a href="/pottery" className="text-white text-lg p-2">
+			<a
+				href="/pottery"
+				className="block text-gray-700 text-sm p-2 hover:bg-gray-100"
+			>
 				Pottery
 			</a>
-			<a href="/prints" className="text-white text-lg p-2">
+			<a
+				href="/prints"
+				className="block text-gray-700 text-sm p-2 hover:bg-gray-100"
+			>
 				Prints
 			</a>
 			{/* Add more links as needed */}
