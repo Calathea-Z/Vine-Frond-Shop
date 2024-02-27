@@ -145,7 +145,7 @@ const Footer = () => {
 							rel="noopener noreferrer"
 							className="cursor-pointer font-sans font-semibold text-[.6rem]"
 						>
-							Website Design by Calathea Designs
+							Site Credit | Calathea Designs
 						</Link>
 					</motion.div>
 				</div>

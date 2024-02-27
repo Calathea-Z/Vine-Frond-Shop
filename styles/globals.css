@@ -42,6 +42,10 @@
 		transform-origin: bottom left;
 	}
 
+	.nav-item:hover .submenu {
+		display: block;
+	}
+
 	.custom-underline {
 		content: "";
 		position: absolute;

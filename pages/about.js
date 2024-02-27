@@ -3,6 +3,7 @@ import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
 import Image from "next/image";
 import client from "../utils/client";
+import bioPic from "../public/assets/index";
 
 const About = () => {
 	const [bioData, setBioData] = useState({
@@ -30,7 +31,7 @@ const About = () => {
 					<div className="flex flex-col md:flex-row items-center justify-between gap-8">
 						<div className="md:w-1/2">
 							<Image
-								src={"/assets/sydney.png"}
+								src={bioPic}
 								alt={bioData.name}
 								width={630}
 								height={630}

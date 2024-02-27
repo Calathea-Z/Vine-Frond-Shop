@@ -1,19 +1,14 @@
-import Image from "next/image";
-import Link from "next/link";
 import { useRouter } from "next/router";
-import { Fragment, useState, useEffect, useContext } from "react"; // Combined import statements for React
+import { Fragment, useState, useEffect, useContext } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import { motion } from "framer-motion";
 import { Menu } from "@headlessui/react";
-import {
-	MagnifyingGlassIcon,
-	ShoppingBagIcon,
-	Bars3Icon,
-	UserCircleIcon,
-} from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
 import Cookies from "js-cookie";
+import Image from "next/image";
+import Link from "next/link";
 
 const Header = ({ isTopBannerVisible }) => {
 	const { dispatch } = useContext(Store);
@@ -22,16 +17,20 @@ const Header = ({ isTopBannerVisible }) => {
 	const [active, setActive] = useState(""); // State for managing active link
 	const [userInfo, setUserInfo] = useState(null);
 	const [isScrolled, setIsScrolled] = useState(false);
+	const [showSubMenu, setShowSubMenu] = useState(false);
 
+	// This effect adds a scroll event listener to the window. When the user scrolls more than 150 pixels, it updates the isScrolled state to true.
 	useEffect(() => {
 		const handleScroll = () => {
 			setIsScrolled(window.scrollY > 150);
 		};
 
 		window.addEventListener("scroll", handleScroll);
+		// Cleanup function to remove the event listener when the component unmounts
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
+	//Dynamic styling for the banner above the header and if it exists.
 	const headerStyle = {
 		top: isTopBannerVisible ? "30px" : "0px",
 		zIndex: 10,
@@ -66,6 +65,11 @@ const Header = ({ isTopBannerVisible }) => {
 		return null;
 	}
 
+	// Function to toggle submenu visibility
+	const toggleSubMenu = (shouldShow) => {
+		setShowSubMenu(shouldShow);
+	};
+
 	const renderLogoImage = (
 		<Image src={simpleLogo} alt="Vine & Frond logo" className={logoClass} />
 	);
@@ -75,34 +79,97 @@ const Header = ({ isTopBannerVisible }) => {
 			<nav className={headerClass}>
 				<div className="flex-1 flex items-center justify-start">
 					<ul className="list-none hidden sm:flex flex-row gap-6">
-						{navLinks.map((link) => (
-							<li
-								key={link.id}
-								className={`${
-									router.pathname === `/${link.id}`
-										? isScrolled
-											? "bg-primary rounded-md text-[12px] text-emerald-600" // Smaller size when scrolled
-											: "bg-primary rounded-md text-lg text-emerald-600" // Larger size when not scrolled
-										: ""
-								} hover-underline-animation font-thin ${
-									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
-								} cursor-pointer`}
-								onClick={() => setActive(link.title)}
-							>
-								<Link href={`/${link.id}`} legacyBehavior>
-									{link.title}
-								</Link>
-							</li>
-						))}
+						{navLinks.map((link) =>
+							link.title === "Shop" ? (
+								<div
+									className="nav-item relative hover-underline-animation "
+									key={link.id}
+									onMouseEnter={() => toggleSubMenu(true)}
+									onMouseLeave={() => toggleSubMenu(false)}
+								>
+									<li
+										className={`${
+											router.pathname === `/${link.id}`
+												? isScrolled
+													? "bg-primary rounded-md text-[12px] text-emerald-600" // Smaller when scrolled
+													: "bg-primary rounded-md text-lg text-emerald-600" // Larger when not scrolled
+												: ""
+										} 
+                                        hover:underline-animation font-thin 
+                                        ${
+																					isScrolled
+																						? "text-[13px]"
+																						: "text-[18px] xl:text-[20px]"
+																				} cursor-pointer`}
+										onMouseEnter={() => setActive(link.title)}
+									>
+										<Link href={`/${link.id}`} legacyBehavior>
+											{link.title}
+										</Link>
+									</li>
+									{showSubMenu && (
+										<div className="submenu absolute bg-primary shadow-md z-20 w-screen -left-[7rem] top-full border-t border-t-emerald-600">
+											<div className="max-w-none mx-auto p-4">
+												<div className="max-w-none mx-auto">
+													<div className="grid grid-cols-1 ml-[5rem]">
+														<Link
+															href="/category1"
+															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
+														>
+															Ceramics
+														</Link>
+														<Link
+															href="/category2"
+															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
+														>
+															Bags
+														</Link>
+														<Link
+															href="/category3"
+															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
+														>
+															Prints
+														</Link>
+														<Link
+															href="/category4"
+															className="text-xs text-gray-700 hover:bg-gray-100 px-4 py-2"
+														>
+															Stickers
+														</Link>
+													</div>
+												</div>
+											</div>
+										</div>
+									)}
+								</div>
+							) : (
+								<li
+									key={link.id}
+									className={`${
+										router.pathname === `/${link.id}`
+											? isScrolled
+												? "bg-primary rounded-md text-[12px] text-emerald-600" // Smaller when scrolled
+												: "bg-primary rounded-md text-lg text-emerald-600" // Larger when not scrolled
+											: ""
+									} hover-underline-animation font-thin ${
+										isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
+									} cursor-pointer`}
+									onClick={() => setActive(link.title)}
+								>
+									<Link href={`/${link.id}`} legacyBehavior>
+										{link.title}
+									</Link>
+								</li>
+							)
+						)}
 					</ul>
 				</div>
-
 				<Link href="/" className="flex items-center justify-center mx-auto">
 					{router.pathname === "/" && typeof window !== "undefined" ? (
 						<motion.div
 							animate={{ x: 0, rotate: 0 }}
 							initial={{ x: -100, rotate: -10 }}
-							transition={{ duration: 2 }} // Increased duration for slower animation
+							transition={{ duration: 2 }}
 						>
 							{renderLogoImage}
 						</motion.div>
@@ -111,7 +178,6 @@ const Header = ({ isTopBannerVisible }) => {
 					)}
 				</Link>
 
-				{/* Right section with user and cart icons unchanged */}
 				<div className="flex-1 flex items-center justify-end -translate-x-5">
 					<ul className="list-none hidden sm:flex flex-row gap-6">
 						<li className="flex items-center">

@@ -1,6 +1,10 @@
 import Image from "next/image";
 import Link from "next/link";
-import { heroPic } from "@/public/assets";
+import {
+	prints,
+	heroThree,
+	ceramicHangingPlanters,
+} from "@/public/assets/index";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -16,18 +20,26 @@ const Hero = () => {
 
 	return (
 		<section className={`relative mx-auto bg-primary z-0 w-full`}>
-			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-y-hidden">
-				<Image
-					src={heroPic}
-					alt="A group of some of Vine & Fronds products. A variety of planters."
-					priority
-					placeholder="blur"
-					style={{
-						layout: "responsive",
-					}}
-				/>
-				<div className="absolute top-20 left-0 p-4">
-					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-4xl font-thin italic bg-primary/80 p-2 rounded-md">
+			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-hidden flex">
+				<div className="w-[50%] h-full relative border border-black">
+					<Image
+						src={prints}
+						alt="A variety of prints."
+						fill={true}
+						priority={true}
+					/>
+				</div>
+				<div className="w-[50%] h-full relative border border-black">
+					<Image
+						src={ceramicHangingPlanters}
+						alt="A variety of planters."
+						priority={true}
+						fill={true}
+					/>
+				</div>
+
+				<div className="absolute top-20 left-5 p-6">
+					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-5xl font-thin italic bg-primary/90 p-4 rounded-md">
 						🍃 Pots. Plants. Prints.
 					</h2>
 				</div>
