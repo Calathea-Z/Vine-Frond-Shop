@@ -10,6 +10,8 @@ import ceramicPlates from "./categoryHeaders/ceramicPlates.jpg";
 import ceramicHangingPlanters from "./categoryHeaders/ceramicHangingPlanters.jpg";
 import ceramicHangingPlantersCropped from "./categoryHeaders/ceramicHangingPlantersCropped.jpg";
 import ceramicPots from "./categoryHeaders/ceramicPots.jpg";
+import ceramicNew from "./hero/ceramicNew.jpg";
+import ceramicNewTwo from "./hero/ceramicNewTwo.jpg";
 import prints from "./categoryHeaders/prints.jpg";
 import stickers from "./categoryHeaders/stickers.jpg";
 import totes from "./categoryHeaders/totes.jpg";
@@ -26,6 +28,8 @@ export {
 	heroOne,
 	heroTwo,
 	heroThree,
+	ceramicNew,
+	ceramicNewTwo,
 	//Shop Category Headers//
 	ceramicPlates,
 	ceramicHangingPlanters,

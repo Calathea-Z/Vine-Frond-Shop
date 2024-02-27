@@ -1,6 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import { prints, ceramicHangingPlantersCropped } from "@/public/assets/index";
+import { ceramicNew, ceramicNewTwo } from "@/public/assets/index";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -19,7 +19,7 @@ const Hero = () => {
 			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-hidden flex">
 				<div className="w-[50%] h-full relative border border-black">
 					<Image
-						src="/assets/categoryHeaders/ceramicHangingPlantersCropped.jpg"
+						src={ceramicNew}
 						alt="A variety of planters."
 						priority={true}
 						fill={true}
@@ -28,7 +28,7 @@ const Hero = () => {
 
 				<div className="w-[50%] h-full relative border border-black">
 					<Image
-						src={prints}
+						src={ceramicNewTwo}
 						alt="A variety of prints."
 						fill={true}
 						priority={true}
