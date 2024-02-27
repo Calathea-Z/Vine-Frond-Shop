@@ -6,7 +6,13 @@ import { motion } from "framer-motion";
 import { Menu } from "@headlessui/react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
-import { ceramicHangingPlanters, ceramicNewTwo } from "@/public/assets";
+import {
+	ceramicPlates,
+	totes,
+	prints,
+	stickers,
+	ceramicHangingPlantersCropped,
+} from "@/public/assets";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
@@ -84,7 +90,7 @@ const Header = ({ isTopBannerVisible }) => {
 						{navLinks.map((link) =>
 							link.title === "Shop" ? (
 								<div
-									className="nav-item relative hover-underline-animation "
+									className="nav-item relative hover-underline-animation"
 									key={link.id}
 									onMouseEnter={() => toggleSubMenu(true)}
 									onMouseLeave={() => toggleSubMenu(false)}
@@ -110,81 +116,147 @@ const Header = ({ isTopBannerVisible }) => {
 										</Link>
 									</li>
 									{showSubMenu && (
-										<div className="submenu absolute bg-primary shadow-lg z-20 rounded-md w-[20rem] left-0 top-[2.2rem] flex">
-											<div className="w-1/2 p-2">
-												<Link
-													href="/shop/ceramics"
-													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
-													onMouseEnter={() =>
-														setSubMenuImageToShow("imageForCeramics")
-													}
+										<div className="absolute bg-primary shadow-xl z-20  rounded-xl w-[45rem] left-0 top-[1] flex">
+											<div className="w-1/4 p-2">
+												<motion.div
+													whileHover={{
+														rotate: [0, 1, -1, 1, 0],
+														transition: { duration: 0.5 },
+													}}
+													// transition={{ type: "spring", stiffness: 700 }}
+													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
-													Ceramics
-												</Link>
-												<Link
-													href="/shop/bags"
-													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
-													onMouseEnter={() =>
-														setSubMenuImageToShow("imageForBags")
-													}
+													<Link
+														href="/shop/ceramics"
+														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
+														onMouseEnter={() =>
+															setSubMenuImageToShow("imageForAll")
+														}
+													>
+														All
+													</Link>
+												</motion.div>
+												<motion.div
+													whileHover={{
+														rotate: [0, 1, -1, 1, 0],
+														transition: { duration: 0.5 },
+													}}
+													// transition={{ type: "spring", stiffness: 700 }}
+													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
-													Bags
-												</Link>
-												<Link
-													href="/shop/prints"
-													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
-													onMouseEnter={() =>
-														setSubMenuImageToShow("imageForPrints")
-													}
+													<Link
+														href="/shop/ceramics"
+														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
+														onMouseEnter={() =>
+															setSubMenuImageToShow("imageForCeramics")
+														}
+													>
+														Ceramics
+													</Link>
+												</motion.div>
+												<motion.div
+													whileHover={{
+														rotate: [0, 1, -1, 1, 0],
+														transition: { duration: 0.5 },
+													}}
+													// transition={{ type: "spring", stiffness: 700 }}
+													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
-													Prints
-												</Link>
-												<Link
-													href="/shop/stickers"
-													className="block text-xs text-gray-700 hover:bg-[#ECC89A] px-4 py-2 rounded-md"
-													onMouseEnter={() =>
-														setSubMenuImageToShow("imageForStickers")
-													}
+													<Link
+														href="/shop/bags"
+														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
+														onMouseEnter={() =>
+															setSubMenuImageToShow("imageForTotes")
+														}
+													>
+														Bags
+													</Link>
+												</motion.div>
+												<motion.div
+													whileHover={{
+														rotate: [0, 1, -1, 1, 0],
+														transition: { duration: 0.5 },
+													}}
+													// transition={{ type: "spring", stiffness: 700 }}
+													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
-													Stickers
-												</Link>
+													<Link
+														href="/shop/prints"
+														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
+														onMouseEnter={() =>
+															setSubMenuImageToShow("imageForPrints")
+														}
+													>
+														Prints
+													</Link>
+												</motion.div>
+												<motion.div
+													whileHover={{
+														rotate: [0, 1, -1, 1, 0],
+														transition: { duration: 0.5 },
+													}}
+													// transition={{ type: "spring", stiffness: 700 }}
+													className="hover:bg-[#ECC89A] rounded-md w-full"
+												>
+													<Link
+														href="/shop/stickers"
+														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
+														onMouseEnter={() =>
+															setSubMenuImageToShow("imageForStickers")
+														}
+													>
+														Stickers
+													</Link>
+												</motion.div>
 											</div>
-											<div className="w-1/2 relative">
-												<div className="absolute inset-0 flex justify-center items-center z-30">
+											<div
+												className="w-3/4 relative"
+												style={{ height: "400px" }}
+											>
+												<div className="absolute inset-0 flex justify-center items-center z-30 border-[.4rem] border-primary rounded-xl">
+													{subMenuImageToShow === "imageForAll" && (
+														<Image
+															src={ceramicHangingPlantersCropped}
+															alt="Hanging Planters"
+															priority={true}
+															fill={true}
+															className="object-cover rounded-xl"
+														/>
+													)}
 													{subMenuImageToShow === "imageForCeramics" && (
 														<Image
-															src={ceramicHangingPlanters}
+															src={ceramicPlates}
 															alt="Ceramics"
 															priority={true}
 															fill={true}
-															className="object-cover"
+															className="object-cover rounded-xl"
 														/>
 													)}
-													{subMenuImageToShow === "imageForBags" && (
+													{subMenuImageToShow === "imageForTotes" && (
 														<Image
-															src={ceramicNewTwo}
-															alt="Bags"
+															src={totes}
+															alt="Totes"
 															priority={true}
 															fill={true}
-															className="object-cover"
+															className="object-cover rounded-xl"
 														/>
 													)}
 													{subMenuImageToShow === "imageForPrints" && (
 														<Image
-															src={ceramicHangingPlanters}
+															src={prints}
 															alt="Prints"
 															priority={true}
 															fill={true}
-															className="object-cover"
+															className="object-cover rounded-xl"
 														/>
 													)}
 													{subMenuImageToShow === "imageForStickers" && (
 														<Image
-															src={ceramicNewTwo}
+															src={stickers}
 															alt="Stickers"
 															priority={true}
 															fill={true}
-															className="object-cover"
+															className="object-cover rounded-xl"
 														/>
 													)}
 												</div>
