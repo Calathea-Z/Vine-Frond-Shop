@@ -8,6 +8,7 @@ import heroThree from "./hero/newHero3.jpg";
 //Category Header Photo Imports//
 import ceramicPlates from "./categoryHeaders/ceramicPlates.jpg";
 import ceramicHangingPlanters from "./categoryHeaders/ceramicHangingPlanters.jpg";
+import ceramicHangingPlantersCropped from "./categoryHeaders/ceramicHangingPlantersCropped.jpg";
 import ceramicPots from "./categoryHeaders/ceramicPots.jpg";
 import prints from "./categoryHeaders/prints.jpg";
 import stickers from "./categoryHeaders/stickers.jpg";
@@ -28,6 +29,7 @@ export {
 	//Shop Category Headers//
 	ceramicPlates,
 	ceramicHangingPlanters,
+	ceramicHangingPlantersCropped,
 	ceramicPots,
 	prints,
 	stickers,

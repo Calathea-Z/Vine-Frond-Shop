@@ -1,10 +1,6 @@
 import Image from "next/image";
 import Link from "next/link";
-import {
-	prints,
-	heroThree,
-	ceramicHangingPlanters,
-} from "@/public/assets/index";
+import { prints, ceramicHangingPlantersCropped } from "@/public/assets/index";
 import { useState, useEffect } from "react";
 import { motion } from "framer-motion";
 
@@ -23,23 +19,24 @@ const Hero = () => {
 			<div className="relative w-full h-auto sm:h-[280px] md:h-[450px] lg:h-[600px] overflow-hidden flex">
 				<div className="w-[50%] h-full relative border border-black">
 					<Image
-						src={prints}
-						alt="A variety of prints."
-						fill={true}
-						priority={true}
-					/>
-				</div>
-				<div className="w-[50%] h-full relative border border-black">
-					<Image
-						src={ceramicHangingPlanters}
+						src="/assets/categoryHeaders/ceramicHangingPlantersCropped.jpg"
 						alt="A variety of planters."
 						priority={true}
 						fill={true}
 					/>
 				</div>
 
-				<div className="absolute top-20 left-5 p-6">
-					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-5xl font-thin italic bg-primary/90 p-4 rounded-md">
+				<div className="w-[50%] h-full relative border border-black">
+					<Image
+						src={prints}
+						alt="A variety of prints."
+						fill={true}
+						priority={true}
+					/>
+				</div>
+
+				<div className="absolute top-[4.3rem] left-1 p-3">
+					<h2 className="text-lg text-slate-900/90 sm:text-xl md:text-2xl lg:text-4xl font-thin italic bg-primary/90 p-3 rounded-md">
 						🍃 Pots. Plants. Prints.
 					</h2>
 				</div>
