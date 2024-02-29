@@ -2,7 +2,6 @@ import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
-import SingleProductCarouselTwo from "@/components/store/SingleProductCarouselTwo";
 import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
@@ -79,7 +78,7 @@ export default function ProductScreen(props) {
 				) : (
 					<div className="flex flex-col md:flex-row w-full">
 						<div className="h-full relative w-full md:w-1/2">
-							{product.photo && product.photo.length > 0 && (
+							{product && product.photo && product.photo.length > 0 ? (
 								<Image
 									src={urlFor(product.photo[0].asset._ref).url()}
 									alt={`Picture of ${product.name}`}
@@ -88,51 +87,61 @@ export default function ProductScreen(props) {
 									priority={true}
 									fill
 								/>
+							) : (
+								<div className="flex items-center justify-center w-full h-full bg-gray-200">
+									<p className="text-gray-500">No Image Available</p>
+								</div>
 							)}
 						</div>
 						<div className="w-full md:w-1/2 flex flex-col justify-center items-center p-4">
 							<div className="text-center">
-								<h1 className="text-2xl">{product.name}</h1>
-								<h4 className="text-extrabold p-1 text-slate-800 text-xl">
-									$ {product?.price}.00
-								</h4>
-								<div className="flex flex-col items-center">
-									<h6 className="text-extrabold p-1 text-slate-800">
-										Description:
-									</h6>
-									<p className="text-bold p-1 text-slate-800">
-										{product.description}
-										<br /> <br />
-										Measurements:
-										<br /> <br />
-										{product.measurements}
-									</p>
-								</div>
-								{product.countInStock > 0 ? (
-									<button
-										className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
-										onClick={addToCartHandler}
-									>
-										Add to Cart
-									</button>
-								) : (
-									<div className="w-full flex bg-red-500 border-black border-2 p-4 justify-center items-center font-mono text-lg text-white">
-										<svg
-											xmlns="http://www.w3.org/2000/svg"
-											className="h-6 w-6 mr-2"
-											fill="none"
-											viewBox="0 0 24 24"
-											stroke="currentColor"
-										>
-											<path
-												strokeLinecap="round"
-												strokeLinejoin="round"
-												strokeWidth={2}
-												d="M6 18L18 6M6 6l12 12"
-											/>
-										</svg>
-										<span>Sold Out</span>
-									</div>
+								<h1 className="text-2xl">
+									{product ? product.name : "Product not found"}
+								</h1>
+								{product && (
+									<>
+										<h4 className="text-extrabold p-1 text-slate-800 text-xl">
+											$ {product.price}.00
+										</h4>
+										<div className="flex flex-col items-center">
+											<h6 className="text-extrabold p-1 text-slate-800">
+												Description:
+											</h6>
+											<p className="text-bold p-1 text-slate-800">
+												{product.description}
+												<br /> <br />
+												Measurements:
+												<br /> <br />
+												{product.measurements}
+											</p>
+										</div>
+										{product.countInStock > 0 ? (
+											<button
+												className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
+												onClick={addToCartHandler}
+											>
+												Add to Cart
+											</button>
+										) : (
+											<div className="w-full flex bg-red-500 border-black border-2 p-4 justify-center items-center font-mono text-lg text-white">
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													className="h-6 w-6 mr-2"
+													fill="none"
+													viewBox="0 0 24 24"
+													stroke="currentColor"
+												>
+													<path
+														strokeLinecap="round"
+														strokeLinejoin="round"
+														strokeWidth={2}
+														d="M6 18L18 6M6 6l12 12"
+													/>
+												</svg>
+												<span>Sold Out</span>
+											</div>
+										)}
+									</>
 								)}
 							</div>
 						</div>

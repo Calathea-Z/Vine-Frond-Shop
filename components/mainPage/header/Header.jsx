@@ -123,11 +123,10 @@ const Header = ({ isTopBannerVisible }) => {
 														rotate: [0, 1, -1, 1, 0],
 														transition: { duration: 0.5 },
 													}}
-													// transition={{ type: "spring", stiffness: 700 }}
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
-														href="/shop/ceramics"
+														href="/allproducts"
 														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
 														onMouseEnter={() =>
 															setSubMenuImageToShow("imageForAll")
@@ -141,11 +140,10 @@ const Header = ({ isTopBannerVisible }) => {
 														rotate: [0, 1, -1, 1, 0],
 														transition: { duration: 0.5 },
 													}}
-													// transition={{ type: "spring", stiffness: 700 }}
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
-														href="/shop/ceramics"
+														href={`/allproducts/category/ceramics`}
 														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
 														onMouseEnter={() =>
 															setSubMenuImageToShow("imageForCeramics")
@@ -159,7 +157,6 @@ const Header = ({ isTopBannerVisible }) => {
 														rotate: [0, 1, -1, 1, 0],
 														transition: { duration: 0.5 },
 													}}
-													// transition={{ type: "spring", stiffness: 700 }}
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
@@ -177,7 +174,6 @@ const Header = ({ isTopBannerVisible }) => {
 														rotate: [0, 1, -1, 1, 0],
 														transition: { duration: 0.5 },
 													}}
-													// transition={{ type: "spring", stiffness: 700 }}
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
@@ -195,7 +191,6 @@ const Header = ({ isTopBannerVisible }) => {
 														rotate: [0, 1, -1, 1, 0],
 														transition: { duration: 0.5 },
 													}}
-													// transition={{ type: "spring", stiffness: 700 }}
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link

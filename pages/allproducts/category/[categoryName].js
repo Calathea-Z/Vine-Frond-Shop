@@ -1,42 +1,39 @@
 import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
 import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
 import ProductItem from "@/components/store/ProductItem";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
 
-const AllProducts = () => {
-	const [state, setState] = useState({
-		products: [],
-		error: "",
-		loading: true,
-	});
+const CategoryProducts = () => {
+	const [products, setProducts] = useState([]);
+	const [loading, setLoading] = useState(true);
+	const [error, setError] = useState("");
 
-	const [category, setCategory] = useState("");
-
-	const { loading, error, products } = state;
+	const router = useRouter();
+	const { category } = router.query;
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
-				let query = `*[_type == "product"]`;
-				if (category) {
-					query = `*[_type == "product" && category.current == "${category}"]`;
-				}
-
-				const products = await client.fetch(query);
-				setState({ products, loading: false });
+				let query = `*[_type == "product" && category.current == "${category}"]`;
+				const fetchedProducts = await client.fetch(query);
+				console.log("Fetched Products:", fetchedProducts); // Debugging line
+				setProducts(fetchedProducts);
+				setLoading(false);
 			} catch (err) {
-				setState({ loading: false, error: err.message });
+				setError(err.message);
+				setLoading(false);
 			}
 		};
-		fetchData();
+
+		if (category) {
+			fetchData();
+		}
 	}, [category]);
 
-	const handleCategoryChange = (newCategory) => {
-		setCategory(newCategory);
-	};
-
+	// Render logic remains similar to your AllProducts component
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
 			<Header />
@@ -66,4 +63,4 @@ const AllProducts = () => {
 	);
 };
 
-export default AllProducts;
+export default CategoryProducts;
