@@ -4,6 +4,7 @@ import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
 import axios from "axios";
 import Image from "next/image";
+import { motion } from "framer-motion";
 import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
@@ -64,10 +65,18 @@ export default function ProductScreen(props) {
 		});
 		enqueueSnackbar(`${product.name} added to cart!`, { variant: "success" });
 	};
+
+	const splitProductDetails = () => {
+		if (!product || !product.description) return [];
+		return product.description
+			.split(".")
+			.map((sentence) => sentence.trim()) // Trim to clean up any leading or trailing spaces
+			.filter((sentence) => sentence !== ""); // Ensure that empty strings are not included
+	};
 	return (
 		<>
 			<Header />
-			<div className="flex flex-col items-center justify-center h-4/5 mt-[11rem]">
+			<div className="flex flex-col items-center justify-center h-4/5 mt-[11rem] pt-[3rem] px-[5rem]">
 				{loading ? (
 					<div className="flex justify-center items-center w-full">
 						<ClipLoader />
@@ -75,24 +84,24 @@ export default function ProductScreen(props) {
 				) : error ? (
 					<div className="w-full text-center">{error}</div>
 				) : (
-					<div className="flex flex-col lg:flex-row items-center justify-center lg:items-start w-full px-6">
+					<div className="flex flex-col lg:flex-row items-center justify-center lg:items-start w-full px-6 gap-6">
 						<div className="lg:w-1/2 w-full flex justify-center items-center mb-4 lg:mb-0">
 							{product && product.photo && product.photo.length > 0 ? (
-								<div className="grid grid-cols-1 gap-6">
+								<div className="grid grid-cols-2 grid-rows-2 gap-[.2rem]">
 									{product.photo.map((photo, index) => (
 										<div
 											key={index}
-											className="flex justify-center items-center"
+											className="flex justify-center items-center rounded-[.3rem]"
 										>
 											<Image
 												src={urlFor(photo.asset._ref).url()}
 												alt={`Picture of ${product.name} ${index + 1}`}
-												className="object-cover border-black border h-auto max-w-full mb-1"
+												className="object-cover border-black border h-auto max-w-full mb-1 rounded-[.3rem]"
 												quality={100}
-												priority={index === 0} // Only the first image is priority
+												priority={index === 0 && index === 1}
 												responsive={true}
-												width={760} // Assuming a base width
-												height={700} // Assuming a base height to maintain aspect ratio
+												width={760}
+												height={700}
 											/>
 										</div>
 									))}
@@ -103,49 +112,64 @@ export default function ProductScreen(props) {
 								</div>
 							)}
 						</div>
-						<div className="flex flex-col md:flex-1 lg:py-10">
+						<div className="flex flex-col items-center justify-center md:flex-1 w-full">
 							{product ? (
 								<>
-									<div className="text-center lg:text-left lg:px-3">
-										<h1 className="text-2xl text-thin italic">
-											{product.name}
-										</h1>
-										<h4 className="text-extrabold p-1 text-slate-800 text-xl mt-2">
+									<div className="bg-offwhite rounded-lg p-6 mt-5 shadow-md mx-auto w-full">
+										<h1 className="text-3xl font-bold ">{product.name}</h1>
+										<h4 className="font-extrabold p-1 text-md text-emerald-800 mt-2 mb-6">
 											$ {product.price}.00
 										</h4>
-									</div>
-									<div className="flex flex-col items-center p-10 gap-3 leading-loose">
-										<p className="text-bold text-slate-800">
-											{product.description}
-											<br /> <br />
+										<p className="text-slate-800 text-md font-bold items-center leasing-loose mb-6">
+											{product.tagLine}
 										</p>
-										<p className="text-bold text-slate-800">
+										<p className="text-slate-800 font-bold text-md mb-3">
 											Size:
-											<br />
+										</p>
+										<p className="text-slate-800 text-sm mb-8">
 											{product.measurements}
 										</p>
-									</div>
-									<div className="flex justify-center">
-										<button
-											className={`${
-												product.countInStock > 0
-													? "bg-gray-200"
-													: "bg-red-200 cursor-not-allowed"
-											} border-gray-800 border-[.1rem] rounded px-12 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3`}
-											onClick={
-												product.countInStock > 0 ? addToCartHandler : undefined
-											}
-											disabled={product.countInStock === 0}
-										>
+										<div className="flex justify-center">
 											{product.countInStock > 0 ? (
-												"Add to Cart"
+												<motion.div
+													whileHover={{
+														rotate: [0, 8, -8, 8, 0],
+														transition: { duration: 0.4 },
+													}}
+													className="inline-block"
+												>
+													<button
+														className="bg-emerald-400 border-gray-800 border-[.1rem] rounded px-4 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3"
+														onClick={addToCartHandler}
+													>
+														Add to Cart
+													</button>
+												</motion.div>
 											) : (
-												<>
+												<button
+													className="bg-rose-400 cursor-not-allowed border-gray-800 border-[.1rem] rounded px-4 py-3 mt-4 mb-8 flex items-center justify-center gap-3"
+													disabled
+												>
 													<XCircleIcon className="w-5 h-5" />
 													Sold Out
-												</>
+												</button>
 											)}
-										</button>
+										</div>
+									</div>
+									<div className="bg-secondary rounded-lg px-6 pt-6 pb-40 mt-7 shadow-md mx-auto w-full">
+										<h1 className="font-bold mb-4 font-amaticSC text-4xl text-stone-800">
+											Details:
+										</h1>
+										<ul className="list-disc pl-5">
+											{splitProductDetails().map((detail, index) => (
+												<li
+													key={index}
+													className="mb-2 font-amaticSC font-bold text-3xl text-stone-800"
+												>
+													{detail}
+												</li>
+											))}
+										</ul>
 									</div>
 								</>
 							) : (
@@ -158,17 +182,6 @@ export default function ProductScreen(props) {
 						</div>
 					</div>
 				)}
-			</div>
-			<div className="w-full h-1/5 flex justify-center bg-secondary border-t-black border-t p-4">
-				<div>
-					<h1>Sanity</h1>
-				</div>
-				<div>
-					<h1>Sanity</h1>
-				</div>
-			</div>
-			<div className="w-full h-2/5 flex justify-center">
-				<p>Reviews Go Here</p>
 			</div>
 			<div className="mt-auto">
 				<Footer />

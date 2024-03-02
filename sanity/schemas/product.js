@@ -28,6 +28,11 @@ export default {
       ],
     },
     {
+      name: 'tagLine',
+      title: 'Tag Line',
+      type: 'text',
+    },
+    {
       name: 'description',
       title: 'Description',
       type: 'text',
