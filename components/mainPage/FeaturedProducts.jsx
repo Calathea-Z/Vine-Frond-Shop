@@ -22,7 +22,17 @@ const FeaturedProducts = () => {
 		variableWidth: false,
 		responsive: [
 			{
-				breakpoint: 1024,
+				breakpoint: 1480,
+				settings: {
+					slidesToShow: 4,
+					slidesToScroll: 1,
+					infinite: true,
+					dots: true,
+					arrows: true,
+				},
+			},
+			{
+				breakpoint: 1170,
 				settings: {
 					slidesToShow: 3,
 					slidesToScroll: 1,
@@ -32,10 +42,22 @@ const FeaturedProducts = () => {
 				},
 			},
 			{
-				breakpoint: 600,
+				breakpoint: 820,
+				settings: {
+					slidesToShow: 2,
+					slidesToScroll: 1,
+					infinite: true,
+					dots: true,
+					arrows: true,
+				},
+			},
+			{
+				breakpoint: 550,
 				settings: {
 					slidesToShow: 1,
 					slidesToScroll: 1,
+					infinite: true,
+					dots: true,
 					arrows: true,
 				},
 			},

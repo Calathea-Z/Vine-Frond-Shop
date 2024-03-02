@@ -3,10 +3,7 @@ import Link from "next/link";
 
 const ProductItem = ({ product }) => {
 	return (
-		<div
-			className="flex flex-col items-center"
-			style={{ width: "20vw", margin: "0 10px" }}
-		>
+		<div className="flex flex-col items-center">
 			<div
 				className={`w-full h-auto bg-white shadow-lg border border-black flex flex-col items-center justify-center p-2`}
 			>
@@ -16,7 +13,7 @@ const ProductItem = ({ product }) => {
 							src={urlFor(product.photo[0].asset._ref).url()}
 							alt={product.name}
 							className="object-cover rounded-3xl px-1 py-2"
-							style={{ maxHeight: "95%", maxWidth: "95%", width: "100%" }}
+							style={{ maxHeight: "100%", maxWidth: "100%", width: "100%" }}
 						/>
 					</Link>
 				) : (
@@ -30,7 +27,7 @@ const ProductItem = ({ product }) => {
 					</div>
 				)}
 				<div className="w-full p-2 text-center">
-					<h4 className="text-lg font-bold">{product.name}</h4>
+					<h4 className="text-sm font-bold">{product.name}</h4>
 					<p className="text-md text-gray-700">${product.price}</p>
 				</div>
 			</div>

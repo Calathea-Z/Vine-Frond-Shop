@@ -2,8 +2,11 @@ import { useEffect, useState } from "react";
 import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
 import ProductItem from "@/components/store/ProductItem";
+import Filters from "@/components/store/Filters";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
+import Breadcrumbs from "@/components/navigation/Breadcrumbs";
+import Sort from "@/components/store/Sort";
 
 const AllProducts = () => {
 	const [state, setState] = useState({
@@ -33,16 +36,24 @@ const AllProducts = () => {
 		fetchData();
 	}, [category]);
 
-	const handleCategoryChange = (newCategory) => {
-		setCategory(newCategory);
-	};
-
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
 			<Header />
-			<main className="flex-grow">
-				<div className="mx-4 my-8 p-4 bg-primary rounded-lg shadow-y border-t-2 border-gray-200 flex-grow mb-32">
-					<div className="grid grid-cols-4 justify-items-center mt-32">
+			<div className="bg-primary py-1 px-2 mt-[10.6rem] h-[9rem] border-b-black border-b-[1px] border-t-black border-t-[1px]">
+				<div className="flex-grow">
+					<Breadcrumbs />
+					<h1 className="text-5xl font-thin italic text-black px-1 py-4">
+						Shop All
+					</h1>
+				</div>
+			</div>
+			<div className="flex justify-between items-center bg-primary px-2 gap-3">
+				<Filters />
+				<Sort />
+			</div>
+			<main className="flex-grow mt-8">
+				<div className=" p-2">
+					<div className="grid grid-cols-4 justify-items-center">
 						{loading ? (
 							<div className="flex justify-center items-center">
 								<ClipLoader color={"#877570"} />
@@ -51,11 +62,7 @@ const AllProducts = () => {
 							"Error please reload"
 						) : (
 							products.map((product, index) => (
-								<div key={index} className="flex justify-center rounded-md p-2">
-									<div className="p-4 bg-white rounded-lg shadow-lg border-t-2 border-gray-200 w-full h-full">
-										<ProductItem product={product} />
-									</div>
-								</div>
+								<ProductItem key={index} product={product} />
 							))
 						)}
 					</div>
