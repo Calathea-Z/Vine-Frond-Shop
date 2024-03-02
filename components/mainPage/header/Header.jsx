@@ -25,7 +25,7 @@ const Header = ({ isTopBannerVisible }) => {
 	const [userInfo, setUserInfo] = useState(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [showSubMenu, setShowSubMenu] = useState(false);
-	const [subMenuImageToShow, setSubMenuImageToShow] = useState(null);
+	const [subMenuImageToShow, setSubMenuImageToShow] = useState("imageForAll");
 
 	// This effect adds a scroll event listener to the window. When the user scrolls more than 150 pixels, it updates the isScrolled state to true.
 	useEffect(() => {

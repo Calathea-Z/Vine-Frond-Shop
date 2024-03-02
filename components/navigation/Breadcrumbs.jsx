@@ -1,7 +1,9 @@
 function Breadcrumbs() {
 	return (
 		<div className="breadcrumbs">
-			<a href="/allproducts">All Products</a> / <span>{category}</span>
+			<p className="text-black font-bold text-2xl font-amaticSC px-3">
+				allproducts / fake / test
+			</p>
 		</div>
 	);
 }

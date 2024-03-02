@@ -12,7 +12,7 @@ module.exports = {
 		extend: {
 			colors: {
 				primary: "#F5F5F5",
-				secondary: "#caafa8",
+				secondary: "#f2c88c",
 			},
 			placeholderColor: {
 				blue: "#0000ff",
