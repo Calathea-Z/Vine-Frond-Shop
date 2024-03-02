@@ -2,12 +2,13 @@ import client from "@/utils/client";
 import ClipLoader from "react-spinners/ClipLoader";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
+import axios from "axios";
+import Image from "next/image";
 import { Store } from "@/utils/Store";
 import { useSnackbar } from "notistack";
 import { useEffect, useState, useContext } from "react";
-import axios from "axios";
+import { XCircleIcon } from "@heroicons/react/24/outline";
 import { urlFor } from "@/utils/image.js";
-import Image from "next/image";
 
 export default function ProductScreen(props) {
 	const { slug } = props;
@@ -93,9 +94,9 @@ export default function ProductScreen(props) {
 								</div>
 							)}
 						</div>
-						<div className="w-full md:w-1/2 flex flex-col justify-center items-center p-4">
+						<div className="w-full md:w-1/2 flex flex-col justify-center items-center p-6">
 							<div className="text-center">
-								<h1 className="text-2xl">
+								<h1 className="text-2xl text-thin italic">
 									{product ? product.name : "Product not found"}
 								</h1>
 								{product && (
@@ -103,44 +104,41 @@ export default function ProductScreen(props) {
 										<h4 className="text-extrabold p-1 text-slate-800 text-xl">
 											$ {product.price}.00
 										</h4>
-										<div className="flex flex-col items-center">
-											<h6 className="text-extrabold p-1 text-slate-800">
-												Description:
-											</h6>
-											<p className="text-bold p-1 text-slate-800">
+										<div className="flex flex-col items-center p-10 gap-3 leading-loose">
+											<p className="text-bold text-slate-800">
 												{product.description}
 												<br /> <br />
-												Measurements:
-												<br /> <br />
+											</p>
+											<p className="text-bold text-slate-800">
+												Size:
+												<br />
 												{product.measurements}
 											</p>
 										</div>
-										{product.countInStock > 0 ? (
+										<div className="w-full flex justify-center">
 											<button
-												className="bg-gray-200 border-gray-800 border-[.1rem] rounded px-10 py-2 hover:border-blue-400 mt-4 mb-8"
-												onClick={addToCartHandler}
+												className={`${
+													product.countInStock > 0
+														? "bg-gray-200"
+														: "bg-red-200 cursor-not-allowed"
+												} border-gray-800 border-[.1rem] rounded px-12 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3`}
+												onClick={
+													product.countInStock > 0
+														? addToCartHandler
+														: undefined
+												}
+												disabled={product.countInStock === 0}
 											>
-												Add to Cart
+												{product.countInStock > 0 ? (
+													"Add to Cart"
+												) : (
+													<>
+														<XCircleIcon className="w-5 h-5" />
+														Sold Out
+													</>
+												)}
 											</button>
-										) : (
-											<div className="w-full flex bg-red-500 border-black border-2 p-4 justify-center items-center font-mono text-lg text-white">
-												<svg
-													xmlns="http://www.w3.org/2000/svg"
-													className="h-6 w-6 mr-2"
-													fill="none"
-													viewBox="0 0 24 24"
-													stroke="currentColor"
-												>
-													<path
-														strokeLinecap="round"
-														strokeLinejoin="round"
-														strokeWidth={2}
-														d="M6 18L18 6M6 6l12 12"
-													/>
-												</svg>
-												<span>Sold Out</span>
-											</div>
-										)}
+										</div>
 									</>
 								)}
 							</div>
