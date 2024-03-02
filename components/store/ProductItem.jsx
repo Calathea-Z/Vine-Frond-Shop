@@ -8,7 +8,7 @@ const ProductItem = ({ product }) => {
 				className={`w-full h-auto bg-white shadow-lg border border-black flex flex-col items-center justify-center p-2`}
 			>
 				{product.photo && product.photo.length > 0 ? (
-					<Link href={`/allproducts/${product.slug.current}`}>
+					<Link href={`/allproducts/product/${product.slug.current}`}>
 						<img
 							src={urlFor(product.photo[0].asset._ref).url()}
 							alt={product.name}
@@ -27,7 +27,7 @@ const ProductItem = ({ product }) => {
 					</div>
 				)}
 				<div className="w-full p-2 text-center">
-					<h4 className="text-sm font-bold">{product.name}</h4>
+					<h4 className="text-sm font-bold mb-1">{product.name}</h4>
 					<p className="text-md text-gray-700">${product.price}</p>
 				</div>
 			</div>
