@@ -53,7 +53,7 @@ const AllProducts = () => {
 			</div>
 			<main className="flex-grow mt-8">
 				<div className=" p-2">
-					<div className="grid grid-cols-4 justify-items-center">
+					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mdLg:grid-cols-4 justify-items-center">
 						{loading ? (
 							<div className="flex justify-center items-center">
 								<ClipLoader color={"#877570"} />

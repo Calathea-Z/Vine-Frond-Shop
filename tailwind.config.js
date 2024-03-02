@@ -20,6 +20,8 @@ module.exports = {
 			},
 			screens: {
 				xs: "450px",
+				md: "950px",
+				mdLg: "1250px",
 			},
 			fontFamily: {
 				indieFlower: ["'Indie Flower'", "cursive"],
