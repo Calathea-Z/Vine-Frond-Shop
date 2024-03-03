@@ -70,8 +70,14 @@ const CategoryProducts = () => {
 				</div>
 			</div>
 			<div className="flex justify-between items-center bg-primary px-2 gap-3">
-				<Filters />
-				<Sort />
+				<div className="flex justify-between items-start w-screen">
+					<div class="max-w-xs">
+						<Filters productTypes={[categoryName]} />
+					</div>
+					<div className=" max-w-xs">
+						<Sort />
+					</div>
+				</div>
 			</div>
 			<main className="flex-grow mt-4">
 				<div className="p-2 flex justify-center">

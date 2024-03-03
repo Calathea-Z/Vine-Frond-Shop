@@ -51,9 +51,17 @@ const AllProducts = () => {
 					</h1>
 				</div>
 			</div>
-			<div className="flex justify-between items-center bg-primary px-2 gap-3">
-				<Filters />
-				<Sort />
+			<div className="flex justify-center bg-primary px-2">
+				<div className="flex justify-between items-start w-screen">
+					<div className="max-w-xs">
+						<Filters
+							productTypes={["Ceramics", "Bags", "Stickers", "Prints"]}
+						/>
+					</div>
+					<div className=" max-w-xs">
+						<Sort />
+					</div>
+				</div>
 			</div>
 			<main className="flex-grow mt-4">
 				<div className="p-2 flex justify-center">
