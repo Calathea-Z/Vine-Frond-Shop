@@ -156,7 +156,7 @@ export default function ProductScreen(props) {
 											)}
 										</div>
 									</div>
-									<div className="bg-secondary rounded-lg px-6 pt-6 pb-40 mt-7 shadow-md mx-auto w-full">
+									<div className="bg-secondary rounded-lg px-6 pt-6 pb-[7.5rem] mt-7 shadow-md mx-auto w-full">
 										<h1 className="font-bold mb-4 font-amaticSC text-4xl text-stone-800">
 											Details:
 										</h1>
