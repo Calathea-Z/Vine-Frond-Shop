@@ -13,7 +13,7 @@ const Sort = () => {
 		"Sort: Alphabetically, Z to A",
 		"Sort: Best Selling",
 		"Sort: Date, New to Old",
-		"Sort: Date, Old to Now",
+		"Sort: Date, Old to New",
 		"Sort: Featured",
 		"Sort: Price, High to Low",
 		"Sort: Price, Low to High",

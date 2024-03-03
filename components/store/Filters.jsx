@@ -5,8 +5,8 @@ const Filters = ({ productTypes = [] }) => {
 	const [isOpen, setIsOpen] = useState(false);
 	const [checkedStates, setCheckedStates] = useState({});
 	const [selectedFilters, setSelectedFilters] = useState([]);
-	const [selectedPriceRange, setSelectedPriceRange] = useState("");
-	const [selectedAvailability, setSelectedAvailability] = useState("");
+	const [selectedPriceRange, setSelectedPriceRange] = useState("All Prices");
+	const [excludeOutOfStock, setExcludeOutOfStock] = useState(false);
 
 	useEffect(() => {
 		// Initialize or update the checkedStates based on productTypes
@@ -32,30 +32,50 @@ const Filters = ({ productTypes = [] }) => {
 		console.log(`Changing price range to: ${price}`); // Debugging
 		setSelectedPriceRange(price);
 		const filteredFilters = selectedFilters.filter(
-			(filter) => !["Under 25", "25-50", "Over 50"].includes(filter)
+			(filter) =>
+				!["Under 25", "25-50", "Over 50", "All Prices"].includes(filter)
 		);
 
-		if (price !== "All") {
-			setSelectedFilters([...filteredFilters, price]);
-		} else {
-			setSelectedFilters(filteredFilters);
+		// If a specific price range is selected, remove "All Prices" from the filters if it exists
+		if (price !== "All Prices") {
+			const index = filteredFilters.indexOf("All Prices");
+			if (index > -1) {
+				filteredFilters.splice(index, 1);
+			}
 		}
+
+		setSelectedFilters([...filteredFilters, price]);
 		console.log(`Updated selectedFilters: ${selectedFilters}`); // Debugging
 	};
-	const handleAvailabilityChange = (availability) => {
-		setSelectedAvailability(availability);
+
+	const handleExcludeOutOfStockChange = (exclude) => {
+		setExcludeOutOfStock(exclude);
+		const filterAction = exclude
+			? "Exclude Out Of Stock"
+			: "Include Out Of Stock";
 		const filteredFilters = selectedFilters.filter(
-			(filter) => !["In Stock", "Out of Stock"].includes(filter)
+			(filter) =>
+				!["Include Out Of Stock", "Exclude Out Of Stock"].includes(filter)
 		);
-		setSelectedFilters([...filteredFilters, availability]);
+		setSelectedFilters([...filteredFilters, filterAction]);
 	};
 
 	const clearFilter = (filter) => {
 		setSelectedFilters(selectedFilters.filter((f) => f !== filter));
 		if (filter === selectedPriceRange) {
-			setSelectedPriceRange("All");
-		} else if (filter === selectedAvailability) {
-			setSelectedAvailability("");
+			setSelectedPriceRange("All Prices");
+			// Ensure "All Prices" is added back to the filters when other selections are cleared
+			const index = selectedFilters.indexOf(filter);
+			if (index > -1) {
+				let newFilters = [...selectedFilters];
+				newFilters.splice(index, 1, "All Prices");
+				setSelectedFilters(newFilters);
+			}
+		} else if (
+			filter === "Exclude Out Of Stock" ||
+			filter === "Include Out Of Stock"
+		) {
+			setExcludeOutOfStock(false);
 		} else {
 			setCheckedStates({ ...checkedStates, [filter]: false });
 		}
@@ -81,23 +101,20 @@ const Filters = ({ productTypes = [] }) => {
 				</div>
 				{/* Badges for selected filters */}
 				<div className="flex flex-wrap gap-2">
-					{selectedFilters.map(
-						(filter) =>
-							filter !== "All" && (
-								<div
-									key={filter}
-									className="flex items-center bg-slate-200 px-2 py-1"
-								>
-									<span className="text-xl text-black font-bold font-amaticSC mr-2">
-										{filter}
-									</span>
-									<XMarkIcon
-										className="w-4 h-4 cursor-pointer"
-										onClick={() => clearFilter(filter)}
-									/>
-								</div>
-							)
-					)}
+					{selectedFilters.map((filter) => (
+						<div
+							key={filter}
+							className="flex items-center bg-slate-200 px-2 py-1"
+						>
+							<span className="text-xl text-black font-bold font-amaticSC mr-2">
+								{filter}
+							</span>
+							<XMarkIcon
+								className="w-4 h-4 cursor-pointer"
+								onClick={() => clearFilter(filter)}
+							/>
+						</div>
+					))}
 				</div>
 			</div>
 			{isOpen && (
@@ -126,46 +143,40 @@ const Filters = ({ productTypes = [] }) => {
 							<span className="text-4xl font-semibold font-amaticSC">
 								Price
 							</span>
-							{["All", "Under 25", "25-50", "Over 50"].map((price, index) => (
-								<label key={index} className="inline-flex items-center mt-2">
-									<input
-										type="radio"
-										name="price"
-										className="form-radio"
-										checked={selectedPriceRange === price}
-										onChange={() => {
-											handlePriceRangeChange(price);
-											if (price === "All") {
-												setSelectedFilters(
-													selectedFilters.filter((filter) => filter !== price)
-												);
-											}
-										}}
-									/>
-									<span className="ml-2 text-2xl font-bold font-amaticSC">
-										{price}
-									</span>
-								</label>
-							))}
+							{["All Prices", "Under 25", "25-50", "Over 50"].map(
+								(price, index) => (
+									<label key={index} className="inline-flex items-center mt-2">
+										<input
+											type="radio"
+											name="price"
+											className="form-radio"
+											checked={selectedPriceRange === price}
+											onChange={() => handlePriceRangeChange(price)}
+										/>
+										<span className="ml-2 text-2xl font-bold font-amaticSC">
+											{price}
+										</span>
+									</label>
+								)
+							)}
 						</div>
 						<div className="flex flex-col gap-1">
 							<span className="text-4xl font-bold font-amaticSC">
-								Availability
+								Exclude Out Of Stock
 							</span>
-							{["In Stock", "Out of Stock"].map((availability, index) => (
-								<label key={index} className="inline-flex items-center mt-2">
-									<input
-										type="radio"
-										name="availability"
-										className="form-radio"
-										checked={selectedAvailability === availability}
-										onChange={() => handleAvailabilityChange(availability)}
-									/>
-									<span className="ml-2 text-2xl font-semibold font-amaticSC">
-										{availability}
-									</span>
-								</label>
-							))}
+							<label className="inline-flex items-center mt-2">
+								<input
+									type="checkbox"
+									className="form-checkbox"
+									checked={excludeOutOfStock}
+									onChange={(e) =>
+										handleExcludeOutOfStockChange(e.target.checked)
+									}
+								/>
+								<span className="ml-2 text-2xl font-semibold font-amaticSC">
+									Yes
+								</span>
+							</label>
 						</div>
 					</div>
 				</div>

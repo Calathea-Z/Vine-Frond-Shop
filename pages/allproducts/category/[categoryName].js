@@ -37,7 +37,7 @@ const CategoryProducts = () => {
 				// Handle the case where no products are found
 				if (fetchedProducts.length === 0) {
 					setError(
-						`We don't have any ${formattedCategoryName} right now..... Check back later though because our stock is always updating!`
+						`I''m all sold out of ${formattedCategoryName} right now... Check back soon!`
 					);
 				} else {
 					// Update state with the fetched products
@@ -87,7 +87,7 @@ const CategoryProducts = () => {
 						</div>
 					) : error ? (
 						<div className="flex flex-col items-center justify-start w-full h-full">
-							<div className="w-full text-center text-2xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-red-300/90">
+							<div className="w-full text-center text-2xl leading-relaxed px-10 py-20 rounded-sm shadow-md bg-stone-300/50">
 								{error}
 							</div>
 						</div>
