@@ -160,7 +160,7 @@ const Header = ({ isTopBannerVisible }) => {
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
-														href="/shop/bags"
+														href="/allproducts/category/bags"
 														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
 														onMouseEnter={() =>
 															setSubMenuImageToShow("imageForTotes")
@@ -177,7 +177,7 @@ const Header = ({ isTopBannerVisible }) => {
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
-														href="/shop/prints"
+														href="/allproducts/category/prints"
 														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
 														onMouseEnter={() =>
 															setSubMenuImageToShow("imageForPrints")
@@ -194,7 +194,7 @@ const Header = ({ isTopBannerVisible }) => {
 													className="hover:bg-[#ECC89A] rounded-md w-full"
 												>
 													<Link
-														href="/shop/stickers"
+														href="/allproducts/category/stickers"
 														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
 														onMouseEnter={() =>
 															setSubMenuImageToShow("imageForStickers")
