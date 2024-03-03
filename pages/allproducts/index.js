@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import client from "@/utils/client";
-import ClipLoader from "react-spinners/ClipLoader";
+import { PropagateLoader } from "react-spinners";
 import ProductItem from "@/components/store/ProductItem";
 import Filters from "@/components/store/Filters";
 import Footer from "@/components/mainPage/Footer";
@@ -15,17 +15,12 @@ const AllProducts = () => {
 		loading: true,
 	});
 
-	const [category, setCategory] = useState("");
-
 	const { loading, error, products } = state;
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				let query = `*[_type == "product"]`;
-				if (category) {
-					query = `*[_type == "product" && category.current == "${category}"]`;
-				}
 
 				const products = await client.fetch(query);
 				setState({ products, loading: false });
@@ -34,7 +29,7 @@ const AllProducts = () => {
 			}
 		};
 		fetchData();
-	}, [category]);
+	}, []);
 
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
@@ -51,21 +46,26 @@ const AllProducts = () => {
 				<Filters />
 				<Sort />
 			</div>
-			<main className="flex-grow mt-8">
-				<div className=" p-2">
-					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mdLg:grid-cols-4 justify-items-center">
-						{loading ? (
-							<div className="flex justify-center items-center">
-								<ClipLoader color={"#877570"} />
+			<main className="flex-grow mt-4">
+				<div className="p-2 flex justify-center">
+					{loading ? (
+						<div className="flex justify-center items-center p-10">
+							<PropagateLoader size={35} color={"#8cc6b0"} />
+						</div>
+					) : error ? (
+						<div className="flex flex-col items-center justify-start w-full h-full">
+							<div className="text-center text-xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-secondary/50 max-w-md">
+								{error}
 							</div>
-						) : error ? (
-							"Error please reload"
-						) : (
-							products.map((product, index) => (
+						</div>
+					) : (
+						// grid layout when displaying products
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mdLg:grid-cols-4 justify-items-center w-full">
+							{products.map((product, index) => (
 								<ProductItem key={index} product={product} />
-							))
-						)}
-					</div>
+							))}
+						</div>
+					)}
 				</div>
 			</main>
 			<Footer className="mt-auto" />

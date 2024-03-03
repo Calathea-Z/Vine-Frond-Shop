@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import client from "@/utils/client";
-import ClipLoader from "react-spinners/ClipLoader";
+import { PropagateLoader } from "react-spinners";
 import ProductItem from "@/components/store/ProductItem";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
@@ -15,25 +15,41 @@ const CategoryProducts = () => {
 	const [error, setError] = useState("");
 
 	const router = useRouter();
+	const { categoryName } = router.query;
+
+	const formattedCategoryName = categoryName
+		? categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase()
+		: "";
 
 	useEffect(() => {
-		if (!router.isReady || !router.query.categoryName) return;
+		// Check if the router is ready and the categoryName query exists
+		if (!router.isReady || !categoryName) return;
 
 		const fetchData = async () => {
 			setLoading(true);
+			setError("");
 			try {
-				const category =
-					router.query.categoryName.charAt(0).toUpperCase() +
-					router.query.categoryName.slice(1);
-				console.log("Capitalized Category Name:", category);
+				// Define the query to fetch products of the specified category
 				let query = `*[_type == "product" && category->title == $category]{..., "categoryTitle": category->title, "slug": slug.current}`;
 				const fetchedProducts = await client.fetch(query, {
-					category, // Directly use the capitalized category name
+					category: formattedCategoryName,
 				});
+				// Handle the case where no products are found
 				if (fetchedProducts.length === 0) {
-					setError("No products found in this category.");
+					setError(
+						`Sorry, no products are currently available in the ${formattedCategoryName} category. Check back later, our stock is always updating!`
+					);
 				} else {
-					setProducts(fetchedProducts);
+					// Update state with the fetched products
+					setProducts(
+						fetchedProducts.map((product) => ({
+							...product,
+						}))
+					);
+					console.log(fetchedProducts);
+					fetchedProducts.forEach((product) =>
+						console.log(product.slug.current)
+					);
 				}
 			} catch (err) {
 				console.error("Error fetching products:", err);
@@ -44,7 +60,7 @@ const CategoryProducts = () => {
 		};
 
 		fetchData();
-	}, [router.isReady, router.query.categoryName]);
+	}, [router.isReady, categoryName]);
 
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
@@ -53,7 +69,7 @@ const CategoryProducts = () => {
 				<div className="flex-grow">
 					<Breadcrumbs />
 					<h1 className="text-5xl font-thin italic text-black px-1 py-4">
-						Ceramics
+						{formattedCategoryName || "Category"}
 					</h1>
 				</div>
 			</div>
@@ -61,21 +77,26 @@ const CategoryProducts = () => {
 				<Filters />
 				<Sort />
 			</div>
-			<main className="flex-grow mt-8">
-				<div className=" p-2">
-					<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mdLg:grid-cols-4 justify-items-center">
-						{loading ? (
-							<div className="flex justify-center items-center">
-								<ClipLoader color={"#877570"} />
+			<main className="flex-grow mt-4">
+				<div className="p-2 flex justify-center">
+					{loading ? (
+						<div className="flex justify-center items-center p-10">
+							<PropagateLoader size={35} color={"#8cc6b0"} />
+						</div>
+					) : error ? (
+						<div className="flex flex-col items-center justify-start w-full h-full">
+							<div className="text-center text-xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-secondary/50 max-w-md">
+								{error}
 							</div>
-						) : error ? (
-							"Error please reload"
-						) : (
-							products.map((product, index) => (
+						</div>
+					) : (
+						// grid layout when displaying products
+						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mdLg:grid-cols-4 justify-items-center w-full">
+							{products.map((product, index) => (
 								<ProductItem key={index} product={product} />
-							))
-						)}
-					</div>
+							))}
+						</div>
+					)}
 				</div>
 			</main>
 			<Footer className="mt-auto" />

@@ -1,8 +1,6 @@
 import { useEffect, useState } from "react";
-import { motion } from "framer-motion";
 import ProductItem from "../store/ProductItem";
-import Link from "next/link";
-import ClipLoader from "react-spinners/ClipLoader";
+import { PropagateLoader } from "react-spinners";
 import client from "@/utils/client";
 import Slider from "react-slick";
 
@@ -90,8 +88,8 @@ const FeaturedProducts = () => {
 
 	if (loading) {
 		return (
-			<div className="flex justify-center items-center">
-				<ClipLoader color={"#877570"} />
+			<div className="flex justify-center items-center p-10">
+				<PropagateLoader size={35} color={"#8cc6b0"} />
 			</div>
 		);
 	}

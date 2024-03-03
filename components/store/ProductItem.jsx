@@ -2,13 +2,16 @@ import { urlFor } from "@/utils/image.js";
 import Link from "next/link";
 
 const ProductItem = ({ product }) => {
+	const slug =
+		typeof product.slug === "object" ? product.slug.current : product.slug;
+
 	return (
 		<div className="flex flex-col items-center">
 			<div
 				className={`w-full h-auto bg-white shadow-lg border border-black flex flex-col items-center justify-center p-2`}
 			>
 				{product.photo && product.photo.length > 0 ? (
-					<Link href={`/allproducts/product/${product.slug.current}`}>
+					<Link href={`/allproducts/product/${slug}`}>
 						<img
 							src={urlFor(product.photo[0].asset._ref).url()}
 							alt={product.name}
