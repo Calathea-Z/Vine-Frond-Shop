@@ -18,6 +18,16 @@
 	scroll-behavior: smooth;
 }
 
+.slick-prev {
+	left: 0 !important;
+	z-index: 500 !important;
+}
+
+.slick-next {
+	right: 0 !important;
+	z-index: 500 !important;
+}
+
 @layer utilities {
 	.hover-underline-animation {
 		display: inline-block;
