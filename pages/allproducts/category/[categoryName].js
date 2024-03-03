@@ -27,7 +27,7 @@ const CategoryProducts = () => {
 
 		const fetchData = async () => {
 			setLoading(true);
-			setError(""); // Clear any previous errors
+			setError("");
 			try {
 				// Define the query to fetch products of the specified category
 				let query = `*[_type == "product" && category->title == $category]{..., "categoryTitle": category->title, "slug": slug.current}`;
@@ -41,7 +41,15 @@ const CategoryProducts = () => {
 					);
 				} else {
 					// Update state with the fetched products
-					setProducts(fetchedProducts);
+					setProducts(
+						fetchedProducts.map((product) => ({
+							...product,
+						}))
+					);
+					console.log(fetchedProducts);
+					fetchedProducts.forEach((product) =>
+						console.log(product.slug.current)
+					);
 				}
 			} catch (err) {
 				console.error("Error fetching products:", err);
@@ -52,7 +60,6 @@ const CategoryProducts = () => {
 		};
 
 		fetchData();
-		// Dependency array to re-run the effect when these values change
 	}, [router.isReady, categoryName]);
 
 	return (
@@ -72,21 +79,18 @@ const CategoryProducts = () => {
 			</div>
 			<main className="flex-grow mt-4">
 				<div className="p-2 flex justify-center">
-					{" "}
-					{/* Add flex and justify-center */}
 					{loading ? (
 						<div className="flex justify-center items-center w-full">
 							<ClipLoader color={"#877570"} />
 						</div>
 					) : error ? (
-						// Apply conditional styling when there's an error
 						<div className="flex flex-col items-center justify-start w-full h-full">
 							<div className="text-center text-xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-secondary/50 max-w-md">
 								{error}
 							</div>
 						</div>
 					) : (
-						// Keep the original grid layout when displaying products
+						// grid layout when displaying products
 						<div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 mdLg:grid-cols-4 justify-items-center w-full">
 							{products.map((product, index) => (
 								<ProductItem key={index} product={product} />

@@ -15,17 +15,12 @@ const AllProducts = () => {
 		loading: true,
 	});
 
-	const [category, setCategory] = useState("");
-
 	const { loading, error, products } = state;
 
 	useEffect(() => {
 		const fetchData = async () => {
 			try {
 				let query = `*[_type == "product"]`;
-				if (category) {
-					query = `*[_type == "product" && category.current == "${category}"]`;
-				}
 
 				const products = await client.fetch(query);
 				setState({ products, loading: false });
@@ -34,7 +29,7 @@ const AllProducts = () => {
 			}
 		};
 		fetchData();
-	}, [category]);
+	}, []);
 
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
