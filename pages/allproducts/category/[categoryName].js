@@ -1,7 +1,8 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
-import client from "@/utils/client";
+import { SunIcon } from "@heroicons/react/24/solid";
 import { PropagateLoader } from "react-spinners";
+import client from "@/utils/client";
 import ProductItem from "@/components/store/ProductItem";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
@@ -37,7 +38,7 @@ const CategoryProducts = () => {
 				// Handle the case where no products are found
 				if (fetchedProducts.length === 0) {
 					setError(
-						`I''m all sold out of ${formattedCategoryName} right now... Check back soon!`
+						`${formattedCategoryName} are currently out of stock. Please check back another day!`
 					);
 				} else {
 					// Update state with the fetched products
@@ -86,8 +87,11 @@ const CategoryProducts = () => {
 							<PropagateLoader size={35} color={"#8cc6b0"} />
 						</div>
 					) : error ? (
-						<div className="flex flex-col items-center justify-start w-full h-full">
-							<div className="w-full text-center text-2xl leading-relaxed px-10 py-20 rounded-sm shadow-md bg-stone-300/50">
+						<div className="flex flex-col items-center justify-center w-full h-full">
+							<div className="w-full flex flex-col items-center text-center text-2xl leading-relaxed px-10 py-20 rounded-sm shadow-md bg-stone-300/50">
+								<div>
+									<SunIcon className="w-[6rem] h-[6rem] text-yellow-500" />
+								</div>
 								{error}
 							</div>
 						</div>
