@@ -50,14 +50,16 @@ export default {
     {
       name: 'category',
       title: 'Category',
+      description: 'Select the primary category for the product',
       type: 'reference',
       to: [{type: 'category'}],
     },
     {
       name: 'subCategory',
       title: 'Sub Category',
-      type: 'reference',
-      to: [{type: 'subCategory'}],
+      description: 'Select any applicable subcategories for the product',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'subCategory'}]}],
     },
     {
       name: 'measurements',
@@ -73,6 +75,12 @@ export default {
       name: 'countInStock',
       title: 'Count In Stock',
       type: 'number',
+    },
+    {
+      name: 'featuredProduct',
+      title: 'Featured Product',
+      type: 'boolean',
+      description: 'Toggle on if this is a featured product',
     },
   ],
 }
