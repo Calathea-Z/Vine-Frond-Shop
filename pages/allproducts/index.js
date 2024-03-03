@@ -19,12 +19,21 @@ const AllProducts = () => {
 
 	useEffect(() => {
 		const fetchData = async () => {
+			setState((prevState) => ({ ...prevState, loading: true, error: "" }));
 			try {
 				let query = `*[_type == "product"]`;
 
 				const products = await client.fetch(query);
-				setState({ products, loading: false });
+				if (products.length === 0) {
+					setState({
+						loading: false,
+						error: "No products found. Please check back later.",
+					});
+				} else {
+					setState({ products, loading: false, error: "" });
+				}
 			} catch (err) {
+				console.error("Error fetching products:", err);
 				setState({ loading: false, error: err.message });
 			}
 		};
@@ -54,7 +63,7 @@ const AllProducts = () => {
 						</div>
 					) : error ? (
 						<div className="flex flex-col items-center justify-start w-full h-full">
-							<div className="text-center text-xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-secondary/50 max-w-md">
+							<div className="w-full text-center text-xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-secondary/50">
 								{error}
 							</div>
 						</div>

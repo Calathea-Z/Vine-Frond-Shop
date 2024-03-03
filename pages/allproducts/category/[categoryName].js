@@ -37,7 +37,7 @@ const CategoryProducts = () => {
 				// Handle the case where no products are found
 				if (fetchedProducts.length === 0) {
 					setError(
-						`Sorry, no products are currently available in the ${formattedCategoryName} category. Check back later, our stock is always updating!`
+						`We don't have any ${formattedCategoryName} right now..... Check back later though because our stock is always updating!`
 					);
 				} else {
 					// Update state with the fetched products
@@ -45,10 +45,6 @@ const CategoryProducts = () => {
 						fetchedProducts.map((product) => ({
 							...product,
 						}))
-					);
-					console.log(fetchedProducts);
-					fetchedProducts.forEach((product) =>
-						console.log(product.slug.current)
 					);
 				}
 			} catch (err) {
@@ -85,7 +81,7 @@ const CategoryProducts = () => {
 						</div>
 					) : error ? (
 						<div className="flex flex-col items-center justify-start w-full h-full">
-							<div className="text-center text-xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-secondary/50 max-w-md">
+							<div className="w-full text-center text-2xl leading-relaxed px-10 py-16 rounded-lg shadow-md bg-red-300/90">
 								{error}
 							</div>
 						</div>
