@@ -30,7 +30,7 @@ export default {
     {
       name: 'tagLine',
       title: 'Tag Line',
-      type: 'text',
+      type: 'string',
     },
     {
       name: 'description',

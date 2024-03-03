@@ -4,9 +4,10 @@ const bio = {
   type: 'document',
   fields: [
     {
-      name: 'name',
-      title: 'Name',
+      name: 'header',
+      title: 'Header',
       type: 'string',
+      description: 'A short header text for the bio section',
     },
     {
       name: 'image',
@@ -23,5 +24,4 @@ const bio = {
     },
   ],
 }
-
 export default bio

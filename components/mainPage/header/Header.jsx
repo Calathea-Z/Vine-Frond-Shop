@@ -6,17 +6,11 @@ import { motion } from "framer-motion";
 import { Menu } from "@headlessui/react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
-import {
-	ceramicPlates,
-	totes,
-	prints,
-	stickers,
-	ceramicHangingPlantersCropped,
-} from "@/public/assets";
+import { urlFor } from "@/utils/image.js";
 import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
-
+import client from "@/utils/client";
 const Header = ({ isTopBannerVisible }) => {
 	const { dispatch } = useContext(Store);
 	const router = useRouter();
@@ -25,7 +19,8 @@ const Header = ({ isTopBannerVisible }) => {
 	const [userInfo, setUserInfo] = useState(null);
 	const [isScrolled, setIsScrolled] = useState(false);
 	const [showSubMenu, setShowSubMenu] = useState(false);
-	const [subMenuImageToShow, setSubMenuImageToShow] = useState("imageForAll");
+	const [categories, setCategories] = useState([]);
+	const [subMenuImageToShow, setSubMenuImageToShow] = useState("");
 
 	// This effect adds a scroll event listener to the window. When the user scrolls more than 150 pixels, it updates the isScrolled state to true.
 	useEffect(() => {
@@ -38,6 +33,28 @@ const Header = ({ isTopBannerVisible }) => {
 		return () => window.removeEventListener("scroll", handleScroll);
 	}, []);
 
+	useEffect(() => {
+		const fetchCategories = async () => {
+			const query = `*[_type == "category" && hidden != true] | order(ordinal asc){
+      title,
+      "subMenuImage": subMenuImage.asset._ref,
+      ordinal
+    }`;
+			const fetchedCategories = await client.fetch(query);
+			const categoriesWithImageUrl = await Promise.all(
+				fetchedCategories.map(async (category) => ({
+					...category,
+					imageUrl: urlFor(category.subMenuImage).url(),
+				}))
+			);
+			setCategories([...categoriesWithImageUrl]);
+			if (categoriesWithImageUrl.length > 0) {
+				setSubMenuImageToShow(categoriesWithImageUrl[0].imageUrl);
+			}
+		};
+
+		fetchCategories();
+	}, []);
 	//Dynamic styling for the banner above the header and if it exists.
 	const headerStyle = {
 		top: isTopBannerVisible ? "30px" : "0px",
@@ -116,139 +133,38 @@ const Header = ({ isTopBannerVisible }) => {
 										</Link>
 									</li>
 									{showSubMenu && (
-										<div className="absolute bg-primary shadow-xl z-20  rounded-xl w-[45rem] left-0 top-[1] flex">
+										<div className="absolute bg-primary shadow-xl z-20 rounded-xl w-[45rem] left-0 top-[1] flex">
 											<div className="w-1/4 p-2">
-												<motion.div
-													whileHover={{
-														rotate: [0, 1, -1, 1, 0],
-														transition: { duration: 0.5 },
-													}}
-													className="hover:bg-[#ECC89A] rounded-md w-full"
-												>
-													<Link
-														href="/allproducts"
-														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
-														onMouseEnter={() =>
-															setSubMenuImageToShow("imageForAll")
-														}
+												{categories.map((category) => (
+													<motion.div
+														key={category.title}
+														whileHover={{
+															rotate: [0, 1, -1, 1, 0],
+															transition: { duration: 0.5 },
+														}}
+														className="hover:bg-[#ECC89A] rounded-md w-full"
 													>
-														All
-													</Link>
-												</motion.div>
-												<motion.div
-													whileHover={{
-														rotate: [0, 1, -1, 1, 0],
-														transition: { duration: 0.5 },
-													}}
-													className="hover:bg-[#ECC89A] rounded-md w-full"
-												>
-													<Link
-														href={`/allproducts/category/ceramics`}
-														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
-														onMouseEnter={() =>
-															setSubMenuImageToShow("imageForCeramics")
-														}
-													>
-														Ceramics
-													</Link>
-												</motion.div>
-												<motion.div
-													whileHover={{
-														rotate: [0, 1, -1, 1, 0],
-														transition: { duration: 0.5 },
-													}}
-													className="hover:bg-[#ECC89A] rounded-md w-full"
-												>
-													<Link
-														href="/allproducts/category/bags"
-														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
-														onMouseEnter={() =>
-															setSubMenuImageToShow("imageForTotes")
-														}
-													>
-														Bags
-													</Link>
-												</motion.div>
-												<motion.div
-													whileHover={{
-														rotate: [0, 1, -1, 1, 0],
-														transition: { duration: 0.5 },
-													}}
-													className="hover:bg-[#ECC89A] rounded-md w-full"
-												>
-													<Link
-														href="/allproducts/category/prints"
-														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
-														onMouseEnter={() =>
-															setSubMenuImageToShow("imageForPrints")
-														}
-													>
-														Prints
-													</Link>
-												</motion.div>
-												<motion.div
-													whileHover={{
-														rotate: [0, 1, -1, 1, 0],
-														transition: { duration: 0.5 },
-													}}
-													className="hover:bg-[#ECC89A] rounded-md w-full"
-												>
-													<Link
-														href="/allproducts/category/stickers"
-														className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold  hover:text-4xl"
-														onMouseEnter={() =>
-															setSubMenuImageToShow("imageForStickers")
-														}
-													>
-														Stickers
-													</Link>
-												</motion.div>
+														<Link
+															href={`/allproducts/category/${category.title.toLowerCase()}`}
+															className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold hover:text-4xl"
+															onMouseEnter={() =>
+																setSubMenuImageToShow(category.imageUrl)
+															}
+														>
+															{category.title}
+														</Link>
+													</motion.div>
+												))}
 											</div>
 											<div
 												className="w-3/4 relative"
 												style={{ height: "400px" }}
 											>
 												<div className="absolute inset-0 flex justify-center items-center z-30 border-[.4rem] border-primary rounded-xl">
-													{subMenuImageToShow === "imageForAll" && (
+													{subMenuImageToShow && (
 														<Image
-															src={ceramicHangingPlantersCropped}
-															alt="Hanging Planters"
-															priority={true}
-															fill={true}
-															className="object-cover rounded-xl"
-														/>
-													)}
-													{subMenuImageToShow === "imageForCeramics" && (
-														<Image
-															src={ceramicPlates}
-															alt="Ceramics"
-															priority={true}
-															fill={true}
-															className="object-cover rounded-xl"
-														/>
-													)}
-													{subMenuImageToShow === "imageForTotes" && (
-														<Image
-															src={totes}
-															alt="Totes"
-															priority={true}
-															fill={true}
-															className="object-cover rounded-xl"
-														/>
-													)}
-													{subMenuImageToShow === "imageForPrints" && (
-														<Image
-															src={prints}
-															alt="Prints"
-															priority={true}
-															fill={true}
-															className="object-cover rounded-xl"
-														/>
-													)}
-													{subMenuImageToShow === "imageForStickers" && (
-														<Image
-															src={stickers}
-															alt="Stickers"
+															src={subMenuImageToShow}
+															alt="Category Image"
 															priority={true}
 															fill={true}
 															className="object-cover rounded-xl"
