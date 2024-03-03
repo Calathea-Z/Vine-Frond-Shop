@@ -13,6 +13,12 @@ const category = {
       title: 'Description',
       type: 'text',
     },
+    {
+      name: 'hidden',
+      title: 'Hidden',
+      type: 'boolean',
+      description: 'Enable to hide this category from the site',
+    },
   ],
 }
 export default category

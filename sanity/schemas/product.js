@@ -53,13 +53,14 @@ export default {
       description: 'Select the primary category for the product',
       type: 'reference',
       to: [{type: 'category'}],
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'subCategory',
       title: 'Sub Category',
-      description: 'Select any applicable subcategories for the product',
-      type: 'array',
-      of: [{type: 'reference', to: [{type: 'subCategory'}]}],
+      description: 'Select a subcategory or leave blank if not applicable.',
+      type: 'reference',
+      to: [{type: 'subCategory'}],
     },
     {
       name: 'measurements',

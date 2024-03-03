@@ -14,6 +14,12 @@ const subCategory = {
       type: 'reference',
       to: [{type: 'category'}],
     },
+    {
+      name: 'hidden',
+      title: 'Hidden',
+      type: 'boolean',
+      description: 'Enable to hide this subcategory from the site',
+    },
   ],
 }
 
