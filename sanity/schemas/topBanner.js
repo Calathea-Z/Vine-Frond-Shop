@@ -22,6 +22,12 @@ const topBanner = {
       description: 'The background color for the top banner',
     },
     {
+      name: 'textColor',
+      title: 'Text Color',
+      type: 'color',
+      description: 'The text color for the top banner',
+    },
+    {
       name: 'enabled',
       title: 'Enabled',
       type: 'boolean',

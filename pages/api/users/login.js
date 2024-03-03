@@ -41,15 +41,15 @@ export default async function handler(req, res) {
 						token,
 					});
 				} else {
-					res.status(401).json({ message: "Invalid email or password" }); // Update error response
+					res.status(401).json({ message: "Invalid email or password" });
 				}
 			} else {
-				res.status(401).json({ message: "Invalid email or password" }); // Update error response
+				res.status(401).json({ message: "Invalid email or password" });
 			}
 		} catch (error) {
-			res.status(500).json({ message: "Server error" }); // Update error response
+			res.status(500).json({ message: "Server error" });
 		}
 	} else {
-		res.status(400).json({ message: "Bad Request" }); // Update error response for invalid request method
+		res.status(400).json({ message: "Bad Request" });
 	}
 }

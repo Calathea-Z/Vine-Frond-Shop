@@ -1,9 +1,13 @@
-@import url("https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100;200;300;400;500;700;800&family=Silkscreen&display=swap");
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100..800&family=Silkscreen&display=swap");
 
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--font-indie-flower: "Indie Flower", cursive;
+	--font-amatic-sc: "Amatic SC", cursive;
+}
 * {
 	margin: 0;
 	padding: 0;
@@ -12,6 +16,16 @@
 		inknut antiqua,
 		serif;
 	scroll-behavior: smooth;
+}
+
+.slick-prev {
+	left: 0 !important;
+	z-index: 500 !important;
+}
+
+.slick-next {
+	right: 0 !important;
+	z-index: 500 !important;
 }
 
 @layer utilities {
@@ -27,7 +41,8 @@
 		height: 1px;
 		bottom: 0;
 		left: 0;
-		background-color: #caafa8;
+		background-color: rgb(5 150 105);
+		opacity: 0.5;
 		transform-origin: bottom right;
 		transition: transform 0.5s ease-out;
 	}
@@ -35,6 +50,20 @@
 	.hover-underline-animation:hover::after {
 		transform: scaleX(1);
 		transform-origin: bottom left;
+	}
+
+	.nav-item:hover .submenu {
+		display: block;
+	}
+
+	.custom-underline {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		background-color: em;
 	}
 
 	.shadow-y {

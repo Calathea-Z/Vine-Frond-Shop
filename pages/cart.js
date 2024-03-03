@@ -1,5 +1,5 @@
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+import Footer from "@/components/mainPage/Footer";
+import Header from "@/components/mainPage/header/Header";
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image";
 import Image from "next/image";
@@ -8,7 +8,7 @@ import { useContext, useEffect } from "react";
 import dynamic from "next/dynamic";
 import axios from "axios";
 import { useSnackbar } from "notistack";
-import sadCart from "../public/assets/sadCart.png";
+import { sadCart } from "@/public/assets/index";
 import { useRouter } from "next/router";
 import jsCookie from "js-cookie";
 import { XMarkIcon } from "@heroicons/react/24/solid";

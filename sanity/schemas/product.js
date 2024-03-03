@@ -28,9 +28,15 @@ export default {
       ],
     },
     {
+      name: 'tagLine',
+      title: 'Tag Line',
+      type: 'text',
+    },
+    {
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'text',
+      rows: 5, // This will make the text area larger, allowing for paragraph input
     },
     {
       name: 'slug',
@@ -44,13 +50,16 @@ export default {
     {
       name: 'category',
       title: 'Category',
+      description: 'Select the primary category for the product',
       type: 'reference',
       to: [{type: 'category'}],
     },
     {
       name: 'subCategory',
       title: 'Sub Category',
-      type: 'string',
+      description: 'Select any applicable subcategories for the product',
+      type: 'array',
+      of: [{type: 'reference', to: [{type: 'subCategory'}]}],
     },
     {
       name: 'measurements',
@@ -66,6 +75,13 @@ export default {
       name: 'countInStock',
       title: 'Count In Stock',
       type: 'number',
+    },
+    {
+      name: 'featuredProduct',
+      title: 'Featured Product',
+      type: 'boolean',
+      description:
+        'Toggle on if this is a featured product (**There must be 5 featured products total for the carousel to work!**)',
     },
   ],
 }

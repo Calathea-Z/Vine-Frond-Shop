@@ -18,14 +18,14 @@ const Footer = () => {
 	}, [router.pathname]);
 
 	const renderLogoImage = () => (
-		<div className="flex justify-center items-center w-full">
+		<div className="flex justify-center items-center w-full max-w-xs h-26">
 			<Image
 				src={simpleLogo}
 				alt="simple logo"
-				width={150}
-				height={150}
-				className="translate-y-3"
+				width={180}
+				className="translate-y-1 translate-x-4"
 				priority
+				style={{ objectFit: "contain", layout: "responsive" }}
 			/>
 		</div>
 	);
@@ -58,17 +58,15 @@ const Footer = () => {
 
 	return (
 		<div className="bg-[#f2c88c] flex flex-col justify-center items-center sm:py-1 w-full bottom-0 left-0 right-0 relative">
-			<div className="flex flex-col sm:flex-row justify-between items-center w-full py-4">
-				<div className="flex justify-center items-center sm:justify-start">
-					{renderLogoImage()}
-				</div>
+			<div className="flex flex-col sm:flex-row justify-between items-center w-full">
+				<div className="flex">{renderLogoImage()}</div>
 
-				<div className="w-full sm:w-auto flex justify-center mt-8 sm:mt-0">
-					<form className="w-full sm:w-auto border-2 bg-[#b8a597] p-4 rounded-md flex items-center justify-between gap-4 text-white hover:bg-[#9e9387]/90 transition-colors duration-300">
-						<div className="relative w-auto flex-grow">
+				<div className="w-full sm:w-auto flex justify-center -mb-[3rem] translate-x-6">
+					<form className="w-full sm:w-auto bg-white px-3 py-1 rounded-md flex items-center justify-between text-black">
+						<div className="flex-grow relative">
 							<label
 								htmlFor="email"
-								className="absolute -top-[2.9rem] -left-[4.5rem] right-0 mx-auto w-max bg-[#f1ad4d]/20 text-black rounded-sm px-2 py-1 text-xs"
+								className="absolute -top-[3.5rem] left-5 mx-auto w-full text-center bg-none text-black font-amaticSC font-bold rounded-md px-2 py-1 text-4xl"
 							>
 								Get shop updates
 							</label>
@@ -76,37 +74,46 @@ const Footer = () => {
 								type="email"
 								id="email"
 								name="email"
-								placeholder="Email"
-								className="w-full bg-transparent border border-white rounded-md text-sm text-[#f9f1e7] font-sans p-2 placeholder-white focus:ring-2 focus:ring-[#9e9387] focus:outline-none"
+								placeholder="Email Address"
+								className="w-full bg-white border-none rounded-l-md text-3xl text-black font-amaticSC pl-4 pr-3 py-2 focus:ring-2 focus:ring-white focus:outline-none"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
 						</div>
 						<button
-							className="flex-shrink-0 bg-[#f9f1e7] hover:bg-[#b8a597] text-black rounded-lg border border-[#f9f1e7]] hover:border-[#d3b7a3] transition-colors duration-300 px-4 py-2"
+							className="bg-white text-black rounded-r-md p-2 transition-colors duration-300"
 							disabled={!email}
 						>
-							<EnvelopeIcon className="w-5 h-5" />
+							<svg
+								viewBox="0 0 24 24"
+								fill="none"
+								stroke="currentColor"
+								strokeWidth="2"
+								strokeLinecap="round"
+								strokeLinejoin="round"
+								className="w-8 h-8"
+							>
+								<line x1="5" y1="12" x2="19" y2="12"></line>
+								<polyline points="12 5 19 12 12 19"></polyline>
+							</svg>
 						</button>
 					</form>
 				</div>
 
-				<div className="hidden sm:flex p-3 self-center mt-5 sm:mt-0">
-					{renderSocialIcons(40)}
-				</div>
+				<div className="mx-7 mt-7">{renderSocialIcons(58)}</div>
 			</div>
 
 			<div className="hidden sm:flex w-full border border-white justify-center items-center" />
 
 			<div className="flex justify-between w-full">
-				<div className="sm:flex justify-between items-center sm:p-5 text-md sm:text-md sm:gap-2 hidden">
+				<div className="sm:flex justify-between items-center p-0 sm:gap-2 hidden translate-x-4">
 					{isHomePage ? (
 						<motion.div
 							whileHover={{ scale: 1.1 }}
 							whileTap={{ scale: 0.9 }}
 							onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
 							href="/"
-							className="cursor-pointer text-[.9rem] font-sans"
+							className="cursor-pointer font-sans font-semibold"
 						>
 							Home
 						</motion.div>
@@ -115,14 +122,17 @@ const Footer = () => {
 							<motion.div
 								whileHover={{ scale: 1.1 }}
 								whileTap={{ scale: 0.9 }}
-								className="text-[.9rem] font-sans"
+								className="cursor-pointer font-sans font-semibold"
 							>
 								Home
 							</motion.div>
 						</Link>
 					)}
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
-						<Link href="/contact" className="text-[.9rem] font-sans">
+						<Link
+							href="/contact"
+							className="cursor-pointer font-sans font-semibold"
+						>
 							Contact
 						</Link>
 					</motion.div>
@@ -133,9 +143,9 @@ const Footer = () => {
 							href="https://zach-sykes.com"
 							target="_blank"
 							rel="noopener noreferrer"
-							className="text-[.9rem] font-sans"
+							className="cursor-pointer font-sans font-semibold text-[.6rem]"
 						>
-							Website Design by Calathea Designs
+							Site Credit | Calathea Designs
 						</Link>
 					</motion.div>
 				</div>

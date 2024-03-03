@@ -1,14 +1,14 @@
 import states from "states-us";
 import axios from "axios";
 import Image from "next/image";
-import Footer from "@/components/Footer";
+import Footer from "@/components/mainPage/Footer";
 import jsCookie from "js-cookie";
 import Link from "next/link";
 import { Store } from "@/utils/Store";
 import { useContext, useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useRouter } from "next/router";
-import CheckoutHelper from "@/components/CheckoutHelper";
+import CheckoutHelper from "@/components/checkout/CheckoutHelper";
 import { ChevronLeftIcon } from "@heroicons/react/24/solid";
 import { ExclamationCircleIcon } from "@heroicons/react/24/outline";
 import { simpleLogo } from "@/public/assets";
