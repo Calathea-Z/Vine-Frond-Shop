@@ -68,9 +68,15 @@ const FeaturedProducts = () => {
 		const fetchData = async () => {
 			setLoading(true);
 			try {
-				const fetchedProducts = await client.fetch(`*[_type == "product"]`);
-				setProducts(fetchedProducts);
-				setError("");
+				const query = `*[_type == "product" && featuredProduct == true]`;
+				const fetchedProducts = await client.fetch(query);
+				if (fetchedProducts.length > 0) {
+					setProducts(fetchedProducts);
+					setError("");
+				} else {
+					setError("No products currently featured");
+					setProducts([]);
+				}
 			} catch (err) {
 				setError(err.message);
 				setProducts([]);
@@ -91,7 +97,11 @@ const FeaturedProducts = () => {
 	}
 
 	if (error) {
-		return <p>Error please reload</p>;
+		return (
+			<div className="flex justify-center items-center p-4">
+				<p>{error}</p>
+			</div>
+		);
 	}
 
 	return (

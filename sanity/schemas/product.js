@@ -80,7 +80,8 @@ export default {
       name: 'featuredProduct',
       title: 'Featured Product',
       type: 'boolean',
-      description: 'Toggle on if this is a featured product',
+      description:
+        'Toggle on if this is a featured product (**There must be 5 featured products total for the carousel to work!**)',
     },
   ],
 }
