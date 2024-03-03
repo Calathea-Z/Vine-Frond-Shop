@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useRouter } from "next/router";
 import client from "@/utils/client";
-import ClipLoader from "react-spinners/ClipLoader";
+import { PropagateLoader } from "react-spinners";
 import ProductItem from "@/components/store/ProductItem";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
@@ -80,8 +80,8 @@ const CategoryProducts = () => {
 			<main className="flex-grow mt-4">
 				<div className="p-2 flex justify-center">
 					{loading ? (
-						<div className="flex justify-center items-center w-full">
-							<ClipLoader color={"#877570"} />
+						<div className="flex justify-center items-center p-10">
+							<PropagateLoader size={35} color={"#8cc6b0"} />
 						</div>
 					) : error ? (
 						<div className="flex flex-col items-center justify-start w-full h-full">
