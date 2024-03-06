@@ -70,9 +70,10 @@ export default function ProductScreen(props) {
 		if (!product || !product.description) return [];
 		return product.description
 			.split(".")
-			.map((sentence) => sentence.trim()) // Trim to clean up any leading or trailing spaces
-			.filter((sentence) => sentence !== ""); // Ensure that empty strings are not included
+			.map((sentence) => sentence.trim())
+			.filter((sentence) => sentence !== "");
 	};
+
 	return (
 		<>
 			<Header />

@@ -21,6 +21,7 @@ module.exports = {
 			screens: {
 				xs: "450px",
 				md: "950px",
+				smallMenu: "1050px",
 				mdLg: "1250px",
 			},
 			fontFamily: {

@@ -36,10 +36,10 @@ const Header = ({ isTopBannerVisible }) => {
 	useEffect(() => {
 		const fetchCategories = async () => {
 			const query = `*[_type == "category" && hidden != true] | order(ordinal asc){
-      title,
-      "subMenuImage": subMenuImage.asset._ref,
-      ordinal
-    }`;
+                                title,
+                                "subMenuImage": subMenuImage.asset._ref,
+                                ordinal
+                            }`;
 			const fetchedCategories = await client.fetch(query);
 			const categoriesWithImageUrl = await Promise.all(
 				fetchedCategories.map(async (category) => ({
@@ -211,7 +211,11 @@ const Header = ({ isTopBannerVisible }) => {
 					)}
 				</Link>
 
-				<div className="flex-1 flex items-center justify-end -translate-x-5">
+				<div
+					className={`flex-1 flex items-center ${
+						isScrolled ? "justify-end" : "lg:justify-end justify-start"
+					} -translate-x-5`}
+				>
 					<ul className="list-none hidden sm:flex flex-row gap-6">
 						<li className="flex items-center">
 							<Link
@@ -230,6 +234,20 @@ const Header = ({ isTopBannerVisible }) => {
 									/>
 									<span>Search</span>
 								</span>
+							</Link>
+						</li>
+						<li>
+							<Link
+								href="/about"
+								className={`inline-flex items-center ${
+									isScrolled
+										? "bg-primary rounded-md text-[12px]" // Smaller size when scrolled
+										: "bg-primary rounded-md text-lg" // Larger size when not scrolled
+								} hover-underline-animation font-thin ${
+									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
+								} cursor-pointer text-black`}
+							>
+								About
 							</Link>
 						</li>
 						<li>

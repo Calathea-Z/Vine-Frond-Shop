@@ -36,7 +36,7 @@ export default {
       name: 'description',
       title: 'Description',
       type: 'text',
-      rows: 5, // This will make the text area larger, allowing for paragraph input
+      rows: 5,
     },
     {
       name: 'slug',
