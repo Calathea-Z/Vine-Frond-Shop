@@ -11,27 +11,18 @@ import Cookies from "js-cookie";
 import Image from "next/image";
 import Link from "next/link";
 import client from "@/utils/client";
+import useScroll from "@/hooks/useScroll";
+
 const Header = ({ isTopBannerVisible }) => {
 	const { dispatch } = useContext(Store);
 	const router = useRouter();
+	const isScrolled = useScroll();
 
 	const [active, setActive] = useState(""); // State for managing active link
 	const [userInfo, setUserInfo] = useState(null);
-	const [isScrolled, setIsScrolled] = useState(false);
 	const [showSubMenu, setShowSubMenu] = useState(false);
 	const [categories, setCategories] = useState([]);
 	const [subMenuImageToShow, setSubMenuImageToShow] = useState("");
-
-	// This effect adds a scroll event listener to the window. When the user scrolls more than 150 pixels, it updates the isScrolled state to true.
-	useEffect(() => {
-		const handleScroll = () => {
-			setIsScrolled(window.scrollY > 150);
-		};
-
-		window.addEventListener("scroll", handleScroll);
-		// Cleanup function to remove the event listener when the component unmounts
-		return () => window.removeEventListener("scroll", handleScroll);
-	}, []);
 
 	useEffect(() => {
 		const fetchCategories = async () => {
