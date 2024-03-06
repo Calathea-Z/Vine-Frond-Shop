@@ -1,9 +1,8 @@
 import { useRouter } from "next/router";
-import { Fragment, useState, useEffect, useContext } from "react";
+import { useState, useEffect, useContext } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import { motion } from "framer-motion";
-import { Menu } from "@headlessui/react";
 import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image.js";
@@ -46,6 +45,7 @@ const Header = ({ isTopBannerVisible }) => {
 
 		fetchCategories();
 	}, []);
+
 	//Dynamic styling for the banner above the header and if it exists.
 	const headerStyle = {
 		top: isTopBannerVisible ? "30px" : "0px",
@@ -92,7 +92,7 @@ const Header = ({ isTopBannerVisible }) => {
 
 	return (
 		<div className="fixed top-0 left-0 z-50 w-full" style={headerStyle}>
-			<nav className={headerClass}>
+			<nav className={`${headerClass} hidden lg:flex`}>
 				<div className="flex-1 flex items-center justify-start">
 					<ul className="list-none hidden sm:flex flex-row gap-6">
 						{navLinks.map((link) =>
@@ -271,32 +271,6 @@ const Header = ({ isTopBannerVisible }) => {
 							</Link>
 						</li>
 					</ul>
-					<div className="sm:hidden flex flex-1 justify-end items-center w-full z-50">
-						<Menu as="div" className="relative inline-block text-left z-50">
-							<Menu.Button className="inline-flex w-full justify-center rounded-md bg-opacity-20 hover:bg-opacity-30 focus:outline-none focus-visible:ring-2 focus-visible:ring-white focus-visible:ring-opacity-75">
-								<Bars3Icon className="w-8 h-8 mt-3 hover:text-[#caafa8] aria-hidden:true" />
-							</Menu.Button>
-
-							<Menu.Items className="absolute right-0 mt-2 w-[10rem] origin-top-right divide-y divide-gray-100 rounded-lg bg-white shadow-lg ring-1 ring-black ring-opacity-5 focus:outline-none z-50">
-								{navLinks.map((link) => (
-									<Menu.Item key={link.id} as={Fragment}>
-										{({ active }) => (
-											<Link
-												href={`/${link.id}`}
-												className={`${
-													active
-														? "bg-primary text-white"
-														: "bg-white text-slate-800"
-												} group flex w-full items-center rounded-md px-2 py-2 text-sm z-50`}
-											>
-												{link.title}
-											</Link>
-										)}
-									</Menu.Item>
-								))}
-							</Menu.Items>
-						</Menu>
-					</div>
 				</div>
 			</nav>
 		</div>

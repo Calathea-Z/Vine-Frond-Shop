@@ -1,4 +1,5 @@
 import Header from "@/components/mainPage/header/Header";
+import SmallHeader from "@/components/mainPage/header/SmallHeader";
 import Hero from "@/components/mainPage/Hero";
 import Footer from "@/components/mainPage/Footer";
 import FeaturedProducts from "@/components/mainPage/FeaturedProducts";
@@ -57,7 +58,12 @@ export default function Home() {
 			</Head>
 			{isTopBannerVisible && <TopBanner data={topBannerData} />}
 			{isSideButtonEnabled && <SideScrollButton data={sideButtonData} />}
-			<Header isTopBannerVisible={isTopBannerVisible} />
+			<div className="lg:hidden">
+				<SmallHeader />
+			</div>
+			<div className="hidden lg:block">
+				<Header isTopBannerVisible={isTopBannerVisible} />
+			</div>
 			<main
 				className="z-0 relative min-h-screen snap-y snap-mandatory bg-primary"
 				style={mainStyle}
