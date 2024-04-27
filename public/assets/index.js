@@ -5,6 +5,7 @@ import fullLogo from "./logos/fullLogo.jpeg";
 import heroOne from "./hero/newHero1.jpg";
 import heroTwo from "./hero/newHero2.jpg";
 import heroThree from "./hero/newHero3.jpg";
+import cellHero from "./hero/cellphoneVF.jpg";
 //Category Header Photo Imports//
 import ceramicPlates from "./categoryHeaders/ceramicPlates.jpg";
 import ceramicHangingPlanters from "./categoryHeaders/ceramicHangingPlanters.jpg";
@@ -30,6 +31,7 @@ export {
 	heroThree,
 	ceramicNew,
 	ceramicNewTwo,
+	cellHero,
 	//Shop Category Headers//
 	ceramicPlates,
 	ceramicHangingPlanters,
