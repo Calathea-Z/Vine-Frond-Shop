@@ -57,16 +57,16 @@ const Footer = () => {
 	);
 
 	return (
-		<div className="bg-[#f2c88c] flex flex-col justify-center items-center sm:py-1 w-full bottom-0 left-0 right-0 relative">
-			<div className="flex flex-col sm:flex-row justify-between items-center w-full">
-				<div className="flex">{renderLogoImage()}</div>
+		<div className="bg-[#f2c88c] flex flex-col justify-center items-center py-10 md:py-0 w-full bottom-0 left-0 right-0 relative">
+			<div className="flex justify-between items-center w-full">
+				<div className="hidden md:flex">{renderLogoImage()}</div>
 
-				<div className="w-full sm:w-auto flex justify-center -mb-[3rem] translate-x-6">
-					<form className="w-full sm:w-auto bg-white px-3 py-1 rounded-md flex items-center justify-between text-black">
+				<div className="w-full sm:w-auto flex justify-center mb-[3rem ]md:-mb-[3rem] translate-x-6">
+					<form className="w-2/3 sm:w-full bg-white px-3 rounded-md flex items-center justify-between text-black">
 						<div className="flex-grow relative">
 							<label
 								htmlFor="email"
-								className="absolute -top-[3.5rem] left-5 mx-auto w-full text-center bg-none text-black font-amaticSC font-bold rounded-md px-2 py-1 text-4xl"
+								className="absolute -top-[3.5rem] left-5 mx-auto w-full text-center bg-none text-black font-amaticSC font-bold rounded-md px-2 py-1 hidden sm:text-4xl"
 							>
 								Get shop updates
 							</label>
@@ -75,7 +75,7 @@ const Footer = () => {
 								id="email"
 								name="email"
 								placeholder="Email Address"
-								className="w-full bg-white border-none rounded-l-md text-3xl text-black font-amaticSC pl-4 pr-3 py-2 focus:ring-2 focus:ring-white focus:outline-none"
+								className="w-full bg-white border-none rounded-l-md text-md sm:text-3xl text-black font-amaticSC pl-4 pr-3 py-2 focus:ring-2 focus:ring-white focus:outline-none"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
@@ -100,7 +100,10 @@ const Footer = () => {
 					</form>
 				</div>
 
-				<div className="mx-7 mt-7">{renderSocialIcons(58)}</div>
+				<div className="hidden sm:block mx-7 mt-7 mb-7">
+					{renderSocialIcons(58)}
+				</div>
+				<div className="sm:hidden mx-7 mt-7 mb-7">{renderSocialIcons(30)}</div>
 			</div>
 
 			<div className="hidden sm:flex w-full border border-white justify-center items-center" />
@@ -137,7 +140,7 @@ const Footer = () => {
 						</Link>
 					</motion.div>
 				</div>
-				<div className="flex mx-auto sm:mx-0 items-center p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
+				<div className="flex mx-auto sm:mx-0 items-end p-1 sm:p-3 text-xs sm:text-md space-x-2 sm:gap-2">
 					<motion.div whileHover={{ scale: 1.1 }} whileTap={{ scale: 0.9 }}>
 						<Link
 							href="https://zach-sykes.com"

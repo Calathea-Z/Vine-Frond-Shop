@@ -53,21 +53,30 @@ const Hero = () => {
 				</div>
 
 				{/*  Lg and above screen Label */}
-				<div className="hidden mdLg:block absolute top-[9rem] left-2 p-3">
+				<div
+					id="largeLabel"
+					className="hidden mdLg:block absolute top-[9rem] left-2 p-3"
+				>
 					<h2 className="text-slate-900/90 text-4xl  italic bg-primary/90 p-3 rounded-md">
 						🍃 Pots. Plants. Prints.
 					</h2>
 				</div>
 
 				{/* Medium to large screen label*/}
-				<div className="sm:block hidden mdLg:hidden absolute top-[6rem] left-1/2 transform -translate-x-1/2 p-3 w-[35rem]">
+				<div
+					id="mediumLabel"
+					className="md:block hidden mdLg:hidden absolute top-[6rem] left-1/2 transform -translate-x-1/2 p-3 w-[35rem]"
+				>
 					<h2 className="text-slate-900/90 text-4xl italic bg-primary/90 p-5 rounded-md">
 						🍃 Pots. Plants. Prints.
 					</h2>
 				</div>
 
-				<div className="block md:hidden absolute top-[2rem] left-1/2 transform -translate-x-1/2 p-3 w-[30rem]">
-					<h2 className="text-slate-900/90 text-3xl italic bg-primary/90 p-5 rounded-md">
+				<div
+					id="mobileLabel"
+					className="block md:hidden absolute top-[2rem] left-1/2 transform -translate-x-1/2 p-3 w-[20rem]"
+				>
+					<h2 className="text-slate-900/90 text-xl italic bg-primary/90 p-5 rounded-md">
 						🍃 Pots. Plants. Prints.
 					</h2>
 				</div>
@@ -82,7 +91,7 @@ const Hero = () => {
 					<Link
 						href="/allproducts"
 						passHref
-						className="text-lg border-2 border-black bg-white  text-slate-900/90 py-0 px-4 rounded-md hover:border-6 hover:bg-[#ECC89A] transition-all duration-200"
+						className="text-lg border-2 border-black bg-white  text-slate-900/90 py-2 px-6 sm:py-0 sm:px-4 rounded-md hover:border-6 hover:bg-[#ECC89A] transition-all duration-200"
 					>
 						Shop All
 					</Link>
