@@ -4,10 +4,10 @@ import Hero from "@/components/mainPage/Hero";
 import Footer from "@/components/mainPage/Footer";
 import FeaturedProducts from "@/components/mainPage/FeaturedProducts";
 import Head from "next/head";
+import TagLines from "@/components/mainPage/TagLines";
 import TopBanner from "@/components/mainPage/TopBanner";
 import SideScrollButton from "@/components/mainPage/SideScrollButton";
 import client from "@/utils/client";
-import { motion } from "framer-motion";
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
 
@@ -56,14 +56,18 @@ export default function Home() {
 					content="Explore our collection of handmade pottery and houseplants."
 				/>
 			</Head>
+
 			{isTopBannerVisible && <TopBanner data={topBannerData} />}
+
 			{isSideButtonEnabled && <SideScrollButton data={sideButtonData} />}
+
 			<div className="lg:hidden">
 				<SmallHeader />
 			</div>
 			<div className="hidden lg:block">
 				<Header isTopBannerVisible={isTopBannerVisible} />
 			</div>
+
 			<main
 				className="z-0 relative min-h-screen snap-y snap-mandatory bg-primary"
 				style={mainStyle}
@@ -71,40 +75,17 @@ export default function Home() {
 				<section className="snap-start">
 					<Hero />
 				</section>
+
 				<section className="snap-start">
 					<FeaturedProducts />
 				</section>
 
 				<section
-					ref={ref}
+					ref={ref} //The ref is used to monitor when this section comes into the viewport.
 					className="snap-start bg-primary w-full flex justify-center items-center gap-1 font-thin italic text-xl p-3"
 				>
-					<motion.h1
-						whileHover={{
-							scale: 1.1,
-							textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)",
-						}}
-						className="p-2 text-sm sm:text-2xl cursor-pointer"
-						initial={{ x: -1000 }}
-						animate={{ x: inView ? 0 : -1000 }}
-						transition={{ type: "spring", stiffness: 30 }}
-					>
-						@vineandfrond
-					</motion.h1>
-					<motion.h1
-						whileHover={{
-							scale: 1.1,
-							textShadow: "0px 0px 8px rgba(255, 255, 255, 0.8)",
-						}}
-						className="p-2 text-sm sm:text-2xl cursor-pointer"
-						initial={{ x: 1000 }}
-						animate={{ x: inView ? 0 : 1000 }}
-						transition={{ type: "spring", stiffness: 30 }}
-					>
-						#vineandfrond
-					</motion.h1>
+					<TagLines inView={inView} />
 				</section>
-				{/* <InstagramFeed /> */}
 				<section className="snap-end">
 					<Footer />
 				</section>
