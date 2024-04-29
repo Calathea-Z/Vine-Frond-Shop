@@ -74,8 +74,8 @@ const Footer = () => {
 								type="email"
 								id="email"
 								name="email"
-								placeholder="Email Address"
-								className="w-full bg-white border-none rounded-l-md text-md sm:text-3xl text-black font-amaticSC pl-4 pr-3 py-2 focus:ring-2 focus:ring-white focus:outline-none"
+								placeholder="Email"
+								className="w-full bg-white border-none rounded-l-md text-sm sm:text-3xl text-black font-amaticSC pl-4 pr-3 py-2 focus:ring-2 focus:ring-white focus:outline-none"
 								value={email}
 								onChange={(e) => setEmail(e.target.value)}
 							/>
