@@ -136,7 +136,12 @@ const Header = ({ isTopBannerVisible }) => {
 														className="hover:bg-[#ECC89A] rounded-md w-full"
 													>
 														<Link
-															href={`/allproducts/category/${category.title.toLowerCase()}`}
+															href={
+																category.title.trim().toLowerCase() ===
+																"all products"
+																	? "/allproducts"
+																	: `/allproducts/category/${category.title.toLowerCase()}`
+															}
 															className="block text-sm text-gray-700 px-4 py-2 rounded-md hover:font-amaticSC hover:font-semibold hover:text-4xl"
 															onMouseEnter={() =>
 																setSubMenuImageToShow(category.imageUrl)
