@@ -45,8 +45,9 @@ const LoginScreen = () => {
 	const submitHandler = async ({ email, password }) => {
 		try {
 			setIsLoading(true);
+			const emailLowerCase = email.toLowerCase();
 			const { data } = await axios.post(`/api/users/login`, {
-				email,
+				email: emailLowerCase,
 				password,
 			});
 			dispatch({ type: "USER_LOGIN", payload: data });
@@ -62,10 +63,8 @@ const LoginScreen = () => {
 	return (
 		<div className="flex flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
 			<div className="w-3/5 flex justify-center mb-10 md:mb-0">
-				<div className="w-100 h-1/3">
-					<Link href="/" passHref>
-						<Image src={simpleLogo} alt="Vine & Frond logo" />
-					</Link>
+				<div className="w-full h-1/3">
+					<Image src={simpleLogo} alt="Vine & Frond logo" priority />
 				</div>
 			</div>
 			<div className="w-2/5 flex flex-col bg-gray-100 justify-center">
@@ -149,15 +148,24 @@ const LoginScreen = () => {
 							</button>
 						)}
 					</div>
-					<div className="mt-4 text-center">
+					<div className="flex flex-col gap-3 mt-5 text-center justify-end items-end">
 						<Link
 							href="/register"
 							passHref
 							className={`text-sm ${
 								isLoading ? "opacity-50 cursor-not-allowed" : "hover:underline"
-							} text-indigo-600 cursor-pointer`}
+							} text-white cursor-pointer bg-emerald-600 rounded-md px-2 py-1 hover:no-underline hover:opacity-95`}
 						>
 							Create Account
+						</Link>
+						<Link
+							href="/"
+							passHref
+							className={`text-xs ${
+								isLoading ? "opacity-50 cursor-not-allowed" : "hover:underline"
+							} text-black cursor-pointer`}
+						>
+							Continue as Guest
 						</Link>
 					</div>
 				</form>
