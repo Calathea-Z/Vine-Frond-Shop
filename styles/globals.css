@@ -1,62 +1,99 @@
-@import url('https://fonts.googleapis.com/css2?family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100;200;300;400;500;700;800&family=Silkscreen&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Amatic+SC:wght@400;700&family=Indie+Flower&family=Inknut+Antiqua:wght@300;400;500;600;700;800;900&family=Playpen+Sans:wght@100..800&family=Silkscreen&display=swap");
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
+:root {
+	--font-indie-flower: "Indie Flower", cursive;
+	--font-amatic-sc: "Amatic SC", cursive;
+}
 * {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: inknut antiqua, serif;
-  scroll-behavior: smooth;
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	font-family:
+		inknut antiqua,
+		serif;
+	scroll-behavior: smooth;
+}
+
+.slick-prev {
+	left: 0 !important;
+	z-index: 500 !important;
+}
+
+.slick-next {
+	right: 0 !important;
+	z-index: 500 !important;
 }
 
 @layer utilities {
-  .hover-underline-animation {
-    display: inline-block;
-    position: relative;
-  }
-  .hover-underline-animation::after {
-    content: '';
-    position: absolute;
-    width: 100%;
-    transform: scaleX(0);
-    height: 1px;
-    bottom: 0;
-    left: 0;
-    background-color: #caafa8;
-    transform-origin: bottom right;
-    transition: transform 0.5s ease-out;
-  }
-  
-  .hover-underline-animation:hover::after {
-    transform: scaleX(1);
-    transform-origin: bottom left;
-  }
+	.hover-underline-animation {
+		display: inline-block;
+		position: relative;
+	}
+	.hover-underline-animation::after {
+		content: "";
+		position: absolute;
+		width: 100%;
+		transform: scaleX(0);
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		background-color: rgb(5 150 105);
+		opacity: 0.5;
+		transform-origin: bottom right;
+		transition: transform 0.5s ease-out;
+	}
 
-  .shadow-y {
-    box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  }
+	.hover-underline-animation:hover::after {
+		transform: scaleX(1);
+		transform-origin: bottom left;
+	}
 
-  /* For sold out ribbon */
-  .cr {
-  width: 5rem;
-  font-size: .7rem;
-  padding:1px;
-  position: absolute;
-  text-align: center;
-  color: #f0f0f0;
-  }
+	.nav-item:hover .submenu {
+		display: block;
+	}
 
-  .cr-top    { top: 1.1rem; }
-  .cr-right  { right: -.1rem; }
+	.custom-underline {
+		content: "";
+		position: absolute;
+		width: 100%;
+		height: 1px;
+		bottom: 0;
+		left: 0;
+		background-color: em;
+	}
 
-  .cr-top.cr-right{
-    transform: rotate(45deg);
-  }
+	.shadow-y {
+		box-shadow:
+			0 4px 6px -1px rgba(0, 0, 0, 0.1),
+			0 2px 4px -1px rgba(0, 0, 0, 0.06);
+	}
 
-  .cr-red {
-  background-color: #e43;
-  }
+	/* For sold out ribbon */
+	.cr {
+		width: 5rem;
+		font-size: 0.7rem;
+		padding: 1px;
+		position: absolute;
+		text-align: center;
+		color: #f0f0f0;
+	}
 
+	.cr-top {
+		top: 1.1rem;
+	}
+	.cr-right {
+		right: -0.1rem;
+	}
+
+	.cr-top.cr-right {
+		transform: rotate(45deg);
+	}
+
+	.cr-red {
+		background-color: #e43;
+	}
 }

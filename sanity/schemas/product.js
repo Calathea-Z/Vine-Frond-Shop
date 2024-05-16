@@ -19,9 +19,8 @@ export default {
       type: 'array',
       of: [
         {
-          name: 'additionalImage',
           type: 'image',
-          title: 'Additional Image',
+          title: 'Image',
           options: {
             hotspot: true,
           },
@@ -29,9 +28,15 @@ export default {
       ],
     },
     {
+      name: 'tagLine',
+      title: 'Tag Line',
+      type: 'string',
+    },
+    {
       name: 'description',
       title: 'Description',
-      type: 'string',
+      type: 'text',
+      rows: 5,
     },
     {
       name: 'slug',
@@ -45,12 +50,17 @@ export default {
     {
       name: 'category',
       title: 'Category',
-      type: 'string',
+      description: 'Select the primary category for the product',
+      type: 'reference',
+      to: [{type: 'category'}],
+      validation: (Rule) => Rule.required(),
     },
     {
       name: 'subCategory',
       title: 'Sub Category',
-      type: 'string',
+      description: 'Select a subcategory or leave blank if not applicable.',
+      type: 'reference',
+      to: [{type: 'subCategory'}],
     },
     {
       name: 'measurements',
@@ -66,6 +76,13 @@ export default {
       name: 'countInStock',
       title: 'Count In Stock',
       type: 'number',
+    },
+    {
+      name: 'featuredProduct',
+      title: 'Featured Product',
+      type: 'boolean',
+      description:
+        'Toggle on if this is a featured product (**There must be 5 featured products total for the carousel to work!**)',
     },
   ],
 }
