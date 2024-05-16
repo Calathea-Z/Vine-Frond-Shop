@@ -1,16 +1,28 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import Header from "@/components/mainPage/header/Header";
 import Footer from "@/components/mainPage/Footer";
 import OrderHistory from "@/components/userAccount/OrderHistory";
 import Link from "next/link";
-
-const ShippingAddresses = () => (
-	<p>Your shipping addresses will be shown here.</p>
-);
-const Logout = () => <p>You are logged out.</p>;
+import { Store } from "@/utils/Store";
+import jsCookie from "js-cookie";
+import { useRouter } from "next/router";
 
 export default function Account() {
 	const [currentView, setCurrentView] = useState("orderHistory");
+	const { dispatch } = useContext(Store);
+	const router = useRouter();
+
+	const ShippingAddresses = () => (
+		<p>Your shipping addresses will be shown here.</p>
+	);
+
+	const logout = () => {
+		dispatch({ type: "USER_LOGOUT" });
+		jsCookie.remove("userInfo");
+		jsCookie.remove("cartItems");
+		jsCookie.remove("shippingAddress");
+		router.push("/login");
+	};
 
 	// Function to render the current view
 	const renderView = () => {
@@ -19,8 +31,6 @@ export default function Account() {
 				return <OrderHistory />;
 			case "shippingAddresses":
 				return <ShippingAddresses />;
-			case "logout":
-				return <Logout />;
 			default:
 				return <OrderHistory />;
 		}
@@ -49,10 +59,7 @@ export default function Account() {
 								</button>
 							</li>
 							<li className="mb-2">
-								<button
-									onClick={() => setCurrentView("logout")}
-									className="text-xl font-thin italic"
-								>
+								<button onClick={logout} className="text-xl font-thin italic">
 									Logout
 								</button>
 							</li>
