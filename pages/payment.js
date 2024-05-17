@@ -38,68 +38,40 @@ const PaymentScreen = () => {
 	const parsedShippingCost = parseFloat(shippingCost);
 	const totalPrice = parsedShippingCost + taxPrice + itemsPrice;
 
-	const placeOrderHandler = async () => {
-		if (userInfo) {
-			try {
-				const { data } = await axios.post(
-					"/api/orders",
-					{
-						orderItems: cartItems.map((x) => ({
-							...x,
-							countInStock: undefined,
-							slug: undefined,
-						})),
-						shippingInformation: shippingInformation,
-						itemsPrice: itemsPrice,
-						parsedShippingCost: parsedShippingCost,
-						taxPrice: taxPrice,
-						totalPrice: totalPrice.toFixed(2),
-					},
-					{
-						headers: {
-							authorization: `Bearer ${userInfo.token}`,
-						},
-					}
-				);
-				await axios.put("/api/allproducts/updatequantity", {
-					cartItems: cartItems,
-				});
+	const prepareOrderData = () => {
+		return {
+			orderItems: cartItems.map(({ countInStock, slug, ...rest }) => rest),
+			shippingInformation,
+			itemsPrice,
+			parsedShippingCost,
+			taxPrice,
+			totalPrice: totalPrice.toFixed(2),
+		};
+	};
 
-				dispatch({ type: "CART_CLEAR_ITEMS" });
-				jsCookie.remove("cartItems");
-				dispatch({ type: "CLEAR_PAYMENT_STATUS" });
-				jsCookie.remove("orderSuccess");
-				// router.push(`/order/${data}`);
-			} catch (err) {
-				dispatch({ type: "CLEAR_PAYMENT_STATUS" });
-				jsCookie.remove("orderSuccess");
-				enqueueSnackbar(getError(err), { variant: "error" });
-			}
-		} else {
-			try {
-				const { data } = await axios.post("/api/orders", {
-					orderItems: cartItems.map((x) => ({
-						...x,
-						countInStock: undefined,
-						slug: undefined,
-					})),
-					shippingInformation: shippingInformation,
-					itemsPrice: itemsPrice,
-					parsedShippingCost: parsedShippingCost,
-					taxPrice: taxPrice,
-					totalPrice: totalPrice,
-				});
-				await axios.put("/api/allproducts/updatequantity", {
-					cartItems: cartItems,
-				});
-				dispatch({ type: "CART_CLEAR_ITEMS" });
-				jsCookie.remove("cartItems");
-				dispatch({ type: "CLEAR_PAYMENT_STATUS" });
-				jsCookie.remove("orderSuccess");
-				router.push(`/order/${data}`);
-			} catch (err) {
-				enqueueSnackbar(getError(err), { variant: "error" });
-			}
+	const clearCartAndRedirect = async (orderId) => {
+		dispatch({ type: "CART_CLEAR_ITEMS" });
+		jsCookie.remove("cartItems");
+		dispatch({ type: "CLEAR_PAYMENT_STATUS" });
+		jsCookie.remove("orderSuccess");
+		router.push(`/order/${orderId}`);
+	};
+
+	const placeOrderHandler = async () => {
+		try {
+			const orderData = prepareOrderData();
+			const headers = userInfo
+				? { authorization: `Bearer ${userInfo.token}` }
+				: {};
+			const { data: orderId } = await axios.post("/api/orders", orderData, {
+				headers,
+			});
+			await axios.put("/api/allproducts/updateQuantity", { cartItems });
+			await clearCartAndRedirect(orderId);
+		} catch (err) {
+			dispatch({ type: "CLEAR_PAYMENT_STATUS" });
+			jsCookie.remove("orderSuccess");
+			enqueueSnackbar(getError(err), { variant: "error" });
 		}
 	};
 
