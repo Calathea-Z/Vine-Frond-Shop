@@ -46,7 +46,7 @@ const LoginScreen = () => {
 		try {
 			setIsLoading(true);
 			const { data } = await axios.post(`/api/users/login`, {
-				email,
+				email: email.toLowerCase(),
 				password,
 			});
 			dispatch({ type: "USER_LOGIN", payload: data });
@@ -58,14 +58,11 @@ const LoginScreen = () => {
 			setIsLoading(false);
 		}
 	};
-
 	return (
 		<div className="flex flex-row h-screen bg-gray-100 items-center justify-center overflow-hidden">
 			<div className="w-3/5 flex justify-center mb-10 md:mb-0">
 				<div className="w-100 h-1/3">
-					<Link href="/" passHref>
-						<Image src={simpleLogo} alt="Vine & Frond logo" />
-					</Link>
+					<Image src={simpleLogo} alt="Vine & Frond logo" />
 				</div>
 			</div>
 			<div className="w-2/5 flex flex-col bg-gray-100 justify-center">
