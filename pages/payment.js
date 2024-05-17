@@ -53,7 +53,7 @@ const PaymentScreen = () => {
 						itemsPrice: itemsPrice,
 						parsedShippingCost: parsedShippingCost,
 						taxPrice: taxPrice,
-						totalPrice: totalPrice,
+						totalPrice: totalPrice.toFixed(2),
 					},
 					{
 						headers: {
