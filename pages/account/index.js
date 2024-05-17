@@ -4,23 +4,23 @@ import Footer from "@/components/mainPage/Footer";
 import OrderHistory from "@/components/userAccount/OrderHistory";
 import { Store } from "@/utils/Store";
 import { useRouter } from "next/router";
+import jsCookie from "js-cookie";
 
 export default function Account() {
 	const [currentView, setCurrentView] = useState("orderHistory");
 	const router = useRouter();
 	const { state, dispatch } = useContext(Store);
-	const { userInfo } = state;
 
 	const ShippingAddresses = () => (
 		<p>Your shipping addresses will be shown here.</p>
 	);
 
 	const Logout = () => {
-		// Clear all cookies and redirect to home page
-		dispatch({ type: "USER_LOGOUT" }); // Assuming there's a reducer handling this type
+		// Clear user info from cookies, dispatch logout, and redirect to home page
+		jsCookie.remove("userInfo");
+		dispatch({ type: "USER_LOGOUT" });
 		router.push("/");
 	};
-
 	// Function to render the current view
 	const renderView = () => {
 		switch (currentView) {
