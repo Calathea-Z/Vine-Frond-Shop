@@ -16,12 +16,14 @@ const { paymentsApi } = new Client({
 
 export default async function handler(req, res) {
 	try {
+		const amount = Math.round(parseFloat(req.body.amount) * 100);
+
 		const { result } = await paymentsApi.createPayment({
 			idempotencyKey: randomString(),
 			sourceId: req.body.sourceId,
 			amountMoney: {
 				currency: "USD",
-				amount: 100,
+				amount: amount,
 			},
 		});
 		res.status(200).json(result);

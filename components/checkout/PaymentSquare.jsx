@@ -9,7 +9,8 @@ import { Store } from "@/utils/Store";
 import jsCookie from "js-cookie";
 import { PulseLoader } from "react-spinners";
 
-const PaymentSquare = () => {
+const PaymentSquare = ({ totalPrice }) => {
+	console.log("Received Total Price in PaymentSquare:", totalPrice);
 	const { dispatch } = useContext(Store);
 	const [paymentMethod, setPaymentMethod] = useState("card");
 	const [orderSuccess, setOrderSuccess] = useState(false);
@@ -31,7 +32,7 @@ const PaymentSquare = () => {
 			setLoading(true);
 			const response = await axios.post(
 				"/api/payments/squarepay",
-				{ sourceId: token.token },
+				{ sourceId: token.token, amount: totalPrice },
 				{ headers: { "Content-Type": "application/json" } }
 			);
 			if (response.data.payment.status === "COMPLETED") {
@@ -62,7 +63,7 @@ const PaymentSquare = () => {
 								countryCode: "US",
 								currencyCode: "USD",
 								total: {
-									amount: "1.00",
+									amount: totalPrice.toString(),
 									label: "Total",
 								},
 							})}
@@ -93,7 +94,7 @@ const PaymentSquare = () => {
 								countryCode: "US",
 								currencyCode: "USD",
 								total: {
-									amount: "1.00",
+									amount: totalPrice.toString(),
 									label: "Total",
 								},
 							})}

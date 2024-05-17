@@ -281,7 +281,7 @@ const PaymentScreen = () => {
 									</li>
 								</ul>
 							</div>
-							<PaymentSquare />
+							<PaymentSquare totalPrice={totalPrice} />
 						</div>
 					</div>
 				)}
