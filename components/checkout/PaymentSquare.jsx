@@ -1,3 +1,4 @@
+import PaymentMethodSwitcher from "./PaymentMethodSwitcher";
 import {
 	CreditCard,
 	PaymentForm,
@@ -85,6 +86,10 @@ const PaymentSquare = ({ totalPrice }) => {
 				<PulseLoader color="#36d7b7" />
 			) : (
 				<>
+					<PaymentMethodSwitcher
+						paymentMethod={paymentMethod}
+						setPaymentMethod={setPaymentMethod}
+					/>
 					{paymentMethod === "card" && (
 						<PaymentForm
 							applicationId={process.env.NEXT_PUBLIC_SQUARE_APP_ID}
@@ -130,24 +135,6 @@ const PaymentSquare = ({ totalPrice }) => {
 						>
 							<GooglePay />
 						</PaymentForm>
-					)}
-
-					{paymentMethod === "card" && (
-						<button
-							onClick={() => setPaymentMethod("google")}
-							className=" border-gray-400 bg-slate-800 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-green-600 mt-6"
-						>
-							Use Google Pay
-						</button>
-					)}
-
-					{paymentMethod === "google" && (
-						<button
-							onClick={() => setPaymentMethod("card")}
-							className="border-gray-400 bg-slate-800 text-white font-sans text-sm font-semibold border-2 flex justify-center items-center rounded-md p-2 m-2 mx-auto shadow-md hover:bg-green-600 mt-6"
-						>
-							Use Debit / Credit Card
-						</button>
 					)}
 				</>
 			)}
