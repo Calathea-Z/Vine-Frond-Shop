@@ -32,6 +32,7 @@
     "next-connect": "^0.13.0",
     "next-sanity": "^4.1.7",
     "next-sanity-image": "^6.0.0",
+    "nookies": "^2.5.2",
     "notistack": "^3.0.1",
     "path": "^0.12.7",
     "qs": "^6.11.1",

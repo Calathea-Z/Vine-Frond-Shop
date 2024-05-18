@@ -57,7 +57,7 @@ const PaymentSquare = ({ totalPrice }) => {
 				<>
 					{paymentMethod === "card" && (
 						<PaymentForm
-							applicationId="sandbox-sq0idb-Jh0U_iAf4arZphPcQUcmNA"
+							applicationId={process.env.NEXT_PUBLIC_SQUARE_APP_ID}
 							cardTokenizeResponseReceived={handlePaymentFormSubmit}
 							createPaymentRequest={() => ({
 								countryCode: "US",
@@ -67,7 +67,7 @@ const PaymentSquare = ({ totalPrice }) => {
 									label: "Total",
 								},
 							})}
-							locationId="LPBC85G5K72DB"
+							locationId={process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID}
 						>
 							<CreditCard
 								buttonProps={{
@@ -86,7 +86,7 @@ const PaymentSquare = ({ totalPrice }) => {
 
 					{paymentMethod === "google" && (
 						<PaymentForm
-							applicationId="sandbox-sq0idb-Jh0U_iAf4arZphPcQUcmNA"
+							applicationId={process.env.NEXT_PUBLIC_SQUARE_APP_ID}
 							nonceGenerationStarted={function () {}}
 							nonceGenerationCompleted={function () {}}
 							cardNonceResponseReceived={handlePaymentFormSubmit}
@@ -98,7 +98,7 @@ const PaymentSquare = ({ totalPrice }) => {
 									label: "Total",
 								},
 							})}
-							locationId="LPBC85G5K72DB"
+							locationId={process.env.NEXT_PUBLIC_SQUARE_LOCATION_ID}
 						>
 							<GooglePay />
 						</PaymentForm>
