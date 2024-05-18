@@ -22,9 +22,10 @@ export default function ProductScreen(props) {
 		product: null,
 		loading: true,
 		error: "",
+		quantity: 1,
 	});
 
-	const { product, loading, error } = state;
+	const { product, loading, error, quantity } = state;
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -39,14 +40,13 @@ export default function ProductScreen(props) {
 			}
 		};
 		fetchData();
-		console.log(product);
 	}, [slug]);
 
 	const addToCartHandler = async () => {
 		const existItem = cart.cartItems.find((x) => x._id === product._id);
-		const quantity = existItem ? existItem.quantity + 1 : 1;
+		const newQuantity = existItem ? existItem.quantity + quantity : quantity;
 		const { data } = await axios.get(`/api/allproducts/${product._id}`);
-		if (data.countInStock < quantity) {
+		if (data.countInStock < newQuantity) {
 			enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
 			return;
 		}
@@ -60,7 +60,7 @@ export default function ProductScreen(props) {
 				price: product.price,
 				photo: product.photo,
 				shippingWeight: product.shippingWeight,
-				quantity,
+				quantity: newQuantity,
 			},
 		});
 		enqueueSnackbar(`${product.name} added to cart!`, { variant: "success" });
@@ -72,6 +72,22 @@ export default function ProductScreen(props) {
 			.split(".")
 			.map((sentence) => sentence.trim())
 			.filter((sentence) => sentence !== "");
+	};
+
+	const handleQuantityChange = (change) => {
+		const newQuantity = quantity + change;
+		if (newQuantity > 0 && newQuantity <= product.countInStock) {
+			setState({ ...state, quantity: newQuantity });
+		} else {
+			enqueueSnackbar(
+				`We only have ${quantity} ${product.name}s in stock at the moment!`,
+				{
+					variant: "warning",
+					anchorOrigin: { vertical: "top", horizontal: "right" },
+					style: { color: "#000000" }, // Set text color to dark black
+				}
+			);
+		}
 	};
 
 	return (
@@ -130,28 +146,50 @@ export default function ProductScreen(props) {
 										<p className="text-slate-800 text-sm mb-8">
 											{product.measurements}
 										</p>
-										<div className="flex justify-center">
+										<div className="flex flex-col items-center justify-center">
 											{product.countInStock > 0 ? (
-												<motion.div
-													whileHover={{
-														rotate: [0, 8, -8, 8, 0],
-														transition: { duration: 0.4 },
-													}}
-													className="inline-block"
-												>
-													<button
-														className="bg-emerald-400 border-gray-800 border-[.1rem] rounded px-4 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3"
-														onClick={addToCartHandler}
+												<>
+													<div className="flex items-center mb-4 text-lg">
+														<span className="mr-4">Quantity:</span>
+														<div className="flex items-center">
+															<button
+																className="bg-black text-white w-6 h-6 rounded-full flex items-center justify-center"
+																onClick={() => handleQuantityChange(-1)}
+																disabled={quantity <= 1}
+															>
+																-
+															</button>
+															<span className="mx-3 font-amaticSC font-bold text-3xl">
+																{quantity}
+															</span>
+															<button
+																className="bg-black text-white w-6 h-6 rounded-full flex items-center justify-center"
+																onClick={() => handleQuantityChange(1)}
+															>
+																+
+															</button>
+														</div>
+													</div>
+													<motion.div
+														whileHover={{
+															rotate: [0, 8, -8, 8, 0],
+															transition: { duration: 0.4 },
+														}}
+														className="inline-block"
 													>
-														Add to Cart
-													</button>
-												</motion.div>
+														<button
+															className="bg-emerald-400 border-gray-800 border-[.1rem] rounded px-20 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3"
+															onClick={addToCartHandler}
+														>
+															Add to Cart
+														</button>
+													</motion.div>
+												</>
 											) : (
 												<button
 													className="bg-rose-400 cursor-not-allowed border-gray-800 border-[.1rem] rounded px-4 py-3 mt-4 mb-8 flex items-center justify-center gap-3"
 													disabled
 												>
-													<XCircleIcon className="w-5 h-5" />
 													Sold Out
 												</button>
 											)}
