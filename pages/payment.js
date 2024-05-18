@@ -54,7 +54,7 @@ const PaymentScreen = () => {
 		jsCookie.remove("cartItems");
 		dispatch({ type: "CLEAR_PAYMENT_STATUS" });
 		jsCookie.remove("orderSuccess");
-		router.push(`/order/${orderId}`);
+		router.push(`/order/details/${orderId}`);
 	};
 
 	const placeOrderHandler = async () => {

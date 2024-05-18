@@ -65,7 +65,7 @@ const OrderSuccessScreen = ({ params }) => {
 	} = order;
 
 	return (
-		<div className="h-screen flex flex-col justify-around">
+		<div className="h-screen flex flex-col justify-around mt-12">
 			<Header />
 			{loading && (
 				<div className="flex justify-center items-center flex-col flex-grow">
@@ -73,7 +73,7 @@ const OrderSuccessScreen = ({ params }) => {
 				</div>
 			)}
 			{!loading && (
-				<div className="flex flex-col h-screen flex-grow w-full justify-center items-center bg-primary">
+				<div className="flex flex-col min-h-screen flex-grow w-full justify-center items-center bg-primary">
 					<div className="grid grid-cols-2 grid-row-1 p-2 border-2 border-black/90 rounded-md">
 						<div className="flex justify-between p-4">
 							<div className="flex flex-col gap-2 items-center">

@@ -84,7 +84,9 @@ const PaymentSquare = ({ totalPrice }) => {
 		<div className="p-6 min-w-[350px]">
 			{error && <div className="text-red-500 mb-4">{error}</div>}
 			{loading ? (
-				<PulseLoader color="#36d7b7" />
+				<div className="flex justify-center items-center">
+					<PulseLoader color="#36d7b7" size={40} />
+				</div>
 			) : (
 				<>
 					<PaymentMethodSwitcher
