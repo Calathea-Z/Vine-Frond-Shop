@@ -2,6 +2,7 @@ import {
 	CreditCard,
 	PaymentForm,
 	GooglePay,
+	payments,
 } from "react-square-web-payments-sdk";
 import { useState, useContext, useEffect } from "react";
 import axios from "axios";
@@ -10,7 +11,6 @@ import jsCookie from "js-cookie";
 import { PulseLoader } from "react-spinners";
 
 const PaymentSquare = ({ totalPrice }) => {
-	console.log("Received Total Price in PaymentSquare:", totalPrice);
 	const { dispatch } = useContext(Store);
 	const [paymentMethod, setPaymentMethod] = useState("card");
 	const [orderSuccess, setOrderSuccess] = useState(false);
@@ -47,6 +47,36 @@ const PaymentSquare = ({ totalPrice }) => {
 			setLoading(false);
 		}
 	};
+
+	// Initialize Google Pay
+	useEffect(() => {
+		const initializeGooglePay = async () => {
+			if (!payments) {
+				console.error("Square Web Payments SDK is not loaded.");
+				return;
+			}
+
+			try {
+				const paymentRequest = payments.paymentRequest({
+					countryCode: "US",
+					currencyCode: "USD",
+					total: {
+						amount: totalPrice.toString(),
+						label: "Total",
+					},
+				});
+
+				const googlePay = await payments.googlePay(paymentRequest);
+				await googlePay.attach("#google-pay-button");
+			} catch (error) {
+				console.error("Initializing Google Pay failed", error);
+			}
+		};
+
+		if (paymentMethod === "google") {
+			initializeGooglePay();
+		}
+	}, [paymentMethod, totalPrice]);
 
 	return (
 		<div className="p-6 min-w-[350px]">
@@ -87,9 +117,7 @@ const PaymentSquare = ({ totalPrice }) => {
 					{paymentMethod === "google" && (
 						<PaymentForm
 							applicationId={process.env.NEXT_PUBLIC_SQUARE_APP_ID}
-							nonceGenerationStarted={function () {}}
-							nonceGenerationCompleted={function () {}}
-							cardNonceResponseReceived={handlePaymentFormSubmit}
+							cardTokenizeResponseReceived={handlePaymentFormSubmit}
 							createPaymentRequest={() => ({
 								countryCode: "US",
 								currencyCode: "USD",
