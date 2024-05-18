@@ -16,3 +16,6 @@ export const navLinks = [
 		title: "Stockists",
 	},
 ];
+
+export const CURRENCY_CODE = "USD";
+export const COUNTRY_CODE = "US";

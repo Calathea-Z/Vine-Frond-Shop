@@ -10,6 +10,7 @@ import axios from "axios";
 import { Store } from "@/utils/Store";
 import jsCookie from "js-cookie";
 import { PulseLoader } from "react-spinners";
+import { CURRENCY_CODE, COUNTRY_CODE } from "../../constants/index.js";
 
 const PaymentSquare = ({ totalPrice }) => {
 	const { dispatch } = useContext(Store);
@@ -59,8 +60,8 @@ const PaymentSquare = ({ totalPrice }) => {
 
 			try {
 				const paymentRequest = payments.paymentRequest({
-					countryCode: "US",
-					currencyCode: "USD",
+					countryCode: COUNTRY_CODE,
+					currencyCode: CURRENCY_CODE,
 					total: {
 						amount: totalPrice.toString(),
 						label: "Total",
@@ -95,8 +96,8 @@ const PaymentSquare = ({ totalPrice }) => {
 							applicationId={process.env.NEXT_PUBLIC_SQUARE_APP_ID}
 							cardTokenizeResponseReceived={handlePaymentFormSubmit}
 							createPaymentRequest={() => ({
-								countryCode: "US",
-								currencyCode: "USD",
+								countryCode: COUNTRY_CODE,
+								currencyCode: CURRENCY_CODE,
 								total: {
 									amount: totalPrice.toString(),
 									label: "Total",
@@ -124,8 +125,8 @@ const PaymentSquare = ({ totalPrice }) => {
 							applicationId={process.env.NEXT_PUBLIC_SQUARE_APP_ID}
 							cardTokenizeResponseReceived={handlePaymentFormSubmit}
 							createPaymentRequest={() => ({
-								countryCode: "US",
-								currencyCode: "USD",
+								countryCode: COUNTRY_CODE,
+								currencyCode: CURRENCY_CODE,
 								total: {
 									amount: totalPrice.toString(),
 									label: "Total",
