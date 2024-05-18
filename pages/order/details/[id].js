@@ -1,9 +1,11 @@
+//App
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
-import dynamic from "next/dynamic";
 import { Store } from "@/utils/Store";
-import { useContext, useReducer, useEffect } from "react";
 import { getError } from "@/utils/error";
+//Packages
+import { useContext, useReducer, useEffect } from "react";
+import dynamic from "next/dynamic";
 import axios from "axios";
 import { ClipLoader } from "react-spinners";
 

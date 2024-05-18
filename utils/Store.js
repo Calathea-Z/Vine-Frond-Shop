@@ -1,5 +1,5 @@
-import Cookies from "js-cookie";
 import { createContext, useReducer, useEffect } from "react";
+import Cookies from "js-cookie";
 
 export const Store = createContext(); // Create a React context for global state management
 
@@ -12,6 +12,7 @@ const defaultInitialState = {
 		paymentSuccess: false,
 	},
 	userInfo: null,
+	isCartVisible: false,
 };
 
 // Reducer function to handle state changes based on dispatched actions
@@ -98,6 +99,12 @@ function reducer(state, action) {
 				...state,
 				cart: { ...state.cart, orderSuccess: false },
 			};
+		}
+		case "SHOW_CART": {
+			return { ...state, isCartVisible: true };
+		}
+		case "HIDE_CART": {
+			return { ...state, isCartVisible: false };
 		}
 		case "INITIALIZE_STATE": {
 			// Initialize state with values from cookies

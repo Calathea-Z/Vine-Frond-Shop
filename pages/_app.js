@@ -1,9 +1,12 @@
+//App
 import "@/styles/globals.css";
+import { StoreProvider } from "@/utils/Store";
+import Cart from "@/components/checkout/Cart";
+//Packages
+import App from "next/app";
+import nookies from "nookies";
 import "slick-carousel/slick/slick.css";
 import "slick-carousel/slick/slick-theme.css";
-import nookies from "nookies";
-import App from "next/app";
-import { StoreProvider } from "@/utils/Store";
 import { SnackbarProvider } from "notistack";
 
 export default class MyApp extends App {
@@ -17,10 +20,11 @@ export default class MyApp extends App {
 		const { Component, pageProps, initialCookies } = this.props;
 		return (
 			<SnackbarProvider
-				anchorOrigin={{ vertical: "bottom", horizontal: "right" }}
+				anchorOrigin={{ vertical: "bottom", horizontal: "left" }}
 				autoHideDuration={3000}
 			>
 				<StoreProvider initialCookies={initialCookies}>
+					<Cart />
 					<Component {...pageProps} />
 				</StoreProvider>
 			</SnackbarProvider>

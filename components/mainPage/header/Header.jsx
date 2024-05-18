@@ -1,20 +1,22 @@
-import { useRouter } from "next/router";
-import { useState, useEffect, useContext } from "react";
+//App
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
-import { motion } from "framer-motion";
-import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image.js";
-import Cookies from "js-cookie";
-import Image from "next/image";
-import Link from "next/link";
 import client from "@/utils/client";
 import useScroll from "@/hooks/useScroll";
+//Packages
+import { useState, useEffect, useContext } from "react";
+import { useRouter } from "next/router";
+import Image from "next/image";
+import Link from "next/link";
+import { motion } from "framer-motion";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
+import Cookies from "js-cookie";
 
 const Header = ({ isTopBannerVisible }) => {
 	const { state, dispatch } = useContext(Store);
-	const { cart } = state;
+	const { cart, isCartVisible } = state;
 	const router = useRouter();
 	const isScrolled = useScroll();
 
@@ -23,6 +25,10 @@ const Header = ({ isTopBannerVisible }) => {
 	const [showSubMenu, setShowSubMenu] = useState(false);
 	const [categories, setCategories] = useState([]);
 	const [subMenuImageToShow, setSubMenuImageToShow] = useState("");
+
+	const toggleCart = () => {
+		dispatch({ type: isCartVisible ? "HIDE_CART" : "SHOW_CART" });
+	};
 
 	useEffect(() => {
 		const fetchCategories = async () => {
@@ -61,15 +67,6 @@ const Header = ({ isTopBannerVisible }) => {
 	const logoClass = `content-fill ${
 		isScrolled ? "w-[90px]" : "w-[150px]"
 	} flex-initial`;
-
-	// Handler for logging out the user
-	const logOutHandler = () => {
-		dispatch({ type: "USER_LOGOUT" });
-		Cookies.remove("userInfo");
-		Cookies.remove("cartItems");
-		Cookies.remove("shippingAddress");
-		setUserInfo(null);
-	};
 
 	// Effect hook to update user info from cookies
 	useEffect(() => {
@@ -262,8 +259,8 @@ const Header = ({ isTopBannerVisible }) => {
 							</Link>
 						</li>
 						<li>
-							<Link
-								href="/cart"
+							<button
+								onClick={toggleCart}
 								className={`inline-flex items-center ${
 									isScrolled
 										? "bg-primary rounded-md text-[12px]" // Smaller size when scrolled
@@ -271,12 +268,11 @@ const Header = ({ isTopBannerVisible }) => {
 								} hover-underline-animation font-thin ${
 									isScrolled ? "text-[13px]" : "text-[18px] xl:text-[20px]"
 								} cursor-pointer text-black`}
-								passHref
 							>
 								<span>
 									Cart ({cart.cartItems.reduce((a, c) => a + c.quantity, 0)})
 								</span>
-							</Link>
+							</button>
 						</li>
 					</ul>
 				</div>

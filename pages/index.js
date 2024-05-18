@@ -3,17 +3,23 @@ import SmallHeader from "@/components/mainPage/header/SmallHeader";
 import Hero from "@/components/mainPage/Hero";
 import Footer from "@/components/mainPage/Footer";
 import FeaturedProducts from "@/components/mainPage/FeaturedProducts";
-import Head from "next/head";
 import TagLines from "@/components/mainPage/TagLines";
 import TopBanner from "@/components/mainPage/TopBanner";
 import SideScrollButton from "@/components/mainPage/SideScrollButton";
 import client from "@/utils/client";
+//Packages
 import { useInView } from "react-intersection-observer";
 import { useEffect, useState } from "react";
+import Head from "next/head";
 
 export default function Home() {
 	const [topBannerData, setTopBannerData] = useState({});
 	const [sideButtonData, setSideButtonData] = useState({});
+	const [isCartVisible, setIsCartVisible] = useState(false);
+
+	const toggleCart = () => {
+		setIsCartVisible(!isCartVisible);
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
