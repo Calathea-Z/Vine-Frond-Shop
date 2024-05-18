@@ -3,7 +3,7 @@ import { useState, useEffect, useContext } from "react";
 import { simpleLogo } from "@/public/assets";
 import { navLinks } from "@/constants";
 import { motion } from "framer-motion";
-import { MagnifyingGlassIcon, Bars3Icon } from "@heroicons/react/24/solid";
+import { MagnifyingGlassIcon } from "@heroicons/react/24/solid";
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image.js";
 import Cookies from "js-cookie";
@@ -13,7 +13,8 @@ import client from "@/utils/client";
 import useScroll from "@/hooks/useScroll";
 
 const Header = ({ isTopBannerVisible }) => {
-	const { dispatch } = useContext(Store);
+	const { state, dispatch } = useContext(Store);
+	const { cart } = state;
 	const router = useRouter();
 	const isScrolled = useScroll();
 
@@ -272,7 +273,9 @@ const Header = ({ isTopBannerVisible }) => {
 								} cursor-pointer text-black`}
 								passHref
 							>
-								Cart (0)
+								<span>
+									Cart ({cart.cartItems.reduce((a, c) => a + c.quantity, 0)})
+								</span>
 							</Link>
 						</li>
 					</ul>
