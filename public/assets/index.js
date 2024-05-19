@@ -20,6 +20,8 @@ import totes from "./categoryHeaders/totes.jpg";
 import sadCart from "./otherPhotos/sadCart.png";
 //Bio Photo//
 import bioPic from "./otherPhotos/sydney.png";
+//Cart Background
+import emptyCart from "./otherPhotos/emptyCart.png";
 
 export {
 	//logos//
@@ -44,4 +46,6 @@ export {
 	sadCart,
 	//Bio Photo//
 	bioPic,
+	//Empty Cart Background
+	emptyCart,
 };

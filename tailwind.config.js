@@ -28,6 +28,10 @@ module.exports = {
 				indieFlower: ["'Indie Flower'", "cursive"],
 				amaticSC: ["'Amatic SC'", "cursive"],
 			},
+			backgroundImage: {
+				"cart-background":
+					"url('/public/assets/otherPhotos/pots_background.jpeg')",
+			},
 		},
 	},
 	variants: {

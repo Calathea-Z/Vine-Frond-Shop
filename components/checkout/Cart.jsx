@@ -2,6 +2,7 @@
 import { Store } from "@/utils/Store";
 import { urlFor } from "@/utils/image";
 import { sadCart } from "@/public/assets/index";
+import { emptyCart } from "@/public/assets/index";
 // Packages
 import { useContext, useEffect } from "react";
 import Image from "next/image";
@@ -82,42 +83,42 @@ const Cart = () => {
 					animate={{ x: "0%" }}
 					exit={{ x: "100%" }}
 					transition={{ type: "spring", stiffness: 260, damping: 20 }}
-					className="fixed right-0 top-0 w-[30%] h-screen bg-white z-50 shadow-lg rounded-lg"
+					className="fixed right-0 top-0 w-[30%] h-screen bg-gradient-to-tr from-secondary to-white z-50 shadow-lg rounded-lg"
 				>
-					<button
-						onClick={closeCartHandler}
-						className="absolute top-4 left-4 bg-black p-2 rounded-full"
-					>
-						<XMarkIcon className="h-4 w-4 text-white" />
-					</button>
+					<div className="flex justify-between items-center p-5 border-b border-black">
+						<button
+							onClick={closeCartHandler}
+							className="bg-black p-2 rounded-full"
+						>
+							<XMarkIcon className="h-4 w-4 text-white" />
+						</button>
+						<h1 className="text-md sm:text-2xl underline decoration-primary underline-offset-4 decoration-1">
+							Cart ({cartItems.reduce((a, c) => a + c.quantity, 0)})
+						</h1>
+					</div>
 					<div className="flex-grow overflow-y-auto mt-6 flex flex-col p-5">
-						<div className="w-full flex items-center sm:p-6 flex-col bg-white">
-							<h1 className="text-xl sm:text-4xl underline decoration-primary underline-offset-4 decoration-1 ">
-								Cart
-							</h1>
-						</div>
-
-						<div className="flex-grow p-2 sm:p-10 bg-white">
+						<div className="flex-grow p-2 sm:p-1 bg-transparent">
 							{cartItems.length === 0 ? (
 								<div className="flex flex-col items-center justify-around">
 									<div className="p-6 rounded-md">
 										<Image
-											src={sadCart}
+											src={emptyCart}
 											alt="empty cart"
-											width={150}
-											height={150}
+											width={275}
+											height={275}
+											className="rounded-lg"
 										/>
 									</div>
 									<div className="p-4">
 										<h1 className="self-start pl-2 text-xl font-serif text-black">
-											Nothing added yet
+											Your cart is empty
 										</h1>
 									</div>
 								</div>
 							) : (
 								cartItems.map((item, index) => (
 									<div
-										className="flex justify-between items-center py-4 border-b border-gray-200"
+										className="flex justify-between items-center py-4 border-b border-black"
 										key={item._id || index}
 									>
 										<div className="flex items-center space-x-4">
@@ -130,46 +131,53 @@ const Cart = () => {
 													className="rounded-md"
 												/>
 											</Link>
-											<div>
-												<h2 className="text-lg font-bold">{item.name}</h2>
-												<p className="text-sm">QTY: {item.quantity}</p>
+											<div className="flex flex-col gap-3">
+												<h2 className="text-xs font-bold">{item.name}</h2>
+												<div className="flex items-center gap-3">
+													<div className="space-x-2">
+														<button
+															onClick={() =>
+																updateCartHandler(item, item.quantity - 1)
+															}
+															className="bg-primary rounded-full p-1 hover:bg-gray-200 text-xl font-bold"
+														>
+															-
+														</button>
+														<button
+															onClick={() =>
+																updateCartHandler(item, item.quantity + 1)
+															}
+															className="bg-primary rounded-full p-1 hover:bg-gray-200 text-xl font-bold"
+														>
+															+
+														</button>
+													</div>
+													<p className="text-sm font-serif">
+														QTY: {item.quantity}
+													</p>
+												</div>
 											</div>
 										</div>
-										<div className="flex items-center space-x-4">
-											<p className="text-lg font-bold">${item.price}</p>
-											<div className="flex items-center space-x-2">
+										<div className="flex flex-col items-center gap-4">
+											<p className="text-md font-bold">
+												${item.price * item.quantity}
+											</p>
+											<div className="mt-auto">
 												<button
-													onClick={() =>
-														updateCartHandler(item, item.quantity - 1)
-													}
-													className="bg-gray-200 p-1 rounded"
+													onClick={() => removeItemHandler(item)}
+													className="text-red-600 text-xs rounded-lg p-1 hover:bg-slate-50"
 												>
-													-
-												</button>
-												<span>{item.quantity}</span>
-												<button
-													onClick={() =>
-														updateCartHandler(item, item.quantity + 1)
-													}
-													className="bg-gray-200 p-1 rounded"
-												>
-													+
+													Remove
 												</button>
 											</div>
-											<button
-												onClick={() => removeItemHandler(item)}
-												className="text-red-500"
-											>
-												Remove
-											</button>
 										</div>
 									</div>
 								))
 							)}
 						</div>
-						<div className="fixed inset-x-0 bottom-0 p-6 h-1/5 bg-white shadow-lg">
+						<div className="fixed inset-x-0 bottom-0 p-6 h-1/5 bg-transparent shadow-lg">
 							{cartItems.length > 0 ? (
-								<div className="border-t w-full border-gray-200">
+								<div className="border-t w-full border-white">
 									<div className="flex justify-between p-6">
 										<span className="text-lg font-bold">Subtotal</span>
 										<span className="text-lg font-bold">
@@ -178,8 +186,8 @@ const Cart = () => {
 									</div>
 									<div className="flex justify-between mt-2 gap-2">
 										<button
-											onClick={() => router.push("/allproducts")}
-											className="bg-gray-200 text-black px-4 py-2 w-1/2 rounded"
+											onClick={closeCartHandler}
+											className="bg-white text-black px-4 py-2 w-1/2 rounded"
 										>
 											Continue Shopping
 										</button>
@@ -193,7 +201,7 @@ const Cart = () => {
 								</div>
 							) : (
 								<div className="flex justify-center mt-4">
-									<div className="p-4 rounded-md bg-black text-white">
+									<div className="p-4 rounded-md bg-white text-black">
 										<button onClick={closeCartHandler}>
 											Continue Shopping
 										</button>
