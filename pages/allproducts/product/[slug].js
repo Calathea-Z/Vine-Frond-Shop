@@ -1,20 +1,21 @@
+//App
 import client from "@/utils/client";
-import ClipLoader from "react-spinners/ClipLoader";
+import { Store } from "@/utils/Store";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
-import axios from "axios";
-import Image from "next/image";
-import { motion } from "framer-motion";
-import { Store } from "@/utils/Store";
-import { useSnackbar } from "notistack";
-import { useEffect, useState, useContext } from "react";
-import { XCircleIcon } from "@heroicons/react/24/outline";
 import { urlFor } from "@/utils/image.js";
+//Packages
+import { useEffect, useState, useContext } from "react";
+import Image from "next/image";
+import ClipLoader from "react-spinners/ClipLoader";
+import axios from "axios";
+import { motion } from "framer-motion";
+import { useSnackbar } from "notistack";
 
 export default function ProductScreen(props) {
 	const { slug } = props;
 	const {
-		state: { cart },
+		state: { cart, isCartVisible },
 		dispatch,
 	} = useContext(Store);
 	const { enqueueSnackbar } = useSnackbar();
@@ -24,8 +25,11 @@ export default function ProductScreen(props) {
 		error: "",
 		quantity: 1,
 	});
-
 	const { product, loading, error, quantity } = state;
+
+	const toggleCart = () => {
+		dispatch({ type: isCartVisible ? "HIDE_CART" : "SHOW_CART" });
+	};
 
 	useEffect(() => {
 		const fetchData = async () => {
@@ -50,6 +54,7 @@ export default function ProductScreen(props) {
 			enqueueSnackbar("Sorry. Product is out of stock", { variant: "error" });
 			return;
 		}
+		toggleCart(); // Utilizing the toggleCart function to make the code cleaner
 		dispatch({
 			type: "CART_ADD_ITEM",
 			payload: {
@@ -172,13 +177,13 @@ export default function ProductScreen(props) {
 													</div>
 													<motion.div
 														whileHover={{
-															rotate: [0, 8, -8, 8, 0],
+															rotate: [0, 1, -1, 1, 0],
 															transition: { duration: 0.4 },
 														}}
 														className="inline-block"
 													>
 														<button
-															className="bg-emerald-400 border-gray-800 border-[.1rem] rounded px-20 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3"
+															className="bg-emerald-400/70 border-gray-800 border-[.1rem] rounded px-20 py-3 hover:border-blue-400 mt-4 mb-8 flex items-center justify-center gap-3"
 															onClick={addToCartHandler}
 														>
 															Add to Cart
