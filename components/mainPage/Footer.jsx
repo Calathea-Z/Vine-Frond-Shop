@@ -1,10 +1,11 @@
+//App
+import { simpleLogo } from "@/public/assets";
+//Packages
+import React, { useState, useEffect } from "react";
 import Link from "next/link";
 import Image from "next/image";
-import React, { useState, useEffect } from "react";
-import { simpleLogo } from "@/public/assets";
-import { SocialIcon } from "react-social-icons";
-import { EnvelopeIcon } from "@heroicons/react/24/outline";
 import { useRouter } from "next/router";
+import { SocialIcon } from "react-social-icons";
 import { motion } from "framer-motion";
 
 const Footer = () => {

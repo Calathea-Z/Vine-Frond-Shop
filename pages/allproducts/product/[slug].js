@@ -3,6 +3,7 @@ import client from "@/utils/client";
 import { Store } from "@/utils/Store";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
+import Modal from "@/components/store/Modal";
 import { urlFor } from "@/utils/image.js";
 //Packages
 import { useEffect, useState, useContext } from "react";
@@ -26,6 +27,18 @@ export default function ProductScreen(props) {
 		quantity: 1,
 	});
 	const { product, loading, error, quantity } = state;
+	const [selectedImage, setSelectedImage] = useState(null);
+	const [isModalOpen, setIsModalOpen] = useState(false);
+
+	const openModal = (image) => {
+		setSelectedImage(image);
+		setIsModalOpen(true);
+	}
+
+	const closeModal = () => {
+		setIsModalOpen(false);
+		setSelectedImage(null);
+	}
 
 	const toggleCart = () => {
 		dispatch({ type: isCartVisible ? "HIDE_CART" : "SHOW_CART" });
@@ -113,7 +126,8 @@ export default function ProductScreen(props) {
 									{product.photo.map((photo, index) => (
 										<div
 											key={index}
-											className="flex justify-center items-center rounded-[.3rem]"
+											className="flex justify-center items-center rounded-[.3rem] cursor-pointer"
+											onClick={() => openModal(photo)}
 										>
 											<Image
 												src={urlFor(photo.asset._ref).url()}
@@ -227,6 +241,17 @@ export default function ProductScreen(props) {
 					</div>
 				)}
 			</div>
+			<Modal isOpen={isModalOpen} onClose={closeModal}>
+				{selectedImage && selectedImage.asset && selectedImage.asset._ref && (
+					<Image
+						src={urlFor(selectedImage.asset._ref).url()}
+						alt={`Enlarged image of ${product.name}`}
+						width={1024}
+						height={768}
+						layout="responsive"
+					/>
+				)}
+			</Modal>
 			<div className="mt-auto">
 				<Footer />
 			</div>
@@ -239,3 +264,4 @@ export function getServerSideProps(context) {
 		props: { slug: context.params.slug },
 	};
 }
+
