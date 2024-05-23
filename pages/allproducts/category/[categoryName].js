@@ -1,7 +1,4 @@
-import { useEffect, useState } from "react";
-import { useRouter } from "next/router";
-import { SunIcon } from "@heroicons/react/24/solid";
-import { PropagateLoader } from "react-spinners";
+//App
 import client from "@/utils/client";
 import ProductItem from "@/components/store/ProductItem";
 import Footer from "@/components/mainPage/Footer";
@@ -9,11 +6,17 @@ import Header from "@/components/mainPage/header/Header";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import Filters from "@/components/store/Filters";
 import Sort from "@/components/store/Sort";
+//Packages
+import { useEffect, useState } from "react";
+import { useRouter } from "next/router";
+import { SunIcon } from "@heroicons/react/24/solid";
+import { PropagateLoader } from "react-spinners";
 
 const CategoryProducts = () => {
 	const [products, setProducts] = useState([]);
 	const [loading, setLoading] = useState(true);
 	const [error, setError] = useState("");
+	const [selectedFilters, setSelectedFilters] = useState([]);
 
 	const router = useRouter();
 	const { categoryName } = router.query;
@@ -59,6 +62,11 @@ const CategoryProducts = () => {
 		fetchData();
 	}, [router.isReady, categoryName]);
 
+	const handleFilterChange = (filters) => {
+		console.log("Selected Filters:", filters);
+		setSelectedFilters(filters);
+	};
+
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
 			<Header />
@@ -73,7 +81,11 @@ const CategoryProducts = () => {
 			<div className="flex justify-between items-center bg-primary px-2 gap-3">
 				<div className="flex justify-between items-start w-screen">
 					<div class="max-w-xs">
-						<Filters productTypes={[categoryName]} />
+						<Filters
+							key={categoryName}
+							productTypes={[categoryName]}
+							onFilterChange={handleFilterChange}
+						/>
 					</div>
 					<div className=" max-w-xs">
 						<Sort />

@@ -1,31 +1,35 @@
+//Packages
 import { useState, useEffect } from "react";
 import { PlusIcon, MinusIcon, XMarkIcon } from "@heroicons/react/24/outline";
 
-const Filters = ({ productTypes = [] }) => {
+const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 	const [isOpen, setIsOpen] = useState(false);
-	const [checkedStates, setCheckedStates] = useState({});
-	const [selectedFilters, setSelectedFilters] = useState([]);
+	const [checkedStates, setCheckedStates] = useState(() =>
+		productTypes.reduce((acc, type) => {
+			acc[type] = true; // Initialize all as checked
+			return acc;
+		}, {})
+	);
+	const [selectedFilters, setSelectedFilters] = useState(productTypes); // Initialize with all types
 	const [selectedPriceRange, setSelectedPriceRange] = useState("All Prices");
 	const [excludeOutOfStock, setExcludeOutOfStock] = useState(false);
 
 	useEffect(() => {
-		// Initialize or update the checkedStates based on productTypes
-		const initialCheckedStates = productTypes.reduce((acc, type) => {
-			acc[type] = productTypes.length === 1; // Auto-select if only one type
-			return acc;
-		}, {});
-		setCheckedStates(initialCheckedStates);
-	}, [productTypes]);
+		onFilterChange(selectedFilters);
+	}, [selectedFilters]); // Effect to propagate changes
 
 	const handleCheckboxChange = (type) => {
 		setCheckedStates((prevStates) => ({
 			...prevStates,
 			[type]: !prevStates[type],
 		}));
-		const newFilters = selectedFilters.includes(type)
-			? selectedFilters.filter((filter) => filter !== type)
-			: [...selectedFilters, type];
-		setSelectedFilters(newFilters);
+
+		setSelectedFilters((prevFilters) => {
+			const newFilters = prevFilters.includes(type)
+				? prevFilters.filter((filter) => filter !== type)
+				: [...prevFilters, type];
+			return newFilters;
+		});
 	};
 
 	const handlePriceRangeChange = (price) => {

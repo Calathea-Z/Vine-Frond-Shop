@@ -1,43 +1,83 @@
-import { useEffect, useState } from "react";
-import client from "@/utils/client";
-import { PropagateLoader } from "react-spinners";
+//App
 import ProductItem from "@/components/store/ProductItem";
 import Filters from "@/components/store/Filters";
 import Footer from "@/components/mainPage/Footer";
 import Header from "@/components/mainPage/header/Header";
 import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import Sort from "@/components/store/Sort";
+//Packages
+import { useEffect, useState, useCallback } from "react";
+import client from "@/utils/client";
+import { PropagateLoader } from "react-spinners";
 
 const AllProducts = () => {
 	const [state, setState] = useState({
 		products: [],
 		error: "",
 		loading: true,
+		filters: [],
 	});
 
-	const { loading, error, products } = state;
+	const { loading, error, products, filters } = state;
+
+	const fetchData = async () => {
+		if (!filters || filters.length === 0) {
+			console.log("No filters set, skipping fetch");
+			return;
+		}
+		setState((prevState) => ({ ...prevState, loading: true, error: "" }));
+
+		try {
+			let baseQuery = '*[_type == "product"';
+			if (filters && filters.length > 0) {
+				const filterQuery = ` && (category->title in [${filters
+					.map((f) => `"${f}"`)
+					.join(", ")}])`;
+				baseQuery += filterQuery;
+			}
+			baseQuery += "]";
+			console.log("Final query:", baseQuery);
+
+			const products = await client.fetch(baseQuery);
+			if (!Array.isArray(products)) {
+				throw new Error("Fetch did not return an array");
+			}
+
+			if (products.length === 0) {
+				setState({
+					loading: false,
+					error: "No products found. Please check back later.",
+					products: [],
+				});
+			} else {
+				setState({ products, loading: false, error: "" });
+			}
+		} catch (err) {
+			console.error("Error fetching products:", err);
+			setState({ loading: false, error: err.message, products: [] });
+		}
+	};
 
 	useEffect(() => {
-		const fetchData = async () => {
-			setState((prevState) => ({ ...prevState, loading: true, error: "" }));
-			try {
-				let query = `*[_type == "product"]`;
+		if (filters && filters.length > 0) {
+			console.log("Fetching data with filters:", filters);
+			fetchData();
+		} else {
+			console.log("No filters set, skipping fetch");
+		}
+	}, [filters]);
 
-				const products = await client.fetch(query);
-				if (products.length === 0) {
-					setState({
-						loading: false,
-						error: "No products found. Please check back later.",
-					});
-				} else {
-					setState({ products, loading: false, error: "" });
-				}
-			} catch (err) {
-				console.error("Error fetching products:", err);
-				setState({ loading: false, error: err.message });
+	const handleFilterChange = useCallback((selectedFilters) => {
+		console.log("Received filters for update:", selectedFilters);
+		setState((prevState) => {
+			if (
+				JSON.stringify(prevState.filters) !== JSON.stringify(selectedFilters)
+			) {
+				console.log("Updating Filters in AllProducts:", selectedFilters);
+				return { ...prevState, filters: selectedFilters };
 			}
-		};
-		fetchData();
+			return prevState;
+		});
 	}, []);
 
 	return (
@@ -56,6 +96,7 @@ const AllProducts = () => {
 					<div className="max-w-xs">
 						<Filters
 							productTypes={["Ceramics", "Bags", "Stickers", "Prints"]}
+							onFilterChange={handleFilterChange}
 						/>
 					</div>
 					<div className=" max-w-xs">
