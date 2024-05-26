@@ -7,7 +7,7 @@ import Breadcrumbs from "@/components/navigation/Breadcrumbs";
 import Filters from "@/components/store/Filters";
 import Sort from "@/components/store/Sort";
 //Packages
-import { useEffect, useState } from "react";
+import { useEffect, useState, useCallback } from "react";
 import { useRouter } from "next/router";
 import { SunIcon } from "@heroicons/react/24/solid";
 import { PropagateLoader } from "react-spinners";
@@ -25,47 +25,75 @@ const CategoryProducts = () => {
 		? categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase()
 		: "";
 
-	useEffect(() => {
-		// Check if the router is ready and the categoryName query exists
-		if (!router.isReady || !categoryName) return;
+	const fetchData = useCallback(async () => {
+		setLoading(true);
+		setError("");
 
-		const fetchData = async () => {
-			setLoading(true);
-			setError("");
-			try {
-				// Define the query to fetch products of the specified category
-				let query = `*[_type == "product" && category->title == $category]{..., "categoryTitle": category->title, "slug": slug.current}`;
-				const fetchedProducts = await client.fetch(query, {
-					category: formattedCategoryName,
+		try {
+			let baseQuery = '*[_type == "product"';
+			let params = { category: formattedCategoryName };
+			let filterConditions = [`category->title == $category`];
+
+			// Handle price range filters
+			if (Array.isArray(selectedFilters)) {
+				const priceFilters = selectedFilters.filter((f) =>
+					["Under 25", "25-50", "Over 50"].includes(f)
+				);
+				priceFilters.forEach((price) => {
+					switch (price) {
+						case "Under 25":
+							filterConditions.push("price < 25");
+							break;
+						case "25-50":
+							filterConditions.push("price >= 25 && price <= 50");
+							break;
+						case "Over 50":
+							filterConditions.push("price > 50");
+							break;
+					}
 				});
-				// Handle the case where no products are found
-				if (fetchedProducts.length === 0) {
-					setError(
-						`${formattedCategoryName} are currently out of stock. Please check back another day!`
-					);
-				} else {
-					// Update state with the fetched products
-					setProducts(
-						fetchedProducts.map((product) => ({
-							...product,
-						}))
-					);
-				}
-			} catch (err) {
-				console.error("Error fetching products:", err);
-				setError(err.message);
-			} finally {
-				setLoading(false);
 			}
-		};
 
+			// Combine all filter conditions
+			if (filterConditions.length > 0) {
+				baseQuery += ` && (${filterConditions.join(" && ")})`;
+			}
+
+			baseQuery +=
+				']{..., "categoryTitle": category->title, "slug": slug.current}';
+
+			console.log("Final query:", baseQuery);
+
+			const fetchedProducts = await client.fetch(baseQuery, params);
+
+			if (!fetchedProducts || fetchedProducts.length === 0) {
+				setError(
+					`${formattedCategoryName} are currently out of stock. Please check back another day!`
+				);
+				setProducts([]);
+			} else {
+				setProducts(fetchedProducts);
+			}
+		} catch (err) {
+			console.error("Error fetching products:", err);
+			setError(err.message);
+		} finally {
+			setLoading(false);
+		}
+	}, [formattedCategoryName, selectedFilters]);
+
+	useEffect(() => {
 		fetchData();
-	}, [router.isReady, categoryName]);
+	}, [formattedCategoryName, selectedFilters, fetchData]);
 
 	const handleFilterChange = (filters) => {
 		console.log("Selected Filters:", filters);
 		setSelectedFilters(filters);
 	};
+
+	useEffect(() => {
+		console.log("Filters updated to:", selectedFilters);
+	}, [selectedFilters]);
 
 	return (
 		<div className="bg-primary flex flex-col min-h-screen">
@@ -80,7 +108,7 @@ const CategoryProducts = () => {
 			</div>
 			<div className="flex justify-between items-center bg-primary px-2 gap-3">
 				<div className="flex justify-between items-start w-screen">
-					<div class="max-w-xs">
+					<div className="max-w-xs">
 						<Filters
 							key={categoryName}
 							productTypes={[categoryName]}

@@ -29,13 +29,46 @@ const AllProducts = () => {
 
 		try {
 			let baseQuery = '*[_type == "product"';
-			if (filters && filters.length > 0) {
-				const filterQuery = ` && (category->title in [${filters
-					.map((f) => `"${f}"`)
-					.join(", ")}])`;
-				baseQuery += filterQuery;
+			let filterConditions = [];
+
+			// Handle category filters
+			const categoryFilters = filters.filter((f) =>
+				["Ceramics", "Bags", "Stickers", "Prints"].includes(f)
+			);
+			if (categoryFilters.length > 0) {
+				filterConditions.push(
+					`category->title in [${categoryFilters
+						.map((f) => `"${f}"`)
+						.join(", ")}]`
+				);
+			}
+
+			// Handle price range filters
+			const priceFilters = filters.filter((f) =>
+				["Under 25", "25-50", "Over 50"].includes(f)
+			);
+			if (priceFilters.length > 0) {
+				priceFilters.forEach((price) => {
+					switch (price) {
+						case "Under 25":
+							filterConditions.push("price < 25");
+							break;
+						case "25-50":
+							filterConditions.push("price >= 25 && price <= 50");
+							break;
+						case "Over 50":
+							filterConditions.push("price > 50");
+							break;
+					}
+				});
+			}
+
+			// Combine all filter conditions
+			if (filterConditions.length > 0) {
+				baseQuery += ` && (${filterConditions.join(" && ")})`;
 			}
 			baseQuery += "]";
+
 			console.log("Final query:", baseQuery);
 
 			const products = await client.fetch(baseQuery);

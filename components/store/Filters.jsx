@@ -35,21 +35,20 @@ const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 	const handlePriceRangeChange = (price) => {
 		console.log(`Changing price range to: ${price}`); // Debugging
 		setSelectedPriceRange(price);
+
+		// Filter out any existing price range from the selectedFilters
 		const filteredFilters = selectedFilters.filter(
 			(filter) =>
 				!["Under 25", "25-50", "Over 50", "All Prices"].includes(filter)
 		);
 
-		// If a specific price range is selected, remove "All Prices" from the filters if it exists
+		// Add the new price range to the filter list unless it's "All Prices"
 		if (price !== "All Prices") {
-			const index = filteredFilters.indexOf("All Prices");
-			if (index > -1) {
-				filteredFilters.splice(index, 1);
-			}
+			filteredFilters.push(price);
 		}
 
-		setSelectedFilters([...filteredFilters, price]);
-		console.log(`Updated selectedFilters: ${selectedFilters}`); // Debugging
+		setSelectedFilters(filteredFilters);
+		console.log(`Updated selectedFilters: ${filteredFilters}`); // Debugging
 	};
 
 	const handleExcludeOutOfStockChange = (exclude) => {
@@ -125,7 +124,7 @@ const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 				<div className="bg-primary py-4 w-screen">
 					<div className="flex gap-[22rem] pt-2 px-4">
 						<div className="flex flex-col gap-1">
-							<span className="text-4xl font-semibold font-amaticSC">
+							<span className="text-2xl font-semibold font-amaticSC">
 								Product Type
 							</span>
 							{productTypes.map((type, index) => (
@@ -144,7 +143,7 @@ const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 							))}
 						</div>
 						<div className="flex flex-col gap-1">
-							<span className="text-4xl font-semibold font-amaticSC">
+							<span className="text-2xl font-semibold font-amaticSC">
 								Price
 							</span>
 							{["All Prices", "Under 25", "25-50", "Over 50"].map(
@@ -157,7 +156,7 @@ const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 											checked={selectedPriceRange === price}
 											onChange={() => handlePriceRangeChange(price)}
 										/>
-										<span className="ml-2 text-2xl font-bold font-amaticSC">
+										<span className="ml-2 text-2xl font-bold font-amaticSC min-w-full">
 											{price}
 										</span>
 									</label>
@@ -165,7 +164,7 @@ const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 							)}
 						</div>
 						<div className="flex flex-col gap-1">
-							<span className="text-4xl font-bold font-amaticSC">
+							<span className="text-2xl font-bold font-amaticSC">
 								Exclude Out Of Stock
 							</span>
 							<label className="inline-flex items-center mt-2">
