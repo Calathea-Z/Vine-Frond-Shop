@@ -69,7 +69,7 @@ const AllProducts = () => {
 			}
 			baseQuery += "]";
 
-			console.log("Final query:", baseQuery);
+			// console.log("Final query:", baseQuery);
 
 			const products = await client.fetch(baseQuery);
 			if (!Array.isArray(products)) {

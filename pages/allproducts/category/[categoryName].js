@@ -25,7 +25,7 @@ const CategoryProducts = () => {
 		? categoryName.charAt(0).toUpperCase() + categoryName.slice(1).toLowerCase()
 		: "";
 
-	const fetchData = useCallback(async () => {
+	const fetchData = async () => {
 		setLoading(true);
 		setError("");
 
@@ -67,9 +67,7 @@ const CategoryProducts = () => {
 			const fetchedProducts = await client.fetch(baseQuery, params);
 
 			if (!fetchedProducts || fetchedProducts.length === 0) {
-				setError(
-					`${formattedCategoryName} are currently out of stock. Please check back another day!`
-				);
+				setError(`No Results`);
 				setProducts([]);
 			} else {
 				setProducts(fetchedProducts);
@@ -80,11 +78,11 @@ const CategoryProducts = () => {
 		} finally {
 			setLoading(false);
 		}
-	}, [formattedCategoryName, selectedFilters]);
+	};
 
 	useEffect(() => {
 		fetchData();
-	}, [formattedCategoryName, selectedFilters, fetchData]);
+	}, [selectedFilters]);
 
 	const handleFilterChange = (filters) => {
 		console.log("Selected Filters:", filters);
