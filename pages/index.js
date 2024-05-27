@@ -1,3 +1,4 @@
+//App
 import Header from "@/components/mainPage/header/Header";
 import SmallHeader from "@/components/mainPage/header/SmallHeader";
 import Hero from "@/components/mainPage/Hero";
@@ -17,9 +18,9 @@ export default function Home() {
 	const [sideButtonData, setSideButtonData] = useState({});
 	const [isCartVisible, setIsCartVisible] = useState(false);
 
-	const toggleCart = () => {
-		setIsCartVisible(!isCartVisible);
-	};
+	// const toggleCart = () => {
+	// 	setIsCartVisible(!isCartVisible);
+	// };
 
 	useEffect(() => {
 		const fetchData = async () => {
