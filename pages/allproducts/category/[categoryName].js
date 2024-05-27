@@ -54,6 +54,11 @@ const CategoryProducts = () => {
 				});
 			}
 
+			// Exclude out of stock products if the filter is active
+			if (selectedFilters.includes("Exclude Out Of Stock")) {
+				filterConditions.push("countInStock > 0");
+			}
+
 			// Combine all filter conditions
 			if (filterConditions.length > 0) {
 				baseQuery += ` && (${filterConditions.join(" && ")})`;
