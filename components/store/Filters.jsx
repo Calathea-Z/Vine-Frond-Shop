@@ -53,14 +53,16 @@ const Filters = ({ productTypes = [], onFilterChange = () => {} }) => {
 
 	const handleExcludeOutOfStockChange = (exclude) => {
 		setExcludeOutOfStock(exclude);
-		const filterAction = exclude
-			? "Exclude Out Of Stock"
-			: "Include Out Of Stock";
-		const filteredFilters = selectedFilters.filter(
-			(filter) =>
-				!["Include Out Of Stock", "Exclude Out Of Stock"].includes(filter)
-		);
-		setSelectedFilters([...filteredFilters, filterAction]);
+		// Update the selectedFilters state to include or exclude the out-of-stock filter
+		setSelectedFilters((prevFilters) => {
+			const filteredFilters = prevFilters.filter(
+				(filter) =>
+					filter !== "Include Out Of Stock" && filter !== "Exclude Out Of Stock"
+			);
+			return exclude
+				? [...filteredFilters, "Exclude Out Of Stock"]
+				: filteredFilters;
+		});
 	};
 
 	const clearFilter = (filter) => {

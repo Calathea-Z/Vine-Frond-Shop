@@ -63,15 +63,19 @@ const AllProducts = () => {
 				});
 			}
 
+			//Exclude out of stock products if the filter is active
+			if (filters.includes("Exclude Out Of Stock")) {
+				filterConditions.push("countInStock > 0");
+			}
+
 			// Combine all filter conditions
 			if (filterConditions.length > 0) {
 				baseQuery += ` && (${filterConditions.join(" && ")})`;
 			}
 			baseQuery += "]";
 
-			// console.log("Final query:", baseQuery);
-
 			const products = await client.fetch(baseQuery);
+
 			if (!Array.isArray(products)) {
 				throw new Error("Fetch did not return an array");
 			}
