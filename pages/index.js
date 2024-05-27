@@ -43,9 +43,6 @@ export default function Home() {
 	}, []);
 
 	const isTopBannerVisible = !!topBannerData?.enabled;
-	const mainStyle = {
-		paddingTop: isTopBannerVisible ? "150px" : "100px",
-	};
 
 	const isSideButtonEnabled = !!sideButtonData?.enabled;
 
@@ -75,20 +72,20 @@ export default function Home() {
 			</div>
 
 			<main
-				className="z-0 relative min-h-screen snap-y snap-mandatory bg-primary"
-				style={mainStyle}
+				className="flex flex-col min-h-screen snap-y snap-mandatory bg-primary relative z-0"
+				style={{ paddingTop: isTopBannerVisible ? "150px" : "100px" }}
 			>
-				<section className="snap-start">
+				<section className="snap-start flex-grow">
 					<Hero />
 				</section>
 
-				<section className="snap-start">
+				<section className="snap-start flex-grow">
 					<FeaturedProducts />
 				</section>
 
 				<section
 					ref={ref} //The ref is used to monitor when this section comes into the viewport.
-					className="snap-start bg-primary w-full flex justify-center items-center gap-1 font-thin italic text-xl p-3"
+					className="snap-start flex-grow bg-primary w-full flex justify-center items-center gap-1 font-thin italic text-xl p-3"
 				>
 					<TagLines inView={inView} />
 				</section>

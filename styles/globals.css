@@ -18,6 +18,19 @@
 	scroll-behavior: smooth;
 }
 
+html,
+body {
+	height: 100%;
+	margin: 0;
+	padding: 0;
+}
+
+#_next {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
+}
+
 .slick-prev {
 	left: 0 !important;
 	z-index: 500 !important;
